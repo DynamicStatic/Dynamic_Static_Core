@@ -31,19 +31,19 @@
 
 namespace Dynamic_Static {
     namespace detail {
-        class NonCopyable {
+        class NonMoveable {
         protected:
-            NonCopyable() = default;
-            ~NonCopyable() = default;
+            NonMoveable() = default;
+            ~NonMoveable() = default;
 
         private:
-            NonCopyable(const NonCopyable&) = delete;
-            NonCopyable& operator=(const NonCopyable&) = delete;
+            NonMoveable(NonMoveable&&) = delete;
+            NonMoveable& operator=(NonMoveable&&) = delete;
         };
     }
 
     /**
      * TODO : Documentation.
      */
-    typedef detail::NonCopyable NonCopyable;
+    typedef detail::NonMoveable NonMoveable;
 }
