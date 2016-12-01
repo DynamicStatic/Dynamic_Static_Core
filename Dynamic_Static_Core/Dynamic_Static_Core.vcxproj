@@ -148,6 +148,7 @@
     <ClInclude Include="include\Dynamic_Static\Core\IPrintable.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\NonConstructable.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\NonCopyable.hpp" />
+    <ClInclude Include="include\Dynamic_Static\Core\NonMoveable.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Object.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Random.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Threads.hpp" />
