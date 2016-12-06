@@ -33,6 +33,7 @@
 #include "Dynamic_Static/Core/NonCopyable.hpp"
 
 #include "Dynamic_Static/Core/Events.hpp"
+#include "Dynamic_Static/Core/Defines.hpp"
 
 #include <string>
 

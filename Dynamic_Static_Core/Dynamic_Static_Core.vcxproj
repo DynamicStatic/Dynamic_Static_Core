@@ -154,6 +154,8 @@
     <ClInclude Include="include\Dynamic_Static\Core\Threads.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Time.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\ToString.hpp" />
+    <ClInclude Include="include\Dynamic_Static\Core\Validate.hpp" />
+    <ClInclude Include="include\Dynamic_Static\Core\Version.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Dynamic_Static_Core.licenseheader" />
@@ -164,6 +166,7 @@
     <ClCompile Include="src\Dynamic_Static\Core\Object.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\Threads.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\ToString.cpp" />
+    <ClCompile Include="src\Dynamic_Static\Core\Version.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

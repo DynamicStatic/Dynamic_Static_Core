@@ -43,60 +43,21 @@
     #define DYNAMIC_STATIC_32_BIT (1)
 #endif
 
-#include "Dynamic_Static/Core/IPrintable.hpp"
+#include "Dynamic_Static/Core/Version.hpp"
+#include "Dynamic_Static/Core/Validate.hpp"
+#include "Dynamic_Static/Core/ToString.hpp"
 
-#include <string>
 #include <cstdint>
-#include <iostream>
-#include <type_traits>
 
 namespace Dynamic_Static {
     /**
-     * TODO : Documentation.
+     * Gets the current Dynamic_Static_Core Version.
+     * @return The current Dynamic_Static_Core Version
      */
-    struct Version final
-        : public IPrintable {
-        /**
-         * The current Dynamic_Static Version.
-         */
-        static const Version Current;
-
-        uint32_t major { 0 };
-        uint32_t minor { 0 };
-        uint32_t patch { 0 };
-
-        /**
-         * Constructs an instance of Version.
-         */
-        Version() = default;
-
-        /**
-         * Constructs an instance of Version with specified values for major, minor, and patch.
-         * @param [in] major This Version's major value
-         * @param [in] minor This Version's minor value
-         * @param [in] patch This Version's patch value
-         */
-        Version(uint32_t major, uint32_t minor, uint32_t patch);
-
-        /**
-         * Gets the std::string representation of this Version.
-         * @return The std::string representation of this Version
-         */
-        std::string to_string() const;
-    };
-}
-
-namespace Dynamic_Static {
-    /**
-     * TODO : Documentation.
-     */
-    template <typename T>
-    void validate(const T&)
-    {
-    }
+    Version version();
 }
 
 /**
- * TODO : Documentation.
+ * Alias for the Dynamic_Static namespace.
  */
 namespace dst = Dynamic_Static;

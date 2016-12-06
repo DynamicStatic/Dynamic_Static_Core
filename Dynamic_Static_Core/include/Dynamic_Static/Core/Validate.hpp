@@ -27,15 +27,14 @@
 =====================================================================================
 */
 
-#include "Dynamic_Static/Core/Defines.hpp"
+#pragma once
 
 namespace Dynamic_Static {
-    Version version()
+    /**
+     * TODO : Documentation.
+     */
+    template <typename T>
+    void validate(const T&)
     {
-        return Version(
-            DYNAMIC_STATIC_VERSION_MAJOR,
-            DYNAMIC_STATIC_VERSION_MINOR,
-            DYNAMIC_STATIC_VERSION_PATCH
-        );
     }
 }

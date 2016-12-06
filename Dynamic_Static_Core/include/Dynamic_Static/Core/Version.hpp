@@ -27,15 +27,37 @@
 =====================================================================================
 */
 
-#include "Dynamic_Static/Core/Defines.hpp"
+#pragma once
+
+#include "Dynamic_Static/Core/IPrintable.hpp"
 
 namespace Dynamic_Static {
-    Version version()
-    {
-        return Version(
-            DYNAMIC_STATIC_VERSION_MAJOR,
-            DYNAMIC_STATIC_VERSION_MINOR,
-            DYNAMIC_STATIC_VERSION_PATCH
-        );
-    }
+    /**
+     * TODO : Documentation.
+     */
+    struct Version final
+        : public IPrintable {
+        uint32_t major { 0 };
+        uint32_t minor { 0 };
+        uint32_t patch { 0 };
+
+        /**
+         * Constructs an instance of Version.
+         */
+        Version() = default;
+
+        /**
+         * Constructs an instance of Version with specified values for major, minor, and patch.
+         * @param [in] major This Version's major value
+         * @param [in] minor This Version's minor value
+         * @param [in] patch This Version's patch value
+         */
+        Version(uint32_t major, uint32_t minor, uint32_t patch);
+
+        /**
+         * Gets the std::string representation of this Version.
+         * @return The std::string representation of this Version
+         */
+        std::string to_string() const override;
+    };
 }

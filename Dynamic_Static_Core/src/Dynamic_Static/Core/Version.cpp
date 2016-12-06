@@ -27,15 +27,20 @@
 =====================================================================================
 */
 
+#include "Dynamic_Static/Core/Version.hpp"
+
 #include "Dynamic_Static/Core/Defines.hpp"
 
 namespace Dynamic_Static {
-    Version version()
+    Version::Version(uint32_t major, uint32_t minor, uint32_t patch)
+        : major { major }
+        , minor { minor }
+        , patch { patch }
     {
-        return Version(
-            DYNAMIC_STATIC_VERSION_MAJOR,
-            DYNAMIC_STATIC_VERSION_MINOR,
-            DYNAMIC_STATIC_VERSION_PATCH
-        );
+    }
+
+    std::string Version::to_string() const
+    {
+        return dst::to_string(major) + "." + dst::to_string(minor) + "." + dst::to_string(patch);
     }
 }
