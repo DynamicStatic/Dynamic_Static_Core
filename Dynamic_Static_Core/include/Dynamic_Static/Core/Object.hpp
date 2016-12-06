@@ -81,6 +81,16 @@ namespace Dynamic_Static {
          */
         Object& operator=(Object&& other);
 
+        /**
+         * TODO : Documentation.
+         */
+        virtual bool operator==(const Object& other);
+
+        /**
+         * TODO : Documentation.
+         */
+        virtual bool operator!=(const Object& other);
+
     public:
         /**
          * Gets this Object's name.

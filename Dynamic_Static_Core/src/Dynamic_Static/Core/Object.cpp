@@ -44,6 +44,8 @@ namespace Dynamic_Static {
         return *this;
     }
 
+    bool Object::operator==(const Object& other) { return this == &other; }
+    bool Object::operator!=(const Object& other) { return this != &other; }
     const std::string& Object::name() const { return m_name; }
     void Object::name(const std::string& name) { m_name = name; }
     std::string Object::to_string() const { return name(); }
