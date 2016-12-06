@@ -87,7 +87,7 @@ namespace Dynamic_Static {
                         create_mutual_subscription(*subscription);
                     }
                 }
-            
+
                 return *this;
             }
 
@@ -101,7 +101,7 @@ namespace Dynamic_Static {
                         create_mutual_subscription(subscription);
                     }
                 }
-            
+
                 return *this;
             }
 
@@ -116,7 +116,7 @@ namespace Dynamic_Static {
                         m_subscriptions.erase(itr);
                     }
                 }
-            
+
                 return *this;
             }
 
@@ -194,11 +194,11 @@ namespace Dynamic_Static {
                     case DefferedCommand::Type::Clear:
                         clear();
                         break;
-            
+
                     case DefferedCommand::Type::Subscribe:
                         operator+=(*command.subscription);
                         break;
-            
+
                     case DefferedCommand::Type::Unsubscribe:
                         operator-=(*command.subscription);
                         break;
