@@ -54,7 +54,7 @@ namespace Dynamic_Static {
     /**
      * TODO : Documentation.
      */
-    struct Version
+    struct Version final
         : public IPrintable {
         /**
          * The current Dynamic_Static Version.
