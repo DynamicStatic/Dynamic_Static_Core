@@ -35,7 +35,7 @@
 
 namespace Dynamic_Static {
     /**
-     * Gets the specified object's std::string representation.
+     * Gets a specified object's std::string representation.
      * @param [in] value The object to get the std::string representation of
      * @return The specified object's std::string representation
      */
@@ -46,7 +46,7 @@ namespace Dynamic_Static {
     }
 
     /**
-     * Gets the specified object's std::wstring representation.
+     * Gets a specified object's std::wstring representation.
      * @param [in] value The object to get the std::wstring representation of
      * @return The specified object's std::wstring representation
      */
@@ -57,7 +57,7 @@ namespace Dynamic_Static {
     }
 
     /**
-     * Gets the specified std::wstring's std::string representation.
+     * Gets a specified std::wstring's std::string representation.
      * NOTE : If the specified std::wstring contains characters that cannot be contained in an std::string the returned std::string may be incorrect
      * @param [in] wstr The std::wstring to get the std::string representation of
      * @return The specified std::wstring's std::string representation
@@ -66,7 +66,7 @@ namespace Dynamic_Static {
     std::string to_string<std::wstring>(const std::wstring& wstr);
 
     /**
-     * Gets the specified std::string's std::wstring representation.
+     * Gets a specified std::string's std::wstring representation.
      * @param [in] str The std::string to get the std::wstring representation of
      * @return The specified std::string's std::wstring representation
      */
