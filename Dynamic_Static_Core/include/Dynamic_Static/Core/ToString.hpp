@@ -36,6 +36,7 @@
 namespace Dynamic_Static {
     /**
      * Gets the specified object's std::string representation.
+     * @param [in] value The object to get the std::string representation of
      * @return The specified object's std::string representation
      */
     template <typename T>
@@ -46,6 +47,7 @@ namespace Dynamic_Static {
 
     /**
      * Gets the specified object's std::wstring representation.
+     * @param [in] value The object to get the std::wstring representation of
      * @return The specified object's std::wstring representation
      */
     template <typename T>
@@ -56,6 +58,8 @@ namespace Dynamic_Static {
 
     /**
      * Gets the specified std::wstring's std::string representation.
+     * NOTE : If the specified std::wstring contains characters that cannot be contained in an std::string the returned std::string may be incorrect
+     * @param [in] wstr The std::wstring to get the std::string representation of
      * @return The specified std::wstring's std::string representation
      */
     template <>
@@ -63,6 +67,7 @@ namespace Dynamic_Static {
 
     /**
      * Gets the specified std::string's std::wstring representation.
+     * @param [in] str The std::string to get the std::wstring representation of
      * @return The specified std::string's std::wstring representation
      */
     template <>
