@@ -40,7 +40,7 @@ namespace Dynamic_Static {
             int* integer_array = new int[g_test_count];
             auto integer_collection = Collection<int>(integer_array, g_test_count);
             REQUIRE(integer_collection.data() == integer_array);
-            REQUIRE(integer_collection.count() == g_test_count);
+            REQUIRE(integer_collection.size() == g_test_count);
             delete [] integer_array;
         }
 
@@ -49,7 +49,7 @@ namespace Dynamic_Static {
             std::array<int, g_test_count> integer_array;
             auto integer_collection = Collection<int>(integer_array);
             REQUIRE(integer_collection.data() == integer_array.data());
-            REQUIRE(integer_collection.count() == integer_array.size());
+            REQUIRE(integer_collection.size() == integer_array.size());
         }
 
         TEST_CASE("Collection can wrap an std::vector<T>", "[Collection]")
@@ -57,7 +57,7 @@ namespace Dynamic_Static {
             std::vector<int> integer_vector(g_test_count);
             auto integer_collection = Collection<int>(integer_vector);
             REQUIRE(integer_collection.data() == integer_vector.data());
-            REQUIRE(integer_collection.count() == integer_vector.size());
+            REQUIRE(integer_collection.size() == integer_vector.size());
         }
     }
 }

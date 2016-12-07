@@ -155,6 +155,7 @@
     <ClInclude Include="include\Dynamic_Static\Core\Time.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\ToString.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Validate.hpp" />
+    <ClInclude Include="include\Dynamic_Static\Core\VectorUtilities.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Version.hpp" />
   </ItemGroup>
   <ItemGroup>

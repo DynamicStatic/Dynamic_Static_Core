@@ -165,6 +165,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="src\Random.Tests.cpp" />
     <ClCompile Include="src\Threads.Tests.cpp" />
+    <ClCompile Include="src\VectorUtilities.Tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Event.Tests.inl" />
