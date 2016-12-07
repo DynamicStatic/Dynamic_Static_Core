@@ -82,12 +82,16 @@ namespace Dynamic_Static {
         Object& operator=(Object&& other);
 
         /**
-         * TODO : Documentation.
+         * Compares two Objects for equality.
+         * @param [in] other The Object to compare to this Object
+         * @return Whether or not the copmared Objects are equal
          */
         virtual bool operator==(const Object& other);
 
         /**
-         * TODO : Documentation.
+         * Compares two Objects for inequality.
+         * @param [in] other The Object to compare to this Object
+         * @return Whether or not the copmared Objects are inequal
          */
         virtual bool operator!=(const Object& other);
 
