@@ -284,7 +284,7 @@ namespace Dynamic_Static {
          * Gets the number of elements in this Collection.
          * @return The number of elements in this Collection
          */
-        size_t count() const
+        size_t size() const
         {
             return m_count;
         }
@@ -293,7 +293,7 @@ namespace Dynamic_Static {
          * Gets the size of this Collection in bytes.
          * @return The size of this Collection in bytes
          */
-        size_t size() const
+        size_t byte_size() const
         {
             return m_count * sizeof(T);
         }
