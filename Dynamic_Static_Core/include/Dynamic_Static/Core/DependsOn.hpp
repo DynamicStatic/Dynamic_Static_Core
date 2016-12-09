@@ -77,7 +77,7 @@ namespace Dynamic_Static {
         const T& dependency() const
         {
             assert(m_dependency != nullptr && "Dependency cannot be null");
-            return m_dependency;
+            return *m_dependency;
         }
     };
 
