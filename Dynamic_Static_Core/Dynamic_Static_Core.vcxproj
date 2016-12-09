@@ -141,9 +141,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="include\Dynamic_Static\Core\ChildOf.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Collection.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Defines.hpp" />
+    <ClInclude Include="include\Dynamic_Static\Core\DependsOn.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Events.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\IPrintable.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\NonConstructable.hpp" />

@@ -29,44 +29,47 @@
 
 #pragma once
 
-#include <utility>
-
 namespace Dynamic_Static {
     /**
-     * TODO : Documentation.
+     * Abstract class that holds a handle to a specified dependency type.
      */
     template <typename T>
-    class ChildOf {
-    private:
-        const T* m_parent { nullptr };
+    class DependsOn {
+    protected:
+        const T* m_dependency { nullptr };
 
     public:
         /**
-         * TODO : Documentation.
+         * Constructs an instance of DependsOn.
          */
-        ChildOf() = default;
+        DependsOn() = default;
 
         /**
-         * TODO : Documentation.
+         * Constructs an instance of DependsOn with a specified dependee.
+         * @param [in] dependee The dependee to construct this DependsOn with
          */
-        ChildOf(const T& parent)
-            ChildOf(&m_parent)
+        DependsOn(const T& dependency)
+            DependsOn(&dependency)
         {
         }
 
         /**
-         * TODO : Documentation.
+         * Constructs an instance of DependsOn with a specified dependee.
+         * @param [in] dependee The dependee to construct this DependsOn with
          */
-        ChildOf(const T* parent)
-            : m_parent { parent }
+        DependsOn(const T* dependency)
+            : m_dependee { m_dependency }
         {
         }
 
         /**
-         * TODO : Documentation.
+         * Destroys this instance of DependsOn.
          */
-        virtual ~ChildOf() = 0
-        {
-        }
+        virtual ~DependsOn() = 0;
     };
+
+    template <typename T>
+    DependsOn<T>::~DependsOn()
+    {
+    }
 }
