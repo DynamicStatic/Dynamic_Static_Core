@@ -60,7 +60,7 @@ namespace Dynamic_Static {
          * @param [in] dependee The dependee to construct this DependsOn with
          */
         DependsOn(const T* dependency)
-            : m_dependency { m_dependency }
+            : m_dependency { dependency }
         {
         }
 
