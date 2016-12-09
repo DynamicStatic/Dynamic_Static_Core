@@ -29,13 +29,15 @@
 
 #pragma once
 
+#include <cassert>
+
 namespace Dynamic_Static {
     /**
      * Abstract class that holds a handle to a specified dependency type.
      */
     template <typename T>
     class DependsOn {
-    protected:
+    private:
         const T* m_dependency { nullptr };
 
     public:
@@ -49,7 +51,7 @@ namespace Dynamic_Static {
          * @param [in] dependee The dependee to construct this DependsOn with
          */
         DependsOn(const T& dependency)
-            DependsOn(&dependency)
+            : DependsOn(&dependency)
         {
         }
 
@@ -58,7 +60,7 @@ namespace Dynamic_Static {
          * @param [in] dependee The dependee to construct this DependsOn with
          */
         DependsOn(const T* dependency)
-            : m_dependee { m_dependency }
+            : m_dependency { m_dependency }
         {
         }
 
@@ -66,6 +68,17 @@ namespace Dynamic_Static {
          * Destroys this instance of DependsOn.
          */
         virtual ~DependsOn() = 0;
+
+    protected:
+        /**
+         * Gets this DependsOn's dependency.
+         * @return This DependsOn's dependency
+         */
+        const T& dependency() const
+        {
+            assert(m_dependency != nullptr && "Dependency cannot be null");
+            return m_dependency;
+        }
     };
 
     template <typename T>
