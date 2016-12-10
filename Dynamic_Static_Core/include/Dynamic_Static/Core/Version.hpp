@@ -33,7 +33,7 @@
 
 namespace Dynamic_Static {
     /**
-     * TODO : Documentation.
+     * Represents a Version number with major, minor, and patch fields.
      */
     struct Version final
         : public IPrintable {
