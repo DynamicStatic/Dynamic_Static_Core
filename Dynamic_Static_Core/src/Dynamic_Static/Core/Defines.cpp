@@ -27,37 +27,17 @@
 =====================================================================================
 */
 
-#pragma once
-
-#define DYNAMIC_STATIC_VERSION_MAJOR (0)
-#define DYNAMIC_STATIC_VERSION_MINOR (0)
-#define DYNAMIC_STATIC_VERSION_PATCH (0)
-
-#if defined(_WIN32) || defined(_WIN64)
-    #define DYNAMIC_STATIC_WINDOWS (1)
-#endif
-
-#if defined(_WIN64) || defined(__X86_64__)
-    #define DYNAMIC_STATIC_64_BIT (1)
-#else
-    #define DYNAMIC_STATIC_32_BIT (1)
-#endif
-
-#include "Dynamic_Static/Core/Version.hpp"
-#include "Dynamic_Static/Core/Validate.hpp"
-#include "Dynamic_Static/Core/ToString.hpp"
-
-#include <cstdint>
+#include "Dynamic_Static/Core/Defines.hpp"
 
 namespace Dynamic_Static {
-    /**
-     * Gets the current Dynamic_Static_Core Version.
-     * @return The current Dynamic_Static_Core Version
-     */
-    const Version& version();
-}
+    const Version& version()
+    {
+        static const Version s_current_version {
+            DYNAMIC_STATIC_VERSION_MAJOR,
+            DYNAMIC_STATIC_VERSION_MINOR,
+            DYNAMIC_STATIC_VERSION_PATCH,
+        };
 
-/**
- * Alias for the Dynamic_Static namespace.
- */
-namespace dst = Dynamic_Static;
+        return s_current_version;
+    }
+}

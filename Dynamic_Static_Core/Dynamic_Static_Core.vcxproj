@@ -162,6 +162,7 @@
     <None Include="Dynamic_Static_Core.licenseheader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Dynamic_Static\Core\Defines.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\IPrintable.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\Object.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\Threads.cpp" />
