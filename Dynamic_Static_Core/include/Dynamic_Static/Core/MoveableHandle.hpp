@@ -36,6 +36,9 @@
 #include <type_traits>
 
 namespace Dynamic_Static {
+    /**
+     * Maintains a handle to a MoveNotifier object.
+     */
     template <typename T>
     class MoveableHandle
         : NonCopyable {
