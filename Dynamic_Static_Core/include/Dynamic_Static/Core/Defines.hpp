@@ -43,18 +43,9 @@
     #define DYNAMIC_STATIC_32_BIT (1)
 #endif
 
-#include "Dynamic_Static/Core/Version.hpp"
-#include "Dynamic_Static/Core/Validate.hpp"
-#include "Dynamic_Static/Core/ToString.hpp"
-
 #include <cstdint>
 
 namespace Dynamic_Static {
-    /**
-     * Gets the current Dynamic_Static_Core Version.
-     * @return The current Dynamic_Static_Core Version
-     */
-    const Version& version();
 }
 
 /**

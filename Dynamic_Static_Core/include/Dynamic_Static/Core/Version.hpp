@@ -29,6 +29,7 @@
 
 #pragma once
 
+#include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/IPrintable.hpp"
 
 namespace Dynamic_Static {
@@ -60,4 +61,12 @@ namespace Dynamic_Static {
          */
         std::string to_string() const override;
     };
+}
+
+namespace Dynamic_Static {
+    /**
+     * Gets the current Dynamic_Static_Core Version.
+     * @return The current Dynamic_Static_Core Version
+     */
+    const Version& current_version();
 }

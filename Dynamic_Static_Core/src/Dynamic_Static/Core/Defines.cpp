@@ -30,14 +30,4 @@
 #include "Dynamic_Static/Core/Defines.hpp"
 
 namespace Dynamic_Static {
-    const Version& version()
-    {
-        static const Version s_current_version {
-            DYNAMIC_STATIC_VERSION_MAJOR,
-            DYNAMIC_STATIC_VERSION_MINOR,
-            DYNAMIC_STATIC_VERSION_PATCH,
-        };
-
-        return s_current_version;
-    }
 }

@@ -44,3 +44,16 @@ namespace Dynamic_Static {
         return dst::to_string(major) + "." + dst::to_string(minor) + "." + dst::to_string(patch);
     }
 }
+
+namespace Dynamic_Static {
+    const Version& current_version()
+    {
+        static const Version s_current_version {
+            DYNAMIC_STATIC_VERSION_MAJOR,
+            DYNAMIC_STATIC_VERSION_MINOR,
+            DYNAMIC_STATIC_VERSION_PATCH,
+        };
+
+        return s_current_version;
+    }
+}
