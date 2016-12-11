@@ -32,6 +32,7 @@
 #include "NonCopyable.hpp"
 
 #include <vector>
+#include <utility>
 #include <algorithm>
 #include <functional>
 

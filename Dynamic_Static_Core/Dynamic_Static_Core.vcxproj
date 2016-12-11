@@ -146,6 +146,8 @@
     <ClInclude Include="include\Dynamic_Static\Core\DependsOn.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Events.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\IPrintable.hpp" />
+    <ClInclude Include="include\Dynamic_Static\Core\MoveableHandle.hpp" />
+    <ClInclude Include="include\Dynamic_Static\Core\MoveNotifier.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\NonConstructable.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\NonCopyable.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\NonMoveable.hpp" />
