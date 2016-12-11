@@ -163,6 +163,8 @@
     <ClCompile Include="src\Collection.Tests.cpp" />
     <ClCompile Include="src\Event.Tests.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="src\MoveableHandle.Tests.cpp" />
+    <ClCompile Include="src\MoveNotifier.Tests.cpp" />
     <ClCompile Include="src\Random.Tests.cpp" />
     <ClCompile Include="src\Threads.Tests.cpp" />
     <ClCompile Include="src\VectorUtilities.Tests.cpp" />

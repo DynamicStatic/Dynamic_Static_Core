@@ -192,17 +192,17 @@ namespace Dynamic_Static {
                 m_locked = false;
                 for (const auto& command : m_deffered_commands) {
                     switch (command.type) {
-                    case DefferedCommand::Type::Clear:
-                        clear();
-                        break;
+                        case DefferedCommand::Type::Clear:
+                            clear();
+                            break;
 
-                    case DefferedCommand::Type::Subscribe:
-                        operator+=(*command.subscription);
-                        break;
+                        case DefferedCommand::Type::Subscribe:
+                            operator+=(*command.subscription);
+                            break;
 
-                    case DefferedCommand::Type::Unsubscribe:
-                        operator-=(*command.subscription);
-                        break;
+                        case DefferedCommand::Type::Unsubscribe:
+                            operator-=(*command.subscription);
+                            break;
                     }
                 }
             
@@ -378,9 +378,9 @@ namespace Dynamic_Static {
 
     public:
         /**
-        * Checks whether or not a specified Delegate is subscribed to this Event.
-        * @return Whether or not the specified Delegate is subscribed to this Event
-        */
+         * Checks whether or not a specified Delegate is subscribed to this Event.
+         * @return Whether or not the specified Delegate is subscribed to this Event
+         */
         bool subscribed(const Delegate<Args...>& delegate)
         {
             return Subscribable::subscribed(delegate);

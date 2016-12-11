@@ -27,64 +27,45 @@
 =====================================================================================
 */
 
-#pragma once
+#include "catch.hpp"
 
-#include "Dynamic_Static/Core/Events.hpp"
-#include "Dynamic_Static/Core/NonCopyable.hpp"
-
-#include <utility>
+#include "Dynamic_Static/Core/MoveNotifier.hpp"
 
 namespace Dynamic_Static {
-    /**
-     * Raises an Event when this object is moved.
-     * \n NOTE : MoveNotifier must be extended using CRT
-     */
-    template <typename T>
-    class MoveNotifier
-        : NonCopyable {
-        friend T;
-    public:
-        /**
-         * Event raised when this MoveNotifier is moved.
-         * @param [in] The object being moved
-         */
-        Event<MoveNotifier<T>, T&> on_moved;
+    namespace Tests {
+        class Activator final
+            : public MoveNotifier<Activator> {
+        };
 
-    private:
-        MoveNotifier() = default;
+        class Listener final {
+        private:
+            bool m_event_raised { false };
+            Delegate<Activator&> m_delegate;
 
-    public:
-        /**
-         * Moves an instance of MoveNotifier.
-         * @param [in] other The MoveNotifier to move from
-         */
-        MoveNotifier(MoveNotifier<T>&& other)
-        {
-            *this = std::move(other);
-        }
-
-        /**
-         * Destroys this instance of MoveNotifier.
-         */
-        virtual ~MoveNotifier() = 0;
-
-        /**
-         * Moves an instance of MoveNotifier.
-         * @param [in] other The MoveNotifier to move from
-         */
-        MoveNotifier<T>& operator=(MoveNotifier<T>&& other)
-        {
-            if (this != &other) {
-                on_moved = std::move(other.on_moved);
-                on_moved(*static_cast<T*>(this));
+        public:
+            Listener(Activator& activator)
+            {
+                using namespace std::placeholders;
+                m_delegate = std::bind(&Listener::on_activator_moved, this, _1);
+                activator.on_moved += m_delegate;
             }
 
-            return *this;
-        }
-    };
+        public:
+            bool event_raised() const { return m_event_raised; }
 
-    template <typename T>
-    MoveNotifier<T>::~MoveNotifier()
-    {
+        private:
+            void on_activator_moved(const Activator&)
+            {
+                m_event_raised = true;
+            }
+        };
+
+        TEST_CASE("MoveNotifier raises Event on move", "[MoveNotifier]")
+        {
+            Activator activator;
+            Listener listener(activator);
+            auto move_to = std::move(activator);
+            REQUIRE(listener.event_raised());
+        }
     }
 }
