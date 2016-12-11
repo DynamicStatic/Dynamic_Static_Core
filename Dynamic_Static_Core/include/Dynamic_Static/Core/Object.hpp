@@ -55,7 +55,7 @@ namespace Dynamic_Static {
          * Moves an instance of Object.
          * @param [in] other The Object to move from
          */
-        Object(Object&& other) = default;
+        Object(Object&& other);
 
         /**
          * Destroys this Object.
@@ -66,7 +66,7 @@ namespace Dynamic_Static {
          * Moves an instance of Object.
          * @param [in] other The Object to move from
          */
-        Object& operator=(Object&& other) = default;
+        Object& operator=(Object&& other);
 
         /**
          * Compares two Objects for equality.
@@ -87,13 +87,13 @@ namespace Dynamic_Static {
          * Gets this Object's name.
          * @return This Object's name
          */
-        const std::string& name() const;
+        virtual const std::string& name() const;
 
         /**
          * Sets this Object's name.
          * @param [in] This Object's name
          */
-        void name(const std::string& name);
+        virtual void name(const std::string& name);
 
         /**
          * Gets this Object's std::string representation.

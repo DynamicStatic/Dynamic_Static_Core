@@ -29,8 +29,20 @@
 
 #include "Dynamic_Static/Core/Object.hpp"
 
+#include <utility>
+
 namespace Dynamic_Static {
+    Object::Object(Object&& other) { *this = std::move(other); }
     Object::~Object() { }
+    Object& Object::operator=(Object&& other)
+    {
+        if (this != &other) {
+            m_name = std::move(other.m_name);
+        }
+
+        return *this;
+    }
+
     bool Object::operator==(const Object& other) { return this == &other; }
     bool Object::operator!=(const Object& other) { return this != &other; }
     const std::string& Object::name() const { return m_name; }
