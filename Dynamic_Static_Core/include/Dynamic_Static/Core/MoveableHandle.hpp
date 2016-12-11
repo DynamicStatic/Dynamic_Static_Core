@@ -54,7 +54,7 @@ namespace Dynamic_Static {
          * @param [in] target This MoveableHandle's target
          */
         MoveableHandle(MoveNotifier<T>& target)
-            : m_handle { &target }
+            : m_handle { static_cast<T*>(&target) }
         {
             using namespace std::placeholders;
             m_delegate = std::bind(&MoveableHandle::on_target_moved, this, _1);
