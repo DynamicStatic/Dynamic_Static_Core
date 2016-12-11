@@ -30,20 +30,7 @@
 #include "Dynamic_Static/Core/Object.hpp"
 
 namespace Dynamic_Static {
-    Object::Object(Object&& other) { *this = std::move(other); }
-    Object::~Object() { on_destroyed(*this); }
-    Object& Object::operator=(Object&& other)
-    {
-        if (this != &other) {
-            m_name = std::move(other.m_name);
-            on_moved = std::move(other.on_moved);
-            on_destroyed = std::move(other.on_destroyed);
-            on_moved(*this);
-        }
-
-        return *this;
-    }
-
+    Object::~Object() { }
     bool Object::operator==(const Object& other) { return this == &other; }
     bool Object::operator!=(const Object& other) { return this != &other; }
     const std::string& Object::name() const { return m_name; }

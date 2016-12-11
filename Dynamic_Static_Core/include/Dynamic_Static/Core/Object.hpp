@@ -29,11 +29,9 @@
 
 #pragma once
 
+#include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/IPrintable.hpp"
 #include "Dynamic_Static/Core/NonCopyable.hpp"
-
-#include "Dynamic_Static/Core/Events.hpp"
-#include "Dynamic_Static/Core/Defines.hpp"
 
 #include <string>
 
@@ -44,19 +42,6 @@ namespace Dynamic_Static {
     class Object
         : public IPrintable
         , NonCopyable {
-    public:
-        /**
-         * Event fired when this Object is moved.
-         * @param [in] The Object being moved
-         */
-        Event<Object, const Object&> on_moved;
-
-        /**
-         * Event fired when this Object is destroyed.
-         * @param [in] The Object being destroyed
-         */
-        Event<Object, const Object&> on_destroyed;
-
     private:
         std::string m_name { "Dynamic_Static::Object" };
 
@@ -67,9 +52,10 @@ namespace Dynamic_Static {
         Object() = default;
 
         /**
-         * Moves this Object.
+         * Moves an instance of Object.
+         * @param [in] other The Object to move from
          */
-        Object(Object&& other);
+        Object(Object&& other) = default;
 
         /**
          * Destroys this Object.
@@ -77,9 +63,10 @@ namespace Dynamic_Static {
         virtual ~Object() = 0;
 
         /**
-         * Moves this Object.
+         * Moves an instance of Object.
+         * @param [in] other The Object to move from
          */
-        Object& operator=(Object&& other);
+        Object& operator=(Object&& other) = default;
 
         /**
          * Compares two Objects for equality.
@@ -106,7 +93,7 @@ namespace Dynamic_Static {
          * Sets this Object's name.
          * @param [in] This Object's name
          */
-        virtual void name(const std::string& name);
+        void name(const std::string& name);
 
         /**
          * Gets this Object's std::string representation.
