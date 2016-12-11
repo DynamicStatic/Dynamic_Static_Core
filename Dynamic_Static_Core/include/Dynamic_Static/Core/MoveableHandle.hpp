@@ -38,6 +38,7 @@
 namespace Dynamic_Static {
     /**
      * Maintains a handle to a MoveNotifier object.
+     * @param <T> The type of the underlying pointer
      */
     template <typename T>
     class MoveableHandle
@@ -63,6 +64,18 @@ namespace Dynamic_Static {
             m_delegate = std::bind(&MoveableHandle::on_target_moved, this, _1);
             target.on_moved += m_delegate;
         }
+
+        /**
+         * Moves an instance of MoveableHandle.
+         * @param other The MoveableHandle to move from
+         */
+        MoveableHandle(MoveableHandle<T>&& other) = default;
+
+        /**
+         * Moves an instance of MoveableHandle.
+         * @param other The MoveableHandle to move from
+         */
+        MoveableHandle<T>& operator=(MoveableHandle<T>&& other) = default;
 
         /**
          * Converts this MoveableHandle to its underlying pointer.
