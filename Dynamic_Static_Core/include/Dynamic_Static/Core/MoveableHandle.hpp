@@ -57,11 +57,10 @@ namespace Dynamic_Static {
          * Constructs an instance of MoveableHandle.
          * @param [in] target This MoveableHandle's target
          */
-        MoveableHandle(MoveNotifier<T>& target)
-            : m_handle { static_cast<T*>(&target) }
+        MoveableHandle(MoveNotifier<T>* target)
+            : m_handle { static_cast<T*>(target) }
         {
-            bind_delegate();
-            target.on_moved += m_delegate;
+            reset(target);
         }
 
         /**
@@ -87,6 +86,15 @@ namespace Dynamic_Static {
             }
 
             return *this;
+        }
+
+        /**
+         * Assigns this MoveableHandle's underlying pointer.
+         * @param [in] target This MoveableHandle's underlying pointer
+         */
+        MoveableHandle<T>& operator=(MoveableHandle<T>* target)
+        {
+            reset(target);
         }
 
         /**
@@ -124,6 +132,24 @@ namespace Dynamic_Static {
         T* get() const
         {
             return m_handle;
+        }
+
+        /**
+         * Replaces this MoveableHandle's underlying pointer.
+         * @param [in] target This MoveableHandle's underlying pointer
+         */
+        void reset(MoveNotifier<T>* target = nullptr)
+        {
+            if (m_handle) {
+                static_cast<MoveNotifier<T>*>(m_handle)->on_moved -= m_delegate;
+            }
+
+            m_handle = static_cast<T*>(target);
+            if (m_handle) {
+                static_cast<MoveNotifier<T>*>(m_handle)->on_moved += m_delegate;
+            }
+
+            bind_delegate();
         }
 
     private:

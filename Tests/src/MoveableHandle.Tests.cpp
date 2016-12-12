@@ -45,7 +45,7 @@ namespace Dynamic_Static {
         public:
             Obj() = default;
             Obj(Dependency& dependency)
-                : m_dependency { dependency }
+                : m_dependency { &dependency }
             {
             }
 
