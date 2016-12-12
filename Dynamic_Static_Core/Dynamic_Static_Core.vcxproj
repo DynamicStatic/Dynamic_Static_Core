@@ -141,6 +141,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Dynamic_Static\Core\Algorithm.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Collection.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Defines.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Events.hpp" />
