@@ -31,6 +31,7 @@
 
 #include <array>
 #include <vector>
+#include <cassert>
 #include <initializer_list>
 
 namespace Dynamic_Static {
@@ -39,9 +40,7 @@ namespace Dynamic_Static {
      * TODO : Documentation.
      */
     class Collection final {
-        // TODO : This thing needs to work without caveat.
-
-        // NOTE : From vk::ArrayProxy defined in vulkan.hpp (with slight modifications)...
+        // FROM : vk::ArrayProxy defined in vulkan.hpp (with slight modifications)...
         //        https://github.com/KhronosGroup/Vulkan-Hpp/blob/master/vulkan/vulkan.hpp
 
     private:
@@ -73,43 +72,7 @@ namespace Dynamic_Static {
         /**
          * TODO : Documentation.
          */
-        Collection(const T& data)
-            : m_data { &data }
-            , m_count { 1 }
-        {
-        }
-
-        /**
-         * TODO : Documentation.
-         */
-        Collection(T* data)
-            : m_data { data }
-            , m_count { 1 }
-        {
-        }
-
-        /**
-         * TODO : Documentation.
-         */
-        Collection(const T* data)
-            : m_data { data }
-            , m_count { 1 }
-        {
-        }
-
-        /**
-         * TODO : Documentation.
-         */
         Collection(T* data, size_t count)
-            : m_data { data }
-            , m_count { count }
-        {
-        }
-
-        /**
-         * TODO : Documentation.
-         */
-        Collection(const T* data, size_t count)
             : m_data { data }
             , m_count { count }
         {
@@ -156,12 +119,11 @@ namespace Dynamic_Static {
         }
 
         /**
-         * Constructs an instance of Collection with the contents of a specified std::initializer_list<T>.
-         * @param [in] data The std::initializer_list<T> to construct this Collection with
+         * TODO : Documentation.
          */
         Collection(const std::initializer_list<T>& data)
             : m_data { data.begin() }
-            , m_count { data.size() }
+            , m_count { data.end() - data.begin() }
         {
         }
 
@@ -238,7 +200,7 @@ namespace Dynamic_Static {
          */
         const T& front() const
         {
-            // TODO : assert(m_data && m_count);
+            assert(m_data && m_count);
             return *begin();
         }
 
@@ -248,7 +210,7 @@ namespace Dynamic_Static {
          */
         T& back()
         {
-            // TODO : assert(m_data && m_count);
+            assert(m_data && m_count);
             return *(end() - 1);
         }
 
@@ -258,7 +220,7 @@ namespace Dynamic_Static {
          */
         const T& back() const
         {
-            // TODO : assert(m_data && m_count);
+            assert(m_data && m_count);
             return *(end() - 1);
         }
 
