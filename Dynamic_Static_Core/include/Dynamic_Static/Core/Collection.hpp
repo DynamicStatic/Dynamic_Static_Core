@@ -44,7 +44,7 @@ namespace Dynamic_Static {
         //        https://github.com/KhronosGroup/Vulkan-Hpp/blob/master/vulkan/vulkan.hpp
 
     private:
-        T* m_data { nullptr };
+        const T* m_data { nullptr };
         size_t m_count { 0 };
 
     public:
@@ -121,9 +121,9 @@ namespace Dynamic_Static {
         /**
          * TODO : Documentation.
          */
-        Collection(const std::initializer_list<T>& data)
+        Collection(std::initializer_list<T> data)
             : m_data { data.begin() }
-            , m_count { data.end() - data.begin() }
+            , m_count { static_cast<size_t>(data.end() - data.begin()) }
         {
         }
 
