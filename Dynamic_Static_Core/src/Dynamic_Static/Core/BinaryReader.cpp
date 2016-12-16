@@ -104,7 +104,7 @@ namespace Dynamic_Static {
             m_size = position();
             position(0);
         } else {
-            throw std::runtime_error("File @ \"" + file_path + "\" couldn't be opened");
+            throw std::runtime_error("File @\"" + file_path + "\" couldn't be opened");
         }
     }
 

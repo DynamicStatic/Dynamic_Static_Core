@@ -38,7 +38,7 @@
 
 namespace Dynamic_Static {
     /**
-     * TODO : Documentation.
+     * Provides high level control over read operations on binary files.
      */
     class BinaryReader
         : NonCopyable {
@@ -54,7 +54,7 @@ namespace Dynamic_Static {
 
         /**
          * Constructs an instance of BinaryReader.
-         * \n Exception - std::runtime_error() : The file specified by file_path cannot be opened
+         * \n Exception - std::runtime_error : The file specified by file_path couldn't be opened
          * @param [in] file_stream The file path to construct this BinaryReader with.
          */
         BinaryReader(const std::string& file_path);
@@ -86,21 +86,21 @@ namespace Dynamic_Static {
 
         /**
          * Sets this BinaryReader's position in the file being read.
-         * \n Exception - std::runtime_error() : The position exceeds the size of the file being read
+         * \n Exception - std::runtime_error : The position exceeds the size of the file being read
          * @param [in] position The byte to set this BinaryReader's position to
          */
         void position(size_t position);
 
         /**
          * Sets this BinaryReader's position to a specified offset from a specified position.
-         * \n Exception - std::runtime_error() : The position after the offset exceeds the size of the file being read
-         * \n Exception - std::runtime_error() : The position after the offset is negative
+         * \n Exception - std::runtime_error : The position after the offset exceeds the size of the file being read
+         * \n Exception - std::runtime_error : The position after the offset is negative
          */
         void seek(size_t offset, std::ios::seekdir seek_origin = std::ios::beg);
 
         /**
          * Opens a file to begin reading.
-         * \n Exception - std::runtime_error() :  The file specified by file_path cannot be opened
+         * \n Exception - std::runtime_error :  The file specified by file_path couldn't be opened
          * @param [in] file_path The path to the file to open
          */
         void open(const std::string& file_path);
@@ -118,6 +118,7 @@ namespace Dynamic_Static {
 
         /**
          * Extacts an object of a specfied type from this BinaryReader's file without advancing the position in the file.
+         * \n Exception - std::runtime_error : Attempted to read past the end of the file
          * @param <T> The type of object to extract
          * @return The extracted object
          */
@@ -130,6 +131,7 @@ namespace Dynamic_Static {
 
         /**
          * Extracts a specified number of objects of a specified type from this BinaryReader's file without advancing the position in the file.
+         * \n Exception - std::runtime_error : Attempted to read past the end of the file
          * @param <T>   The type of objects to extract
          * @param count The number of objects to extract
          * @return The extracted objects
@@ -143,6 +145,7 @@ namespace Dynamic_Static {
 
         /**
          * Extracts a specified number of objects of a specified type from this BinaryReader's file without advancing the position in the file.
+         * \n Exception - std::runtime_error : Attempted to read past the end of the file
          * @param <T>   The type of objects to extract
          * @param count The number of objects to extract
          * @param data  The std::vector that will be populated with the extracted objects
@@ -157,6 +160,7 @@ namespace Dynamic_Static {
 
         /**
          * Extacts an object of a specfied type from this BinaryReader's file without.
+         * \n Exception - std::runtime_error : Attempted to read past the end of the file
          * @param <T> The type of object to extract
          * @return The extracted object
          */
@@ -169,6 +173,7 @@ namespace Dynamic_Static {
 
         /**
          * Extracts a specified number of objects of a specified type from this BinaryReader's file.
+         * \n Exception - std::runtime_error : Attempted to read past the end of the file
          * @param <T>   The type of objects to extract
          * @param count The number of objects to extract
          * @return The extracted objects
@@ -182,6 +187,7 @@ namespace Dynamic_Static {
 
         /**
          * Extracts a specified number of objects of a specified type from this BinaryReader's file.
+         * \n Exception - std::runtime_error : Attempted to read past the end of the file
          * @param <T>   The type of objects to extract
          * @param count The number of objects to extract
          * @param data  The std::vector that will be populated with the extracted objects
