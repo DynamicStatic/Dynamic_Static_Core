@@ -29,8 +29,6 @@
 
 #include "Dynamic_Static/Core/ToString.hpp"
 
-#include <locale>
-
 namespace Dynamic_Static {
     template <>
     std::string to_string<std::wstring>(const std::wstring& wstr)
