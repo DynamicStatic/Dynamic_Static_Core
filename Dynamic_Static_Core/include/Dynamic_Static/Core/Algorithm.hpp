@@ -29,11 +29,16 @@
 
 #pragma once
 
+#include "Dynamic_Static/Core/Defines.hpp"
+
+#include <cmath>
 #include <algorithm>
+#include <type_traits>
+#include <initializer_list>
 
 namespace Dynamic_Static {
     /**
-     * Clamps a value into a specified range.
+     * Gets a value clamped to a specified range.
      * @param <T>        The type of the specified value
      * @param [in] value The value to clamp
      * @param [in] min   The minimum value
@@ -41,8 +46,69 @@ namespace Dynamic_Static {
      * @return The value clamped into the range [minimum, maximum]
      */
     template <typename T>
-    const T& clamp(const T& value, const T& min, const T& max)
+    inline const T& clamp(const T& value, const T& min, const T& max)
     {
+        // TODO : Fully specialize this for built in floating point
+        //        types so we can take advantage of std::fmin() and
+        //        std::fmax() which gracefully handle NaNs.
         return std::min(std::max(min, value), max);
+    }
+
+    /**
+     * Gets a value clamped to a specified range.
+     * @param <T>         The type of the specified value
+     * @param [in] value  The value to clamp
+     * @param [in] values The values to generate the range from
+     * @return The value clamped into the range specified by values
+     */
+    template <typename T>
+    inline const T& clamp(const T& value, std::initializer_list<T> range)
+    {
+        const T* min = &value;
+        const T* max = &value;
+        for (const auto& r : range) {
+            min = &std::min(*min, r);
+            max = &std::max(*max, r);
+        }
+
+        return clamp(value, *min, *max);
+    }
+
+    /**
+     * Gets a value linearly interpolated between two specified values by a specified weight.
+     * @param <T>      The type of the specified value
+     * @param [in] v_0 The value to interpolate from
+     * @param [in] v_1 The value to interpolate towards
+     * @param [in] s   The weight of the interpolation
+     * @return The result of the linear interpolation
+     */
+    template <typename T>
+    inline T lerp(T v_0, T v_1, T t)
+    {
+        static_assert(
+            std::is_floating_point<T>::value,
+            "Dynamic_Static::lerp() can only be used with built in floating point types"
+        );
+
+        // FROM : https://devblogs.nvidia.com/parallelforall/lerp-faster-cuda/
+        // TLDR : std::fma() (fused multiply-add) is commonly implemented as a
+        //        single CPU instruction which will be used if available.  In
+        //        addition to a performance benefit, accuracy is improved since
+        //        there is no rounding performed until std::fma() returns.
+        //
+        //        Consider...
+        //        (static_cast<T>(1) - t) * v_0 + t * v_1
+        //        and...
+        //        v_0 + static_cast<T>(t) * (v_1 - v_0)
+        //        The first form incurs 4 rounding errors and the second 3.
+        //        Note that the second form cannot guarntee that the value
+        //        returned equals v_0 when t equals 1 due to rounding error.
+        //
+        //        std::fma() computes...
+        //        x * y + z
+        //        so our operation is...
+        //        t * v_1 + (-t * v_0 + v_0)
+
+        return std::fma(t, v_1, std::fma(-t, v_0, v_0));
     }
 }
