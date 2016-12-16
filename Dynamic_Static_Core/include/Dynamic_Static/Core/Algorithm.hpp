@@ -101,7 +101,7 @@ namespace Dynamic_Static {
         //        and...
         //        v_0 + static_cast<T>(t) * (v_1 - v_0)
         //        The first form incurs 4 rounding errors and the second 3.
-        //        Note that the second form cannot guarntee that the value
+        //        Note that the second form cannot guarantee that the value
         //        returned equals v_0 when t equals 1 due to rounding error.
         //
         //        std::fma() computes...
