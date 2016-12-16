@@ -56,14 +56,18 @@ namespace Dynamic_Static {
 
     /**
      * Gets a value clamped to a specified range.
-     * @param <T>         The type of the specified value
-     * @param [in] value  The value to clamp
-     * @param [in] values The values to generate the range from
-     * @return The value clamped into the range specified by values
+     * @param <T>        The type of the specified value
+     * @param [in] value The value to clamp
+     * @param [in] range The values to generate the clamp range from
+     *                   \n NOTE : These values can be unsorted
+     * @return The value clamped into the range specified by range
      */
     template <typename T>
     inline const T& clamp(const T& value, std::initializer_list<T> range)
     {
+        // TODO : Fully specialize this for built in floating point
+        //        types so we can take advantage of std::fmin() and
+        //        std::fmax() which gracefully handle NaNs.
         const T* min = &value;
         const T* max = &value;
         for (const auto& r : range) {
@@ -76,6 +80,7 @@ namespace Dynamic_Static {
 
     /**
      * Gets a value linearly interpolated between two specified values by a specified weight.
+     * \n NOTE : The 
      * @param <T>      The type of the specified value
      * @param [in] v_0 The value to interpolate from
      * @param [in] v_1 The value to interpolate towards
