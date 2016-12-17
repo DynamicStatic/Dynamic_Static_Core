@@ -36,8 +36,8 @@
 namespace Dynamic_Static {
     /**
      * Converts an std::vector of a specified type to an std::vector of another specified type.
-     * @param [in] ConvertFrom The type to convert from
-     * @param [in] ConvertTo   The type to convert to
+     * @param <T>  ConvertFrom The type to convert from
+     * @param <T>  ConvertTo   The type to convert to
      * @param [in] source      The source std::vector
      * @param [in] conversion  The conversion function to use
      * @return An std::vector containing the converted objects
@@ -54,8 +54,8 @@ namespace Dynamic_Static {
 
     /**
      * Converts an std::vector of a specified type to an std::vector of another specified type.
-     * @param [in] ConvertFrom The type to convert from
-     * @param [in] ConvertTo   The type to convert to
+     * @param <T>  ConvertFrom The type to convert from
+     * @param <T>  ConvertTo   The type to convert to
      * @param [in] source      The source std::vector
      * @param [in] destination The destination std::vector
      * @param [in] conversion  The conversion function to use
@@ -77,7 +77,7 @@ namespace Dynamic_Static {
      * Removes duplicate elements from a specified std::vector
      * NOTE : This operation will sort the specified std::vector
      * NOTE : The element type of the std::vector must provide operator< and operator==
-     * @param [in] T The element type of the std::vector to remove duplicates from
+     * @param <T>  T The element type of the std::vector to remove duplicates from
      * @param [in] v The std::vector to remove duplicates from
      */
     template <typename T>

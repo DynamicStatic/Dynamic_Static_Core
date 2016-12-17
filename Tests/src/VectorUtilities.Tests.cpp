@@ -51,7 +51,8 @@ namespace Dynamic_Static {
         class Cat final : public Animal { using Animal::Animal; };
 
         auto create_random_name =
-            []() {
+        []()
+        {
             std::string name = "name";
             for (size_t i = 0; i < name.size(); ++i) {
                 name[i] = Random.range(32, 126);
