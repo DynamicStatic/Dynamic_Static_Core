@@ -48,10 +48,12 @@ namespace Dynamic_Static {
     std::string replace(const std::string& str, const std::string& find, const std::string& replacement)
     {
         std::string replaced_str = str;
-        size_t index = replaced_str.find(find);
-        while (index != std::string::npos) {
-            replaced_str.replace(index, find.size(), replacement);
-            index = replaced_str.find(find);
+        if (find != replacement) {
+            size_t index = replaced_str.find(find);
+            while (index != std::string::npos) {
+                replaced_str.replace(index, find.size(), replacement);
+                index = replaced_str.find(find);
+            }
         }
 
         return replaced_str;
