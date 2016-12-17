@@ -190,7 +190,7 @@ namespace Dynamic_Static {
          */
         T& front()
         {
-            // TODO : assert(m_data && m_count);
+            assert(m_data && m_count);
             return *begin();
         }
 

@@ -160,6 +160,7 @@
     <ClInclude Include="include\catch.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\BinaryReader.Tests.cpp" />
     <ClCompile Include="src\Event.Tests.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="src\MoveableHandle.Tests.cpp" />

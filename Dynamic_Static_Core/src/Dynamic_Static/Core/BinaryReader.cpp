@@ -51,7 +51,7 @@ namespace Dynamic_Static {
             //        This const_cast() is unsafe until we're handling
             //        all std::basic_ios::exceptions and failure states.
             auto file_stream_ptr = const_cast<std::ifstream*>(&m_file_stream);
-            position = file_stream_ptr->tellg();
+            position = static_cast<size_t>(file_stream_ptr->tellg());
         }
 
         return position;
@@ -112,15 +112,5 @@ namespace Dynamic_Static {
     {
         m_file_stream.close();
         m_size = 0;
-    }
-
-    std::vector<uint8_t> BinaryReader::contents()
-    {
-        std::vector<uint8_t> file_contents;
-        size_t current_position = position();
-        position(0);
-        read(m_size, file_contents);
-        position(current_position);
-        return file_contents;
     }
 }
