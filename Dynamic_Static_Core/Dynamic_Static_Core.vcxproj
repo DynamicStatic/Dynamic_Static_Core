@@ -145,7 +145,6 @@
     <ClInclude Include="include\Dynamic_Static\Core\BinaryReader.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Collection.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Defines.hpp" />
-    <ClInclude Include="include\Dynamic_Static\Core\Directory.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Events.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\FileSystem.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\IPrintable.hpp" />
@@ -170,7 +169,6 @@
   <ItemGroup>
     <ClCompile Include="src\Dynamic_Static\Core\BinaryReader.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\Defines.cpp" />
-    <ClCompile Include="src\Dynamic_Static\Core\Directory.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\IPrintable.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\NotImplementedError.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\Object.cpp" />
