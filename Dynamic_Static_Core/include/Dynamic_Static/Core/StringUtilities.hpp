@@ -35,62 +35,62 @@
 
 namespace Dynamic_Static {
     /**
-     * TODO : Documentation.
+     * Removes all occurences of a character from an std::string.
+     * @param [in] str  The std::string to operate on
+     * @param [in] find The character to remove
+     * @return An std::string with the completed removal
      */
-    std::string remove(const std::string& str, char remove);
+    std::string remove(const std::string& str, char find);
 
     /**
-     * TODO : Documentation.
+     * Removes all occurences of an std::string from another std::string.
+     * @param [in] str  The std::string to operate on
+     * @param [in] find The std::string to remove
+     * @return An std::string with the completed removal
      */
-    std::string remove(const std::string& str, const std::string& remove);
+    std::string remove(const std::string& str, const std::string& find);
 
     /**
-     * TODO : Documentation.
+     * Replaces all occurences in an std::string of a character with another character.
+     * @param [in] str         The std::string to operate on
+     * @param [in] find        The character to replace
+     * @param [in] replacement The character to replace with
+     * @return An std::string with the completed replacement
      */
-    std::string replace(const std::string& str, char find, char replace);
+    std::string replace(const std::string& str, char find, char replacement);
 
     /**
-     * TODO : Documentation.
+     * Replaces all occurences in an std::string of a character with an std::string.
+     * @param [in] str         The std::string to operate on
+     * @param [in] find        The character to replace
+     * @param [in] replacement The std::string to replace with
+     * @return An std::string with the completed replacement
      */
-    std::string replace(const std::string& str, char find, const std::string& replace);
+    std::string replace(const std::string& str, char find, const std::string& replacement);
 
     /**
-     * TODO : Documentation.
+     * Replaces all occurences in an std::string of a character with another character.
+     * @param [in] str         The std::string to operate on
+     * @param [in] find        The std::string to replace
+     * @param [in] replacement The character to replace with
+     * @return An std::string with the completed replacement
      */
-    std::string replace(const std::string& str, const std::string& find, char replace);
+    std::string replace(const std::string& str, const std::string& find, char replacement);
 
     /**
-     * TODO : Documentation.
+     * Replaces all occurences in an std::string of a character with another character.
+     * @param [in] str         The std::string to operate on
+     * @param [in] find        The std::string to replace
+     * @param [in] replacement The std::string to replace with
+     * @return An std::string with the completed replacement
      */
-    std::string replace(const std::string& str, const std::string& find, const std::string& replace);
+    std::string replace(const std::string& str, const std::string& find, const std::string& replacement);
 
     /**
-     * TODO : Documentation.
+     * Reduces a sequence of characters to one character
+     * @param [in] str  The std::string to operate on
+     * @param [in] find The character to reduce sequences of
+     * @return An std::string with the completed sequence reduction
      */
-    std::string replace_recursively(const std::string& str, char find, char replace);
-
-    /**
-     * TODO : Documentation.
-     */
-    std::string replace_recursively(const std::string& str, char find, const std::string& replace);
-
-    /**
-     * TODO : Documentation.
-     */
-    std::string replace_recursively(const std::string& str, const std::string& find, char replace);
-
-    /**
-     * TODO : Documentation.
-     */
-    std::string replace_recursively(const std::string& str, const std::string& find, const std::string& replace);
-
-    /**
-     * TODO : Documentation.
-     */
-    std::string remove_sequence(const std::string& str, char find);
-
-    /**
-     * TODO : Documentation.
-     */
-    std::string remove_sequence(const std::string& str, const std::string& find);
+    std::string reduce_sequence(const std::string& str, char find);
 }

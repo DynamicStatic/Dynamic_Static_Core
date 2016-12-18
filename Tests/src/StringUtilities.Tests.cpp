@@ -37,42 +37,40 @@ namespace Dynamic_Static {
     namespace Tests {
         static const std::string TestString = "The quick brown fox jumps over the lazy dog.";
 
-        TEST_CASE("Replace works correctly", "[StringUtilities]")
+        TEST_CASE("remove() works correctly", "[StringUtilities]")
         {
-            std::string str = "Some\\Windows\\\\Path\\With\\A/Shitty\\\\Extension.....ext";
-            str = replace(str, "\\", '/');
-            str = replace(str, "//", '/');
-            str = replace(str, "..", '.');
-            str = replace(str, "Shitty", "Good");
-            REQUIRE(str == "Some/Windows/Path/With/A/Good/Extension.ext");
+            std::string str = TestString;
+            str = remove(str, " brow");
+            str = remove(str, 'n');
+            str = remove(str, " lazy");
+            str = remove(str, "-dog-");
+            REQUIRE(str == "The quick fox jumps over the dog.");
         }
 
-        TEST_CASE("Replace ignores empty arguments for find", "[StringUtilities]")
+        TEST_CASE("replace() works correctly", "[StringUtilities]")
+        {
+            std::string str = TestString;
+            str = replace(str, "quick", "slow");
+            str = replace(str, "jumps", "trips");
+            str = replace(str, "lazy", "sleeping");
+            REQUIRE(str == "The slow brown fox trips over the sleeping dog.");
+        }
+
+        TEST_CASE("replace() ignores empty arguments for find", "[StringUtilities]")
         {
             std::string str = TestString;
             str = replace(str, std::string(), "hello");
             REQUIRE(str == TestString);
         }
 
-        TEST_CASE("", "[StringUtilities]")
+        TEST_CASE("reduce_sequence() works correctly", "[StringUtilities]")
         {
-            std::string str = "Some\\Windows\\\\Path\\With\\A/Shitty\\\\Extension.....ext";
-            str = replace_recursively(str, "\\", '/');
-            str = replace_recursively(str, "//", '/');
-            str = replace_recursively(str, "..", '.');
-            str = replace(str, "Shitty", "Good");
+            std::string str = "Some\\Windows\\/\\//\\Path\\With\\A/////Broken\\\\Extension.....ext";
+            str = replace(str, '\\', '/');
+            str = reduce_sequence(str, '/');
+            str = reduce_sequence(str, '.');
+            str = replace(str, "Broken", "Good");
             REQUIRE(str == "Some/Windows/Path/With/A/Good/Extension.ext");
-        }
-
-        TEST_CASE("Remove works correctly", "[StringUtilities]")
-        {
-            std::string str = TestString;
-            str = remove(str, "brow");
-            str = remove(str, 'n');
-            str = remove(str, "lazy");
-            str = remove(str, "-dog-");
-            str = replace(str, "  ", ' ');
-            REQUIRE(str == "The quick fox jumps over the dog.");
         }
     }
 }
