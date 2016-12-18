@@ -160,18 +160,18 @@
     <ClInclude Include="include\catch.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\BinaryReader.Tests.cpp" />
-    <ClCompile Include="src\Event.Tests.cpp" />
+    <ClCompile Include="src\Core\BinaryReader.Tests.cpp" />
+    <ClCompile Include="src\Core\Event.Tests.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="src\MoveableHandle.Tests.cpp" />
-    <ClCompile Include="src\MoveNotifier.Tests.cpp" />
-    <ClCompile Include="src\Random.Tests.cpp" />
-    <ClCompile Include="src\StringUtilities.Tests.cpp" />
-    <ClCompile Include="src\Threads.Tests.cpp" />
-    <ClCompile Include="src\VectorUtilities.Tests.cpp" />
+    <ClCompile Include="src\Core\MoveableHandle.Tests.cpp" />
+    <ClCompile Include="src\Core\MoveNotifier.Tests.cpp" />
+    <ClCompile Include="src\Core\Random.Tests.cpp" />
+    <ClCompile Include="src\Core\StringUtilities.Tests.cpp" />
+    <ClCompile Include="src\Core\Threads.Tests.cpp" />
+    <ClCompile Include="src\Core\VectorUtilities.Tests.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Event.Tests.inl" />
+    <None Include="src\Core\Event.Tests.inl" />
     <None Include="Tests.licenseheader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
