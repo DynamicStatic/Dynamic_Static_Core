@@ -30,13 +30,14 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Defines.hpp"
+#include "Dynamic_Static/Core/ToString.hpp"
 
 #include <filesystem>
-
-namespace Dynamic_Static {
-    namespace filesystem = std::experimental::filesystem;
-}
 
 // NOTE : This file can be removed once C++17 is fully supported.
 //        Until then use dst::filesystem wherever std::filesystem
 //        would be used, then a simple find and replace for C++17.
+
+namespace Dynamic_Static {
+    namespace filesystem = std::experimental::filesystem;
+}

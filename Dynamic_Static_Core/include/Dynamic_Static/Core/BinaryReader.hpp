@@ -54,8 +54,8 @@ namespace Dynamic_Static {
 
         /**
          * Constructs an instance of BinaryReader.
-         * \n Exception - std::runtime_error : The file specified by file_path couldn't be opened
-         * @param [in] file_stream The file path to construct this BinaryReader with.
+         * \n Exception - std::runtime_error : The specified file couldn't be opened
+         * @param [in] file_path The file path to construct this BinaryReader with.
          */
         BinaryReader(const std::string& file_path);
 
@@ -100,7 +100,7 @@ namespace Dynamic_Static {
 
         /**
          * Opens a file to begin reading.
-         * \n Exception - std::runtime_error :  The file specified by file_path couldn't be opened
+         * \n Exception - std::runtime_error :  The specified file couldn't be opened
          * @param [in] file_path The path to the file to open
          */
         void open(const std::string& file_path);

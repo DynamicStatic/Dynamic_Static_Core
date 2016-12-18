@@ -58,7 +58,7 @@ namespace Dynamic_Static {
 
     /**
      * Gets a specified std::wstring's std::string representation.
-     * NOTE : If the specified std::wstring contains characters that cannot be contained in an std::string the returned std::string may be incorrect
+     * \n NOTE : If the specified std::wstring contains characters that cannot be contained in an std::string the returned std::string may be incorrect
      * @param [in] wstr The std::wstring to get the std::string representation of
      * @return The specified std::wstring's std::string representation
      */
