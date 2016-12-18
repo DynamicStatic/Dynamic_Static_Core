@@ -30,6 +30,16 @@
 #include "Dynamic_Static/Core/StringUtilities.hpp"
 
 namespace Dynamic_Static {
+    std::string remove(const std::string& str, char to_remove)
+    {
+        return remove(str, std::string(1, to_remove));
+    }
+
+    std::string remove(const std::string& str, const std::string& to_remove)
+    {
+        return replace(str, to_remove, std::string());
+    }
+
     std::string replace(const std::string& str, char find, char replacement)
     {
         return replace(str, std::string(1, find), std::string(1, replacement));

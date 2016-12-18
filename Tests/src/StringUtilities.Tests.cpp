@@ -37,11 +37,23 @@ namespace Dynamic_Static {
     namespace Tests {
         TEST_CASE("Replace works correctly", "[StringUtilities]")
         {
-            std::string str = "Some\\Windows\\Path\\With\\A\\Shitty\\Extension.....ext";
+            std::string str = "Some\\Windows\\\\Path\\With\\A/Shitty\\\\Extension.....ext";
             str = replace(str, "\\", '/');
+            str = replace(str, "//", '/');
             str = replace(str, "..", '.');
             str = replace(str, "Shitty", "Good");
             REQUIRE(str == "Some/Windows/Path/With/A/Good/Extension.ext");
+        }
+
+        TEST_CASE("Remove works correctly", "[StringUtilities]")
+        {
+            std::string str = "The quick brown fox jumps over the lazy dog";
+            str = remove(str, "brow");
+            str = remove(str, 'n');
+            str = remove(str, "lazy");
+            str = remove(str, "-dog-");
+            str = replace(str, "  ", ' ');
+            REQUIRE(str == "The quick fox jumps over the dog");
         }
     }
 }

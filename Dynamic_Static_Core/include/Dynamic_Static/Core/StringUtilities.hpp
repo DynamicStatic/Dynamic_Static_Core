@@ -37,6 +37,16 @@ namespace Dynamic_Static {
     /**
      * TODO : Documentation.
      */
+    std::string remove(const std::string& str, char remove);
+
+    /**
+     * TODO : Documentation.
+     */
+    std::string remove(const std::string& str, const std::string& remove);
+
+    /**
+     * TODO : Documentation.
+     */
     std::string replace(const std::string& str, char find, char replace);
 
     /**
