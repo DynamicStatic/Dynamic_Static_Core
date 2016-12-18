@@ -29,13 +29,15 @@
 
 #pragma once
 
+#include "Dynamic_Static/Core/Defines.hpp"
+
 #include <vector>
 #include <algorithm>
 #include <functional>
 
 namespace Dynamic_Static {
     /**
-     * Converts an std::vector of a specified type to an std::vector of another specified type.
+     * Converts an std::vector of one type to an std::vector of another type.
      * @param <T>  ConvertFrom The type to convert from
      * @param <T>  ConvertTo   The type to convert to
      * @param [in] source      The source std::vector
@@ -53,7 +55,7 @@ namespace Dynamic_Static {
     }
 
     /**
-     * Converts an std::vector of a specified type to an std::vector of another specified type.
+     * Converts an std::vector of one type to an std::vector of another type.
      * @param <T>  ConvertFrom The type to convert from
      * @param <T>  ConvertTo   The type to convert to
      * @param [in] source      The source std::vector
@@ -74,8 +76,8 @@ namespace Dynamic_Static {
     }
 
     /**
-     * Removes duplicate elements from a specified std::vector
-     * NOTE : This operation will sort the specified std::vector
+     * Removes duplicate elements from an std::vector
+     * NOTE : This operation will sort the std::vector
      * NOTE : The element type of the std::vector must provide operator< and operator==
      * @param <T>  T The element type of the std::vector to remove duplicates from
      * @param [in] v The std::vector to remove duplicates from

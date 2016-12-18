@@ -34,13 +34,13 @@
 #define DYNAMIC_STATIC_VERSION_PATCH (0)
 
 #if defined(_WIN32) || defined(_WIN64)
-    #define DYNAMIC_STATIC_WINDOWS (1)
+#define DYNAMIC_STATIC_WINDOWS (1)
 #endif
 
 #if defined(_WIN64) || defined(__X86_64__)
-    #define DYNAMIC_STATIC_64_BIT (1)
+#define DYNAMIC_STATIC_64_BIT (1)
 #else
-    #define DYNAMIC_STATIC_32_BIT (1)
+#define DYNAMIC_STATIC_32_BIT (1)
 #endif
 
 #include <cstdint>

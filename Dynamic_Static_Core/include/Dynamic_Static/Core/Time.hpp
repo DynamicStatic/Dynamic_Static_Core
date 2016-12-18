@@ -29,6 +29,8 @@
 
 #pragma once
 
+#include "Dynamic_Static/Core/Defines.hpp"
+
 #include <chrono>
 
 namespace Dynamic_Static {

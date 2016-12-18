@@ -29,6 +29,8 @@
 
 #pragma once
 
+#include "Dynamic_Static/Core/Defines.hpp"
+
 #include <string>
 #include <stdexcept>
 
