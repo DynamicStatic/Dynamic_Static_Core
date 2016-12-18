@@ -63,4 +63,34 @@ namespace Dynamic_Static {
      * TODO : Documentation.
      */
     std::string replace(const std::string& str, const std::string& find, const std::string& replace);
+
+    /**
+     * TODO : Documentation.
+     */
+    std::string replace_recursively(const std::string& str, char find, char replace);
+
+    /**
+     * TODO : Documentation.
+     */
+    std::string replace_recursively(const std::string& str, char find, const std::string& replace);
+
+    /**
+     * TODO : Documentation.
+     */
+    std::string replace_recursively(const std::string& str, const std::string& find, char replace);
+
+    /**
+     * TODO : Documentation.
+     */
+    std::string replace_recursively(const std::string& str, const std::string& find, const std::string& replace);
+
+    /**
+     * TODO : Documentation.
+     */
+    std::string remove_sequence(const std::string& str, char find);
+
+    /**
+     * TODO : Documentation.
+     */
+    std::string remove_sequence(const std::string& str, const std::string& find);
 }

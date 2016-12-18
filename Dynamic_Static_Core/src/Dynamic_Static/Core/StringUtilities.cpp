@@ -29,10 +29,16 @@
 
 #include "Dynamic_Static/Core/StringUtilities.hpp"
 
+#include <stdexcept>
+
+namespace Dynamic_Static {
+    static std::string replace(const std::string& str, const std::string& find, const std::string& replacement, bool recursive);
+}
+
 namespace Dynamic_Static {
     std::string remove(const std::string& str, char to_remove)
     {
-        return remove(str, std::string(1, to_remove));
+        return remove(str, std::string { to_remove });
     }
 
     std::string remove(const std::string& str, const std::string& to_remove)
@@ -42,27 +48,69 @@ namespace Dynamic_Static {
 
     std::string replace(const std::string& str, char find, char replacement)
     {
-        return replace(str, std::string(1, find), std::string(1, replacement));
+        return replace(str, std::string { find }, std::string { replacement });
     }
 
     std::string replace(const std::string& str, char find, const std::string& replacement)
     {
-        return replace(str, std::string(1, find), replacement);
+        return replace(str, std::string { find }, replacement);
     }
 
     std::string replace(const std::string& str, const std::string& find, char replacement)
     {
-        return replace(str, find, std::string(1, replacement));
+        return replace(str, find, std::string { replacement });
     }
 
     std::string replace(const std::string& str, const std::string& find, const std::string& replacement)
     {
+        return replace(str, find, replacement, false);
+    }
+
+    std::string replace_recursively(const std::string& str, char find, char replacement)
+    {
+        return replace_recursively(str, std::string { find }, std::string { replacement });
+    }
+
+    std::string replace_recursively(const std::string& str, char find, const std::string& replacement)
+    {
+        return replace_recursively(str, std::string { find }, replacement);
+    }
+
+    std::string replace_recursively(const std::string& str, const std::string& find, char replacement)
+    {
+        return replace_recursively(str, find, std::string { replacement });
+    }
+
+    std::string replace_recursively(const std::string& str, const std::string& find, const std::string& replacement)
+    {
+        if (replacement.find(find) != std::string::npos) {
+            throw std::logic_error("----");
+        }
+
+        return replace(str, find, replacement, true);
+    }
+
+    std::string remove_sequence(const std::string& str, char find)
+    {
+        return remove_sequence(str, std::string { find, find });
+    }
+
+    std::string remove_sequence(const std::string& str, const std::string& find)
+    {
+        return replace(str, find + find, find, true);
+    }
+}
+
+namespace Dynamic_Static {
+    static std::string replace(const std::string& str, const std::string& find, const std::string& replacement, bool recursive)
+    {
         std::string replaced_str = str;
-        if (find != replacement) {
+        if (find.length()) {
             size_t index = replaced_str.find(find);
             while (index != std::string::npos) {
                 replaced_str.replace(index, find.size(), replacement);
-                index = replaced_str.find(find);
+                index += recursive ? 0 : replacement.size();
+                index = replaced_str.find(find, index);
             }
         }
 
