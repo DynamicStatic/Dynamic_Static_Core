@@ -52,7 +52,8 @@ namespace Dynamic_Static {
 }
 
 /**
- * Use this macro to typedef dst::math classes into another namespace.
+ * Use this macro to typedef dst::math objects into another namespace.
+ * \n NOTE : This macro can only be used once per namespace
  */
 #define DYNAMIC_STATIC_MATH_TYPEDEFS      \
 typedef dst::math::Matrix3x3  Matrix3x3;  \
