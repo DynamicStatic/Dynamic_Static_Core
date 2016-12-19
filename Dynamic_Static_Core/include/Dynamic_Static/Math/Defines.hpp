@@ -50,3 +50,15 @@ namespace Dynamic_Static {
      */
     namespace math = Math;
 }
+
+/**
+ * Use this macro to typedef dst::math classes into another namespace.
+ */
+#define DYNAMIC_STATIC_MATH_TYPEDEFS      \
+typedef dst::math::Matrix3x3  Matrix3x3;  \
+typedef dst::math::Matrix4x4  Matrix4x4;  \
+typedef dst::math::Quaternion Quaternion; \
+typedef dst::math::Transform  Transform;  \
+typedef dst::math::Vector2    Vector2;    \
+typedef dst::math::Vector3    Vector3;    \
+typedef dst::math::Vector4    Vector4;

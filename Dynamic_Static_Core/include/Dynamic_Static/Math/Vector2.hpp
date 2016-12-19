@@ -32,7 +32,7 @@
 #include "Dynamic_Static/Math/Defines.hpp"
 
 #pragma warning(push, 0)
-#include "glm-master/glm/glm.hpp"
+#include "Dynamic_Static/Math/glm/glm.hpp"
 #pragma warning(pop)
 
 namespace Dynamic_Static {

@@ -32,7 +32,7 @@
 #include "Dynamic_Static/Math/Vector3.hpp"
 
 #pragma warning(push, 0)
-#include "glm-master/glm/gtc/matrix_transform.hpp"
+#include "Dynamic_Static/Math/glm/gtc/matrix_transform.hpp"
 #pragma warning(pop)
 
 namespace Dynamic_Static {
