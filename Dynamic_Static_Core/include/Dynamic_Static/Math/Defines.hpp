@@ -46,7 +46,7 @@ namespace Dynamic_Static {
     }
 
     /**
-     * Alias for the Dynamic_Static::System namespace.
+     * Alias for the Dynamic_Static::Math namespace.
      */
     namespace math = Math;
 }
