@@ -44,5 +44,10 @@ namespace Dynamic_Static {
             : public glm::vec3::tvec3 {
             using glm::vec3::tvec3;
         };
+
+        static_assert(
+            sizeof(Vector3) == sizeof(float) * 3,
+            "sizeof(Vector3) must equaal sizeof(float) * 3"
+        );
     }
 }

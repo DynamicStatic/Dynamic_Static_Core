@@ -44,5 +44,10 @@ namespace Dynamic_Static {
             : public glm::mat3x3 {
             using glm::mat3x3::tmat3x3;
         };
+
+        static_assert(
+            sizeof(Matrix3x3) == sizeof(float) * 9,
+            "sizeof(Matrix3x3) must equaal sizeof(float) * 9"
+        );
     }
 }

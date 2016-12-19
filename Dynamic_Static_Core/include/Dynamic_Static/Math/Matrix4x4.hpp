@@ -74,5 +74,10 @@ namespace Dynamic_Static {
              */
             static Matrix4x4 perspective(float fov_y, float aspect_ratio, float near_plane, float far_plane);
         };
+
+        static_assert(
+            sizeof(Matrix4x4) == sizeof(float) * 16,
+            "sizeof(Matrix4x4) must equaal sizeof(float) * 16"
+        );
     }
 }

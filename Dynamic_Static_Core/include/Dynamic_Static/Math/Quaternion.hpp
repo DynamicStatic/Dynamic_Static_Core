@@ -44,5 +44,10 @@ namespace Dynamic_Static {
             : public glm::quat {
             using glm::quat::tquat;
         };
+
+        static_assert(
+            sizeof(Quaternion) == sizeof(float) * 4,
+            "sizeof(Quaternion) must equaal sizeof(float) * 4"
+        );
     }
 }

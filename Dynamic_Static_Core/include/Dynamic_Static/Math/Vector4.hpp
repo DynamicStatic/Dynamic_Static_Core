@@ -44,5 +44,10 @@ namespace Dynamic_Static {
             : public glm::vec4::tvec4 {
             using glm::vec4::tvec4;
         };
+
+        static_assert(
+            sizeof(Vector4) == sizeof(float) * 4,
+            "sizeof(Vector4) must equaal sizeof(float) * 4"
+        );
     }
 }

@@ -44,5 +44,10 @@ namespace Dynamic_Static {
             : public glm::vec2::tvec2 {
             using glm::vec2::tvec2;
         };
+
+        static_assert(
+            sizeof(Vector2) == sizeof(float) * 2,
+            "sizeof(Vector2) must equaal sizeof(float) * 2"
+        );
     }
 }
