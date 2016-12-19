@@ -58,9 +58,16 @@ namespace Dynamic_Static {
             *this = glm::lookAt(eye, center, up);
         }
 
+        Matrix4x4 Matrix4x4::rotate(const Matrix4x4& matrix, float angle, const Vector3& axis)
+        {
+            return glm::rotate(matrix, angle, axis);
+        }
+
         Matrix4x4 Matrix4x4::perspective(float fov_y, float aspect_ratio, float near_plane, float far_plane)
         {
             return glm::perspective(fov_y, aspect_ratio, near_plane, far_plane);
         }
+
+        const Matrix4x4 Matrix4x4::identity;
     }
 }

@@ -72,7 +72,17 @@ namespace Dynamic_Static {
             /**
              * TODO : Documentation.
              */
+            static Matrix4x4 rotate(const Matrix4x4& matrix, float angle, const Vector3& axis);
+
+            /**
+             * TODO : Documentation.
+             */
             static Matrix4x4 perspective(float fov_y, float aspect_ratio, float near_plane, float far_plane);
+
+            /**
+             * TODO : Documentation.
+             */
+            static const Matrix4x4 identity;
         };
 
         static_assert(
