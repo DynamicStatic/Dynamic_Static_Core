@@ -38,7 +38,8 @@
 namespace Dynamic_Static {
     /**
      * Raises an Event when this object is moved.
-     * \n NOTE : MoveNotifier must be extended using CRT
+     * \n NOTE : MoveNotifier must be extended using the Curiously Recurring Template Pattern (CRTP)
+     * @param <T> The type extending MoveNotifer
      */
     template <typename T>
     class MoveNotifier
