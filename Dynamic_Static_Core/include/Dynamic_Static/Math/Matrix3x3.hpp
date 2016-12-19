@@ -47,7 +47,7 @@ namespace Dynamic_Static {
 
         static_assert(
             sizeof(Matrix3x3) == sizeof(float) * 9,
-            "sizeof(Matrix3x3) must equaal sizeof(float) * 9"
+            "sizeof(Matrix3x3) must equal sizeof(float) * 9"
         );
     }
 }

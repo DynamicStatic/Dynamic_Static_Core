@@ -47,7 +47,7 @@ namespace Dynamic_Static {
 
         static_assert(
             sizeof(Vector2) == sizeof(float) * 2,
-            "sizeof(Vector2) must equaal sizeof(float) * 2"
+            "sizeof(Vector2) must equal sizeof(float) * 2"
         );
     }
 }
