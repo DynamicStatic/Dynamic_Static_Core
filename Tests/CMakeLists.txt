@@ -1,8 +1,8 @@
 
-# CMake configuration for Dynamic_Static_Core/Dynamic_Static_Core
+# CMake configuration for Dynamic_Static_Core/Tests
 
 include_directories(
-    include
+    include/
     ${DYNAMIC_STATIC_CORE_INCLUDE}
 )
 

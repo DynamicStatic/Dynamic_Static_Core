@@ -10,9 +10,9 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
 
 set(
     DYNAMIC_STATIC_CORE_INCLUDE
-    ${CMAKE_SOURCE_DIR}/Dynamic_Static_Core/include
+    ${CMAKE_SOURCE_DIR}/Dynamic_Static_Core/include/
 )
 
 add_subdirectory(Dynamic_Static_Core)
-# add_subdirectory(Sandbox)
+add_subdirectory(Sandbox)
 add_subdirectory(Tests)
