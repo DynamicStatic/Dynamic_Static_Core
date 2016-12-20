@@ -41,24 +41,6 @@ namespace Dynamic_Static {
      * @param <T>  ConvertFrom The type to convert from
      * @param <T>  ConvertTo   The type to convert to
      * @param [in] source      The source std::vector
-     * @param [in] conversion  The conversion function to use
-     * @return An std::vector containing the converted objects
-     */
-    template <typename ConvertFrom, typename ConvertTo>
-    std::vector<ConvertTo> convert(
-        const std::vector<ConvertFrom>& source,
-        std::function<ConvertTo(const ConvertFrom&)> conversion)
-    {
-        std::vector<ConvertTo> destination;
-        convert(source, destination, conversion);
-        return destination;
-    }
-
-    /**
-     * Converts an std::vector of one type to an std::vector of another type.
-     * @param <T>  ConvertFrom The type to convert from
-     * @param <T>  ConvertTo   The type to convert to
-     * @param [in] source      The source std::vector
      * @param [in] destination The destination std::vector
      * @param [in] conversion  The conversion function to use
      */
@@ -73,6 +55,24 @@ namespace Dynamic_Static {
         for (const auto& object : source) {
             destination.push_back(conversion(object));
         }
+    }
+
+    /**
+     * Converts an std::vector of one type to an std::vector of another type.
+     * @param <T>  ConvertFrom The type to convert from
+     * @param <T>  ConvertTo   The type to convert to
+     * @param [in] source      The source std::vector
+     * @param [in] conversion  The conversion function to use
+     * @return An std::vector containing the converted objects
+     */
+    template <typename ConvertFrom, typename ConvertTo>
+    std::vector<ConvertTo> convert(
+        const std::vector<ConvertFrom>& source,
+        std::function<ConvertTo(const ConvertFrom&)> conversion)
+    {
+        std::vector<ConvertTo> destination;
+        convert(source, destination, conversion);
+        return destination;
     }
 
     /**

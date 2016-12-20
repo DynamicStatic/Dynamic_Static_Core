@@ -27,8 +27,6 @@
 =====================================================================================
 */
 
-#pragma once
-
 #include "Dynamic_Static/Math/Transform.hpp"
 
 namespace Dynamic_Static {

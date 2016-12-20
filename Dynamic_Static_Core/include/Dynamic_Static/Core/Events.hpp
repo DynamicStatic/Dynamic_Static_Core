@@ -75,10 +75,7 @@ namespace Dynamic_Static {
                 *this = std::move(other);
             }
 
-            virtual ~Subscribable() = 0
-            {
-                remove_all_mutual_subscriptions();
-            }
+            virtual ~Subscribable() = 0;
 
             Subscribable<Args...>& operator=(Subscribable<Args...>&& other)
             {
@@ -211,6 +208,12 @@ namespace Dynamic_Static {
             }
         };
 
+        template <typename ...Args>
+        Subscribable<Args...>::~Subscribable()
+        {
+            remove_all_mutual_subscriptions();
+        }
+
         /**
          * Compares two Subscribables for equality.
          * @param [in] obj_0 The first object to compare
@@ -245,13 +248,13 @@ namespace Dynamic_Static {
         protected:
             void operator()(Args... args) override
             {
-                lock();
+                Subscribable<Args...>::lock();
 
-                for (const auto& subscription : m_subscriptions) {
+                for (const auto& subscription : Subscribable<Args...>::m_subscriptions) {
                     subscription->operator()(std::forward<Args>(args)...);
                 }
 
-                unlock();
+                Subscribable<Args...>::unlock();
             }
         };
     }
@@ -319,7 +322,7 @@ namespace Dynamic_Static {
          */
         bool subscribed(const detail::Event<Args...>& event)
         {
-            return Subscribable::subscribed(event);
+            return detail::Subscribable<Args...>::subscribed(event);
         }
 
         /**
@@ -327,7 +330,7 @@ namespace Dynamic_Static {
          */
         void clear()
         {
-            Subscribable::clear();
+            detail::Subscribable<Args...>::clear();
         }
     };
 }
@@ -351,7 +354,7 @@ namespace Dynamic_Static {
          */
         Event<OwnerType, Args...>& operator+=(Delegate<Args...>& delegate)
         {
-            Subscribable::operator+=(delegate);
+            detail::Subscribable<Args...>::operator+=(delegate);
             return *this;
         }
 
@@ -362,7 +365,7 @@ namespace Dynamic_Static {
          */
         Event<OwnerType, Args...>& operator-=(Delegate<Args...>& delegate)
         {
-            Subscribable::operator-=(delegate);
+            detail::Subscribable<Args...>::operator-=(delegate);
             return *this;
         }
 
@@ -384,7 +387,7 @@ namespace Dynamic_Static {
          */
         bool subscribed(const Delegate<Args...>& delegate)
         {
-            return Subscribable::subscribed(delegate);
+            return detail::Subscribable<Args...>::subscribed(delegate);
         }
 
     private:
@@ -395,7 +398,7 @@ namespace Dynamic_Static {
          */
         void clear()
         {
-            Subscribable::clear();
+            detail::Subscribable<Args...>::clear();
         }
     };
 }

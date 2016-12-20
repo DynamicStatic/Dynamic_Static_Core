@@ -89,6 +89,9 @@ namespace Dynamic_Static {
                         );
                     }
                 } break;
+
+                default:
+                    throw std::logic_error("Unkonwn value passed for seek_origin.  The only accepted valus are std::ios::beg, std::ios::cur, and std::ios::beg");
             }
 
             m_file_stream.seekg(offset, seek_origin);

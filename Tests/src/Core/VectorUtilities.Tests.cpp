@@ -50,8 +50,7 @@ namespace Dynamic_Static {
         class Dog final : public Animal { using Animal::Animal; };
         class Cat final : public Animal { using Animal::Animal; };
 
-        auto create_random_name =
-        []()
+        std::string create_random_name()
         {
             std::string name = "name";
             for (size_t i = 0; i < name.size(); ++i) {
@@ -59,7 +58,7 @@ namespace Dynamic_Static {
             }
 
             return name;
-        };
+        }
 
         TEST_CASE("Conversion works correctly", "[VectorUtilitites]")
         {

@@ -31,9 +31,13 @@
 
 #include "Dynamic_Static/Math/Vector3.hpp"
 
+#if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(push, 0)
+#endif
 #include "Dynamic_Static/Math/glm/gtc/matrix_transform.hpp"
+#if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(pop)
+#endif
 
 namespace Dynamic_Static {
     namespace Math {

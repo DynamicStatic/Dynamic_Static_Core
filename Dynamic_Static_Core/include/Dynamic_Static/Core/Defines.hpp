@@ -43,6 +43,8 @@
 #define DYNAMIC_STATIC_32_BIT (1)
 #endif
 
+//#define DYNAMIC_STATIC_VISUAL_STUDIO
+
 #include <cstdint>
 
 namespace Dynamic_Static {

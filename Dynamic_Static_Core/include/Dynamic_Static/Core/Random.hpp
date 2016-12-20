@@ -102,33 +102,6 @@ namespace Dynamic_Static {
         }
 
         /**
-         * Gets a double value in the range of two specified values.
-         * @param [in] value_0 The first value [inclusive]
-         * @param [in] value_1 The second value [inclusive]
-         * @return The random double value generated
-         */
-        template <>
-        double range<double>(double value_0, double value_1)
-        {
-            auto values = std::minmax(value_0, value_1);
-            double min = values.first;
-            double max = values.second;
-            return m_real_distribution(m_engine) * (max - min) + min;
-        }
-
-        /**
-         * Gets a float value in the range of two specified values.
-         * @param [in] value_0 The first value [inclusive]
-         * @param [in] value_1 The second value [inclusive]
-         * @return The random float value generated
-         */
-        template <>
-        float range<float>(float value_0, float value_1)
-        {
-            return static_cast<float>(range<double>(value_0, value_1));
-        }
-
-        /**
          * Has a chance [0 - 100] of returning true based on a specified value.
          * @param [in] value The integral value [0-100] to test
          * @return Whether or not the value passed
@@ -137,28 +110,6 @@ namespace Dynamic_Static {
         bool probability(T value)
         {
             return value >= range<T>(0, 100, true);
-        }
-
-        /**
-         * Has a chance [0 - 1] of returning true based on a specified value.
-         * @param [in] value The double value [0 - 1] to test
-         * @return Whether or not the value passed
-         */
-        template <>
-        bool probability<double>(double value)
-        {
-            return value >= range<double>(0, 1);
-        }
-
-        /**
-         * Has a chance [0 - 1] of returning true based on a specified value.
-         * @param [in] value The float value [0 - 1] to test
-         * @return Whether or not the value passed
-         */
-        template <>
-        bool probability<float>(float value)
-        {
-            return value >= range<float>(0, 1);
         }
 
         /**
@@ -189,6 +140,55 @@ namespace Dynamic_Static {
             seed(m_seed);
         }
     };
+
+    /**
+     * Gets a double value in the range of two specified values.
+     * @param [in] value_0 The first value [inclusive]
+     * @param [in] value_1 The second value [inclusive]
+     * @return The random double value generated
+     */
+    template <>
+    inline double RandomNumberGenerator::range<double>(double value_0, double value_1)
+    {
+        auto values = std::minmax(value_0, value_1);
+        double min = values.first;
+        double max = values.second;
+        return m_real_distribution(m_engine) * (max - min) + min;
+    }
+
+    /**
+     * Gets a float value in the range of two specified values.
+     * @param [in] value_0 The first value [inclusive]
+     * @param [in] value_1 The second value [inclusive]
+     * @return The random float value generated
+     */
+    template <>
+    inline float RandomNumberGenerator::range<float>(float value_0, float value_1)
+    {
+        return static_cast<float>(range<double>(value_0, value_1));
+    }
+
+    /**
+     * Has a chance [0 - 1] of returning true based on a specified value.
+     * @param [in] value The double value [0 - 1] to test
+     * @return Whether or not the value passed
+     */
+    template <>
+    inline bool RandomNumberGenerator::probability<double>(double value)
+    {
+        return value >= range<double>(0, 1);
+    }
+
+    /**
+     * Has a chance [0 - 1] of returning true based on a specified value.
+     * @param [in] value The float value [0 - 1] to test
+     * @return Whether or not the value passed
+     */
+    template <>
+    inline bool RandomNumberGenerator::probability<float>(float value)
+    {
+        return value >= range<float>(0, 1);
+    }
 }
 
 namespace Dynamic_Static {

@@ -31,9 +31,13 @@
 
 #include "Dynamic_Static/Math/Defines.hpp"
 
+#if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(push, 0)
+#endif
 #include "Dynamic_Static/Math/glm/gtc/quaternion.hpp"
+#if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(pop)
+#endif
 
 namespace Dynamic_Static {
     namespace Math {

@@ -95,6 +95,7 @@ namespace Dynamic_Static {
          * Sets this BinaryReader's position to a specified offset from a specified position.
          * \n Exception - std::runtime_error : The position after the offset exceeds the size of the file being read
          * \n Exception - std::runtime_error : The position after the offset is negative
+         * \n Exception - std::logic_error   : A value besides std::ios::beg, std::ios::cur, or std::ios::end was passed for seek_origin
          */
         void seek(size_t offset, std::ios::seekdir seek_origin = std::ios::beg);
 
