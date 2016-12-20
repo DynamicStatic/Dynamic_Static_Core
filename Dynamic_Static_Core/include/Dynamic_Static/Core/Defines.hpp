@@ -43,7 +43,9 @@
 #define DYNAMIC_STATIC_32_BIT (1)
 #endif
 
-//#define DYNAMIC_STATIC_VISUAL_STUDIO
+#if defined(_MSC_VER)
+#define DYNAMIC_STATIC_VISUAL_STUDIO
+#endif
 
 #include <cstdint>
 
