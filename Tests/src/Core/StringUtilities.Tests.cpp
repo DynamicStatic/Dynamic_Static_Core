@@ -65,11 +65,11 @@ namespace Dynamic_Static {
 
         TEST_CASE("reduce_sequence() works correctly", "[StringUtilities]")
         {
-            std::string str = "Some\\Windows\\/\\//\\Path\\With\\A/////Broken\\\\Extension.....ext";
+            std::string str = "Some\\Windows\\/\\//\\Path\\With\\A/////Shitty\\\\Extension.....ext";
             str = replace(str, '\\', '/');
             str = reduce_sequence(str, '/');
             str = reduce_sequence(str, '.');
-            str = replace(str, "Broken", "Good");
+            str = replace(str, "Shitty", "Good");
             REQUIRE(str == "Some/Windows/Path/With/A/Good/Extension.ext");
         }
     }
