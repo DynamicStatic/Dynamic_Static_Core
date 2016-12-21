@@ -30,6 +30,7 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Defines.hpp"
+#include "Dynamic_Static/Core/Collection.hpp"
 
 #include <cmath>
 #include <algorithm>
@@ -63,7 +64,7 @@ namespace Dynamic_Static {
      * @return The value clamped into the specified range
      */
     template <typename T>
-    inline const T& clamp(const T& value, std::initializer_list<T> range)
+    inline const T& clamp(const T& value, const Collection<T>& range)
     {
         // TODO : Fully specialize this for built in floating point
         //        types so we can take advantage of std::fmin() and
@@ -104,7 +105,7 @@ namespace Dynamic_Static {
         //        Consider...
         //        (static_cast<T>(1) - t) * v_0 + t * v_1
         //        and...
-        //        v_0 + static_cast<T>(t) * (v_1 - v_0)
+        //        v_0 + t * (v_1 - v_0)
         //        The first form incurs 4 rounding errors and the second 3.
         //        Note that the second form cannot guarantee that the value
         //        returned equals v_0 when t equals 1 due to rounding error.
