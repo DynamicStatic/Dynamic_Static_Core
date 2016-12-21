@@ -50,6 +50,11 @@ namespace Dynamic_Static {
             //        isn't const, but we want position() to be const.
             //        This const_cast() is unsafe until we're handling
             //        all std::basic_ios::exceptions and failure states.
+            //        It's worth noting that m_file_stream's constness
+            //        is self imposed here for the sake of position()...
+            //        this const_cast doesn't violate anything in ::std.
+            // NOTE : const_cast should probably be preferred over mutable.
+            //        Scalpel vs sledgehammer...
             auto file_stream_ptr = const_cast<std::ifstream*>(&m_file_stream);
             position = static_cast<size_t>(file_stream_ptr->tellg());
         }
