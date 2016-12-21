@@ -28,7 +28,6 @@
 */
 
 #include "Dynamic_Static/Core/IPrintable.hpp"
-
 #include "Dynamic_Static/Core/Defines.hpp"
 
 namespace Dynamic_Static {

@@ -34,6 +34,8 @@
 namespace Dynamic_Static {
     TEST_CASE("BinaryReader", "[BinaryReader]")
     {
+        #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
         REQUIRE(false);
+        #endif
     }
 }

@@ -28,7 +28,6 @@
 */
 
 #include "Dynamic_Static/Math/Matrix4x4.hpp"
-
 #include "Dynamic_Static/Math/Vector3.hpp"
 
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
