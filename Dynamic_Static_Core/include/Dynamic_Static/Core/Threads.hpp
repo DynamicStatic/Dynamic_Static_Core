@@ -29,6 +29,7 @@
 
 #pragma once
 
+#include "Dynamic_Static/Core/Time.hpp"
 #include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/NonCopyable.hpp"
 
@@ -61,15 +62,27 @@ namespace Dynamic_Static {
 
     public:
         /**
-         * Blocks the calling thread until this Semaphore is
-         * notified at least once for each call to wait().
+         * Notifies this Semaphore.
+         */
+        void notify();
+
+        /**
+         * Blocks the calling thread until this Semaphore is notified at least once for each call to wait().
          */
         void wait();
 
         /**
-         * Notifies this Semaphore.
+         * Blocks the calling thread until this Semaphore is notified at least once for each call to wait() or a specified time out is reached.
+         * @param <DurationType> The type of the Duration to use for the time out
+         * @param [in] time_out  The amount of time to wait before releasing this Semaphore
          */
-        void notify();
+        template <typename DurationType = Millisecond>
+        void wait_for(const DurationType& time_out)
+        {
+            std::unique_lock<std::mutex> lock(*m_mutex);
+            m_condition->wait_for(lock, time_out, [&]() { return m_count > 0; });
+            --m_count;
+        }
     };
 }
 

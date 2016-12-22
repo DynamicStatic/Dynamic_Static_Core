@@ -33,18 +33,18 @@
 
 namespace Dynamic_Static {
     namespace Tests {
-        static const size_t g_wait_target { 5 };
-        static const size_t g_counter_target { 10 };
+        static const size_t WaitTarget { 5 };
+        static const size_t CounterTarget { 10 };
 
-        TEST_CASE("Semaphore can wait and notify", "[Threads]")
+        TEST_CASE("Semaphore can wait() and notify", "[Threads]")
         {
             size_t counter = 0;
             Semaphore semaphore;
             auto thread = std::thread(
                 [&]()
                 {
-                    while (++counter < g_counter_target) {
-                        if (counter == g_wait_target) {
+                    while (++counter < CounterTarget) {
+                        if (counter == WaitTarget) {
                             semaphore.wait();
                         }
                     }
@@ -53,30 +53,69 @@ namespace Dynamic_Static {
 
             // NOTE : This assumes that 500ms sleep is long enough for
             //        the other thread to get to the semaphore().wait() call.
-            std::this_thread::sleep_for(std::chrono::milliseconds(500));
-            REQUIRE(counter == g_wait_target);
+            std::this_thread::sleep_for(Millisecond(500));
+            REQUIRE(counter == WaitTarget);
             semaphore.notify();
 
             // NOTE : This assumes that 500ms sleep is long enough for
             //        the other thread to finish counting.
-            std::this_thread::sleep_for(std::chrono::milliseconds(500));
-            REQUIRE(counter == g_counter_target);
+            std::this_thread::sleep_for(Millisecond(500));
+            REQUIRE(counter == CounterTarget);
             thread.join();
         }
 
-        TEST_CASE("Worker can process task and join", "[Threads]")
+        TEST_CASE("Semaphore can release on wait_for()", "[Threads]")
+        {
+            size_t counter = 0;
+            Semaphore semaphore;
+            auto thread = std::thread(
+                [&]()
+                {
+                    while (++counter < CounterTarget) {
+                        if (counter == WaitTarget) {
+                            semaphore.wait_for(Second(0.25f));
+                        }
+                    }
+                }
+            );
+
+            while (counter < CounterTarget) {
+                std::this_thread::yield();
+            }
+
+            REQUIRE(counter == CounterTarget);
+            thread.join();
+        }
+
+        TEST_CASE("Semaphore can release before wait_for()", "[Threads]")
+        {
+            size_t counter = 0;
+            Semaphore semaphore;
+            auto thread = std::thread(
+                [&]()
+                {
+                    while (++counter < CounterTarget) {
+                        if (counter == WaitTarget) {
+                            semaphore.wait_for(Second(30));
+                        }
+                    }
+                }
+            );
+
+            REQUIRE(counter == WaitTarget);
+            semaphore.notify();
+            std::this_thread::sleep_for(Second(0.1f));
+            REQUIRE(counter == CounterTarget);
+            thread.join();
+        }
+
+        TEST_CASE("Worker can push() and join()", "[Threads]")
         {
             size_t counter = 0;
             Worker worker;
-            worker.push(
-                [&]()
-                {
-                    while (++counter < g_counter_target);
-                }
-            );
-            
+            worker.push([&]() { while (++counter < CounterTarget); });
             worker.join();
-            REQUIRE(counter == g_counter_target);
+            REQUIRE(counter == CounterTarget);
         }
     }
 }

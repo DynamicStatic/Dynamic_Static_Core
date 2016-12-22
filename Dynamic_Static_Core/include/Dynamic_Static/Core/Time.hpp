@@ -106,7 +106,7 @@ namespace Dynamic_Static {
         /**
          * TODO : Documentation.
          */
-        TimePoint<Nanosecond> now()
+        inline TimePoint<Nanosecond> now()
         {
             return HighResolutionClock::now();
         }
@@ -165,7 +165,7 @@ namespace Dynamic_Static {
     private:
         TimePoint<Nanosecond> m_begin { Time::now() };
         TimePoint<Nanosecond> m_current { Time::now() };
-        TimePoint<Nanosecond> m_previous { Time::now() };
+        TimePoint<Nanosecond> m_previous { Time::now() - Nanosecond(1) };
 
     public:
         /**

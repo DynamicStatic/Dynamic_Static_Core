@@ -37,18 +37,18 @@ namespace Dynamic_Static {
     {
     }
 
-    void Semaphore::wait()
-    {
-        std::unique_lock<std::mutex> lock(*m_mutex);
-        m_condition->wait(lock, [&] { return m_count > 0; });
-        --m_count;
-    }
-
     void Semaphore::notify()
     {
         std::unique_lock<std::mutex> lock(*m_mutex);
         m_condition->notify_one();
         ++m_count;
+    }
+
+    void Semaphore::wait()
+    {
+        std::unique_lock<std::mutex> lock(*m_mutex);
+        m_condition->wait(lock, [&]() { return m_count > 0; });
+        --m_count;
     }
 }
 
