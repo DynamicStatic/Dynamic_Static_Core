@@ -104,6 +104,8 @@
       <AdditionalLibraryDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/lib/</AdditionalLibraryDirectories>
       <AdditionalDependencies>Dynamic_Static_Core-$(Configuration)-$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
+      <LinkTimeCodeGeneration>
+      </LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -118,6 +120,8 @@
       <AdditionalLibraryDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/lib/</AdditionalLibraryDirectories>
       <AdditionalDependencies>Dynamic_Static_Core-$(Configuration)-$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
+      <LinkTimeCodeGeneration>
+      </LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -136,6 +140,7 @@
       <AdditionalLibraryDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/lib/</AdditionalLibraryDirectories>
       <AdditionalDependencies>Dynamic_Static_Core-$(Configuration)-$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -154,6 +159,7 @@
       <AdditionalLibraryDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/lib/</AdditionalLibraryDirectories>
       <AdditionalDependencies>Dynamic_Static_Core-$(Configuration)-$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
+      <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
