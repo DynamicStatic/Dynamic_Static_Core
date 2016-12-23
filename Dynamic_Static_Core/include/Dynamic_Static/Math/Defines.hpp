@@ -39,6 +39,8 @@ namespace Dynamic_Static {
         struct Matrix3x3;
         struct Matrix4x4;
         struct Quaternion;
+        template <typename T>
+        struct Rectangle;
         struct Vector2;
         struct Vector3;
         struct Vector4;

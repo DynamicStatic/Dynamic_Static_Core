@@ -168,6 +168,7 @@
     <ClInclude Include="include\Dynamic_Static\Math\Matrix3x3.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Matrix4x4.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Quaternion.hpp" />
+    <ClInclude Include="include\Dynamic_Static\Math\Rectangle.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Transform.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Utilities.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Vector2.hpp" />

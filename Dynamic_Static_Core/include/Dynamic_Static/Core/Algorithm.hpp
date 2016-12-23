@@ -93,7 +93,7 @@ namespace Dynamic_Static {
     {
         static_assert(
             std::is_floating_point<T>::value,
-            "Dynamic_Static::lerp() can only be used with built in floating point types"
+            "Dynamic_Static::lerp<T>() can only be used with built in floating point types"
         );
 
         // FROM : https://devblogs.nvidia.com/parallelforall/lerp-faster-cuda/

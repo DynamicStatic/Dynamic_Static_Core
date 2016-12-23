@@ -30,12 +30,28 @@
 #pragma once
 
 #include "Dynamic_Static/Math/Defines.hpp"
-#include "Dynamic_Static/Math/Matrix3x3.hpp"
-#include "Dynamic_Static/Math/Matrix4x4.hpp"
-#include "Dynamic_Static/Math/Quaternion.hpp"
-#include "Dynamic_Static/Math/Rectangle.hpp"
-#include "Dynamic_Static/Math/Transform.hpp"
-#include "Dynamic_Static/Math/Utilities.hpp"
-#include "Dynamic_Static/Math/Vector2.hpp"
-#include "Dynamic_Static/Math/Vector3.hpp"
-#include "Dynamic_Static/Math/Vector4.hpp"
+
+#include <type_traits>
+
+namespace Dynamic_Static {
+    namespace Math {
+        template <typename T = float>
+        struct Rectangle final {
+            static_assert(
+                std::is_arithmetic<T>::value,
+                "Dynamic_Static::Math::Rectangle<T> can only be used with built in arithmetic types"
+            );
+
+            T x { 0 };
+            T y { 0 };
+            T width { 0 };
+            T height { 0 };
+
+            T top() { return y; } const;
+            T left() const { return x; } const;
+            T right() const { return x + width; } const;
+            T bottom() const { return y + height; } const;
+            T area() const { return width * height; } const;
+        };
+    }
+}
