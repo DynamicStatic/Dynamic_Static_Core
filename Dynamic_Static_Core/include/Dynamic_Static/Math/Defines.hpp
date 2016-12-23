@@ -43,12 +43,11 @@ namespace Dynamic_Static {
         struct OrientedBoundingBox2D;
         struct OrientedBoundingBox3D;
         struct Quaternion;
-        template <typename T>
-        struct Rectangle;
         struct Vector2;
         struct Vector3;
         struct Vector4;
         class Transform;
+        template <typename T> struct Rectangle;
     }
 
     /**
@@ -61,11 +60,16 @@ namespace Dynamic_Static {
  * Use this macro to typedef dst::math objects into another namespace.
  * \n NOTE : This macro can only be used once per namespace
  */
-#define DYNAMIC_STATIC_MATH_TYPEDEFS      \
-typedef dst::math::Matrix3x3  Matrix3x3;  \
-typedef dst::math::Matrix4x4  Matrix4x4;  \
-typedef dst::math::Quaternion Quaternion; \
-typedef dst::math::Transform  Transform;  \
-typedef dst::math::Vector2    Vector2;    \
-typedef dst::math::Vector3    Vector3;    \
-typedef dst::math::Vector4    Vector4;
+#define DYNAMIC_STATIC_MATH_TYPEDEFS                                   \
+typedef dst::math::AxisAlignedBoundingBox2D  AxisAlignedBoundingBox2D; \
+typedef dst::math::AxisAlignedBoundingBox3D  AxisAlignedBoundingBox3D; \
+typedef dst::math::Matrix3x3                 Matrix3x3;                \
+typedef dst::math::Matrix4x4                 Matrix4x4;                \
+typedef dst::math::OrientedBoundingBox2D     OrientedBoundingBox2D;    \
+typedef dst::math::OrientedBoundingBox3D     OrientedBoundingBox3D;    \
+typedef dst::math::Quaternion                Quaternion;               \
+typedef dst::math::Vector2                   Vector2;                  \
+typedef dst::math::Vector3                   Vector3;                  \
+typedef dst::math::Vector4                   Vector4;                  \
+typedef dst::math::Transform                 Transform;                \
+template <typename T> using Rectangle<T> = dst::math::Rectangle<T>;
