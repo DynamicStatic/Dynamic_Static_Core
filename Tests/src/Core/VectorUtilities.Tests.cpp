@@ -30,7 +30,6 @@
 #include "catch.hpp"
 
 #include "Dynamic_Static/Core/VectorUtilities.hpp"
-
 #include "Dynamic_Static/Core/Random.hpp"
 
 #include <set>
@@ -60,7 +59,7 @@ namespace Dynamic_Static {
             return name;
         }
 
-        TEST_CASE("Conversion works correctly", "[VectorUtilitites]")
+        TEST_CASE("convert() works correctly", "[VectorUtilitites]")
         {
             std::vector<Dog> dogs;
             for (size_t i = 0; i < TestCount; ++i) {
@@ -80,7 +79,7 @@ namespace Dynamic_Static {
             REQUIRE(success);
         }
 
-        TEST_CASE("Removing duplicates works correctly", "[VectorUtilities]")
+        TEST_CASE("remove_duplicates() works correctly", "[VectorUtilities]")
         {
             std::vector<int> integers;
             integers.reserve(TestCount);
@@ -108,6 +107,22 @@ namespace Dynamic_Static {
             }
 
             REQUIRE(success);
+        }
+
+        TEST_CASE("take_ownership() works correctly", "[VectorUtilities]")
+        {
+            std::vector<std::unique_ptr<Dog>> dogs;
+            for (size_t i = 0; i < TestCount; ++i) {
+                dogs.push_back(std::make_unique<Dog>(create_random_name()));
+            }
+
+            const std::unique_ptr<Dog>& target = dogs[Random.index(dogs.size())];
+            Dog* dog_ptr = target.get();
+            REQUIRE(dog_ptr != nullptr);
+            std::unique_ptr<Dog> taken_dog_uptr = take_ownership(target, dogs);
+            REQUIRE(taken_dog_uptr.get() == dog_ptr);
+            REQUIRE(std::find(dogs.begin(), dogs.end(), taken_dog_uptr) == dogs.end());
+            REQUIRE(take_ownership(taken_dog_uptr, dogs) == nullptr);
         }
     }
 }
