@@ -47,7 +47,7 @@ namespace Dynamic_Static {
         struct Vector3;
         struct Vector4;
         class Transform;
-        template <typename T> struct Rectangle;
+        //template <typename T> struct Rectangle;
     }
 
     /**
@@ -71,5 +71,5 @@ typedef dst::math::Quaternion                Quaternion;               \
 typedef dst::math::Vector2                   Vector2;                  \
 typedef dst::math::Vector3                   Vector3;                  \
 typedef dst::math::Vector4                   Vector4;                  \
-typedef dst::math::Transform                 Transform;                \
-template <typename T> using Rectangle<T> = dst::math::Rectangle<T>;
+typedef dst::math::Transform                 Transform;                //\
+//template <typename T> using Rectangle<T> = dst::math::Rectangle<T>;
