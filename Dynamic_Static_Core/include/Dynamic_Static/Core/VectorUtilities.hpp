@@ -115,7 +115,7 @@ namespace Dynamic_Static {
     template <typename T>
     std::unique_ptr<T> take_ownership(const T& target, std::vector<std::unique_ptr<T>>& v)
     {
-        auto ptr = std::unique_ptr<T>(nullptr);
+        auto uptr = std::unique_ptr<T>(nullptr);
         auto itr = std::find_if(
             v.begin(),
             v.end(),
@@ -126,10 +126,10 @@ namespace Dynamic_Static {
         );
 
         if (itr != v.end()) {
-            ptr = std::unique_ptr<T>(itr->release());
+            uptr = std::unique_ptr<T>(itr->release());
             v.erase(itr);
         }
 
-        return ptr;
+        return uptr;
     }
 }
