@@ -163,10 +163,14 @@
     <ClInclude Include="include\Dynamic_Static\Core\Validate.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\VectorUtilities.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Version.hpp" />
+    <ClInclude Include="include\Dynamic_Static\Math\AxisAlignedBoundingBox2D.hpp" />
+    <ClInclude Include="include\Dynamic_Static\Math\AxisAlignedBoundingBox3D.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Defines.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Math.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Matrix3x3.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Matrix4x4.hpp" />
+    <ClInclude Include="include\Dynamic_Static\Math\OrientedBoundingBox2D.hpp" />
+    <ClInclude Include="include\Dynamic_Static\Math\OrientedBoundingBox3D.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Quaternion.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Rectangle.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Transform.hpp" />

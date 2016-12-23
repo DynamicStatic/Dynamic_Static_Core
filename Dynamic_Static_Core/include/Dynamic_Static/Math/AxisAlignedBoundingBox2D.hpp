@@ -29,43 +29,11 @@
 
 #pragma once
 
-#include "Dynamic_Static/Core/Defines.hpp"
-
-#define GLM_FORCE_RADIANS
-#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+#include "Dynamic_Static/Math/Defines.hpp"
 
 namespace Dynamic_Static {
     namespace Math {
-        struct AxisAlignedBoundingBox2D;
-        struct AxisAlignedBoundingBox3D;
-        struct Matrix3x3;
-        struct Matrix4x4;
-        struct OrientedBoundingBox2D;
-        struct OrientedBoundingBox3D;
-        struct Quaternion;
-        template <typename T>
-        struct Rectangle;
-        struct Vector2;
-        struct Vector3;
-        struct Vector4;
-        class Transform;
+        struct AxisAlignedBoundingBox2D final {
+        };
     }
-
-    /**
-     * Alias for the Dynamic_Static::Math namespace.
-     */
-    namespace math = Math;
 }
-
-/**
- * Use this macro to typedef dst::math objects into another namespace.
- * \n NOTE : This macro can only be used once per namespace
- */
-#define DYNAMIC_STATIC_MATH_TYPEDEFS      \
-typedef dst::math::Matrix3x3  Matrix3x3;  \
-typedef dst::math::Matrix4x4  Matrix4x4;  \
-typedef dst::math::Quaternion Quaternion; \
-typedef dst::math::Transform  Transform;  \
-typedef dst::math::Vector2    Vector2;    \
-typedef dst::math::Vector3    Vector3;    \
-typedef dst::math::Vector4    Vector4;
