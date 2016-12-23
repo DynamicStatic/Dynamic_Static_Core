@@ -94,10 +94,10 @@ namespace Dynamic_Static {
     /**
      * TODO : Documentation.
      */
-    template <class DurationType, class Rep, class Period>
-    constexpr DurationType duration_cast(const std::chrono::duration<Rep, Period>& duration)
+    template <typename ToType, typename FromType>
+    constexpr ToType duration_cast(const FromType& duration)
     {
-        return std::chrono::duration_cast<DurationType, Rep, Period>(duration);
+        return std::chrono::duration_cast<ToType>(duration);
     }
 }
 

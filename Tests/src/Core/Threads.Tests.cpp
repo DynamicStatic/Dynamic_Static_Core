@@ -102,9 +102,11 @@ namespace Dynamic_Static {
                 }
             );
 
+            Timer timer;
             REQUIRE(counter == WaitTarget);
             semaphore.notify();
             std::this_thread::sleep_for(Second(0.1f));
+            REQUIRE(timer.total<Second>() < 30);
             REQUIRE(counter == CounterTarget);
             thread.join();
         }
