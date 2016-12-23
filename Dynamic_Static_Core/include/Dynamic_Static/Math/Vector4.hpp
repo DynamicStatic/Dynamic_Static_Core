@@ -34,7 +34,7 @@
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(push, 0)
 #endif
-#include "Dynamic_Static/Math/glm/glm.hpp"
+#include "Dynamic_Static/Math/3rdParty/glm/glm.hpp"
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(pop)
 #endif
