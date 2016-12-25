@@ -35,6 +35,8 @@
 #pragma warning(push, 0)
 #endif
 #include "Dynamic_Static/Math/3rdParty/glm/glm.hpp"
+#define GLM_ENABLE_EXPERIMENTAL
+#include "Dynamic_Static/Math/3rdParty/glm/gtx/hash.hpp"
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(pop)
 #endif
@@ -54,4 +56,20 @@ namespace Dynamic_Static {
             "sizeof(Vector2) must equal sizeof(float) * 2"
         );
     }
+}
+
+namespace std {
+    /**
+     * TODO : Documentation.
+     */
+    template <>
+    struct hash<dst::math::Vector2> {
+        /**
+         * TODO : Documentation.
+         */
+        size_t operator()(const dst::math::Vector2& v) const
+        {
+            return hash<glm::vec2>()(v);
+        }
+    };
 }
