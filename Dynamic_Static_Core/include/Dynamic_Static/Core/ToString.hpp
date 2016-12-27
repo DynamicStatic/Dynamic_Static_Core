@@ -32,6 +32,7 @@
 #include "Dynamic_Static/Core/Defines.hpp"
 
 #include <string>
+#include <sstream>
 
 namespace Dynamic_Static {
     /**
@@ -72,4 +73,24 @@ namespace Dynamic_Static {
      */
     template <>
     std::wstring to_wstring<std::string>(const std::string& str);
+
+    /**
+     * Gets the std::string representation of a specified integral value in hex.
+     * @param <T>        The type of the value
+     *                   \n NOTE : This function can only be used with built in integral types
+     * @param [in] value The value to get the hex std::string representation of
+     * @return The specified value's hex std::string representation
+     */
+    template <typename T>
+    std::string to_hex_string(T value)
+    {
+        static_assert(
+            std::is_integral<T>::value,
+            "Dynamic_Static::to_hex_string<T>() can only be used with built in integral types"
+        );
+
+        std::stringstream strstr;
+        strstr << "0x" << std::hex << value;
+        return strstr.str();
+    }
 }
