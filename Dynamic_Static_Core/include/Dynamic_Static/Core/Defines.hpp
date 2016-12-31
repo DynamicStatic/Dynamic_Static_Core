@@ -47,6 +47,8 @@
 #define DYNAMIC_STATIC_VISUAL_STUDIO
 #endif
 
+#define DYNAMIC_STATIC_UNREFERENCED_PARAMETER(PARAMETER) (void)(PARAMETER)
+
 #include <cstdint>
 
 namespace Dynamic_Static {
