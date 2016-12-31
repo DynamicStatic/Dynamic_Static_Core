@@ -27,60 +27,20 @@
 =====================================================================================
 */
 
-#pragma once
-
-#include "Dynamic_Static/Math/Defines.hpp"
-
-#if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
-#pragma warning(push, 0)
-#endif
-#include "Dynamic_Static/Math/3rdParty/glm/glm.hpp"
-#define GLM_ENABLE_EXPERIMENTAL
-#include "Dynamic_Static/Math/3rdParty/glm/gtx/hash.hpp"
-#if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
-#pragma warning(pop)
-#endif
+#include "Dynamic_Static/Math/Vector3.hpp"
 
 namespace Dynamic_Static {
     namespace Math {
-        /**
-         * TODO : Documentation.
-         */
-        struct Vector3 final
-            : public glm::vec3::tvec3 {
-            using glm::vec3::tvec3;
-            static const Vector3 one;
-            static const Vector3 zero;
-            static const Vector3 x;
-            static const Vector3 y;
-            static const Vector3 z;
-            static const Vector3 up;
-            static const Vector3 down;
-            static const Vector3 left;
-            static const Vector3 right;
-            static const Vector3 forward;
-            static const Vector3 backward;
-        };
-
-        static_assert(
-            sizeof(Vector3) == sizeof(float) * 3,
-            "sizeof(Vector3) must equal sizeof(float) * 3"
-        );
+        const Vector3 Vector3::one      = Vector3 {  1, 1, 1 };
+        const Vector3 Vector3::zero     = Vector3 {  0, 0, 0 };
+        const Vector3 Vector3::x        = Vector3 {  1, 0, 0 };
+        const Vector3 Vector3::y        = Vector3 {  0, 1, 0 };
+        const Vector3 Vector3::z        = Vector3 {  0, 0, 1 };
+        const Vector3 Vector3::up       = Vector3 {  0, 0, 0 }; // Vector3 {  Vector3::y       };
+        const Vector3 Vector3::down     = Vector3 {  0, 0, 0 }; // Vector3 { -Vector3::up      };
+        const Vector3 Vector3::left     = Vector3 {  0, 0, 0 }; // Vector3 {  Vector3::x       };
+        const Vector3 Vector3::right    = Vector3 {  0, 0, 0 }; // Vector3 { -Vector3::left    };
+        const Vector3 Vector3::forward  = Vector3 {  0, 0, 0 }; // Vector3 {  Vector3::z       };
+        const Vector3 Vector3::backward = Vector3 {  0, 0, 0 }; // Vector3 { -Vector3::forward };
     }
-}
-
-namespace std {
-    /**
-     * TODO : Documentation.
-     */
-    template <>
-    struct hash<dst::math::Vector3> {
-        /**
-         * TODO : Documentation.
-         */
-        size_t operator()(const dst::math::Vector3& v) const
-        {
-            return hash<glm::vec3>()(v);
-        }
-    };
 }

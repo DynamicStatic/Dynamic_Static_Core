@@ -31,5 +31,64 @@
 
 namespace Dynamic_Static {
     namespace Math {
+        // TODO : Add Transform parenting...
+        // NOTE : Since there's no parenting of Transforms yet, everything is in local space.
+        const Vector3& Transform::position() const { return m_local_position; }
+        void Transform::position(const Vector3& position) { m_local_position = position; }
+        const Quaternion& Transform::rotation() const { return m_local_rotation; }
+        void Transform::rotation(const Quaternion& rotation) { m_local_rotation = rotation; }
+        const Vector3& Transform::scale() const { return m_local_scale; }
+        void Transform::scale(const Vector3& scale) { m_local_scale = scale; }
+        const Vector3& Transform::local_position() const { return m_local_position; }
+        void Transform::local_position(const Vector3& local_position) { m_local_position = m_local_position; }
+        const Quaternion& Transform::local_rotation() const { return m_local_rotation; }
+        void Transform::local_rotation(const Quaternion& local_rotation) { m_local_rotation = local_rotation; }
+        const Vector3& Transform::local_scale() const { return m_local_scale; }
+        void Transform::local_scale(const Vector3& local_scale) { m_local_scale = local_scale; }
+
+        Vector3 Transform::up() const
+        {
+            return Vector3::zero;
+        }
+
+        Vector3 Transform::down() const
+        {
+            return Vector3::zero;
+        }
+
+        Vector3 Transform::left() const
+        {
+            return Vector3::zero;
+        }
+
+        Vector3 Transform::right() const
+        {
+            return Vector3::zero;
+        }
+
+        Vector3 Transform::forward() const
+        {
+            return Vector3::zero;
+        }
+
+        Vector3 Transform::backward() const
+        {
+            return Vector3::zero;
+        }
+
+        Matrix4x4 Transform::world_to_local() const
+        {
+            return Matrix4x4::identity;
+        }
+
+        Matrix4x4 Transform::local_to_world() const
+        {
+            return Matrix4x4::identity;
+        }
+
+        void Transform::look_at(const Vector3& target, const Vector3& up) const
+        {
+
+        }
     }
 }

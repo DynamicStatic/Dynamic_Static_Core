@@ -191,6 +191,7 @@
     <ClCompile Include="src\Dynamic_Static\Core\StringUtilities.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\Threads.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\ToString.cpp" />
+    <ClCompile Include="src\Dynamic_Static\Math\Vector3.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\Version.cpp" />
     <ClCompile Include="src\Dynamic_Static\Math\Matrix4x4.cpp" />
     <ClCompile Include="src\Dynamic_Static\Math\Transform.cpp" />
