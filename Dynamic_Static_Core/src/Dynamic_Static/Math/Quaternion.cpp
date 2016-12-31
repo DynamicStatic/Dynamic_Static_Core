@@ -27,50 +27,35 @@
 =====================================================================================
 */
 
-#include "Dynamic_Static/Math/Matrix4x4.hpp"
+#include "Dynamic_Static/Math/Quaternion.hpp"
 #include "Dynamic_Static/Math/Vector3.hpp"
+#include "Dynamic_Static/Math/Vector4.hpp"
 
-#if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
-#pragma warning(push, 0)
-#endif
-#include "Dynamic_Static/Math/3rdParty/glm/gtc/matrix_transform.hpp"
-#if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
-#pragma warning(pop)
-#endif
+#include "Dynamic_Static/Math/3rdParty/glm/gtx/quaternion.hpp"
 
 namespace Dynamic_Static {
     namespace Math {
-        Matrix4x4::Matrix4x4(const glm::mat4x4& other)
-            : glm::mat4x4(other)
+        float Quaternion::x() const { return m_quat.x; }
+        float Quaternion::y() const { return m_quat.y; }
+        float Quaternion::z() const { return m_quat.z; }
+        float Quaternion::w() const { return m_quat.w; }
+        void Quaternion::x(float x) { m_quat.x = x; }
+        void Quaternion::y(float y) { m_quat.y = y; }
+        void Quaternion::z(float z) { m_quat.z = z; }
+        void Quaternion::w(float w) { m_quat.w = w; }
+        float& Quaternion::x() { return m_quat.x; }
+        float& Quaternion::y() { return m_quat.y; }
+        float& Quaternion::z() { return m_quat.z; }
+        float& Quaternion::w() { return m_quat.w; }
+
+        Vector3 Quaternion::rotate(const Vector3& v)
         {
+            return glm::rotate(m_quat, v.m_vec3);
         }
 
-        Matrix4x4& Matrix4x4::operator=(const glm::mat4x4& other)
+        Vector4 Quaternion::rotate(const Vector4& v)
         {
-            glm::mat4x4::operator=(other);
-            return *this;
+            return glm::rotate(m_quat, v.m_vec4);
         }
-
-        void Matrix4x4::rotate(float angle, const Vector3& axis)
-        {
-            glm::rotate(*this, angle, axis.m_vec3);
-        }
-
-        void Matrix4x4::look_at(const Vector3& eye, const Vector3& center, const Vector3& up)
-        {
-            *this = glm::lookAt(eye.m_vec3, center.m_vec3, up.m_vec3);
-        }
-
-        Matrix4x4 Matrix4x4::rotate(const Matrix4x4& matrix, float angle, const Vector3& axis)
-        {
-            return glm::rotate(matrix, angle, axis.m_vec3);
-        }
-
-        Matrix4x4 Matrix4x4::perspective(float fov_y, float aspect_ratio, float near_plane, float far_plane)
-        {
-            return glm::perspective(fov_y, aspect_ratio, near_plane, far_plane);
-        }
-
-        const Matrix4x4 Matrix4x4::identity;
     }
 }

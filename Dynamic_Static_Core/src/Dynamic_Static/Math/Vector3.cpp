@@ -28,19 +28,78 @@
 */
 
 #include "Dynamic_Static/Math/Vector3.hpp"
+#include "Dynamic_Static/Math/Vector4.hpp"
 
 namespace Dynamic_Static {
     namespace Math {
-        const Vector3 Vector3::one      = Vector3 {  1, 1, 1 };
-        const Vector3 Vector3::zero     = Vector3 {  0, 0, 0 };
-        const Vector3 Vector3::x        = Vector3 {  1, 0, 0 };
-        const Vector3 Vector3::y        = Vector3 {  0, 1, 0 };
-        const Vector3 Vector3::z        = Vector3 {  0, 0, 1 };
-        const Vector3 Vector3::up       = Vector3 {  0, 0, 0 }; // Vector3 {  Vector3::y       };
-        const Vector3 Vector3::down     = Vector3 {  0, 0, 0 }; // Vector3 { -Vector3::up      };
-        const Vector3 Vector3::left     = Vector3 {  0, 0, 0 }; // Vector3 {  Vector3::x       };
-        const Vector3 Vector3::right    = Vector3 {  0, 0, 0 }; // Vector3 { -Vector3::left    };
-        const Vector3 Vector3::forward  = Vector3 {  0, 0, 0 }; // Vector3 {  Vector3::z       };
-        const Vector3 Vector3::backward = Vector3 {  0, 0, 0 }; // Vector3 { -Vector3::forward };
+        Vector3::Vector3(const glm::vec3& vec3)
+            : m_vec3 { vec3 }
+        {
+        }
+
+        Vector3::Vector3(float x, float y, float z)
+            : m_vec3 { x, y, z }
+        {
+        }
+
+        Vector3::Vector3(const Vector3& other)
+        {
+            m_vec3.x = other.m_vec3.x;
+            m_vec3.y = other.m_vec3.y;
+            m_vec3.z = other.m_vec3.z;
+        }
+
+        Vector3::Vector3(const Vector4& other)
+        {
+            m_vec3.x = other.m_vec4.x;
+            m_vec3.y = other.m_vec4.y;
+            m_vec3.z = other.m_vec4.z;
+        }
+
+        float Vector3::x() const { return m_vec3.x; }
+        float Vector3::y() const { return m_vec3.y; }
+        float Vector3::z() const { return m_vec3.z; }
+        void Vector3::x(float x) { m_vec3.x = x; }
+        void Vector3::y(float y) { m_vec3.y = y; }
+        void Vector3::z(float z) { m_vec3.z = z; }
+        float& Vector3::x() { return m_vec3.x; }
+        float& Vector3::y() { return m_vec3.y; }
+        float& Vector3::z() { return m_vec3.z; }
+
+        void Vector3::normalize()
+        {
+            m_vec3 = glm::normalize(m_vec3);
+        }
+
+        const Vector3 Vector3::one      = Vector3 {  1,  1,  1 };
+        const Vector3 Vector3::zero     = Vector3 {  0,  0,  0 };
+        const Vector3 Vector3::up       = Vector3 {  0,  1,  0 };
+        const Vector3 Vector3::down     = Vector3 {  0, -1,  0 };
+        const Vector3 Vector3::left     = Vector3 { -1,  0,  0 };
+        const Vector3 Vector3::right    = Vector3 {  1,  0,  0 };
+        const Vector3 Vector3::forward  = Vector3 {  0,  0, -1 };
+        const Vector3 Vector3::backward = Vector3 {  0,  0,  1 };
+
+        bool operator==(const Vector3& lhs, const Vector3& rhs)
+        {
+            return
+                lhs.x() == rhs.x() &&
+                lhs.y() == rhs.y() &&
+                lhs.z() == rhs.z();
+        }
+
+        Vector3 operator+(const Vector3& lhs, const Vector3& rhs)
+        {
+            return Vector3 {
+                lhs.x() + rhs.x(),
+                lhs.y() + rhs.y(),
+                lhs.z() + rhs.z(),
+            };
+        }
+
+        Vector3 operator-(const Vector3& v)
+        {
+            return Vector3 { -v.x(), -v.y(), -v.z() };
+        }
     }
 }

@@ -41,9 +41,12 @@ namespace Dynamic_Static {
          */
         class Transform final {
         private:
-            Vector3 m_local_position;
+            Vector3 m_local_position { Vector3::zero };
             Quaternion m_local_rotation;
-            Vector3 m_local_scale;
+            Vector3 m_local_scale { Vector3::one };
+            Vector3 m_up { Vector3::up };
+            Vector3 m_left { Vector3::left };
+            Vector3 m_forward { Vector3::forward };
 
         public:
             /**
@@ -165,15 +168,6 @@ namespace Dynamic_Static {
              * @return A Matrix4x4 that performs a local space to world space transformation
              */
             Matrix4x4 local_to_world() const;
-
-            /**
-             * Rotates this Transform so its' forward vector points at the specified point in world space.
-             * @param [in]            target The point in world space to rotate this Transform's forward vector towards
-             * @param [in] (optional) up     This Transform's up vector in world space after the rotation for the forward vector
-             *                               \n NOTE : If this parameter isn't provided, it will default to Vector3::y
-             *                               \n NOTE : This parameter is a hint
-             */
-            void look_at(const Vector3& target, const Vector3& up = Vector3::up) const;
         };
     }
 }

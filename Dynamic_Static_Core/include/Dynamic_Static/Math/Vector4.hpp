@@ -41,15 +41,64 @@
 #pragma warning(pop)
 #endif
 
+namespace std {
+    template <>
+    struct hash<dst::math::Vector3>;
+}
+
 namespace Dynamic_Static {
     namespace Math {
         /**
          * TODO : Documentation.
          */
-        struct Vector4 final
-            : public glm::vec4::tvec4 {
-            using glm::vec4::tvec4;
+        struct Vector4 final {
+            friend struct Vector2;
+            friend struct Vector3;
+            friend struct Matrix3x3;
+            friend struct Matrix4x4;
+            friend struct Quaternion;
+            friend struct std::hash<Vector4>;
+        private:
+            glm::vec4 m_vec4;
+
+        public:
+            Vector4() = default;
+            Vector4(float x, float y, float z, float w);
+            Vector4(const Vector4& other);
+            Vector4(const Vector3& other);
+            Vector4(const Vector3& other, float w);
+
+            float x() const;
+            float y() const;
+            float z() const;
+            float w() const;
+            void x(float x);
+            void y(float y);
+            void z(float z);
+            void w(float w);
+            float& x();
+            float& y();
+            float& z();
+            float& w();
+
+            void normalize();
+
+            static const Vector4 one;
+            static const Vector4 zero;
+            static const Vector4 up;
+            static const Vector4 down;
+            static const Vector4 left;
+            static const Vector4 right;
+            static const Vector4 forward;
+            static const Vector4 backward;
+
+        private:
+            Vector4(const glm::vec4 vec4);
         };
+
+        bool operator==(const Vector4& lhs, const Vector4& rhs);
+        Vector4 operator+(const Vector4& lhs, const Vector4& rhs);
+        Vector4 operator-(const Vector4& v);
 
         static_assert(
             sizeof(Vector4) == sizeof(float) * 4,
@@ -69,7 +118,7 @@ namespace std {
          */
         size_t operator()(const dst::math::Vector4& v) const
         {
-            return hash<glm::vec4>()(v);
+            return hash<glm::vec4>()(v.m_vec4);
         }
     };
 }

@@ -44,9 +44,31 @@ namespace Dynamic_Static {
         /**
          * TODO : Documentation.
          */
-        struct Quaternion final
-            : public glm::quat {
-            using glm::quat::tquat;
+        struct Quaternion final {
+            friend struct Vector2;
+            friend struct Vector3;
+            friend struct Vector4;
+            friend struct Matrix3x3;
+            friend struct Matrix4x4;
+        private:
+            glm::quat m_quat;
+
+        public:
+            float x() const;
+            float y() const;
+            float z() const;
+            float w() const;
+            void x(float x);
+            void y(float y);
+            void z(float z);
+            void w(float w);
+            float& x();
+            float& y();
+            float& z();
+            float& w();
+
+            Vector3 rotate(const Vector3& v);
+            Vector4 rotate(const Vector4& v);
         };
 
         static_assert(
