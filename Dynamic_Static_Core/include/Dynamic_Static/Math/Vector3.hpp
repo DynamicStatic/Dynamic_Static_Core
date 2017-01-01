@@ -29,6 +29,7 @@
 
 #pragma once
 
+#include "Dynamic_Static/Core/ToString.hpp"
 #include "Dynamic_Static/Math/Defines.hpp"
 
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
@@ -40,6 +41,8 @@
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(pop)
 #endif
+
+#include <string>
 
 namespace std {
     template <>
@@ -77,6 +80,7 @@ namespace Dynamic_Static {
             void z(float z);
 
             void normalize();
+            std::string to_string() const;
 
             static const Vector3 one;
             static const Vector3 zero;
@@ -104,6 +108,11 @@ namespace Dynamic_Static {
             "sizeof(Vector3) must equal sizeof(float) * 3"
         );
     }
+}
+
+namespace Dynamic_Static {
+    template <>
+    std::string to_string<dst::math::Vector3>(const dst::math::Vector3& v);
 }
 
 namespace std {

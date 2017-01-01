@@ -35,9 +35,11 @@ namespace Dynamic_Static {
         // TODO : Add Transform parenting...
         // NOTE : Since there's no Transform parenting yet, everything is in local space...
         const Vector3& Transform::position() const { return m_local_position; }
+        Vector3& Transform::position() { return m_local_position; }
         void Transform::position(const Vector3& position) { m_local_position = position; }
 
         const Quaternion& Transform::rotation() const { return m_local_rotation; }
+        Quaternion& Transform::rotation() { return m_local_rotation; }
         void Transform::rotation(const Quaternion& rotation)
         {
             // TODO : Transform rotation into local space.
@@ -45,23 +47,28 @@ namespace Dynamic_Static {
         }
 
         const Vector3& Transform::scale() const { return m_local_scale; }
+        Vector3& Transform::scale() { return m_local_scale; }
         void Transform::scale(const Vector3& scale) { m_local_scale = scale; }
         const Vector3& Transform::local_position() const { return m_local_position; }
+        Vector3& Transform::local_position() { return m_local_position; }
         void Transform::local_position(const Vector3& local_position) { m_local_position = local_position; }
 
         const Quaternion& Transform::local_rotation() const { return m_local_rotation; }
+        Quaternion& Transform::local_rotation() { return m_local_rotation; }
         void Transform::local_rotation(const Quaternion& local_rotation)
         {
             m_local_rotation = local_rotation;
-            m_local_rotation.rotate(m_up);
-            m_local_rotation.rotate(m_left);
-            m_local_rotation.rotate(m_forward);
+            m_local_rotation.normalize();
+            m_up = m_local_rotation.rotate(Vector3::up);
+            m_left = m_local_rotation.rotate(Vector3::left);
+            m_forward = m_local_rotation.rotate(Vector3::forward);
             m_up.normalize();
             m_left.normalize();
             m_forward.normalize();
         }
 
         const Vector3& Transform::local_scale() const { return m_local_scale; }
+        Vector3& Transform::local_scale() { return m_local_scale; }
         void Transform::local_scale(const Vector3& local_scale) { m_local_scale = local_scale; }
         Vector3 Transform::up() const { return m_up; }
         Vector3 Transform::down() const { return -m_up; }

@@ -72,6 +72,16 @@ namespace Dynamic_Static {
             }
         }
 
+        std::string Vector3::to_string() const
+        {
+            return
+                "{ " +
+                std::to_string(x()) + ", " +
+                std::to_string(y()) + ", " +
+                std::to_string(z()) +
+                " }";
+        }
+
         const Vector3 Vector3::one      = Vector3 {  1,  1,  1 };
         const Vector3 Vector3::zero     = Vector3 {  0,  0,  0 };
         const Vector3 Vector3::up       = Vector3 {  0,  1,  0 };
@@ -110,5 +120,13 @@ namespace Dynamic_Static {
         {
             return Vector3 { v.x() * s, v.y() * s, v.z() * s };
         }
+    }
+}
+
+namespace Dynamic_Static {
+    template <>
+    std::string to_string<dst::math::Vector3>(const dst::math::Vector3& v)
+    {
+        return v.to_string();
     }
 }

@@ -30,11 +30,27 @@
 #include "Dynamic_Static/Math/Quaternion.hpp"
 #include "Dynamic_Static/Math/Vector3.hpp"
 #include "Dynamic_Static/Math/Vector4.hpp"
+#include "Dynamic_Static/Math/Utilities.hpp"
 
 #include "Dynamic_Static/Math/3rdParty/glm/gtx/quaternion.hpp"
 
 namespace Dynamic_Static {
     namespace Math {
+        Quaternion::Quaternion()
+            : m_quat { }
+        {
+        }
+
+        Quaternion::Quaternion(float x, float y, float z, float w)
+            : m_quat { x, y, z, w }
+        {
+        }
+
+        Quaternion::Quaternion(const Vector3& v)
+            : m_quat { v.m_vec3 }
+        {
+        }
+
         Quaternion::Quaternion(const glm::quat& quat)
             : m_quat { quat }
         {
@@ -49,14 +65,19 @@ namespace Dynamic_Static {
         void Quaternion::z(float z) { m_quat.z = z; }
         void Quaternion::w(float w) { m_quat.w = w; }
 
+        void Quaternion::normalize()
+        {
+            m_quat = glm::normalize(m_quat);
+        }
+
         Vector3 Quaternion::rotate(const Vector3& v)
         {
-            return glm::rotate(m_quat, v.m_vec3);
+            return Vector3 { glm::rotate(m_quat, v.m_vec3) };
         }
 
         Vector4 Quaternion::rotate(const Vector4& v)
         {
-            return glm::rotate(m_quat, v.m_vec4);
+            return Vector4 { glm::rotate(m_quat, v.m_vec4) };
         }
 
         Quaternion Quaternion::angle_axis(float angle, const Vector3& axis)
@@ -68,5 +89,7 @@ namespace Dynamic_Static {
         {
             return Quaternion { lhs.m_quat * rhs.m_quat };
         }
+
+        const Quaternion Quaternion::identity = Quaternion { 0, 0, 0, 1 };
     }
 }

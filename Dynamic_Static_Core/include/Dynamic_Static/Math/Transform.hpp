@@ -42,7 +42,7 @@ namespace Dynamic_Static {
         class Transform final {
         private:
             Vector3 m_local_position { Vector3::zero };
-            Quaternion m_local_rotation;
+            Quaternion m_local_rotation;// { Quaternion::identity };
             Vector3 m_local_scale { Vector3::one };
             Vector3 m_up { Vector3::up };
             Vector3 m_left { Vector3::left };
@@ -54,6 +54,12 @@ namespace Dynamic_Static {
              * @return This Transform's world space position
              */
             const Vector3& position() const;
+
+            /**
+             * Gets this Transform's world space position.
+             * @return This Transform's world space position
+             */
+            Vector3& position();
 
             /**
              * Sets this Transform's world space position.
@@ -68,6 +74,12 @@ namespace Dynamic_Static {
             const Quaternion& rotation() const;
 
             /**
+             * Gets this Transform's world space rotation.
+             * @return This Transform's world space rotation
+             */
+            Quaternion& rotation();
+
+            /**
              * Sets this Transform's world space rotation.
              * @param [in] local_position This Transform's world space rotation
              */
@@ -78,6 +90,12 @@ namespace Dynamic_Static {
              * @return This Transform's world space scale
              */
             const Vector3& scale() const;
+
+            /**
+             * Gets this Transform's world space scale.
+             * @return This Transform's world space scale
+             */
+            Vector3& scale();
 
             /**
              * Sets this Transform's world space scale.
@@ -92,6 +110,12 @@ namespace Dynamic_Static {
             const Vector3& local_position() const;
 
             /**
+             * Gets this Transform's local position.
+             * @return This Transform's local position
+             */
+            Vector3& local_position();
+
+            /**
              * Sets this Transform's local position.
              * @param [in] local_position This Transform's local position
              */
@@ -104,6 +128,12 @@ namespace Dynamic_Static {
             const Quaternion& local_rotation() const;
 
             /**
+             * Gets this Transform's local rotation.
+             * @return This Transform's local rotation
+             */
+            Quaternion& local_rotation();
+
+            /**
              * Sets this Transform's local rotation.
              * @param [in] local_position This Transform's local rotation
              */
@@ -114,6 +144,12 @@ namespace Dynamic_Static {
              * @return This Transform's local scale
              */
             const Vector3& local_scale() const;
+
+            /**
+             * Gets this Transform's local scale.
+             * @return This Transform's local scale
+             */
+            Vector3& local_scale();
 
             /**
              * Sets this Transform's local scale.

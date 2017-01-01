@@ -55,7 +55,9 @@ namespace Dynamic_Static {
             glm::quat m_quat;
 
         public:
-            Quaternion() = default;
+            Quaternion();
+            Quaternion(float x, float y, float z, float w);
+            Quaternion(const Vector3& v);
 
             float x() const;
             float y() const;
@@ -66,10 +68,12 @@ namespace Dynamic_Static {
             void z(float z);
             void w(float w);
 
+            void normalize();
             Vector3 rotate(const Vector3& v);
             Vector4 rotate(const Vector4& v);
-
             static Quaternion angle_axis(float angle, const Vector3& axis);
+
+            static const Quaternion identity;
 
         private:
             Quaternion(const glm::quat& quat);

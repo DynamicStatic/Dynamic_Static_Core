@@ -27,7 +27,18 @@
 =====================================================================================
 */
 
+#include "Dynamic_Static/Math/Transform.hpp"
+#include "Dynamic_Static/Math/Math.hpp"
+
 int main(/* int argc, char* argv[] */)
 {
+    float x = 72.14f;
+    float y = 64.32f;
+    float z = 12.56f;
+    glm::vec3 gv { x, y, z };
+    glm::quat gq { gv };
+    dst::math::Vector3 dv { x, y, z };
+    dst::math::Quaternion dq { dv };
+    dst::math::Transform t;
     return 0;
 }
