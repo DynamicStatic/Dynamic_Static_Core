@@ -50,10 +50,13 @@ namespace Dynamic_Static {
             friend struct Vector4;
             friend struct Matrix3x3;
             friend struct Matrix4x4;
+            friend Quaternion operator*(const Quaternion&, const Quaternion&);
         private:
             glm::quat m_quat;
 
         public:
+            Quaternion() = default;
+
             float x() const;
             float y() const;
             float z() const;
@@ -62,14 +65,17 @@ namespace Dynamic_Static {
             void y(float y);
             void z(float z);
             void w(float w);
-            float& x();
-            float& y();
-            float& z();
-            float& w();
 
             Vector3 rotate(const Vector3& v);
             Vector4 rotate(const Vector4& v);
+
+            static Quaternion angle_axis(float angle, const Vector3& axis);
+
+        private:
+            Quaternion(const glm::quat& quat);
         };
+
+        Quaternion operator*(const Quaternion& lhs, const Quaternion& rhs);
 
         static_assert(
             sizeof(Quaternion) == sizeof(float) * 4,

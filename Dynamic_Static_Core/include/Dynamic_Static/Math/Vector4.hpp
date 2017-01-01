@@ -76,10 +76,6 @@ namespace Dynamic_Static {
             void y(float y);
             void z(float z);
             void w(float w);
-            float& x();
-            float& y();
-            float& z();
-            float& w();
 
             void normalize();
 

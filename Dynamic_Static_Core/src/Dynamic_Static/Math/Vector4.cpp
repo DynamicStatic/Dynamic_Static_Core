@@ -71,10 +71,6 @@ namespace Dynamic_Static {
         void Vector4::y(float y) { m_vec4.y = y; }
         void Vector4::z(float z) { m_vec4.z = z; }
         void Vector4::w(float w) { m_vec4.w = w; }
-        float& Vector4::x() { return m_vec4.x; }
-        float& Vector4::y() { return m_vec4.y; }
-        float& Vector4::z() { return m_vec4.z; }
-        float& Vector4::w() { return m_vec4.w; }
 
         void Vector4::normalize()
         {
