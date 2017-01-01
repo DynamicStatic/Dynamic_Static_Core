@@ -67,15 +67,14 @@ namespace Dynamic_Static {
             Vector3(const Vector3& other);
             Vector3(const Vector4& other);
 
+            Vector3& operator+=(const Vector3& other);
+
             float x() const;
             float y() const;
             float z() const;
             void x(float x);
             void y(float y);
             void z(float z);
-            float& x();
-            float& y();
-            float& z();
 
             void normalize();
 
@@ -87,6 +86,9 @@ namespace Dynamic_Static {
             static const Vector3 right;
             static const Vector3 forward;
             static const Vector3 backward;
+            static const Vector3 unit_x;
+            static const Vector3 unit_y;
+            static const Vector3 unit_z;
 
         private:
             Vector3(const glm::vec3& vec3);
@@ -95,6 +97,7 @@ namespace Dynamic_Static {
         bool operator==(const Vector3& lhs, const Vector3& rhs);
         Vector3 operator+(const Vector3& lhs, const Vector3& rhs);
         Vector3 operator-(const Vector3& v);
+        Vector3 operator*(const Vector3&v, float s);
 
         static_assert(
             sizeof(Vector3) == sizeof(float) * 3,

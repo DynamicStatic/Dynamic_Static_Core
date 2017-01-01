@@ -99,5 +99,11 @@ namespace Dynamic_Static {
 
             REQUIRE(&obj_move_to.dependency() == &dependency_move_to);
         }
+
+        TEST_CASE("MoveableHandle clears its' handle when target is destroyed", "[MoveableHandle]")
+        {
+            bool untested = false;
+            REQUIRE(untested);
+        }
     }
 }

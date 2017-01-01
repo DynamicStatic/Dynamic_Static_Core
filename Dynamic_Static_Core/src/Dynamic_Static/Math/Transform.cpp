@@ -64,11 +64,11 @@ namespace Dynamic_Static {
         const Vector3& Transform::local_scale() const { return m_local_scale; }
         void Transform::local_scale(const Vector3& local_scale) { m_local_scale = local_scale; }
         Vector3 Transform::up() const { return m_up; }
-        Vector3 Transform::down() const { return m_up; }
+        Vector3 Transform::down() const { return -m_up; }
         Vector3 Transform::left() const { return m_left; }
-        Vector3 Transform::right() const { return m_left; }
+        Vector3 Transform::right() const { return -m_left; }
         Vector3 Transform::forward() const { return m_forward; }
-        Vector3 Transform::backward() const { return m_forward; }
+        Vector3 Transform::backward() const { return -m_forward; }
 
         Matrix4x4 Transform::world_to_local() const
         {
