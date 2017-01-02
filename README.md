@@ -15,10 +15,9 @@ To run `Dynamic_Static_Core.Tests`, right click on the `Tests` project in the `S
 
 Unless otherwise noted, all of the files in `Dynamic_Static_Core` are licensed under the [MIT License](https://opensource.org/licenses/MIT).
 
-Any file in a `3rdParty` directory in the `Dynamic_Static_Core` project may have a different license.
-
-3rd Party Libraries used by `Dynamic_Static_Core` :
-
+Any file in a `3rdParty` directory in the `Dynamic_Static_Core` project may have a different license.<br />
+____
+3rd Party Libraries used by `Dynamic_Static_Core` :<br />
 [glm](http://glm.g-truc.net/0.9.8/index.html) : [The Happy Bunny License and MIT License](http://glm.g-truc.net/copying.txt)
 
 // TODO : MORE BETTER README.
