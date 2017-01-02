@@ -13,6 +13,10 @@ Open `Dynamic_Static_Core.sln` in Visual Studio and use `[Alt] + [B], [Alt] + [T
 
 To run `Dynamic_Static_Core.Tests`, right click on the `Tests` project in the `Solution Explorer`, then click `Set as Startup Project`...some of the tests will fail.
 
+Unless otherwise noted, all of the files in `Dynamic_Static_Core` are licensed under the [MIT License](https://opensource.org/licenses/MIT).
+
+Any file in a `3rdParty` directory in the `Dynamic_Static_Core` project may have a different license.
+
 // TODO : MORE README.
 
 3rd Party Libraries used by Dynamic_Static_Core :
