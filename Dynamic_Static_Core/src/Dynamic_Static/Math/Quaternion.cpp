@@ -32,7 +32,7 @@
 #include "Dynamic_Static/Math/Vector4.hpp"
 #include "Dynamic_Static/Math/Utilities.hpp"
 
-#include "Dynamic_Static/Math/3rdParty/glm/gtx/quaternion.hpp"
+#include <glm/gtx/quaternion.hpp>
 
 namespace Dynamic_Static {
     namespace Math {

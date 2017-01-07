@@ -34,7 +34,7 @@
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(push, 0)
 #endif
-#include "Dynamic_Static/Math/3rdParty/glm/gtc/quaternion.hpp"
+#include <glm/gtc/quaternion.hpp>
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(pop)
 #endif

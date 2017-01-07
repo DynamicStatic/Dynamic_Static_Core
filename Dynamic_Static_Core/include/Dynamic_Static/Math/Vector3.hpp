@@ -35,9 +35,9 @@
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(push, 0)
 #endif
-#include "Dynamic_Static/Math/3rdParty/glm/glm.hpp"
+#include <glm/glm.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
-#include "Dynamic_Static/Math/3rdParty/glm/gtx/hash.hpp"
+#include <glm/gtx/hash.hpp>
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(pop)
 #endif

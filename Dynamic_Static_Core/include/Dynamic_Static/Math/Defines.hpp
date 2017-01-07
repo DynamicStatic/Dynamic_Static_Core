@@ -32,6 +32,7 @@
 #include "Dynamic_Static/Core/Defines.hpp"
 
 #define GLM_FORCE_RADIANS
+#define GLM_ENABLE_EXPERIMENTAL
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 
 namespace Dynamic_Static {
