@@ -93,4 +93,18 @@ namespace Dynamic_Static {
      * @return An std::string with the completed sequence reduction
      */
     std::string reduce_sequence(const std::string& str, char find);
+
+    /**
+     * Converts all upper case characters in an std::string to lower case.
+     * @param [in] str The std::string to operator on
+     * @return An std::string with all upper case characters converted to lower case
+     */
+    std::string to_lower(const std::string& str);
+
+    /**
+     * Converts all lower case characters in an std::string to upper case.
+     * @param [in] str The std::string to operator on
+     * @return An std::string with all lower case characters converted to upper case
+     */
+    std::string to_upper(const std::string& str);
 }

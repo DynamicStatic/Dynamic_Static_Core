@@ -29,7 +29,7 @@
 
 #include "Dynamic_Static/Core/StringUtilities.hpp"
 
-#include <stdexcept>
+#include <algorithm>
 
 namespace Dynamic_Static {
     namespace detail {
@@ -71,6 +71,20 @@ namespace Dynamic_Static {
     std::string reduce_sequence(const std::string& str, char find)
     {
         return detail::replace(str, std::string { find, find }, std::string { find }, true);
+    }
+
+    std::string to_lower(const std::string& str)
+    {
+        std::string altered = str;
+        std::transform(altered.begin(), altered.end(), altered.begin(), tolower);
+        return altered;
+    }
+
+    std::string to_upper(const std::string& str)
+    {
+        std::string altered = str;
+        std::transform(altered.begin(), altered.end(), altered.begin(), toupper);
+        return altered;
     }
 }
 
