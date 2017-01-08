@@ -17,6 +17,6 @@ Unless otherwise noted, all of the files in `Dynamic_Static_Core` are licensed u
 Any file in the `external` directory in the `Dynamic_Static_Core` project may have a different license.<br />
 ____
 3rd Party Libraries used by `Dynamic_Static_Core` :<br />
-[glm](http://glm.g-truc.net/0.9.8/index.html) : [The Happy Bunny License and MIT License](http://glm.g-truc.net/copying.txt)
+[glm](http://glm.g-truc.net/) : [The Happy Bunny License and MIT License](http://glm.g-truc.net/copying.txt)
 
 // TODO : MORE BETTER README.
