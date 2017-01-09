@@ -71,6 +71,21 @@ namespace Dynamic_Static {
             /**
              * TODO : Documentation.
              */
+            void rotate_x(float angle_radians);
+
+            /**
+             * TODO : Documentation.
+             */
+            void rotate_y(float angle_radians);
+
+            /**
+             * TODO : Documentation.
+             */
+            void rotate_z(float angle_radians);
+
+            /**
+             * TODO : Documentation.
+             */
             void look_at(const Vector3& eye, const Vector3& center, const Vector3& up);
 
             /**
@@ -82,6 +97,26 @@ namespace Dynamic_Static {
              * TODO : Documentation.
              */
             static Matrix4x4 perspective(float fov_y, float aspect_ratio, float near_plane, float far_plane);
+
+            /**
+             * TODO : Documentation.
+             */
+            static Matrix4x4 create_rotation_x(float angle_radians);
+
+            /**
+             * TODO : Documentation.
+             */
+            static Matrix4x4 create_rotation_y(float angle_radians);
+
+            /**
+             * TODO : Documentation.
+             */
+            static Matrix4x4 create_rotation_z(float angle_radians);
+
+            /**
+             * TODO : Documentation.
+             */
+            static Matrix4x4 create_scale(const Vector3& scale);
 
             /**
              * TODO : Documentation.

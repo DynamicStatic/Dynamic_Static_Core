@@ -53,7 +53,22 @@ namespace Dynamic_Static {
 
         void Matrix4x4::rotate(float angle, const Vector3& axis)
         {
-            glm::rotate(*this, angle, axis.m_vec3);
+            *this = glm::rotate(*this, angle, axis.m_vec3);
+        }
+
+        void Matrix4x4::rotate_x(float angle_radians)
+        {
+            rotate(angle_radians, Vector3(1, 0, 0));
+        }
+
+        void Matrix4x4::rotate_y(float angle_radians)
+        {
+            rotate(angle_radians, Vector3(0, 1, 0));
+        }
+
+        void Matrix4x4::rotate_z(float angle_radians)
+        {
+            rotate(angle_radians, Vector3(0, 0, 1));
         }
 
         void Matrix4x4::look_at(const Vector3& eye, const Vector3& center, const Vector3& up)
@@ -69,6 +84,26 @@ namespace Dynamic_Static {
         Matrix4x4 Matrix4x4::perspective(float fov_y, float aspect_ratio, float near_plane, float far_plane)
         {
             return glm::perspective(fov_y, aspect_ratio, near_plane, far_plane);
+        }
+
+        Matrix4x4 Matrix4x4::create_rotation_x(float angle_radians)
+        {
+            return glm::rotate(glm::mat4x4(), angle_radians, glm::vec3(1, 0, 0));
+        }
+
+        Matrix4x4 Matrix4x4::create_rotation_y(float angle_radians)
+        {
+            return glm::rotate(glm::mat4x4(), angle_radians, glm::vec3(0, 1, 0));
+        }
+
+        Matrix4x4 Matrix4x4::create_rotation_z(float angle_radians)
+        {
+            return glm::rotate(glm::mat4x4(), angle_radians, glm::vec3(0, 0, 1));
+        }
+
+        Matrix4x4 Matrix4x4::create_scale(const Vector3& scale)
+        {
+            return glm::scale(glm::mat4x4(), scale.m_vec3);
         }
 
         const Matrix4x4 Matrix4x4::identity;
