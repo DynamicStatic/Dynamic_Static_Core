@@ -49,9 +49,9 @@ namespace Dynamic_Static {
         : NonCopyable {
     private:
         typedef std::condition_variable Condition;
-        std::unique_ptr<Condition> m_condition { std::make_unique<Condition>() };
-        std::unique_ptr<std::mutex> m_mutex { std::make_unique<std::mutex>() };
-        size_t m_count { 0 };
+        std::unique_ptr<Condition> mCondition { std::make_unique<Condition>() };
+        std::unique_ptr<std::mutex> mMutex { std::make_unique<std::mutex>() };
+        size_t mCount { 0 };
 
     public:
         /**
@@ -77,11 +77,11 @@ namespace Dynamic_Static {
          * @param [in] time_out  The amount of time to wait before releasing this Semaphore
          */
         template <typename DurationType = Millisecond>
-        void wait_for(const DurationType& time_out)
+        void wait_for(const DurationType& timeOut)
         {
-            std::unique_lock<std::mutex> lock(*m_mutex);
-            m_condition->wait_for(lock, time_out, [&]() { return m_count > 0; });
-            --m_count;
+            std::unique_lock<std::mutex> lock(*mMutex);
+            mCondition->wait_for(lock, timeOut, [&]() { return mCount > 0; });
+            --mCount;
         }
     };
 }
@@ -99,11 +99,11 @@ namespace Dynamic_Static {
         typedef std::function<void()> Task;
 
     private:
-        std::thread m_thread;
-        Semaphore m_semaphore;
-        std::unique_ptr<std::mutex> m_mutex { std::make_unique<std::mutex>() };
-        std::queue<Task> m_tasks;
-        bool m_running { false };
+        std::thread mThread;
+        Semaphore mSemaphore;
+        std::unique_ptr<std::mutex> mMutex { std::make_unique<std::mutex>() };
+        std::queue<Task> mTasks;
+        bool mRunning { false };
 
     public:
         /**
@@ -144,15 +144,15 @@ namespace Dynamic_Static {
     class ThreadPool final
         : NonCopyable {
     private:
-        std::vector<Worker> m_workers;
-        size_t m_worker_index { 0 };
+        std::vector<Worker> mWorkers;
+        size_t mWorkerIndex { 0 };
 
     public:
         /**
          * Constructs an instance of ThreadPool with an optional worker count.
          * \n NOTE : If worker_count is 0 it will be set to the number of cores reported by the operating system.
          */
-        ThreadPool(size_t worker_count = 0);
+        ThreadPool(size_t workerCount = 0);
 
         /**
          * Destroys this instance of ThreadPool.

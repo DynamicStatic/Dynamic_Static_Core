@@ -33,89 +33,89 @@
 
 namespace Dynamic_Static {
     namespace Tests {
-        static const int32_t g_test_max = 16;
-        static const int32_t g_test_min = -g_test_max;
-        static const size_t g_test_count = 1024;
+        static const int32_t gTestMax = 16;
+        static const int32_t gTestMin = -gTestMax;
+        static const size_t gTestCount = 1024;
 
         TEST_CASE("Integer values stay in range", "[Random]")
         {
             SECTION("range()")
             {
-                bool in_range = true;
-                for (size_t i = 0; i < g_test_count; ++i) {
-                    int32_t value = Random.range<int32_t>(g_test_min, g_test_max);
-                    if (value < g_test_min || g_test_max < value) {
-                        in_range = false;
+                bool inRange = true;
+                for (size_t i = 0; i < gTestCount; ++i) {
+                    int32_t value = Random.range<int32_t>(gTestMin, gTestMax);
+                    if (value < gTestMin || gTestMax < value) {
+                        inRange = false;
                         break;
                     }
                 }
 
-                REQUIRE(in_range);
+                REQUIRE(inRange);
             }
 
             SECTION("index()")
             {
-                bool count_0_gets_index_0 = true;
-                for (size_t i = 0; i < g_test_count; ++i) {
+                bool count0GetsIndex0 = true;
+                for (size_t i = 0; i < gTestCount; ++i) {
                     if (Random.index(0) != 0) {
-                        count_0_gets_index_0 = false;
+                        count0GetsIndex0 = false;
                         break;
                     }
                 }
 
-                bool count_1_gets_index_0 = true;
-                for (size_t i = 0; i < g_test_count; ++i) {
+                bool count1GetsIndex0 = true;
+                for (size_t i = 0; i < gTestCount; ++i) {
                     if (Random.index(1) != 0) {
-                        count_1_gets_index_0 = false;
+                        count1GetsIndex0 = false;
                         break;
                     }
                 }
 
                 size_t count = 8;
-                bool count_8_in_range = true;
-                for (size_t i = 0; i < g_test_count; ++i) {
+                bool count8InRange = true;
+                for (size_t i = 0; i < gTestCount; ++i) {
                     size_t index = Random.index(count);
                     if (index >= count) {
-                        count_8_in_range = false;
+                        count8InRange = false;
                         break;
                     }
                 }
 
-                REQUIRE(count_0_gets_index_0);
-                REQUIRE(count_1_gets_index_0);
-                REQUIRE(count_8_in_range);
+                REQUIRE(count0GetsIndex0);
+                REQUIRE(count1GetsIndex0);
+                REQUIRE(count8InRange);
             }
 
             SECTION("die_roll()")
             {
-                bool d0_rolls_0 = true;
-                for (size_t i = 0; i < g_test_count; ++i) {
+                bool d0Rolls0 = true;
+                for (size_t i = 0; i < gTestCount; ++i) {
                     if (Random.die_roll(0) != 0) {
-                        d0_rolls_0 = false;
+                        d0Rolls0 = false;
                         break;
                     }
                 }
 
-                bool d1_rolls_1 = true;
-                for (size_t i = 0; i < g_test_count; ++i) {
+                bool d1Rolls1 = true;
+                for (size_t i = 0; i < gTestCount; ++i) {
                     if (Random.die_roll(1) != 1) {
-                        d1_rolls_1 = false;
+                        d1Rolls1 = false;
                         break;
                     }
                 }
 
-                bool d6_rolls_in_range = true;
-                for (size_t i = 0; i < g_test_count; ++i) {
+                bool d6RollsInRange = true;
+                for (size_t i = 0; i < gTestCount; ++i) {
                     uint32_t roll = Random.die_roll(6);
                     if (roll < 1u || 6u < roll) {
-                        d6_rolls_in_range = false;
+                        d6RollsInRange = false;
                         break;
                     }
                 }
 
-                REQUIRE(d0_rolls_0);
-                REQUIRE(d1_rolls_1);
-                REQUIRE(d6_rolls_in_range);
+                REQUIRE(d0Rolls0);
+                REQUIRE(d1Rolls1);
+                REQUIRE(d6RollsInRange);
             }
         }
 
@@ -123,34 +123,34 @@ namespace Dynamic_Static {
         {
             SECTION("range()")
             {
-                bool in_range = true;
-                float min = static_cast<float>(g_test_min);
-                float max = static_cast<float>(g_test_max);
-                for (size_t i = 0; i < g_test_count; ++i) {
+                bool inRange = true;
+                float min = static_cast<float>(gTestMin);
+                float max = static_cast<float>(gTestMax);
+                for (size_t i = 0; i < gTestCount; ++i) {
                     float value = Random.range<float>(min, max);
                     if (value < min || max < value) {
-                        in_range = false;
+                        inRange = false;
                         break;
                     }
                 }
 
-                REQUIRE(in_range);
+                REQUIRE(inRange);
             }
         }
 
         TEST_CASE("Resetting produces deterministic sequences", "[Random]")
         {
             Random.reset();
-            float min = static_cast<float>(g_test_min);
-            float max = static_cast<float>(g_test_max);
-            std::vector<float> sequence(g_test_count);
-            for (size_t i = 0; i < g_test_count; ++i) {
+            float min = static_cast<float>(gTestMin);
+            float max = static_cast<float>(gTestMax);
+            std::vector<float> sequence(gTestCount);
+            for (size_t i = 0; i < gTestCount; ++i) {
                 sequence[i] = Random.range<float>(min, max);
             }
 
             Random.reset();
             bool deterministic = true;
-            for (size_t i = 0; i < g_test_count; ++i) {
+            for (size_t i = 0; i < gTestCount; ++i) {
                 if (Random.range<float>(min, max) != sequence[i]) {
                     deterministic = false;
                     break;

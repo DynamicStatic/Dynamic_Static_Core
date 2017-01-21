@@ -36,14 +36,14 @@
 
 namespace Dynamic_Static {
     namespace Tests {
-        static const size_t TestCount = 128;
+        static const size_t gTestCount = 128;
 
         class Animal {
         private:
-            std::string m_name;
+            std::string mName;
         public:
-            Animal(const std::string& name) : m_name { name } { }
-            const std::string& name() const { return m_name; }
+            Animal(const std::string& name) : mName { name } { }
+            const std::string& name() const { return mName; }
         };
 
         class Dog final : public Animal { using Animal::Animal; };
@@ -62,7 +62,7 @@ namespace Dynamic_Static {
         TEST_CASE("convert() works correctly", "[VectorUtilitites]")
         {
             std::vector<Dog> dogs;
-            for (size_t i = 0; i < TestCount; ++i) {
+            for (size_t i = 0; i < gTestCount; ++i) {
                 dogs.push_back(Dog(create_random_name()));
             }
 
@@ -82,8 +82,8 @@ namespace Dynamic_Static {
         TEST_CASE("remove_duplicates() works correctly", "[VectorUtilities]")
         {
             std::vector<int> integers;
-            integers.reserve(TestCount);
-            for (size_t i = 0; i < TestCount; ++i) {
+            integers.reserve(gTestCount);
+            for (size_t i = 0; i < gTestCount; ++i) {
                 integers.push_back(Random.range(-1024, 1024));
             }
 
@@ -96,14 +96,14 @@ namespace Dynamic_Static {
             remove_duplicates(integers);
 
             bool success = true;
-            std::set<int> integer_set;
+            std::set<int> integerSet;
             for (const auto& i : integers) {
-                if (integer_set.find(i) != integer_set.end()) {
+                if (integerSet.find(i) != integerSet.end()) {
                     success = false;
                     break;
                 }
 
-                integer_set.insert(i);
+                integerSet.insert(i);
             }
 
             REQUIRE(success);
@@ -112,17 +112,17 @@ namespace Dynamic_Static {
         TEST_CASE("take_ownership() works correctly", "[VectorUtilities]")
         {
             std::vector<std::unique_ptr<Dog>> dogs;
-            for (size_t i = 0; i < TestCount; ++i) {
+            for (size_t i = 0; i < gTestCount; ++i) {
                 dogs.push_back(std::make_unique<Dog>(create_random_name()));
             }
 
             const std::unique_ptr<Dog>& target = dogs[Random.index(dogs.size())];
-            Dog* dog_ptr = target.get();
-            REQUIRE(dog_ptr != nullptr);
-            std::unique_ptr<Dog> taken_dog_uptr = take_ownership(target, dogs);
-            REQUIRE(taken_dog_uptr.get() == dog_ptr);
-            REQUIRE(std::find(dogs.begin(), dogs.end(), taken_dog_uptr) == dogs.end());
-            REQUIRE(take_ownership(taken_dog_uptr, dogs) == nullptr);
+            Dog* dogPtr = target.get();
+            REQUIRE(dogPtr != nullptr);
+            std::unique_ptr<Dog> takenDogUPtr = take_ownership(target, dogs);
+            REQUIRE(takenDogUPtr.get() == dogPtr);
+            REQUIRE(std::find(dogs.begin(), dogs.end(), takenDogUPtr) == dogs.end());
+            REQUIRE(take_ownership(takenDogUPtr, dogs) == nullptr);
         }
     }
 }

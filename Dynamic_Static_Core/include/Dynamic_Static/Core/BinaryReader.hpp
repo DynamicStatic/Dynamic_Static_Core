@@ -43,8 +43,8 @@ namespace Dynamic_Static {
     class BinaryReader
         : NonCopyable {
     private:
-        size_t m_size { 0 };
-        std::ifstream m_file_stream;
+        size_t mSize { 0 };
+        std::ifstream mFileStream;
 
     public:
         /**
@@ -57,7 +57,7 @@ namespace Dynamic_Static {
          * \n Exception - std::runtime_error : The specified file couldn't be opened
          * @param [in] file_path The file path to construct this BinaryReader with.
          */
-        BinaryReader(const std::string& file_path);
+        BinaryReader(const std::string& filePath);
 
         /**
          * Moves an instance of BinaryReader.
@@ -97,14 +97,14 @@ namespace Dynamic_Static {
          * \n Exception - std::runtime_error : The position after the offset is negative
          * \n Exception - std::logic_error   : A value besides std::ios::beg, std::ios::cur, or std::ios::end was passed for seek_origin
          */
-        void seek(size_t offset, std::ios::seekdir seek_origin = std::ios::beg);
+        void seek(size_t offset, std::ios::seekdir seekOrigin = std::ios::beg);
 
         /**
          * Opens a file to begin reading.
          * \n Exception - std::runtime_error :  The specified file couldn't be opened
          * @param [in] file_path The path to the file to open
          */
-        void open(const std::string& file_path);
+        void open(const std::string& filePath);
 
         /**
          * Closes the file.
@@ -207,25 +207,25 @@ namespace Dynamic_Static {
             std::vector<T> data;
             size_t current_position = position();
             position(0);
-            read(m_size / sizeof(T), data);
+            read(mSize / sizeof(T), data);
             position(current_position);
             return data;
         }
 
     private:
         template <typename T>
-        void extract(bool advance_file_position, size_t count, T* data)
+        void extract(bool advanceFilePosition, size_t count, T* data)
         {
-            if (count && m_file_stream.is_open()) {
+            if (count && mFileStream.is_open()) {
                 size_t size = sizeof(T) * count;
-                if (position() + size > m_size) {
+                if (position() + size > mSize) {
                     throw std::runtime_error("Attempted to read past the end of the file");
                 }
 
-                size_t current_position = position();
-                m_file_stream.read(reinterpret_cast<char*>(data), size);
-                if (!advance_file_position) {
-                    position(current_position);
+                size_t currentPosition = position();
+                mFileStream.read(reinterpret_cast<char*>(data), size);
+                if (!advanceFilePosition) {
+                    position(currentPosition);
                 }
             }
         }

@@ -33,42 +33,42 @@
 namespace Dynamic_Static {
     namespace Math {
         Vector3::Vector3(const glm::vec3& vec3)
-            : m_vec3 { vec3 }
+            : mVec3 { vec3 }
         {
         }
 
         Vector3::Vector3(float x, float y, float z)
-            : m_vec3 { x, y, z }
+            : mVec3 { x, y, z }
         {
         }
 
         Vector3::Vector3(const Vector3& other)
         {
-            m_vec3 = other.m_vec3;
+            mVec3 = other.mVec3;
         }
 
         Vector3::Vector3(const Vector4& other)
         {
-            m_vec3 = other.m_vec4;
+            mVec3 = other.mVec4;
         }
 
         Vector3& Vector3::operator+=(const Vector3& other)
         {
-            m_vec3 += other.m_vec3;
+            mVec3 += other.mVec3;
             return *this;
         }
 
-        float Vector3::x() const { return m_vec3.x; }
-        float Vector3::y() const { return m_vec3.y; }
-        float Vector3::z() const { return m_vec3.z; }
-        void Vector3::x(float x) { m_vec3.x = x; }
-        void Vector3::y(float y) { m_vec3.y = y; }
-        void Vector3::z(float z) { m_vec3.z = z; }
+        float Vector3::x() const { return mVec3.x; }
+        float Vector3::y() const { return mVec3.y; }
+        float Vector3::z() const { return mVec3.z; }
+        void Vector3::x(float x) { mVec3.x = x; }
+        void Vector3::y(float y) { mVec3.y = y; }
+        void Vector3::z(float z) { mVec3.z = z; }
 
         void Vector3::normalize()
         {
-            if (m_vec3.x && m_vec3.y && m_vec3.z) {
-                m_vec3 = glm::normalize(m_vec3);
+            if (mVec3.x && mVec3.y && mVec3.z) {
+                mVec3 = glm::normalize(mVec3);
             }
         }
 

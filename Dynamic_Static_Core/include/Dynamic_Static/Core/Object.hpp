@@ -43,7 +43,7 @@ namespace Dynamic_Static {
         : public IPrintable
         , NonCopyable {
     protected:
-        std::string m_name { "Dynamic_Static::Object" };
+        std::string mName { "Dynamic_Static::Object" };
 
     public:
         /**

@@ -30,22 +30,22 @@
 #include "Dynamic_Static/Core/BinaryReader.hpp"
 
 namespace Dynamic_Static {
-    BinaryReader::BinaryReader(const std::string& file_path)
+    BinaryReader::BinaryReader(const std::string& filePath)
     {
         // TODO : Is BinaryReader doing too much by opening and managing the file?
         //        Should BinaryReader accept an std::ifstream that must be managed
         //        externally?  It does make it easier to automate reads and file
         //        traversal when we can make assumptions about the state of the
         //        std::ifstream that we're using.
-        open(file_path);
+        open(filePath);
     }
 
-    size_t BinaryReader::size() const { return m_size; }
+    size_t BinaryReader::size() const { return mSize; }
 
     size_t BinaryReader::position() const
     {
         size_t position = 0;
-        if (m_file_stream.is_open()) {
+        if (mFileStream.is_open()) {
             // NOTE : We're doing a const_cast() here because tellg()
             //        isn't const, but we want position() to be const.
             //        This const_cast() is unsafe until we're handling
@@ -55,8 +55,8 @@ namespace Dynamic_Static {
             //        this const_cast doesn't violate anything in ::std.
             // NOTE : const_cast should probably be preferred over mutable.
             //        Scalpel vs sledgehammer...
-            auto file_stream_ptr = const_cast<std::ifstream*>(&m_file_stream);
-            position = static_cast<size_t>(file_stream_ptr->tellg());
+            auto fileStreamPtr = const_cast<std::ifstream*>(&mFileStream);
+            position = static_cast<size_t>(fileStreamPtr->tellg());
         }
 
         return position;
@@ -67,30 +67,30 @@ namespace Dynamic_Static {
         seek(position);
     }
 
-    void BinaryReader::seek(size_t offset, std::ios::seekdir seek_origin)
+    void BinaryReader::seek(size_t offset, std::ios::seekdir seekOrigin)
     {
-        if (m_file_stream.is_open()) {
-            switch (seek_origin) {
+        if (mFileStream.is_open()) {
+            switch (seekOrigin) {
                 case std::ios::beg: {
-                    if (offset > m_size) {
+                    if (offset > mSize) {
                         throw std::runtime_error(
-                            "File size is " + std::to_string(m_size) + "; an offset of " + std::to_string(offset) + " from the beginning of the file exceeds the file size"
+                            "File size is " + std::to_string(mSize) + "; an offset of " + std::to_string(offset) + " from the beginning of the file exceeds the file size"
                         );
                     }
                 } break;
 
                 case std::ios::cur: {
-                    if (position() + offset > m_size) {
+                    if (position() + offset > mSize) {
                         throw std::runtime_error(
-                            "File size is " + std::to_string(m_size) + "; an offset of " + std::to_string(offset) + " from the current position (" + std::to_string(position()) + ") exceeds the file size"
+                            "File size is " + std::to_string(mSize) + "; an offset of " + std::to_string(offset) + " from the current position (" + std::to_string(position()) + ") exceeds the file size"
                         );
                     }
                 } break;
 
                 case std::ios::end: {
-                    if (offset > m_size) {
+                    if (offset > mSize) {
                         throw std::runtime_error(
-                            "File size is " + std::to_string(m_size) + "; an offset of " + std::to_string(offset) + " from the end of the file results in a negative position"
+                            "File size is " + std::to_string(mSize) + "; an offset of " + std::to_string(offset) + " from the end of the file results in a negative position"
                         );
                     }
                 } break;
@@ -99,26 +99,26 @@ namespace Dynamic_Static {
                     throw std::logic_error("Unkonwn value passed for seek_origin.  The only accepted values are std::ios::beg, std::ios::cur, and std::ios::beg");
             }
 
-            m_file_stream.seekg(offset, seek_origin);
+            mFileStream.seekg(offset, seekOrigin);
         }
     }
 
-    void BinaryReader::open(const std::string& file_path)
+    void BinaryReader::open(const std::string& filePath)
     {
         close();
-        m_file_stream.open(file_path, std::ios::binary | std::ios::ate);
-        if (m_file_stream.is_open()) {
+        mFileStream.open(filePath, std::ios::binary | std::ios::ate);
+        if (mFileStream.is_open()) {
             // TODO : Need to set the exception mask and correctly respond to failure states.
-            m_size = position();
+            mSize = position();
             position(0);
         } else {
-            throw std::runtime_error("File @\"" + file_path + "\" couldn't be opened");
+            throw std::runtime_error("File @\"" + filePath + "\" couldn't be opened");
         }
     }
 
     void BinaryReader::close()
     {
-        m_file_stream.close();
-        m_size = 0;
+        mFileStream.close();
+        mSize = 0;
     }
 }

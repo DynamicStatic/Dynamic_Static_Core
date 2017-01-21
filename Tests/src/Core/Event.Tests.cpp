@@ -33,11 +33,11 @@
 
 namespace Dynamic_Static {
     namespace Tests {
-        static const size_t g_test_count { 16 };
+        static const size_t gTestCount { 16 };
 
         TEST_CASE("Subscribable objects can subscribe / unsubscribe", "[Events]")
         {
-            std::vector<SubscribableObj> subscribables(g_test_count);
+            std::vector<SubscribableObj> subscribables(gTestCount);
             auto subscriptions = create_randomized_subscriptions(subscribables);
             REQUIRE(validate_mutual_subscription(subscriptions));
 
@@ -63,7 +63,7 @@ namespace Dynamic_Static {
         TEST_CASE("Subscribable's destructor removes subscriptions", "[Event]")
         {
             SubscribableObj subscribable;
-            std::vector<SubscribableObj> subscribables(g_test_count);
+            std::vector<SubscribableObj> subscribables(gTestCount);
             for (auto& subscription : subscribables) {
                 subscribable.subscribe(subscription);
             }
@@ -75,9 +75,9 @@ namespace Dynamic_Static {
 
         TEST_CASE("Subscribable objects are moveable", "[Events]")
         {
-            std::vector<SubscribableObj> move_from(g_test_count);
-            auto subscriptions = create_randomized_subscriptions(move_from);
-            auto move_to = move_vector_elements(move_from, false);
+            std::vector<SubscribableObj> moveFrom(gTestCount);
+            auto subscriptions = create_randomized_subscriptions(moveFrom);
+            auto moveTo = move_vector_elements(moveFrom, false);
 
             auto retarget =
             [](SubscribableObj& from, SubscribableObj& to, SubscribableObj*& delegate) {
@@ -86,23 +86,23 @@ namespace Dynamic_Static {
                 }
             };
 
-            for (size_t i = 0; i < move_from.size(); ++i) {
+            for (size_t i = 0; i < moveFrom.size(); ++i) {
                 for (auto& subscription : subscriptions) {
-                    retarget(move_from[i], move_to[i], subscription.subscribable_0);
-                    retarget(move_from[i], move_to[i], subscription.subscribable_1);
+                    retarget(moveFrom[i], moveTo[i], subscription.subscribable0);
+                    retarget(moveFrom[i], moveTo[i], subscription.subscribable1);
                 }
             }
 
-            bool move_from_unsubscribed = true;
-            for (const auto& subscribable : move_from) {
+            bool moveFromUnsubscribed = true;
+            for (const auto& subscribable : moveFrom) {
                 if (subscribable.subscriptions().size() != 0) {
-                    move_from_unsubscribed = false;
+                    moveFromUnsubscribed = false;
                     break;
                 }
             }
 
-            move_from.clear();
-            REQUIRE(move_from_unsubscribed);
+            moveFrom.clear();
+            REQUIRE(moveFromUnsubscribed);
             REQUIRE(validate_mutual_subscription(subscriptions));
         }
 
@@ -116,17 +116,17 @@ namespace Dynamic_Static {
 
         TEST_CASE("Delegates are moveable", "[Events]")
         {
-            auto move_from = create_delegates();
-            auto move_to = move_vector_elements(move_from);
-            for (auto& delegate : move_to) {
+            auto moveFrom = create_delegates();
+            auto moveTo = move_vector_elements(moveFrom);
+            for (auto& delegate : moveTo) {
                 REQUIRE(validate_delegate_call(delegate));
             }
         }
 
         TEST_CASE("Delegates can be assigned to and called through Events", "[Events]")
         {
-            std::vector<Publisher> publishers(g_test_count);
-            std::vector<Subscriber> subscribers(g_test_count);
+            std::vector<Publisher> publishers(gTestCount);
+            std::vector<Subscriber> subscribers(gTestCount);
             create_randomized_subscriptions(publishers, subscribers);
             activate_publishers(publishers);
             REQUIRE(validate_invocation(subscribers));
@@ -134,41 +134,41 @@ namespace Dynamic_Static {
 
         TEST_CASE("Events and Delegates are moveable after subscription", "[Events]")
         {
-            std::vector<Publisher> publishers_move_from(g_test_count);
-            std::vector<Subscriber> subscribers_move_from(g_test_count);
-            create_randomized_subscriptions(publishers_move_from, subscribers_move_from);
-            auto publishers_move_to = move_vector_elements(publishers_move_from);
-            auto subscribers_move_to = move_vector_elements(subscribers_move_from);
-            activate_publishers(publishers_move_to);
-            REQUIRE(validate_invocation(subscribers_move_to));
+            std::vector<Publisher> publishersMoveFrom(gTestCount);
+            std::vector<Subscriber> subscribersMoveFrom(gTestCount);
+            create_randomized_subscriptions(publishersMoveFrom, subscribersMoveFrom);
+            auto publishersMoveTo = move_vector_elements(publishersMoveFrom);
+            auto subscribersMoveTo = move_vector_elements(subscribersMoveFrom);
+            activate_publishers(publishersMoveTo);
+            REQUIRE(validate_invocation(subscribersMoveTo));
         }
 
         TEST_CASE("Delegates can unsubscribe during invocation", "[Events]")
         {
-            std::vector<Publisher> publishers(g_test_count);
-            std::vector<Subscriber> subscribers(g_test_count);
+            std::vector<Publisher> publishers(gTestCount);
+            std::vector<Subscriber> subscribers(gTestCount);
             create_randomized_subscriptions(publishers, subscribers);
             for (auto& subscriber : subscribers) {
                 subscriber.unsubscribe_on_event(true);
             }
 
             activate_publishers(publishers);
-            std::vector<size_t> invocation_counts;
-            invocation_counts.reserve(subscribers.size());
+            std::vector<size_t> invocationCounts;
+            invocationCounts.reserve(subscribers.size());
             for (const auto& subscriber : subscribers) {
-                invocation_counts.push_back(subscriber.invocation_count());
+                invocationCounts.push_back(subscriber.invocation_count());
             }
 
             activate_publishers(publishers);
-            bool listeners_unsubscribed = true;
+            bool listenersUnsubscribed = true;
             for (size_t i = 0; i < subscribers.size(); ++i) {
-                if (subscribers[i].invocation_count() != invocation_counts[i]) {
-                    listeners_unsubscribed = false;
+                if (subscribers[i].invocation_count() != invocationCounts[i]) {
+                    listenersUnsubscribed = false;
                     break;
                 }
             }
 
-            REQUIRE(listeners_unsubscribed);
+            REQUIRE(listenersUnsubscribed);
         }
     }
 }

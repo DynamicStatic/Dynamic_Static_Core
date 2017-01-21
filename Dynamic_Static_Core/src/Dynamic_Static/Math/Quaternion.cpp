@@ -37,57 +37,57 @@
 namespace Dynamic_Static {
     namespace Math {
         Quaternion::Quaternion()
-            : m_quat { }
+            : mQuat { }
         {
         }
 
         Quaternion::Quaternion(float x, float y, float z, float w)
-            : m_quat { x, y, z, w }
+            : mQuat { x, y, z, w }
         {
         }
 
         Quaternion::Quaternion(const Vector3& v)
-            : m_quat { v.m_vec3 }
+            : mQuat { v.mVec3 }
         {
         }
 
         Quaternion::Quaternion(const glm::quat& quat)
-            : m_quat { quat }
+            : mQuat { quat }
         {
         }
 
-        float Quaternion::x() const { return m_quat.x; }
-        float Quaternion::y() const { return m_quat.y; }
-        float Quaternion::z() const { return m_quat.z; }
-        float Quaternion::w() const { return m_quat.w; }
-        void Quaternion::x(float x) { m_quat.x = x; }
-        void Quaternion::y(float y) { m_quat.y = y; }
-        void Quaternion::z(float z) { m_quat.z = z; }
-        void Quaternion::w(float w) { m_quat.w = w; }
+        float Quaternion::x() const { return mQuat.x; }
+        float Quaternion::y() const { return mQuat.y; }
+        float Quaternion::z() const { return mQuat.z; }
+        float Quaternion::w() const { return mQuat.w; }
+        void Quaternion::x(float x) { mQuat.x = x; }
+        void Quaternion::y(float y) { mQuat.y = y; }
+        void Quaternion::z(float z) { mQuat.z = z; }
+        void Quaternion::w(float w) { mQuat.w = w; }
 
         void Quaternion::normalize()
         {
-            m_quat = glm::normalize(m_quat);
+            mQuat = glm::normalize(mQuat);
         }
 
         Vector3 Quaternion::rotate(const Vector3& v)
         {
-            return Vector3 { glm::rotate(m_quat, v.m_vec3) };
+            return Vector3 { glm::rotate(mQuat, v.mVec3) };
         }
 
         Vector4 Quaternion::rotate(const Vector4& v)
         {
-            return Vector4 { glm::rotate(m_quat, v.m_vec4) };
+            return Vector4 { glm::rotate(mQuat, v.mVec4) };
         }
 
         Quaternion Quaternion::angle_axis(float angle, const Vector3& axis)
         {
-            return Quaternion { glm::angleAxis(angle, axis.m_vec3) };
+            return Quaternion { glm::angleAxis(angle, axis.mVec3) };
         }
 
         Quaternion operator*(const Quaternion& lhs, const Quaternion& rhs)
         {
-            return Quaternion { lhs.m_quat * rhs.m_quat };
+            return Quaternion { lhs.mQuat * rhs.mQuat };
         }
 
         const Quaternion Quaternion::identity = Quaternion { 0, 0, 0, 1 };

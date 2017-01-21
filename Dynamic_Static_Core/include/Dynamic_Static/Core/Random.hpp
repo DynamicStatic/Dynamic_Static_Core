@@ -42,10 +42,10 @@ namespace Dynamic_Static {
     class RandomNumberGenerator final {
     private:
         // TODO : Provide support for std::seed_seq.
-        uint32_t m_seed;
-        std::mt19937_64 m_engine;
-        std::uniform_real_distribution<double> m_real_distribution { 0, 1.0 };
-        std::uniform_int_distribution<uint64_t> m_int_distribution { 0, std::numeric_limits<uint64_t>::max() };
+        uint32_t mSeed;
+        std::mt19937_64 mEngine;
+        std::uniform_real_distribution<double> mRealDistribution { 0, 1.0 };
+        std::uniform_int_distribution<uint64_t> mIntDistribution { 0, std::numeric_limits<uint64_t>::max() };
 
     public:
         /**
@@ -71,7 +71,7 @@ namespace Dynamic_Static {
          */
         uint32_t seed() const
         {
-            return m_seed;
+            return mSeed;
         }
 
         /**
@@ -80,10 +80,10 @@ namespace Dynamic_Static {
          */
         void seed(uint32_t seed)
         {
-            m_seed = seed;
-            m_engine.seed(m_seed);
-            m_real_distribution.reset();
-            m_int_distribution.reset();
+            mSeed = seed;
+            mEngine.seed(mSeed);
+            mRealDistribution.reset();
+            mIntDistribution.reset();
         }
 
         /**
@@ -98,7 +98,7 @@ namespace Dynamic_Static {
             auto values = std::minmax(value_0, value_1);
             T min = values.first;
             T max = values.second + 1;
-            return m_int_distribution(m_engine) % (max - min) + min;
+            return mIntDistribution(mEngine) % (max - min) + min;
         }
 
         /**
@@ -137,7 +137,7 @@ namespace Dynamic_Static {
          */
         void reset()
         {
-            seed(m_seed);
+            seed(mSeed);
         }
     };
 
@@ -153,7 +153,7 @@ namespace Dynamic_Static {
         auto values = std::minmax(value_0, value_1);
         double min = values.first;
         double max = values.second;
-        return m_real_distribution(m_engine) * (max - min) + min;
+        return mRealDistribution(mEngine) * (max - min) + min;
     }
 
     /**

@@ -46,8 +46,8 @@ namespace Dynamic_Static {
     class MoveableHandle
         : NonCopyable {
     private:
-        T* m_handle { nullptr };
-        Delegate<T&> m_delegate;
+        T* mHandle { nullptr };
+        Delegate<T&> mDelegate;
 
     public:
         /**
@@ -60,7 +60,7 @@ namespace Dynamic_Static {
          * @param [in] target This MoveableHandle's target
          */
         MoveableHandle(MoveNotifier<T>* target)
-            : m_handle { static_cast<T*>(target) }
+            : mHandle { static_cast<T*>(target) }
         {
             reset(target);
         }
@@ -81,9 +81,9 @@ namespace Dynamic_Static {
         MoveableHandle<T>& operator=(MoveableHandle<T>&& other)
         {
             if (this != &other) {
-                m_handle = std::move(other.m_handle);
-                m_delegate = std::move(other.m_delegate);
-                other.m_handle = nullptr;
+                mHandle = std::move(other.mHandle);
+                mDelegate = std::move(other.mDelegate);
+                other.mHandle = nullptr;
                 bind_delegate();
             }
 
@@ -105,7 +105,7 @@ namespace Dynamic_Static {
          */
         typename std::add_lvalue_reference<T>::type operator*() const
         {
-            return *m_handle;
+            return *mHandle;
         }
 
         /**
@@ -114,7 +114,7 @@ namespace Dynamic_Static {
          */
         T* operator->() const
         {
-            return m_handle;
+            return mHandle;
         }
 
         /**
@@ -123,7 +123,7 @@ namespace Dynamic_Static {
          */
         explicit operator bool() const
         {
-            return m_handle != nullptr;
+            return mHandle != nullptr;
         }
 
     public:
@@ -133,7 +133,7 @@ namespace Dynamic_Static {
          */
         T* get() const
         {
-            return m_handle;
+            return mHandle;
         }
 
         /**
@@ -142,13 +142,13 @@ namespace Dynamic_Static {
          */
         void reset(MoveNotifier<T>* target = nullptr)
         {
-            if (m_handle) {
-                static_cast<MoveNotifier<T>*>(m_handle)->on_moved -= m_delegate;
+            if (mHandle) {
+                static_cast<MoveNotifier<T>*>(mHandle)->on_moved -= mDelegate;
             }
 
-            m_handle = static_cast<T*>(target);
-            if (m_handle) {
-                static_cast<MoveNotifier<T>*>(m_handle)->on_moved += m_delegate;
+            mHandle = static_cast<T*>(target);
+            if (mHandle) {
+                static_cast<MoveNotifier<T>*>(mHandle)->on_moved += mDelegate;
             }
 
             bind_delegate();
@@ -158,12 +158,12 @@ namespace Dynamic_Static {
         void bind_delegate()
         {
             using namespace std::placeholders;
-            m_delegate = std::bind(&MoveableHandle::on_target_moved, this, _1);
+            mDelegate = std::bind(&MoveableHandle::on_target_moved, this, _1);
         }
 
         void on_target_moved(T& target)
         {
-            m_handle = static_cast<T*>(&target);
+            mHandle = static_cast<T*>(&target);
         }
     };
 }

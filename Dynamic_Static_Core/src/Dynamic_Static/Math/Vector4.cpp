@@ -33,21 +33,21 @@
 namespace Dynamic_Static {
     namespace Math {
         Vector4::Vector4(const glm::vec4 vec4)
-            : m_vec4 { vec4 }
+            : mVec4 { vec4 }
         {
         }
 
         Vector4::Vector4(float x, float y, float z, float w)
-            : m_vec4 { x, y, z, w }
+            : mVec4 { x, y, z, w }
         {
         }
 
         Vector4::Vector4(const Vector4& other)
         {
-            m_vec4.x = other.m_vec4.x;
-            m_vec4.y = other.m_vec4.y;
-            m_vec4.z = other.m_vec4.z;
-            m_vec4.w = other.m_vec4.w;
+            mVec4.x = other.mVec4.x;
+            mVec4.y = other.mVec4.y;
+            mVec4.z = other.mVec4.z;
+            mVec4.w = other.mVec4.w;
         }
 
         Vector4::Vector4(const Vector3& other)
@@ -57,24 +57,24 @@ namespace Dynamic_Static {
 
         Vector4::Vector4(const Vector3& other, float w)
         {
-            m_vec4.x = other.m_vec3.x;
-            m_vec4.y = other.m_vec3.y;
-            m_vec4.z = other.m_vec3.z;
-            m_vec4.w = w;
+            mVec4.x = other.mVec3.x;
+            mVec4.y = other.mVec3.y;
+            mVec4.z = other.mVec3.z;
+            mVec4.w = w;
         }
 
-        float Vector4::x() const { return m_vec4.x; }
-        float Vector4::y() const { return m_vec4.y; }
-        float Vector4::z() const { return m_vec4.z; }
-        float Vector4::w() const { return m_vec4.w; }
-        void Vector4::x(float x) { m_vec4.x = x; }
-        void Vector4::y(float y) { m_vec4.y = y; }
-        void Vector4::z(float z) { m_vec4.z = z; }
-        void Vector4::w(float w) { m_vec4.w = w; }
+        float Vector4::x() const { return mVec4.x; }
+        float Vector4::y() const { return mVec4.y; }
+        float Vector4::z() const { return mVec4.z; }
+        float Vector4::w() const { return mVec4.w; }
+        void Vector4::x(float x) { mVec4.x = x; }
+        void Vector4::y(float y) { mVec4.y = y; }
+        void Vector4::z(float z) { mVec4.z = z; }
+        void Vector4::w(float w) { mVec4.w = w; }
 
         void Vector4::normalize()
         {
-            m_vec4 = glm::normalize(m_vec4);
+            mVec4 = glm::normalize(mVec4);
         }
 
         const Vector4 Vector4::one      = Vector4 { 1, 1, 1, 1 };

@@ -89,7 +89,7 @@ namespace Dynamic_Static {
      * @return The result of the linear interpolation
      */
     template <typename T>
-    inline T lerp(T v_0, T v_1, T t)
+    inline T lerp(T v0, T v1, T t)
     {
         static_assert(
             std::is_floating_point<T>::value,
@@ -115,6 +115,6 @@ namespace Dynamic_Static {
         //        so our operation is...
         //        t * v_1 + (-t * v_0 + v_0)
 
-        return std::fma(t, v_1, std::fma(-t, v_0, v_0));
+        return std::fma(t, v1, std::fma(-t, v0, v0));
     }
 }

@@ -39,24 +39,24 @@ namespace Dynamic_Static {
 
         class Listener final {
         private:
-            bool m_event_raised { false };
-            Delegate<Activator&> m_delegate;
+            bool mEventRaised { false };
+            Delegate<Activator&> mDelegate;
 
         public:
             Listener(Activator& activator)
             {
                 using namespace std::placeholders;
-                m_delegate = std::bind(&Listener::on_activator_moved, this, _1);
-                activator.on_moved += m_delegate;
+                mDelegate = std::bind(&Listener::on_activator_moved, this, _1);
+                activator.on_moved += mDelegate;
             }
 
         public:
-            bool event_raised() const { return m_event_raised; }
+            bool event_raised() const { return mEventRaised; }
 
         private:
             void on_activator_moved(const Activator&)
             {
-                m_event_raised = true;
+                mEventRaised = true;
             }
         };
 

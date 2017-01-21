@@ -41,12 +41,12 @@ namespace Dynamic_Static {
          */
         class Transform final {
         private:
-            Vector3 m_local_position { Vector3::zero };
-            Quaternion m_local_rotation;// { Quaternion::identity };
-            Vector3 m_local_scale { Vector3::one };
-            Vector3 m_up { Vector3::up };
-            Vector3 m_left { Vector3::left };
-            Vector3 m_forward { Vector3::forward };
+            Vector3 mLocalPosition { Vector3::zero };
+            Quaternion mLocalRotation;// { Quaternion::identity };
+            Vector3 mLocalScale { Vector3::one };
+            Vector3 mUp { Vector3::up };
+            Vector3 mLeft { Vector3::left };
+            Vector3 mForward { Vector3::forward };
 
         public:
             /**
@@ -119,7 +119,7 @@ namespace Dynamic_Static {
              * Sets this Transform's local position.
              * @param [in] local_position This Transform's local position
              */
-            void local_position(const Vector3& local_position);
+            void local_position(const Vector3& localPosition);
 
             /**
              * Gets this Transform's local rotation.
@@ -137,7 +137,7 @@ namespace Dynamic_Static {
              * Sets this Transform's local rotation.
              * @param [in] local_position This Transform's local rotation
              */
-            void local_rotation(const Quaternion& local_rotation);
+            void local_rotation(const Quaternion& localRotation);
 
             /**
              * Gets this Transform's local scale.
@@ -155,7 +155,7 @@ namespace Dynamic_Static {
              * Sets this Transform's local scale.
              * @param [in] local_position This Transform's local scale
              */
-            void local_scale(const Vector3& local_scale);
+            void local_scale(const Vector3& localScale);
 
             /**
              * Gets this Transform's up vector.

@@ -63,9 +63,9 @@ namespace Dynamic_Static {
             };
 
             typedef typename std::vector<Subscribable<Args...>*>::iterator Iterator;
-            std::vector<Subscribable<Args...>*> m_subscriptions;
-            std::vector<DefferedCommand> m_deffered_commands;
-            bool m_locked { false };
+            std::vector<Subscribable<Args...>*> mSubscriptions;
+            std::vector<DefferedCommand> mDefferedCommands;
+            bool mLocked { false };
 
         protected:
             Subscribable() = default;
@@ -81,8 +81,8 @@ namespace Dynamic_Static {
             {
                 if (this != &other) {
                     other.remove_all_mutual_subscriptions();
-                    m_subscriptions = std::move(other.m_subscriptions);
-                    for (auto& subscription : m_subscriptions) {
+                    mSubscriptions = std::move(other.mSubscriptions);
+                    for (auto& subscription : mSubscriptions) {
                         create_mutual_subscription(*subscription);
                     }
                 }
@@ -92,11 +92,11 @@ namespace Dynamic_Static {
 
             Subscribable<Args...>& operator+=(Subscribable<Args...>& subscription)
             {
-                if (m_locked) {
+                if (mLocked) {
                     create_deffered_command(DefferedCommand::Type::Subscribe, &subscription);
                 } else {
                     if (!subscribed(subscription)) {
-                        m_subscriptions.push_back(&subscription);
+                        mSubscriptions.push_back(&subscription);
                         create_mutual_subscription(subscription);
                     }
                 }
@@ -106,13 +106,13 @@ namespace Dynamic_Static {
 
             Subscribable<Args...>& operator-=(Subscribable<Args...>& subscription)
             {
-                if (m_locked) {
+                if (mLocked) {
                     create_deffered_command(DefferedCommand::Type::Unsubscribe, &subscription);
                 } else {
                     auto itr = find(subscription);
                     if (subscribed(itr)) {
                         remove_mutual_subscription(subscription);
-                        m_subscriptions.erase(itr);
+                        mSubscriptions.erase(itr);
                     }
                 }
 
@@ -128,7 +128,7 @@ namespace Dynamic_Static {
              */
             const std::vector<Subscribable<Args...>*>& subscriptions() const
             {
-                return m_subscriptions;
+                return mSubscriptions;
             }
 
         protected:
@@ -139,56 +139,56 @@ namespace Dynamic_Static {
 
             void clear()
             {
-                if (m_locked) {
+                if (mLocked) {
                     create_deffered_command(DefferedCommand::Type::Clear);
                 } else {
                     remove_all_mutual_subscriptions();
-                    m_subscriptions.clear();
+                    mSubscriptions.clear();
                 }
             }
 
         private:
             bool subscribed(const Iterator& subscription) const
             {
-                return subscription != m_subscriptions.end();
+                return subscription != mSubscriptions.end();
             }
 
             Iterator find(const Subscribable<Args...>& subscription)
             {
-                return std::find(m_subscriptions.begin(), m_subscriptions.end(), &subscription);
+                return std::find(mSubscriptions.begin(), mSubscriptions.end(), &subscription);
             }
 
             void create_deffered_command(typename DefferedCommand::Type type, Subscribable<Args...>* subscribable = nullptr)
             {
-                m_deffered_commands.push_back(DefferedCommand { type, subscribable });
+                mDefferedCommands.push_back(DefferedCommand { type, subscribable });
             }
 
             void create_mutual_subscription(Subscribable<Args...>& subscription)
             {
-                subscription.m_subscriptions.push_back(this);
+                subscription.mSubscriptions.push_back(this);
             }
 
             void remove_mutual_subscription(Subscribable<Args...>& subscription)
             {
-                subscription.m_subscriptions.erase(subscription.find(*this));
+                subscription.mSubscriptions.erase(subscription.find(*this));
             }
 
             void remove_all_mutual_subscriptions()
             {
-                for (auto& subscription : m_subscriptions) {
+                for (auto& subscription : mSubscriptions) {
                     remove_mutual_subscription(*subscription);
                 }
             }
 
             void lock()
             {
-                m_locked = true;
+                mLocked = true;
             }
 
             void unlock()
             {
-                m_locked = false;
-                for (const auto& command : m_deffered_commands) {
+                mLocked = false;
+                for (const auto& command : mDefferedCommands) {
                     switch (command.type) {
                         case DefferedCommand::Type::Clear:
                             clear();
@@ -204,7 +204,7 @@ namespace Dynamic_Static {
                     }
                 }
             
-                m_deffered_commands.clear();
+                mDefferedCommands.clear();
             }
         };
 
@@ -221,9 +221,9 @@ namespace Dynamic_Static {
          * @return Whether or not the two Subscribables are the same object
          */
         template <typename ...Args>
-        bool operator==(const Subscribable<Args...>& obj_0, const Subscribable<Args...>& obj_1)
+        bool operator==(const Subscribable<Args...>& obj0, const Subscribable<Args...>& obj1)
         {
-            return &obj_0 == &obj_1;
+            return &obj0 == &obj1;
         }
 
         /**
@@ -233,9 +233,9 @@ namespace Dynamic_Static {
          * @return Whether or not the two Subscribables are not the same object
          */
         template <typename ...Args>
-        bool operator!=(const Subscribable<Args...>& obj_0, const Subscribable<Args...>& obj_1)
+        bool operator!=(const Subscribable<Args...>& obj0, const Subscribable<Args...>& obj1)
         {
-            return !(obj_0 == obj_1);
+            return !(obj0 == obj1);
         }
     }
 }
@@ -250,7 +250,7 @@ namespace Dynamic_Static {
             {
                 Subscribable<Args...>::lock();
 
-                for (const auto& subscription : Subscribable<Args...>::m_subscriptions) {
+                for (const auto& subscription : Subscribable<Args...>::mSubscriptions) {
                     subscription->operator()(std::forward<Args>(args)...);
                 }
 

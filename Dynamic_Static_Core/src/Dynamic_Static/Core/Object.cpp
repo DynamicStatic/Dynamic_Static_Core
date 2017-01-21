@@ -37,7 +37,7 @@ namespace Dynamic_Static {
     Object& Object::operator=(Object&& other)
     {
         if (this != &other) {
-            m_name = std::move(other.m_name);
+            mName = std::move(other.mName);
         }
 
         return *this;
@@ -45,7 +45,7 @@ namespace Dynamic_Static {
 
     bool Object::operator==(const Object& other) { return this == &other; }
     bool Object::operator!=(const Object& other) { return this != &other; }
-    const std::string& Object::name() const { return m_name; }
-    void Object::name(const std::string& name) { m_name = name; }
+    const std::string& Object::name() const { return mName; }
+    void Object::name(const std::string& name) { mName = name; }
     std::string Object::to_string() const { return name(); }
 }

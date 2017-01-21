@@ -40,64 +40,64 @@ namespace Dynamic_Static {
 
         class Obj final {
         private:
-            MoveableHandle<Dependency> m_dependency;
+            MoveableHandle<Dependency> mDependency;
 
         public:
             Obj() = default;
             Obj(Dependency& dependency)
-                : m_dependency { &dependency }
+                : mDependency { &dependency }
             {
             }
 
         public:
-            const Dependency& dependency() const { return *m_dependency; }
+            const Dependency& dependency() const { return *mDependency; }
         };
 
         TEST_CASE("MoveableHandle maintains handle when target moves", "[MoveableHandle]")
         {
             Obj obj;
-            Dependency move_to;
-            Dependency* move_to_address = nullptr;
+            Dependency moveTo;
+            Dependency* moveToAddress = nullptr;
 
             {
                 Dependency dependency;
                 obj = Obj(dependency);
-                Dependency* move_from_address = &dependency;
-                REQUIRE(&obj.dependency() == move_from_address);
-                move_to = std::move(dependency);
-                move_to_address = &move_to;
-                REQUIRE(move_to_address != move_from_address);
+                Dependency* moveFromAddress = &dependency;
+                REQUIRE(&obj.dependency() == moveFromAddress);
+                moveTo = std::move(dependency);
+                moveToAddress = &moveTo;
+                REQUIRE(moveToAddress != moveFromAddress);
             }
 
-            REQUIRE(&obj.dependency() == move_to_address);
+            REQUIRE(&obj.dependency() == moveToAddress);
         }
 
         TEST_CASE("MoveableHandle maintains handle when it moves", "[MoveableHandle]")
         {
-            Obj move_to;
+            Obj moveTo;
             Dependency dependency;
 
             {
                 Obj obj(dependency);
-                move_to = std::move(obj);
+                moveTo = std::move(obj);
             }
 
-            REQUIRE(&move_to.dependency() == &dependency);
+            REQUIRE(&moveTo.dependency() == &dependency);
         }
 
         TEST_CASE("MoveableHandle maintains handle when it and target move", "[MoveableHandle]")
         {
-            Obj obj_move_to;
-            Dependency dependency_move_to;
+            Obj objMoveTo;
+            Dependency dependencyMoveTo;
 
             {
                 Dependency dependency;
                 Obj obj(dependency);
-                obj_move_to = std::move(obj);
-                dependency_move_to = std::move(dependency);
+                objMoveTo = std::move(obj);
+                dependencyMoveTo = std::move(dependency);
             }
 
-            REQUIRE(&obj_move_to.dependency() == &dependency_move_to);
+            REQUIRE(&objMoveTo.dependency() == &dependencyMoveTo);
         }
 
         TEST_CASE("MoveableHandle clears its' handle when target is destroyed", "[MoveableHandle]")

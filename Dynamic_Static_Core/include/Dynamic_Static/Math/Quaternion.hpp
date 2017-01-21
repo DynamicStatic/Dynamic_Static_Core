@@ -52,7 +52,7 @@ namespace Dynamic_Static {
             friend struct Matrix4x4;
             friend Quaternion operator*(const Quaternion&, const Quaternion&);
         private:
-            glm::quat m_quat;
+            glm::quat mQuat;
 
         public:
             Quaternion();

@@ -50,38 +50,38 @@ namespace Dynamic_Static {
 namespace Dynamic_Static {
     namespace Tests {
         struct Subscription {
-            SubscribableObj* subscribable_0;
-            SubscribableObj* subscribable_1;
+            SubscribableObj* subscribable0;
+            SubscribableObj* subscribable1;
 
-            Subscription(SubscribableObj& subscribable_0, SubscribableObj& subscribable_1)
-                : subscribable_0 { &subscribable_0 }
-                , subscribable_1 { &subscribable_1 }
+            Subscription(SubscribableObj& subscribable0, SubscribableObj& subscribable1)
+                : subscribable0 { &subscribable0 }
+                , subscribable1 { &subscribable1 }
             {
                 subscribe();
             }
 
             void subscribe()
             {
-                subscribable_0->subscribe(*subscribable_1);
+                subscribable0->subscribe(*subscribable1);
             }
 
             void unsubscribe()
             {
-                subscribable_0->unsubscribe(*subscribable_1);
+                subscribable0->unsubscribe(*subscribable1);
             }
 
             bool subscribed() const
             {
                 return
-                    subscribable_0->subscribed(*subscribable_1) &&
-                    subscribable_1->subscribed(*subscribable_0);
+                    subscribable0->subscribed(*subscribable1) &&
+                    subscribable1->subscribed(*subscribable0);
             }
 
             bool unsubscribed() const
             {
                 return
-                    !subscribable_0->subscribed(*subscribable_1) &&
-                    !subscribable_1->subscribed(*subscribable_0);
+                    !subscribable0->subscribed(*subscribable1) &&
+                    !subscribable1->subscribed(*subscribable0);
             }
         };
     }
@@ -102,7 +102,7 @@ namespace Dynamic_Static {
             }
         };
 
-        static Obj g_test_obj;
+        static Obj gTestObj;
     }
 }
 
@@ -124,9 +124,9 @@ namespace Dynamic_Static {
     namespace Tests {
         class Subscriber final {
         private:
-            size_t m_invocation_count { 0 };
-            bool m_unsubscribe_on_event { false };
-            Delegate<Publisher&> m_on_publisher_event;
+            size_t mInvocationCount { 0 };
+            bool mUnsubscribeOnEvent { false };
+            Delegate<Publisher&> mOnPublisherEvent;
 
         public:
             Subscriber() = default;
@@ -139,9 +139,9 @@ namespace Dynamic_Static {
             Subscriber& operator=(Subscriber&& other)
             {
                 if (this != &other) {
-                    m_invocation_count = std::move(other.m_invocation_count);
-                    m_unsubscribe_on_event = std::move(other.m_unsubscribe_on_event);
-                    m_on_publisher_event = std::move(other.m_on_publisher_event);
+                    mInvocationCount = std::move(other.mInvocationCount);
+                    mUnsubscribeOnEvent = std::move(other.mUnsubscribeOnEvent);
+                    mOnPublisherEvent = std::move(other.mOnPublisherEvent);
                     bind_delegate();
                 }
 
@@ -149,14 +149,14 @@ namespace Dynamic_Static {
             }
 
         public:
-            bool unsubscribe_on_event() const { return m_unsubscribe_on_event; }
-            void unsubscribe_on_event(bool unsubscribe) { m_unsubscribe_on_event = unsubscribe; }
-            size_t subscription_count() const { return m_on_publisher_event.subscriptions().size(); }
-            size_t invocation_count() const { return m_invocation_count; }
+            bool unsubscribe_on_event() const { return mUnsubscribeOnEvent; }
+            void unsubscribe_on_event(bool unsubscribe) { mUnsubscribeOnEvent = unsubscribe; }
+            size_t subscription_count() const { return mOnPublisherEvent.subscriptions().size(); }
+            size_t invocation_count() const { return mInvocationCount; }
 
             void subscribe(Publisher& publisher)
             {
-                publisher.on_event += m_on_publisher_event;
+                publisher.on_event += mOnPublisherEvent;
                 bind_delegate();
             }
 
@@ -164,16 +164,16 @@ namespace Dynamic_Static {
             void bind_delegate()
             {
                 using namespace std::placeholders;
-                m_on_publisher_event = std::bind(&Subscriber::on_publisher_event, this, _1);
+                mOnPublisherEvent = std::bind(&Subscriber::on_publisher_event, this, _1);
             }
 
             void on_publisher_event(Publisher& publisher)
             {
-                if (m_unsubscribe_on_event) {
-                    publisher.on_event -= m_on_publisher_event;
+                if (mUnsubscribeOnEvent) {
+                    publisher.on_event -= mOnPublisherEvent;
                 }
 
-                ++m_invocation_count;
+                ++mInvocationCount;
             }
         };
     }
@@ -208,50 +208,50 @@ namespace Dynamic_Static {
 
         static bool validate_mutual_subscription(const std::vector<Subscription>& subscriptions)
         {
-            bool mutually_subscribed = true;
+            bool mutuallySubscribed = true;
             for (const auto& subscription : subscriptions) {
                 if (!subscription.subscribed()) {
-                    mutually_subscribed = false;
+                    mutuallySubscribed = false;
                     break;
                 }
             }
 
-            return mutually_subscribed;
+            return mutuallySubscribed;
         }
 
         static bool validate_mutual_unsubscription(const std::vector<Subscription>& subscriptions)
         {
-            bool mutually_unsubscribed = true;
+            bool mutuallyUnsubscribed = true;
             for (const auto& subscription : subscriptions) {
                 if (!subscription.unsubscribed()) {
-                    mutually_unsubscribed = false;
+                    mutuallyUnsubscribed = false;
                     break;
                 }
             }
 
-            return mutually_unsubscribed;
+            return mutuallyUnsubscribed;
         }
 
         template <typename T>
         static std::vector<T> move_vector_elements(std::vector<T>& move_from, bool clear = true)
         {
-            std::vector<T> move_to;
+            std::vector<T> moveTo;
             for (auto& element : move_from) {
-                move_to.push_back(std::move(element));
+                moveTo.push_back(std::move(element));
             }
 
             if (clear) {
                 move_from.clear();
             }
 
-            return move_to;
+            return moveTo;
         }
 
         static std::vector<Delegate<uint32_t, uint32_t&>> create_delegates()
         {
             using namespace std::placeholders;
             std::vector<Delegate<uint32_t, uint32_t&>> delegates;
-            delegates.push_back(Action<uint32_t, uint32_t&>(std::bind(&Obj::set_target_value, &g_test_obj, _1, _2)));
+            delegates.push_back(Action<uint32_t, uint32_t&>(std::bind(&Obj::set_target_value, &gTestObj, _1, _2)));
             delegates.push_back(Action<uint32_t, uint32_t&>(set_target_value));
             delegates.push_back(Action<uint32_t, uint32_t&>(
                 [](uint32_t value, uint32_t& target)
@@ -265,7 +265,7 @@ namespace Dynamic_Static {
 
         static bool validate_delegate_call(Delegate<uint32_t, uint32_t&>& delegate)
         {
-            uint32_t value = 64;
+            uint32_t value = Random.range<uint32_t>(0, 64);
             uint32_t target = 0;
             delegate(value, target);
             return value == target;
@@ -280,15 +280,15 @@ namespace Dynamic_Static {
 
         bool validate_invocation(const std::vector<Subscriber>& subscribers)
         {
-            bool all_subscribers_invoked = true;
+            bool allSubscribersInvoked = true;
             for (const auto& subscriber : subscribers) {
                 if (subscriber.invocation_count() != subscriber.subscription_count()) {
-                    all_subscribers_invoked = false;
+                    allSubscribersInvoked = false;
                     break;
                 }
             }
 
-            return all_subscribers_invoked;
+            return allSubscribersInvoked;
         }
     }
 }

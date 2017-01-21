@@ -33,78 +33,78 @@
 
 namespace Dynamic_Static {
     Semaphore::Semaphore(size_t count)
-        : m_count { count }
+        : mCount { count }
     {
     }
 
     void Semaphore::notify()
     {
-        std::unique_lock<std::mutex> lock(*m_mutex);
-        m_condition->notify_one();
-        ++m_count;
+        std::unique_lock<std::mutex> lock(*mMutex);
+        mCondition->notify_one();
+        ++mCount;
     }
 
     void Semaphore::wait()
     {
-        std::unique_lock<std::mutex> lock(*m_mutex);
-        m_condition->wait(lock, [&]() { return m_count > 0; });
-        --m_count;
+        std::unique_lock<std::mutex> lock(*mMutex);
+        mCondition->wait(lock, [&]() { return mCount > 0; });
+        --mCount;
     }
 }
 
 namespace Dynamic_Static {
     Worker::Worker()
     {
-        m_thread = std::thread(
+        mThread = std::thread(
             [&]()
             {
-                m_running = true;
-                while (m_running) {
-                    m_semaphore.wait();
-                    while (!m_tasks.empty()) {
-                        m_mutex->lock();
-                        Task& task = m_tasks.front();
-                        m_mutex->unlock();
+                mRunning = true;
+                while (mRunning) {
+                    mSemaphore.wait();
+                    while (!mTasks.empty()) {
+                        mMutex->lock();
+                        Task& task = mTasks.front();
+                        mMutex->unlock();
                         task();
-                        m_mutex->lock();
-                        m_tasks.pop();
-                        m_mutex->unlock();
+                        mMutex->lock();
+                        mTasks.pop();
+                        mMutex->unlock();
                     }
                 }
             }
         );
 
-        while (!m_running) {
+        while (!mRunning) {
             std::this_thread::yield();
         }
     }
 
     Worker::~Worker()
     {
-        m_running = false;
-        m_semaphore.notify();
-        if (m_thread.joinable()) {
-            m_thread.join();
+        mRunning = false;
+        mSemaphore.notify();
+        if (mThread.joinable()) {
+            mThread.join();
         }
     }
 
     size_t Worker::task_count() const
     {
-        return m_tasks.size();
+        return mTasks.size();
     }
 
     void Worker::join() const
     {
-        while (m_tasks.size()) {
+        while (mTasks.size()) {
             std::this_thread::yield();
         }
     }
 
     void Worker::push(const Task& task)
     {
-        std::lock_guard<std::mutex> lock(*m_mutex);
-        m_tasks.push(task);
-        m_semaphore.notify();
+        std::lock_guard<std::mutex> lock(*mMutex);
+        mTasks.push(task);
+        mSemaphore.notify();
     }
 }
 
@@ -114,7 +114,7 @@ namespace Dynamic_Static {
         size_t max_worker_count = std::thread::hardware_concurrency();
         worker_count = worker_count ? worker_count : max_worker_count;
         worker_count = std::min(std::max(size_t { 1 }, worker_count), max_worker_count);
-        m_workers = std::vector<Worker>(worker_count);
+        mWorkers = std::vector<Worker>(worker_count);
     }
 
     ThreadPool::~ThreadPool()
@@ -124,13 +124,13 @@ namespace Dynamic_Static {
 
     size_t ThreadPool::worker_count() const
     {
-        return m_workers.size();
+        return mWorkers.size();
     }
 
     size_t ThreadPool::task_count() const
     {
         size_t task_count = 0;
-        for (const auto& worker : m_workers) {
+        for (const auto& worker : mWorkers) {
             task_count += worker.task_count();
         }
 
@@ -139,16 +139,16 @@ namespace Dynamic_Static {
 
     void ThreadPool::join() const
     {
-        for (const auto& worker : m_workers) {
+        for (const auto& worker : mWorkers) {
             worker.join();
         }
     }
 
     void ThreadPool::push(Worker::Task task)
     {
-        m_workers[m_worker_index++].push(task);
-        if (m_worker_index >= m_workers.size()) {
-            m_worker_index = 0;
+        mWorkers[mWorkerIndex++].push(task);
+        if (mWorkerIndex >= mWorkers.size()) {
+            mWorkerIndex = 0;
         }
     }
 }

@@ -119,7 +119,7 @@ namespace Dynamic_Static {
      */
     class Timer final {
     private:
-        TimePoint<Nanosecond> m_begin { Time::now() };
+        TimePoint<Nanosecond> mBegin { Time::now() };
 
     public:
         /**
@@ -128,7 +128,7 @@ namespace Dynamic_Static {
         template <typename DurationType, typename ReturnType = float>
         ReturnType total() const
         {
-            return static_cast<ReturnType>(duration_cast<DurationType>(Time::now() - m_begin).count());
+            return static_cast<ReturnType>(duration_cast<DurationType>(Time::now() - mBegin).count());
         }
 
         /**
@@ -136,7 +136,7 @@ namespace Dynamic_Static {
          */
         void reset()
         {
-            m_begin = Time::now();
+            mBegin = Time::now();
         }
     };
 }
@@ -163,9 +163,9 @@ namespace Dynamic_Static {
         typedef HighResolutionClock HighResolution;
 
     private:
-        TimePoint<Nanosecond> m_begin { Time::now() };
-        TimePoint<Nanosecond> m_current { Time::now() };
-        TimePoint<Nanosecond> m_previous { Time::now() - Nanosecond(1) };
+        TimePoint<Nanosecond> mBegin { Time::now() };
+        TimePoint<Nanosecond> mCurrent { Time::now() };
+        TimePoint<Nanosecond> mPrevious { Time::now() - Nanosecond(1) };
 
     public:
         /**
@@ -173,7 +173,7 @@ namespace Dynamic_Static {
          */
         const TimePoint<Nanosecond>& current() const
         {
-            return m_current;
+            return mCurrent;
         }
 
         /**
@@ -182,7 +182,7 @@ namespace Dynamic_Static {
         template <typename DurationType, typename ReturnType = float>
         ReturnType total() const
         {
-            return static_cast<ReturnType>(duration_cast<DurationType>(m_current - m_begin).count());
+            return static_cast<ReturnType>(duration_cast<DurationType>(mCurrent - mBegin).count());
         }
 
         /**
@@ -191,7 +191,7 @@ namespace Dynamic_Static {
         template <typename DurationType, typename ReturnType = float>
         ReturnType elapsed() const
         {
-            return static_cast<ReturnType>(duration_cast<DurationType>(m_current - m_previous).count());
+            return static_cast<ReturnType>(duration_cast<DurationType>(mCurrent - mPrevious).count());
         }
 
         /**
@@ -199,8 +199,8 @@ namespace Dynamic_Static {
          */
         void update()
         {
-            m_previous = m_current;
-            m_current = Time::now();
+            mPrevious = mCurrent;
+            mCurrent = Time::now();
         }
     };
 }

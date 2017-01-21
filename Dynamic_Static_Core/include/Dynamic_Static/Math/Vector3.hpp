@@ -62,7 +62,7 @@ namespace Dynamic_Static {
             friend struct Quaternion;
             friend struct std::hash<Vector3>;
         private:
-            glm::vec3 m_vec3;
+            glm::vec3 mVec3;
 
         public:
             Vector3() = default;
@@ -126,7 +126,7 @@ namespace std {
          */
         size_t operator()(const dst::math::Vector3& v) const
         {
-            return hash<glm::vec3>()(v.m_vec3);
+            return hash<glm::vec3>()(v.mVec3);
         }
     };
 }

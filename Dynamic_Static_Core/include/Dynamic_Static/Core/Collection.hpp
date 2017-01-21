@@ -46,8 +46,8 @@ namespace Dynamic_Static {
         //        https://github.com/KhronosGroup/Vulkan-Hpp/blob/master/vulkan/vulkan.hpp
 
     private:
-        const T* m_data { nullptr };
-        size_t m_count { 0 };
+        const T* mData { nullptr };
+        size_t mCount { 0 };
 
     public:
         /**
@@ -66,8 +66,8 @@ namespace Dynamic_Static {
          * TODO : Documentation.
          */
         Collection(T& data)
-            : m_data { &data }
-            , m_count { 1 }
+            : mData { &data }
+            , mCount { 1 }
         {
         }
 
@@ -75,8 +75,8 @@ namespace Dynamic_Static {
          * TODO : Documentation.
          */
         Collection(T* data, size_t count)
-            : m_data { data }
-            , m_count { count }
+            : mData { data }
+            , mCount { count }
         {
         }
 
@@ -85,8 +85,8 @@ namespace Dynamic_Static {
          */
         template <size_t N>
         Collection(std::array<typename std::remove_const<T>::type, N>& data)
-            : m_data { data.data() }
-            , m_count { N }
+            : mData { data.data() }
+            , mCount { N }
         {
         }
 
@@ -95,8 +95,8 @@ namespace Dynamic_Static {
          */
         template <size_t N>
         Collection(const std::array<typename std::remove_const<T>::type, N>& data)
-            : m_data { data.data() }
-            , m_count { N }
+            : mData { data.data() }
+            , mCount { N }
         {
         }
 
@@ -105,8 +105,8 @@ namespace Dynamic_Static {
          */
         template <class Allocator = std::allocator<typename std::remove_const<T>::type>>
         Collection(std::vector<typename std::remove_const<T>::type, Allocator>& data)
-            : m_data { data.data() }
-            , m_count { data.size() }
+            : mData { data.data() }
+            , mCount { data.size() }
         {
         }
 
@@ -115,8 +115,8 @@ namespace Dynamic_Static {
          */
         template <class Allocator = std::allocator<typename std::remove_const<T>::type>>
         Collection(const std::vector<typename std::remove_const<T>::type, Allocator>& data)
-            : m_data { data.data() }
-            , m_count { data.size() }
+            : mData { data.data() }
+            , mCount { data.size() }
         {
         }
 
@@ -124,8 +124,8 @@ namespace Dynamic_Static {
          * TODO : Documentation.
          */
         Collection(std::initializer_list<T> data)
-            : m_data { data.begin() }
-            , m_count { static_cast<size_t>(data.end() - data.begin()) }
+            : mData { data.begin() }
+            , mCount { static_cast<size_t>(data.end() - data.begin()) }
         {
         }
 
@@ -136,7 +136,7 @@ namespace Dynamic_Static {
          */
         T& operator[](size_t index)
         {
-            return m_data[index];
+            return mData[index];
         }
 
         /**
@@ -146,7 +146,7 @@ namespace Dynamic_Static {
          */
         const T& operator[](size_t index) const
         {
-            return m_data[index];
+            return mData[index];
         }
 
     public:
@@ -156,7 +156,7 @@ namespace Dynamic_Static {
          */
         T* begin()
         {
-            return m_data;
+            return mData;
         }
 
         /**
@@ -165,7 +165,7 @@ namespace Dynamic_Static {
          */
         const T* begin() const
         {
-            return m_data;
+            return mData;
         }
 
         /**
@@ -174,7 +174,7 @@ namespace Dynamic_Static {
          */
         T* end()
         {
-            return m_data + m_count;
+            return mData + mCount;
         }
 
         /**
@@ -183,7 +183,7 @@ namespace Dynamic_Static {
          */
         const T* end() const
         {
-            return m_data + m_count;
+            return mData + mCount;
         }
 
         /**
@@ -192,7 +192,7 @@ namespace Dynamic_Static {
          */
         T& front()
         {
-            assert(m_data && m_count);
+            assert(mData && mCount);
             return *begin();
         }
 
@@ -202,7 +202,7 @@ namespace Dynamic_Static {
          */
         const T& front() const
         {
-            assert(m_data && m_count);
+            assert(mData && mCount);
             return *begin();
         }
 
@@ -212,7 +212,7 @@ namespace Dynamic_Static {
          */
         T& back()
         {
-            assert(m_data && m_count);
+            assert(mData && mCount);
             return *(end() - 1);
         }
 
@@ -222,7 +222,7 @@ namespace Dynamic_Static {
          */
         const T& back() const
         {
-            assert(m_data && m_count);
+            assert(mData && mCount);
             return *(end() - 1);
         }
 
@@ -232,7 +232,7 @@ namespace Dynamic_Static {
          */
         T* data()
         {
-            return m_data;
+            return mData;
         }
 
         /**
@@ -241,7 +241,7 @@ namespace Dynamic_Static {
          */
         const T* data() const
         {
-            return m_data;
+            return mData;
         }
 
         /**
@@ -250,7 +250,7 @@ namespace Dynamic_Static {
          */
         size_t size() const
         {
-            return m_count;
+            return mCount;
         }
 
         /**
@@ -259,7 +259,7 @@ namespace Dynamic_Static {
          */
         size_t byte_size() const
         {
-            return m_count * sizeof(T);
+            return mCount * sizeof(T);
         }
 
         /**
@@ -268,7 +268,7 @@ namespace Dynamic_Static {
          */
         bool empty() const
         {
-            return m_count == 0;
+            return mCount == 0;
         }
     };
 }
