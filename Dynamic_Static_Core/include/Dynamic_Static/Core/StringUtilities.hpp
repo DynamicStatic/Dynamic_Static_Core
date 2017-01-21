@@ -36,7 +36,7 @@
 namespace Dynamic_Static {
     /**
      * Removes all occurences of a character from an std::string.
-     * @param [in] str  The std::string to operate on
+     * @param [in] str The std::string to operate on
      * @param [in] find The character to remove
      * @return An std::string with the completed removal
      */
@@ -52,8 +52,8 @@ namespace Dynamic_Static {
 
     /**
      * Replaces all occurences in an std::string of a character with another character.
-     * @param [in] str         The std::string to operate on
-     * @param [in] find        The character to replace
+     * @param [in] str The std::string to operate on
+     * @param [in] find The character to replace
      * @param [in] replacement The character to replace with
      * @return An std::string with the completed replacement
      */
@@ -61,8 +61,8 @@ namespace Dynamic_Static {
 
     /**
      * Replaces all occurences in an std::string of a character with an std::string.
-     * @param [in] str         The std::string to operate on
-     * @param [in] find        The character to replace
+     * @param [in] str The std::string to operate on
+     * @param [in] find The character to replace
      * @param [in] replacement The std::string to replace with
      * @return An std::string with the completed replacement
      */
@@ -70,8 +70,8 @@ namespace Dynamic_Static {
 
     /**
      * Replaces all occurences in an std::string of a character with another character.
-     * @param [in] str         The std::string to operate on
-     * @param [in] find        The std::string to replace
+     * @param [in] str The std::string to operate on
+     * @param [in] find The std::string to replace
      * @param [in] replacement The character to replace with
      * @return An std::string with the completed replacement
      */
@@ -79,8 +79,8 @@ namespace Dynamic_Static {
 
     /**
      * Replaces all occurences in an std::string of a character with another character.
-     * @param [in] str         The std::string to operate on
-     * @param [in] find        The std::string to replace
+     * @param [in] str The std::string to operate on
+     * @param [in] find The std::string to replace
      * @param [in] replacement The std::string to replace with
      * @return An std::string with the completed replacement
      */
@@ -88,7 +88,7 @@ namespace Dynamic_Static {
 
     /**
      * Reduces a sequence of characters to one character
-     * @param [in] str  The std::string to operate on
+     * @param [in] str The std::string to operate on
      * @param [in] find The character to reduce sequences of
      * @return An std::string with the completed sequence reduction
      */

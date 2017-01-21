@@ -40,10 +40,10 @@
 namespace Dynamic_Static {
     /**
      * Gets a value clamped to a specified range.
-     * @param <T>        The type of the value
+     * @param <T> The type of the value
      * @param [in] value The value to clamp
-     * @param [in] min   The minimum value [inclusive]
-     * @param [in] max   The maximum value [inclusive]
+     * @param [in] min The minimum value [inclusive]
+     * @param [in] max The maximum value [inclusive]
      * @return The value clamped into the range [minimum, maximum]
      */
     template <typename T>
@@ -57,10 +57,10 @@ namespace Dynamic_Static {
 
     /**
      * Gets a value clamped to a specified range.
-     * @param <T>        The type of the value
+     * @param <T> The type of the value
      * @param [in] value The value to clamp
      * @param [in] range The values to generate the clamp range from
-     *                   \n NOTE : These values can be unsorted
+     * \n NOTE : These values can be unsorted
      * @return The value clamped into the specified range
      */
     template <typename T>
@@ -82,10 +82,10 @@ namespace Dynamic_Static {
     /**
      * Gets a value linearly interpolated between two values by a specified weight.
      * \n NOTE : This function can only be used with built in floating point types
-     * @param <T>      The type of the value
-     * @param [in] v_0 The value to interpolate from
-     * @param [in] v_1 The value to interpolate towards
-     * @param [in] s   The weight of the interpolation
+     * @param <T> The type of the value
+     * @param [in] v0 The value to interpolate from
+     * @param [in] v1 The value to interpolate towards
+     * @param [in] s The weight of the interpolation
      * @return The result of the linear interpolation
      */
     template <typename T>

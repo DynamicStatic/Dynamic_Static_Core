@@ -76,8 +76,8 @@ namespace Dynamic_Static {
 
     /**
      * Gets the std::string representation of a specified integral value in hex.
-     * @param <T>        The type of the value
-     *                   \n NOTE : This function can only be used with built in integral types
+     * @param <T> The type of the value
+     * \n NOTE : This function can only be used with built in integral types
      * @param [in] value The value to get the hex std::string representation of
      * @return The specified value's hex std::string representation
      */

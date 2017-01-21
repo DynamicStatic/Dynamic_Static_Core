@@ -63,7 +63,7 @@ namespace Dynamic_Static {
 
             /**
              * Sets this Transform's world space position.
-             * @param [in] local_position This Transform's world space position
+             * @param [in] position This Transform's world space position
              */
             void position(const Vector3& position);
 
@@ -81,7 +81,7 @@ namespace Dynamic_Static {
 
             /**
              * Sets this Transform's world space rotation.
-             * @param [in] local_position This Transform's world space rotation
+             * @param [in] rotation This Transform's world space rotation
              */
             void rotation(const Quaternion& rotation);
 
@@ -99,7 +99,7 @@ namespace Dynamic_Static {
 
             /**
              * Sets this Transform's world space scale.
-             * @param [in] local_position This Transform's world space scale
+             * @param [in] scale This Transform's world space scale
              */
             void scale(const Vector3& scale);
 
@@ -117,7 +117,7 @@ namespace Dynamic_Static {
 
             /**
              * Sets this Transform's local position.
-             * @param [in] local_position This Transform's local position
+             * @param [in] localPosition This Transform's local position
              */
             void local_position(const Vector3& localPosition);
 
@@ -135,7 +135,7 @@ namespace Dynamic_Static {
 
             /**
              * Sets this Transform's local rotation.
-             * @param [in] local_position This Transform's local rotation
+             * @param [in] localRotation This Transform's local rotation
              */
             void local_rotation(const Quaternion& localRotation);
 
@@ -153,7 +153,7 @@ namespace Dynamic_Static {
 
             /**
              * Sets this Transform's local scale.
-             * @param [in] local_position This Transform's local scale
+             * @param [in] localScale This Transform's local scale
              */
             void local_scale(const Vector3& localScale);
 

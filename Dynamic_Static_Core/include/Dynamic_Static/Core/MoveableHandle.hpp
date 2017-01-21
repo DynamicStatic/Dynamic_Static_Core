@@ -40,7 +40,7 @@ namespace Dynamic_Static {
     /**
      * Maintains a handle to a MoveNotifier object.
      * @param <T> The type of the underlying pointer
-     *            \n NOTE : This type must extend Dynamic_Static::MoveNotifier
+     * \n NOTE : This type must extend Dynamic_Static::MoveNotifier
      */
     template <typename T>
     class MoveableHandle

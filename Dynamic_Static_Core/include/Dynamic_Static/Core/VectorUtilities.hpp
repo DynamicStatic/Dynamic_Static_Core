@@ -39,11 +39,11 @@
 namespace Dynamic_Static {
     /**
      * Converts an std::vector of one type to an std::vector of another type.
-     * @param <T>  ConvertFrom The type to convert from
-     * @param <T>  ConvertTo   The type to convert to
-     * @param [in] source      The source std::vector
+     * @param <T> ConvertFrom The type to convert from
+     * @param <T> ConvertTo The type to convert to
+     * @param [in] source The source std::vector
      * @param [in] destination The destination std::vector
-     * @param [in] conversion  The conversion function to use
+     * @param [in] conversion The conversion function to use
      */
     template <typename ConvertFrom, typename ConvertTo>
     void convert(
@@ -60,9 +60,9 @@ namespace Dynamic_Static {
 
     /**
      * Converts an std::vector of one type to an std::vector of another type.
-     * @param <T>  ConvertFrom The type to convert from
-     * @param <T>  ConvertTo   The type to convert to
-     * @param [in] source      The source std::vector
+     * @param <T> ConvertFrom The type to convert from
+     * @param <T> ConvertTo The type to convert to
+     * @param [in] source The source std::vector
      * @param [in] conversion  The conversion function to use
      * @return An std::vector containing the converted objects
      */
@@ -80,7 +80,7 @@ namespace Dynamic_Static {
      * Removes duplicate elements from an std::vector
      * NOTE : This operation will sort the std::vector
      * NOTE : The element type of the std::vector must provide operator< and operator==
-     * @param <T>  T The element type of the std::vector to remove duplicates from
+     * @param <T> T The element type of the std::vector to remove duplicates from
      * @param [in] v The std::vector to remove duplicates from
      */
     template <typename T>
@@ -93,9 +93,9 @@ namespace Dynamic_Static {
     /**
      * Takes ownership of an std::unique_ptr from an std::vector.
      * \n NOTE : This function returns a null std::unique_ptr if the target isn't found
-     * @param <T>         The type of the std::unique_ptr and std::vector
+     * @param <T> The type of the std::unique_ptr and std::vector
      * @param [in] target The std::unique_ptr to take
-     * @param [in] v      The std::vector to take the std::unique_ptr from
+     * @param [in] v The std::vector to take the std::unique_ptr from
      * @return The std::unique_ptr taken from the std::vector
      */
     template <typename T>
@@ -107,9 +107,9 @@ namespace Dynamic_Static {
     /**
      * Takes ownership of an std::unique_ptr from an std::vector.
      * \n NOTE : This function returns a null std::unique_ptr if the target isn't found
-     * @param <T>         The type of the std::unique_ptr and std::vector
+     * @param <T> The type of the std::unique_ptr and std::vector
      * @param [in] target The object pointed to by the std::unique_ptr to take
-     * @param [in] v      The std::vector to take the std::unique_ptr from
+     * @param [in] v The std::vector to take the std::unique_ptr from
      * @return The std::unique_ptr taken from the std::vector
      */
     template <typename T>

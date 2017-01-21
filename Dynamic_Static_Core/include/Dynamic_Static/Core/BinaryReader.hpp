@@ -55,7 +55,7 @@ namespace Dynamic_Static {
         /**
          * Constructs an instance of BinaryReader.
          * \n Exception - std::runtime_error : The specified file couldn't be opened
-         * @param [in] file_path The file path to construct this BinaryReader with.
+         * @param [in] filePath The file path to construct this BinaryReader with.
          */
         BinaryReader(const std::string& filePath);
 
@@ -92,17 +92,18 @@ namespace Dynamic_Static {
         void position(size_t position);
 
         /**
+         * TODO : Documentation.
          * Sets this BinaryReader's position to a specified offset from a specified position.
          * \n Exception - std::runtime_error : The position after the offset exceeds the size of the file being read
          * \n Exception - std::runtime_error : The position after the offset is negative
-         * \n Exception - std::logic_error   : A value besides std::ios::beg, std::ios::cur, or std::ios::end was passed for seek_origin
+         * \n Exception - std::logic_error : A value besides std::ios::beg, std::ios::cur, or std::ios::end was passed for seekOrigin
          */
         void seek(size_t offset, std::ios::seekdir seekOrigin = std::ios::beg);
 
         /**
          * Opens a file to begin reading.
          * \n Exception - std::runtime_error :  The specified file couldn't be opened
-         * @param [in] file_path The path to the file to open
+         * @param [in] filePath The path to the file to open
          */
         void open(const std::string& filePath);
 
@@ -127,7 +128,7 @@ namespace Dynamic_Static {
         /**
          * Extracts a specified number of objects of a specified type from this BinaryReader's file without advancing the position in the file.
          * \n Exception - std::runtime_error : Attempted to read past the end of the file
-         * @param <T>   The type of objects to extract
+         * @param <T> The type of objects to extract
          * @param count The number of objects to extract
          * @return The extracted objects
          */
@@ -141,7 +142,7 @@ namespace Dynamic_Static {
         /**
          * Extracts a specified number of objects of a specified type from this BinaryReader's file without advancing the position in the file.
          * \n Exception - std::runtime_error : Attempted to read past the end of the file
-         * @param <T>   The type of objects to extract
+         * @param <T> The type of objects to extract
          * @param count The number of objects to extract
          * @param data  The std::vector that will be populated with the extracted objects
          */
@@ -169,7 +170,7 @@ namespace Dynamic_Static {
         /**
          * Extracts a specified number of objects of a specified type from this BinaryReader's file.
          * \n Exception - std::runtime_error : Attempted to read past the end of the file
-         * @param <T>   The type of objects to extract
+         * @param <T> The type of objects to extract
          * @param count The number of objects to extract
          * @return The extracted objects
          */
@@ -183,9 +184,9 @@ namespace Dynamic_Static {
         /**
          * Extracts a specified number of objects of a specified type from this BinaryReader's file.
          * \n Exception - std::runtime_error : Attempted to read past the end of the file
-         * @param <T>   The type of objects to extract
+         * @param <T> The type of objects to extract
          * @param count The number of objects to extract
-         * @param data  The std::vector that will be populated with the extracted objects
+         * @param data The std::vector that will be populated with the extracted objects
          */
         template <typename T>
         std::vector<T>& read(size_t count, std::vector<T>& data)
@@ -198,7 +199,7 @@ namespace Dynamic_Static {
         /**
          * Gets the contents of the file being read by this BinaryReader.
          * @param <T> The type to recieve the file contents as
-         *            \n Default : uint8_t
+         * \n Default : uint8_t
          * @return The contents of the file being read by this BinaryReader
          */
         template <typename T = uint8_t>

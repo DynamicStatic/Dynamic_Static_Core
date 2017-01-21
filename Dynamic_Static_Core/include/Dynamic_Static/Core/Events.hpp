@@ -216,8 +216,8 @@ namespace Dynamic_Static {
 
         /**
          * Compares two Subscribables for equality.
-         * @param [in] obj_0 The first object to compare
-         * @param [in] obj_1 The second object to compare
+         * @param [in] obj0 The first object to compare
+         * @param [in] obj1 The second object to compare
          * @return Whether or not the two Subscribables are the same object
          */
         template <typename ...Args>
@@ -228,8 +228,8 @@ namespace Dynamic_Static {
 
         /**
          * Compares two Subscribables for inequality.
-         * @param [in] obj_0 The first object to compare
-         * @param [in] obj_1 The second object to compare
+         * @param [in] obj0 The first object to compare
+         * @param [in] obj1 The second object to compare
          * @return Whether or not the two Subscribables are not the same object
          */
         template <typename ...Args>

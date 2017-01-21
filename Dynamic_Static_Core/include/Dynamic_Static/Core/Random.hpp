@@ -88,14 +88,14 @@ namespace Dynamic_Static {
 
         /**
          * Gets an integral value in the range of two specified values.
-         * @param [in] value_0 The first value [inclusive]
-         * @param [in] value_1 The second value [inclusive]
+         * @param [in] value0 The first value [inclusive]
+         * @param [in] value1 The second value [inclusive]
          * @return The random integral value generated
          */
         template <typename T>
-        T range(T value_0, T value_1)
+        T range(T value0, T value1)
         {
-            auto values = std::minmax(value_0, value_1);
+            auto values = std::minmax(value0, value1);
             T min = values.first;
             T max = values.second + 1;
             return mIntDistribution(mEngine) % (max - min) + min;
@@ -143,14 +143,14 @@ namespace Dynamic_Static {
 
     /**
      * Gets a double value in the range of two specified values.
-     * @param [in] value_0 The first value [inclusive]
-     * @param [in] value_1 The second value [inclusive]
+     * @param [in] value0 The first value [inclusive]
+     * @param [in] value1 The second value [inclusive]
      * @return The random double value generated
      */
     template <>
-    inline double RandomNumberGenerator::range<double>(double value_0, double value_1)
+    inline double RandomNumberGenerator::range<double>(double value0, double value1)
     {
-        auto values = std::minmax(value_0, value_1);
+        auto values = std::minmax(value0, value1);
         double min = values.first;
         double max = values.second;
         return mRealDistribution(mEngine) * (max - min) + min;
@@ -158,14 +158,14 @@ namespace Dynamic_Static {
 
     /**
      * Gets a float value in the range of two specified values.
-     * @param [in] value_0 The first value [inclusive]
-     * @param [in] value_1 The second value [inclusive]
+     * @param [in] value0 The first value [inclusive]
+     * @param [in] value1 The second value [inclusive]
      * @return The random float value generated
      */
     template <>
-    inline float RandomNumberGenerator::range<float>(float value_0, float value_1)
+    inline float RandomNumberGenerator::range<float>(float value0, float value1)
     {
-        return static_cast<float>(range<double>(value_0, value_1));
+        return static_cast<float>(range<double>(value0, value1));
     }
 
     /**

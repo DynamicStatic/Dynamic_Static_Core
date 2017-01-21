@@ -74,7 +74,7 @@ namespace Dynamic_Static {
         /**
          * Blocks the calling thread until this Semaphore is notified at least once for each call to wait() or a specified time out is reached.
          * @param <DurationType> The type of the Duration to use for the time out
-         * @param [in] time_out  The amount of time to wait before releasing this Semaphore
+         * @param [in] timeOut The amount of time to wait before releasing this Semaphore
          */
         template <typename DurationType = Millisecond>
         void wait_for(const DurationType& timeOut)
@@ -150,7 +150,7 @@ namespace Dynamic_Static {
     public:
         /**
          * Constructs an instance of ThreadPool with an optional worker count.
-         * \n NOTE : If worker_count is 0 it will be set to the number of cores reported by the operating system.
+         * \n NOTE : If workerCount is 0 it will be set to the number of cores reported by the operating system.
          */
         ThreadPool(size_t workerCount = 0);
 
