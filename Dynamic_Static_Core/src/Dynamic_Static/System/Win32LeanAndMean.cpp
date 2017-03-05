@@ -27,6 +27,9 @@
 =====================================================================================
 */
 
+#include "Dynamic_Static/Core/Defines.hpp"
+#if defined(DYNAMIC_STATIC_WINDOWS)
+
 #include "Dynamic_Static/System/Win32LeanAndMean.hpp"
 
 namespace Dynamic_Static {
@@ -139,3 +142,5 @@ namespace Dynamic_Static {
         }
     }
 } // namespace Dynamic_Static
+
+#endif
