@@ -183,6 +183,7 @@
     <ClInclude Include="include\Dynamic_Static\System\Directory.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\File.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Path.hpp" />
+    <ClInclude Include="include\Dynamic_Static\System\Win32LeanAndMean.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Dynamic_Static_Core.licenseheader" />
@@ -204,6 +205,7 @@
     <ClCompile Include="src\Dynamic_Static\System\Directory.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\File.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Path.cpp" />
+    <ClCompile Include="src\Dynamic_Static\System\Win32LeanAndMean.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
