@@ -72,6 +72,13 @@ namespace Dynamic_Static {
             }
         }
 
+        Vector3 Vector3::normalized() const
+        {
+            Vector3 vec3 = *this;
+            vec3.normalize();
+            return vec3;
+        }
+
         std::string Vector3::to_string() const
         {
             return

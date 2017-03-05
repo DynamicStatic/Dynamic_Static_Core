@@ -179,6 +179,10 @@
     <ClInclude Include="include\Dynamic_Static\Math\Vector2.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Vector3.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Vector4.hpp" />
+    <ClInclude Include="include\Dynamic_Static\System\Defines.hpp" />
+    <ClInclude Include="include\Dynamic_Static\System\Directory.hpp" />
+    <ClInclude Include="include\Dynamic_Static\System\File.hpp" />
+    <ClInclude Include="include\Dynamic_Static\System\Path.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Dynamic_Static_Core.licenseheader" />
@@ -197,6 +201,9 @@
     <ClCompile Include="src\Dynamic_Static\Math\Matrix4x4.cpp" />
     <ClCompile Include="src\Dynamic_Static\Math\Transform.cpp" />
     <ClCompile Include="src\Dynamic_Static\Math\Vector4.cpp" />
+    <ClCompile Include="src\Dynamic_Static\System\Directory.cpp" />
+    <ClCompile Include="src\Dynamic_Static\System\File.cpp" />
+    <ClCompile Include="src\Dynamic_Static\System\Path.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

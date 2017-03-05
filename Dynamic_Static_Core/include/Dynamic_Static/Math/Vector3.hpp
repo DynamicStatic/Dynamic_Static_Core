@@ -80,6 +80,7 @@ namespace Dynamic_Static {
             void z(float z);
 
             void normalize();
+            Vector3 normalized() const;
             std::string to_string() const;
 
             static const Vector3 one;
