@@ -107,15 +107,8 @@ namespace Dynamic_Static {
             Platform::add(*this);
         }
 
-        void* Window::handle() const
-        {
-            return mHandle;
-        }
-
-        void* Window::instance() const
-        {
-            return mInstance;
-        }
+        void* Window::handle() const { return mHandle; }
+        void* Window::instance() const { return mInstance; }
 
         void Window::update()
         {

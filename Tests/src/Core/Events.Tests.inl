@@ -28,7 +28,6 @@
 */
 
 #include "Dynamic_Static/Core/Events.hpp"
-
 #include "Dynamic_Static/Core/Random.hpp"
 
 #pragma once

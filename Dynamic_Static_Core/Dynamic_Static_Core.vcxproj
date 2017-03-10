@@ -182,6 +182,9 @@
     <ClInclude Include="include\Dynamic_Static\System\Defines.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Directory.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\File.hpp" />
+    <ClInclude Include="include\Dynamic_Static\System\Input.hpp" />
+    <ClInclude Include="include\Dynamic_Static\System\Keyboard.hpp" />
+    <ClInclude Include="include\Dynamic_Static\System\Mouse.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Path.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Win32LeanAndMean.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Window.hpp" />
@@ -205,9 +208,13 @@
     <ClCompile Include="src\Dynamic_Static\Math\Vector4.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Directory.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\File.cpp" />
+    <ClCompile Include="src\Dynamic_Static\System\Input.cpp" />
+    <ClCompile Include="src\Dynamic_Static\System\Keyboard.cpp" />
+    <ClCompile Include="src\Dynamic_Static\System\Mouse.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Path.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Win32LeanAndMean.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Window.cpp" />
+    <ClCompile Include="src\Dynamic_Static\System\WindowGLFW.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\WindowWin32.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

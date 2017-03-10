@@ -167,7 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Core\BinaryReader.Tests.cpp" />
-    <ClCompile Include="src\Core\Event.Tests.cpp" />
+    <ClCompile Include="src\Core\Events.Tests.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="src\Core\MoveableHandle.Tests.cpp" />
     <ClCompile Include="src\Core\MoveNotifier.Tests.cpp" />
@@ -177,7 +177,7 @@
     <ClCompile Include="src\Core\VectorUtilities.Tests.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Core\Event.Tests.inl" />
+    <None Include="src\Core\Events.Tests.inl" />
     <None Include="Tests.licenseheader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

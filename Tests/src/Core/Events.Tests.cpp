@@ -29,7 +29,7 @@
 
 #include "catch.hpp"
 
-#include "Event.Tests.inl"
+#include "Events.Tests.inl"
 
 namespace Dynamic_Static {
     namespace Tests {
