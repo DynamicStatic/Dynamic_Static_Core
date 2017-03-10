@@ -85,7 +85,7 @@ namespace Dynamic_Static {
      * @param <T> The type of the value
      * @param [in] v0 The value to interpolate from
      * @param [in] v1 The value to interpolate towards
-     * @param [in] s The weight of the interpolation
+     * @param [in] t The weight of the interpolation
      * @return The result of the linear interpolation
      */
     template <typename T>

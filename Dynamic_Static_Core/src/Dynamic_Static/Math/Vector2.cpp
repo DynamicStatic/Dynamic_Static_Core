@@ -27,57 +27,24 @@
 =====================================================================================
 */
 
-#pragma once
+#include "Dynamic_Static/Math/Vector2.hpp"
+#include "Dynamic_Static/Math/Vector3.hpp"
+#include "Dynamic_Static/Math/Vector4.hpp"
 
-#include "Dynamic_Static/Core/NonCopyable.hpp"
-#include "Dynamic_Static/Core/NonMoveable.hpp"
-#include "Dynamic_Static/System/Mouse.hpp"
-#include "Dynamic_Static/System/Defines.hpp"
-#include "Dynamic_Static/System/Keyboard.hpp"
+#include <sstream>
 
 namespace Dynamic_Static {
-    namespace System {
-        /**
-         * Provides high level control over input devices.
-         */
-        class Input final
-            : NonCopyable
-            , NonMoveable {
-        private:
-            Mouse mMouse;
-            Keyboard mKeyboard;
+    namespace Math {
+        Vector2::Vector2(const Vector3& other)
+        {
+            values[0] = other.x();
+            values[1] = other.y();
+        }
 
-        public:
-            /**
-             * Gets this Input's Mouse.
-             */
-            const Mouse& mouse() const;
-
-            /**
-             * Gets this Input's Mouse.
-             */
-            Mouse& mouse();
-
-            /**
-             * Gets this Input's Keyboard.
-             */
-            const Keyboard& keyboard() const;
-
-            /**
-             * Gets this Input's Keyboard.
-             */
-            Keyboard& keyboard();
-
-            /**
-             * Updates this Input.
-             * \n NOTE : This method must be called periodically to keep this Input up to date.
-             */
-            void update();
-
-            /**
-             * Resets this Input.
-             */
-            void reset();
-        };
-    } // namespace System
-} // namespace Dynamic_Static
+        Vector2::Vector2(const Vector4& other)
+        {
+            values[0] = other.x();
+            values[1] = other.y();
+        }
+    }
+}
