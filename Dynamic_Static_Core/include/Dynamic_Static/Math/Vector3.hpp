@@ -45,7 +45,7 @@
 #include <array>
 #include <string>
 
-#define DST_TO_GLM(DSTVECTOR3) (*reinterpret_cast<glm::vec3>(&DSTVECTOR3))
+#define DST_TO_GLMVEC3(DSTVECTOR3) (*reinterpret_cast<glm::vec3>(&DSTVECTOR3))
 
 namespace std {
     template <>
@@ -57,14 +57,13 @@ namespace Dynamic_Static {
         /**
          * Representation of 3D vectors and points.
          */
-        struct Vector3 final {
+        struct Vector3 {
             friend Vector3 operator+(const Vector3&, const Vector3&);
             friend Vector3 operator-(const Vector3&, const Vector3&);
             friend Vector3 operator*(const Vector3&, const Vector3&);
             friend Vector3 operator*(const Vector3&, float);
             friend Vector3 operator/(const Vector3&, const Vector3&);
             friend Vector3 operator/(const Vector3&, float);
-            friend struct std::hash<Vector3>;
         public:
             /**
              * Constant Vector3(1, 1, 1).
@@ -161,6 +160,13 @@ namespace Dynamic_Static {
             {
                 std::copy_n(values, this->values.size(), this->values.begin());
             }
+
+            /**
+             * Constructs an instance of Vector3.
+             * @param [in] xy The Vector2 to copy the x and y values from
+             *                \n NOTE : This Vector3's z value will be set to zero
+             */
+            Vector3(const Vector2& xy);
 
             /**
              * Constructs an instance of Vector3.
@@ -270,26 +276,6 @@ namespace Dynamic_Static {
             }
 
             /**
-             * Gets a value indicating whether or not a specified Vector3 is equal to this Vector3.
-             * @parram [in] other The Vector3 to check for equality
-             * @return Whether or not the specified Vector3 is equal to this Vector3
-             */
-            inline bool operator==(const Vector3& other)
-            {
-                return _vec3 == other._vec3;
-            }
-
-            /**
-             * Gets a value indicating whether or not a specified Vector3 is inequal to this Vector3.
-             * @parram [in] other The Vector3 to check for inequality
-             * @return Whether or not the specified Vector3 is inequal to this Vector3
-             */
-            inline bool operator!=(const Vector3 other)
-            {
-                return _vec3 != other._vec3;
-            }
-
-            /**
              * Gets the value at the specified index.
              * @param [in] index The index of the value to get
              * @return The value at the specified index
@@ -383,6 +369,28 @@ namespace Dynamic_Static {
             sizeof(Vector3) == sizeof(float) * 3,
             "sizeof(Vector3) must equal sizeof(float) * 3"
         );
+
+        /**
+         * Gets a value indicating whether or two specified Vector3s are equal.
+         * @param [in] v0 The first Vector3
+         * @param [in] v1 The second Vector3
+         * @return whether or not the two specified Vector3s are equal
+         */
+        inline bool operator==(const Vector3 v0, const Vector3& v1)
+        {
+            return v0._vec3 == v1._vec3;
+        }
+
+        /**
+         * Gets a value indicating whether or two specified Vector3 are inequal.
+         * @param [in] v0 The first Vector3
+         * @param [in] v1 The second Vector3
+         * @return whether or not the two specified Vector3 are inequal
+         */
+        inline bool operator!=(const Vector3 v0, const Vector3& v1)
+        {
+            return v0 != v1;
+        }
 
         /**
          * Gets the result of addition between two Vector3s.
@@ -487,8 +495,6 @@ namespace std {
         }
     };
 } // namespace std
-
-#undef DST_TO_GLM
 
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(pop)

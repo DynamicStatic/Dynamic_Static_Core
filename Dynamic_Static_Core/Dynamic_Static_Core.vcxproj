@@ -166,6 +166,7 @@
     <ClInclude Include="include\Dynamic_Static\Core\Version.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\AxisAlignedBoundingBox2D.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\AxisAlignedBoundingBox3D.hpp" />
+    <ClInclude Include="include\Dynamic_Static\Math\Color.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Defines.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Math.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Matrix3x3.hpp" />
@@ -200,6 +201,7 @@
     <ClCompile Include="src\Dynamic_Static\Core\StringUtilities.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\Threads.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\ToString.cpp" />
+    <ClCompile Include="src\Dynamic_Static\Math\Color.cpp" />
     <ClCompile Include="src\Dynamic_Static\Math\Quaternion.cpp" />
     <ClCompile Include="src\Dynamic_Static\Math\Vector2.cpp" />
     <ClCompile Include="src\Dynamic_Static\Math\Vector3.cpp" />

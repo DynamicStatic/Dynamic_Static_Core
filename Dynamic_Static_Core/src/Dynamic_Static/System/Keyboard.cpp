@@ -35,6 +35,16 @@
 
 namespace Dynamic_Static {
     namespace System {
+        bool Keyboard::up(Key key) const
+        {
+            return mCurrent.up(key);
+        }
+
+        bool Keyboard::down(Key key) const
+        {
+            return mCurrent.down(key);
+        }
+
         bool Keyboard::held(Key key) const
         {
             return mCurrent.down(key) && mPrevious.down(key);

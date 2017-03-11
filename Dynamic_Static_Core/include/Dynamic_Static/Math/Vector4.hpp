@@ -45,7 +45,7 @@
 #include <array>
 #include <string>
 
-#define DST_TO_GLM(DSTVECTOR4) (*reinterpret_cast<glm::vec4>(&DSTVECTOR4))
+#define DST_TO_GLMVEC4(DSTVECTOR4) (*reinterpret_cast<glm::vec4>(&DSTVECTOR4))
 
 namespace std {
     template <>
@@ -57,14 +57,13 @@ namespace Dynamic_Static {
         /**
          * Representation of 3D vectors and points.
          */
-        struct Vector4 final {
+        struct Vector4 {
             friend Vector4 operator+(const Vector4&, const Vector4&);
             friend Vector4 operator-(const Vector4&, const Vector4&);
             friend Vector4 operator*(const Vector4&, const Vector4&);
             friend Vector4 operator*(const Vector4&, float);
             friend Vector4 operator/(const Vector4&, const Vector4&);
             friend Vector4 operator/(const Vector4&, float);
-            friend struct std::hash<Vector4>;
         public:
             /**
              * Constant Vector4(1, 1, 1, 1).
@@ -172,6 +171,13 @@ namespace Dynamic_Static {
             /**
              * Constructs an instance of Vector4.
              * @param [in] xy The Vector2 to copy the x and y values from
+             *                \n NOTE : This Vector4's z and w values will be set to zero
+             */
+            Vector4(const Vector2& xy);
+
+            /**
+             * Constructs an instance of Vector4.
+             * @param [in] xy The Vector2 to copy the x and y values from
              * @param [in] z This Vector4's z value
              * @param [in] w This Vector4's w value
              */
@@ -199,6 +205,13 @@ namespace Dynamic_Static {
              * @param [in] zw The Vector2 to copy the x and y values from
              */
             Vector4(const Vector2& xy, const Vector2& zw);
+
+            /**
+             * Constructs an instance of Vector4.
+             * @param [in] xyz The Vector3 to copy the x, y, and z values from
+             *                 \n NOTE : This Vector4's w value will be set to zero
+             */
+            Vector4(const Vector3& xyz);
 
             /**
              * Constructs an instance of Vector4.
@@ -302,26 +315,6 @@ namespace Dynamic_Static {
             }
 
             /**
-             * Gets a value indicating whether or not a specified Vector4 is equal to this Vector4.
-             * @parram [in] other The Vector4 to check for equality
-             * @return Whether or not the specified Vector4 is equal to this Vector4
-             */
-            inline bool operator==(const Vector4& other)
-            {
-                return _vec4 == other._vec4;
-            }
-
-            /**
-             * Gets a value indicating whether or not a specified Vector4 is inequal to this Vector4.
-             * @parram [in] other The Vector4 to check for inequality
-             * @return Whether or not the specified Vector4 is inequal to this Vector4
-             */
-            inline bool operator!=(const Vector4 other)
-            {
-                return _vec4 != other._vec4;
-            }
-
-            /**
              * Gets the value at the specified index.
              * @param [in] index The index of the value to get
              * @return The value at the specified index
@@ -417,6 +410,28 @@ namespace Dynamic_Static {
             sizeof(Vector4) == sizeof(float) * 4,
             "sizeof(Vector4) must equal sizeof(float) * 4"
         );
+
+        /**
+         * Gets a value indicating whether or two specified Vector4s are equal.
+         * @param [in] v0 The first Vector4
+         * @param [in] v1 The second Vector4
+         * @return whether or not the two specified Vector4s are equal
+         */
+        inline bool operator==(const Vector4 v0, const Vector4& v1)
+        {
+            return v0._vec4 == v1._vec4;
+        }
+
+        /**
+         * Gets a value indicating whether or two specified Vector4 are inequal.
+         * @param [in] v0 The first Vector4
+         * @param [in] v1 The second Vector4
+         * @return whether or not the two specified Vector4 are inequal
+         */
+        inline bool operator!=(const Vector4 v0, const Vector4& v1)
+        {
+            return v0 != v1;
+        }
 
         /**
          * Gets the result of addition between two Vector4s.
@@ -521,8 +536,6 @@ namespace std {
         }
     };
 } // namespace std
-
-#undef DST_TO_GLM
 
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(pop)

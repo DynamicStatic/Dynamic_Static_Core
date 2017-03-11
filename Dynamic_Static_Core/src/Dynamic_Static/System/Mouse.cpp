@@ -40,6 +40,16 @@ namespace Dynamic_Static {
         float Mouse::delta_x() const { return mCurrent.x() - mPrevious.x(); }
         float Mouse::delta_y() const { return mCurrent.y() - mPrevious.y(); }
 
+        bool Mouse::up(Button button) const
+        {
+            return mCurrent.up(button);
+        }
+
+        bool Mouse::down(Button button) const
+        {
+            return mCurrent.down(button);
+        }
+
         bool Mouse::held(Button button) const
         {
             return mCurrent.down(button) && mPrevious.down(button);

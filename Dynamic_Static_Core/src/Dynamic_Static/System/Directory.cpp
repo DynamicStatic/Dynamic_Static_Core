@@ -30,6 +30,7 @@
 #include "Dynamic_Static/System/Directory.hpp"
 #include "Dynamic_Static/Core/FileSystem.hpp"
 #include "Dynamic_Static/Core/NotImplementedError.hpp"
+#include "Dynamic_Static/System/Path.hpp"
 
 namespace Dynamic_Static {
     namespace System {
@@ -46,7 +47,7 @@ namespace Dynamic_Static {
 
             std::string current()
             {
-                throw NotImplementedError("Directory::current()");
+                return Path::scrub(dst::filesystem::current_path().string());
             }
         } // namespace Directory
     } // namespace System

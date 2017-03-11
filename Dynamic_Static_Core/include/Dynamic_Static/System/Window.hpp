@@ -31,6 +31,7 @@
 
 #include "Dynamic_Static/Core/Object.hpp"
 #include "Dynamic_Static/Core/Events.hpp"
+#include "Dynamic_Static/Core/MoveNotifier.hpp"
 #include "Dynamic_Static/System/Defines.hpp"
 
 #include <string>
@@ -38,7 +39,8 @@
 namespace Dynamic_Static {
     namespace System {
         class Window final
-            : public Object {
+            : public Object
+            , public MoveNotifier<Window> {
         private:
             class Platform;
 

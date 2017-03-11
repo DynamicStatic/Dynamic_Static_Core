@@ -33,6 +33,11 @@
 
 namespace Dynamic_Static {
     namespace Math {
+        Vector4::Vector4(const Vector2& xy)
+            : Vector4(xy[0], xy[1], 0, 0)
+        {
+        }
+
         Vector4::Vector4(const Vector2& xy, float z, float w)
             : Vector4(xy[0], xy[1], z, w)
         {
@@ -50,6 +55,11 @@ namespace Dynamic_Static {
 
         Vector4::Vector4(const Vector2& xy, const Vector2& zw)
             : Vector4(xy[0], xy[1], zw[0], zw[1])
+        {
+        }
+
+        Vector4::Vector4(const Vector3& xyz)
+            : Vector4(xyz[0], xyz[1], xyz[2], 0)
         {
         }
 

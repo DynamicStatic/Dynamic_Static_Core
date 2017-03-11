@@ -33,6 +33,11 @@
 
 namespace Dynamic_Static {
     namespace Math {
+        Vector3::Vector3(const Vector2& xy)
+            : Vector3(xy[0], xy[1], 0)
+        {
+        }
+
         Vector3::Vector3(const Vector2& xy, float z)
             : Vector3(xy[0], xy[1], z)
         {

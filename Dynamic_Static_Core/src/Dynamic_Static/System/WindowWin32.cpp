@@ -50,6 +50,8 @@ namespace Dynamic_Static {
             static void remove(Window& window);
             static LRESULT CALLBACK wnd_proc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam);
         };
+
+        std::unordered_map<HWND, Window*> Window::Platform::sWindows;
     } // namespace System
 } // namespace Dynamic_Static
 
@@ -173,30 +175,36 @@ namespace Dynamic_Static {
         LRESULT CALLBACK Window::Platform::wnd_proc(HWND handle, UINT message, WPARAM wParam, LPARAM lParam)
         {
             auto itr = sWindows.find(handle);
-            assert(itr != sWindows.end());
-            auto window = itr->second;
-            assert(window && window->handle() == handle);
-            switch (message) {
-                case WM_LBUTTONDOWN: {
-                } break;
+            if (itr != sWindows.end()) {
+                auto window = itr->second;
+                assert(window && window->handle() == handle);
+                switch (message) {
+                    case WM_LBUTTONDOWN:
+                    {
+                    } break;
 
-                case WM_CLOSE: {
-                    window->OnClosed(*window);
-                    DestroyWindow(handle);
-                } break;
+                    case WM_CLOSE:
+                    {
+                        window->OnClosed(*window);
+                        DestroyWindow(handle);
+                    } break;
 
-                case WM_PAINT: {
-                    // TODO : BOOL result = ValidateRect(handle, NULL);
-                } break;
+                    case WM_PAINT:
+                    {
+                        // TODO : BOOL result = ValidateRect(handle, NULL);
+                    } break;
 
-                case WM_SIZE: {
-                    window->mWidth = LOWORD(lParam);
-                    window->mHeight = HIWORD(lParam);
-                    window->OnResized(*window);
-                } break;
+                    case WM_SIZE:
+                    {
+                        window->mWidth = LOWORD(lParam);
+                        window->mHeight = HIWORD(lParam);
+                        window->OnResized(*window);
+                    } break;
 
-                case WM_EXITSIZEMOVE: {
-                } break;
+                    case WM_EXITSIZEMOVE:
+                    {
+                    } break;
+                }
             }
 
             return DefWindowProc(handle, message, wParam, lParam);

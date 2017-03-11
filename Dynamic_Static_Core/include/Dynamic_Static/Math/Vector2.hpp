@@ -47,7 +47,7 @@
 #include <string>
 #include <ostream>
 
-#define DST_TO_GLM(DSTVECTOR2) (*reinterpret_cast<glm::vec2>(&DSTVECTOR2))
+#define DST_TO_GLMVEC2(DSTVECTOR2) (*reinterpret_cast<glm::vec2>(&DSTVECTOR2))
 
 namespace std {
     template <>
@@ -59,14 +59,13 @@ namespace Dynamic_Static {
         /**
          * Representation of 2D vectors and points.
          */
-        struct Vector2 final {
+        struct Vector2 {
             friend Vector2 operator+(const Vector2&, const Vector2&);
             friend Vector2 operator-(const Vector2&, const Vector2&);
             friend Vector2 operator*(const Vector2&, const Vector2&);
             friend Vector2 operator*(const Vector2&, float);
             friend Vector2 operator/(const Vector2&, const Vector2&);
             friend Vector2 operator/(const Vector2&, float);
-            friend struct std::hash<Vector2>;
         public:
             /**
              * Constant Vector2(1, 1).
@@ -247,26 +246,6 @@ namespace Dynamic_Static {
             }
 
             /**
-             * Gets a value indicating whether or not a specified Vector2 is equal to this Vector2.
-             * @parram [in] other The Vector2 to check for equality
-             * @return Whether or not the specified Vector2 is equal to this Vector2
-             */
-            inline bool operator==(const Vector2& other)
-            {
-                return _vec2 == other._vec2;
-            }
-
-            /**
-             * Gets a value indicating whether or not a specified Vector2 is inequal to this Vector2.
-             * @parram [in] other The Vector2 to check for inequality
-             * @return Whether or not the specified Vector2 is inequal to this Vector2
-             */
-            inline bool operator!=(const Vector2 other)
-            {
-                return _vec2 != other._vec2;
-            }
-
-            /**
              * Gets the value at the specified index.
              * @param [in] index The index of the value to get
              * @return The value at the specified index
@@ -393,6 +372,28 @@ namespace Dynamic_Static {
         );
 
         /**
+         * Gets a value indicating whether or two specified Vector2s are equal.
+         * @param [in] v0 The first Vector2
+         * @param [in] v1 The second Vector2
+         * @return whether or not the two specified Vector2s are equal
+         */
+        inline bool operator==(const Vector2 v0, const Vector2& v1)
+        {
+            return v0._vec2 == v1._vec2;
+        }
+
+        /**
+         * Gets a value indicating whether or two specified Vector2s are inequal.
+         * @param [in] v0 The first Vector2
+         * @param [in] v1 The second Vector2
+         * @return whether or not the two specified Vector2s are inequal
+         */
+        inline bool operator!=(const Vector2 v0, const Vector2& v1)
+        {
+            return v0 != v1;
+        }
+
+        /**
          * Gets the result of addition between two Vector2s.
          * @param [in] v0 The first Vector2
          * @param [in] v1 The second Vector2
@@ -495,8 +496,6 @@ namespace std {
         }
     };
 } // namespace std
-
-#undef DST_TO_GLM
 
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(pop)

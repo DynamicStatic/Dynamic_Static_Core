@@ -55,14 +55,14 @@ namespace Dynamic_Static {
                 // The codes are listed in numeric order.
                 // http://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx
 
-                // LeftMouse            = 0x01,
-                // RightMouse           = 0x02,
+                // Left                 = 0x01,
+                // Right                = 0x02,
 
                 ControlBreak         = 0x03,
 
-                // MiddleMouse          = 0x04,
-                // X1Mouse              = 0x05,
-                // X2Mouse              = 0x06,
+                // Middle               = 0x04,
+                // X1                   = 0x05,
+                // X2                   = 0x06,
 
                 Backspace            = 0x08,
                 Tab                  = 0x09,
@@ -273,6 +273,16 @@ namespace Dynamic_Static {
             State mPrevious;
 
             public:
+                /**
+                 * TODO : Documentation.
+                 */
+                bool up(Key key) const;
+
+                /**
+                 * TODO : Documentation.
+                 */
+                bool down(Key key) const;
+
                 /**
                  * TODO : Documentation.
                  */
