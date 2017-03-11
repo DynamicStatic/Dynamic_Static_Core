@@ -39,8 +39,8 @@
 namespace Dynamic_Static {
     /**
      * Maintains a handle to a MoveNotifier object.
-     * @param <T> The type of the underlying pointer
-     * \n NOTE : This type must extend Dynamic_Static::MoveNotifier
+     * @param <T> The type of the object
+     * \n NOTE : This type must extend Dynamic_Static::MoveNotifier<T>
      */
     template <typename T>
     class MoveableHandle
@@ -143,12 +143,12 @@ namespace Dynamic_Static {
         void reset(MoveNotifier<T>* target = nullptr)
         {
             if (mHandle) {
-                static_cast<MoveNotifier<T>*>(mHandle)->on_moved -= mDelegate;
+                static_cast<MoveNotifier<T>*>(mHandle)->OnMoved -= mDelegate;
             }
 
             mHandle = static_cast<T*>(target);
             if (mHandle) {
-                static_cast<MoveNotifier<T>*>(mHandle)->on_moved += mDelegate;
+                static_cast<MoveNotifier<T>*>(mHandle)->OnMoved += mDelegate;
             }
 
             bind_delegate();

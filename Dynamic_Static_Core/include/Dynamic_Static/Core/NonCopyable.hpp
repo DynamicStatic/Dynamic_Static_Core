@@ -45,7 +45,7 @@ namespace Dynamic_Static {
     }
 
     /**
-     * TODO : Documentation.
+     * Removes a derived object's copy constructors.
      */
     typedef detail::NonCopyable NonCopyable;
 } // namespace Dynamic_Static

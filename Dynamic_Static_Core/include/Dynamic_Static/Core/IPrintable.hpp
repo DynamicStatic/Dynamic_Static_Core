@@ -37,7 +37,7 @@
 
 namespace Dynamic_Static {
     /**
-     * TODO : Documentation.
+     * An interface for std::string conversion and stream output.
      */
     class IPrintable {
     public:

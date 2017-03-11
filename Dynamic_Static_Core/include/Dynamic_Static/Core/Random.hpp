@@ -193,7 +193,7 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
     /**
-     * TODO : Documentation.
+     * Provides high level control over random number generation.
      */
     static RandomNumberGenerator Random;
 } // namespace Dynamic_Static

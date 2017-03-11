@@ -104,10 +104,13 @@ namespace Dynamic_Static {
 namespace Dynamic_Static {
     namespace Time {
         /**
-         * TODO : Documentation.
+         * Gets the current system time in nano seconds.
+         * \n NOTE : This value may not provide nano second resolution, this is implementation and system specific
+         * @return The current system time in nano seconds
          */
         inline TimePoint<Nanosecond> now()
         {
+            // TODO : Provide interface for distinction between steady clock and system clock.
             return HighResolutionClock::now();
         }
     } // namespace Time

@@ -37,7 +37,7 @@
 
 namespace Dynamic_Static {
     /**
-     * TODO : Documentation.
+     * Common base for all Dynamic_Static objects.
      */
     class Object
         : public IPrintable

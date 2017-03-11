@@ -103,17 +103,17 @@ namespace Dynamic_Static {
         //        there is no rounding performed until std::fma() returns.
         //
         //        Consider...
-        //        (static_cast<T>(1) - t) * v_0 + t * v_1
+        //        (static_cast<T>(1) - t) * v0 + t * v1
         //        and...
-        //        v_0 + t * (v_1 - v_0)
+        //        v0 + t * (v1 - v0)
         //        The first form incurs 4 rounding errors and the second 3.
         //        Note that the second form cannot guarantee that the value
-        //        returned equals v_0 when t equals 1 due to rounding error.
+        //        returned equals v1 when t equals 1 due to rounding error.
         //
         //        std::fma() computes...
         //        x * y + z
         //        so our operation is...
-        //        t * v_1 + (-t * v_0 + v_0)
+        //        t * v1 + (-t * v0 + v0)
 
         return std::fma(t, v1, std::fma(-t, v0, v0));
     }

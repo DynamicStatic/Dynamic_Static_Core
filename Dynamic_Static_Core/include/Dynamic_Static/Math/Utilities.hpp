@@ -42,7 +42,10 @@
 namespace Dynamic_Static {
     namespace Math {
         /**
-         * TODO : Documentation.
+         * Converts degrees to radians.
+         * @param <T> The type of the degrees argument
+         * @param degrees The degrees to convert to radians
+         * @return The converted radians
          */
         template <typename T>
         T to_radians(const T& degrees)
@@ -51,7 +54,10 @@ namespace Dynamic_Static {
         }
 
         /**
-         * TODO : Documentation.
+         * Converts radians to degrees.
+         * @param <T> The type of the radians argument
+         * @param radians The radians to convert to degrees
+         * @return The converted degrees
          */
         template <typename T>
         T to_degrees(const T& radians)

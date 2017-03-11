@@ -37,10 +37,11 @@
 #include <initializer_list>
 
 namespace Dynamic_Static {
-    template <typename T>
     /**
-     * TODO : Documentation.
+     * Provides a common interface for passing contiguous collections as function arguments.
+     * @param <T> The type of element in this Collection.
      */
+    template <typename T>
     class Collection final {
         // FROM : vk::ArrayProxy defined in vulkan.hpp (with slight modifications)...
         //        https://github.com/KhronosGroup/Vulkan-Hpp/blob/master/vulkan/vulkan.hpp
@@ -51,19 +52,20 @@ namespace Dynamic_Static {
 
     public:
         /**
-         * TODO : Documentation.
+         * Constructs an instance of Collection.
          */
         Collection() = default;
 
         /**
-         * TODO : Documentation.
+         * Constructs an instance of Collection.
          */
         Collection(nullptr_t)
         {
         }
 
         /**
-         * TODO : Documentation.
+         * Constructs an instance of Collection.
+         * @param [in] data This Collection's data
          */
         Collection(T& data)
             : mData { &data }
@@ -72,7 +74,9 @@ namespace Dynamic_Static {
         }
 
         /**
-         * TODO : Documentation.
+         * Constructs an instance of Collection.
+         * @param [in] data The address of this Collection's data
+         * @param [in] count The number of elements in this Collection
          */
         Collection(T* data, size_t count)
             : mData { data }
@@ -81,7 +85,9 @@ namespace Dynamic_Static {
         }
 
         /**
-         * TODO : Documentation.
+         * Constructs an instance of Collection.
+         * @param <N> The number of elements in this Collection
+         * @param [in] data This Collection's data
          */
         template <size_t N>
         Collection(std::array<typename std::remove_const<T>::type, N>& data)
@@ -91,7 +97,9 @@ namespace Dynamic_Static {
         }
 
         /**
-         * TODO : Documentation.
+         * Constructs an instance of Collection.
+         * @param <N> The number of elements in this Collection
+         * @param [in] data This Collection's data
          */
         template <size_t N>
         Collection(const std::array<typename std::remove_const<T>::type, N>& data)
@@ -101,7 +109,8 @@ namespace Dynamic_Static {
         }
 
         /**
-         * TODO : Documentation.
+         * Constructs an instance of Collection.
+         * @param [in] data This Collection's data
          */
         template <class Allocator = std::allocator<typename std::remove_const<T>::type>>
         Collection(std::vector<typename std::remove_const<T>::type, Allocator>& data)
@@ -111,7 +120,8 @@ namespace Dynamic_Static {
         }
 
         /**
-         * TODO : Documentation.
+         * Constructs an instance of Collection.
+         * @param [in] data This Collection's data
          */
         template <class Allocator = std::allocator<typename std::remove_const<T>::type>>
         Collection(const std::vector<typename std::remove_const<T>::type, Allocator>& data)
@@ -121,7 +131,8 @@ namespace Dynamic_Static {
         }
 
         /**
-         * TODO : Documentation.
+         * Constructs an instance of Collection.
+         * @param [in] data This Collection's data
          */
         Collection(std::initializer_list<T> data)
             : mData { data.begin() }

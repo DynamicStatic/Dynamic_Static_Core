@@ -44,7 +44,8 @@ namespace Dynamic_Static {
     }
 
     /**
-     * TODO : Documentation.
+     * Removes all of a derived object's default constructors.
+     * \n NOTE : Custom constructors can still be defined
      */
     typedef detail::NonConstructable NonConstructable;
 } // namespace Dynamic_Static

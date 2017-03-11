@@ -37,7 +37,7 @@
 namespace Dynamic_Static {
     namespace Math {
         /**
-         * TODO : Documentation.
+         * Provides high level control over position, rotation, and scale.
          */
         class Transform final {
         private:

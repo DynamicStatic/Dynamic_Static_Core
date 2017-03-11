@@ -43,7 +43,7 @@
 
 namespace Dynamic_Static {
     /**
-     * TODO : Documentation.
+     * Synchronization primitive used to hold one or more threads' execution.
      */
     class Semaphore final
         : NonCopyable {
@@ -88,7 +88,7 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
     /**
-     * TODO : Documentation.
+     * Maintains an std::thread and an std::queue of Tasks to process.
      */
     class Worker final
         : NonCopyable {
@@ -139,7 +139,7 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
     /**
-     * TODO : Documentation.
+     * Maintains a collection of Workers.
      */
     class ThreadPool final
         : NonCopyable {

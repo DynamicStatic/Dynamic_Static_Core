@@ -50,7 +50,7 @@ namespace Dynamic_Static {
          * Event raised when this MoveNotifier is moved.
          * @param [in] The object being moved
          */
-        Event<MoveNotifier<T>, T&> on_moved;
+        Event<MoveNotifier<T>, T&> OnMoved;
 
     private:
         MoveNotifier() = default;
@@ -77,8 +77,8 @@ namespace Dynamic_Static {
         MoveNotifier<T>& operator=(MoveNotifier<T>&& other)
         {
             if (this != &other) {
-                on_moved = std::move(other.on_moved);
-                on_moved(*static_cast<T*>(this));
+                OnMoved = std::move(other.OnMoved);
+                OnMoved(*static_cast<T*>(this));
             }
 
             return *this;

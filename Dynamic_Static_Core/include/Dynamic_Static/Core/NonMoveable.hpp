@@ -45,7 +45,7 @@ namespace Dynamic_Static {
     }
 
     /**
-     * TODO : Documentation.
+     * Removes a derived object's move constructors.
      */
     typedef detail::NonMoveable NonMoveable;
 } // namespace Dynamic_Static

@@ -277,7 +277,7 @@ namespace Dynamic_Static {
     class Delegate final
         : public detail::Subscribable<Args...> {
     private:
-        Action<Args...> m_action;
+        Action<Args...> mAction;
 
     public:
         /**
@@ -290,7 +290,7 @@ namespace Dynamic_Static {
          * @param [in] action The Action to construct this Delegate with
          */
         Delegate(const Action<Args...>& action)
-            : m_action { action }
+            : mAction { action }
         {
         }
 
@@ -300,7 +300,7 @@ namespace Dynamic_Static {
          */
         Delegate& operator=(const Action<Args...>& action)
         {
-            m_action = action;
+            mAction = action;
             return *this;
         }
 
@@ -310,8 +310,8 @@ namespace Dynamic_Static {
          */
         void operator()(Args... args) override
         {
-            if (m_action) {
-                m_action(std::forward<Args>(args)...);
+            if (mAction) {
+                mAction(std::forward<Args>(args)...);
             }
         }
 
