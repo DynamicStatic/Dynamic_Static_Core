@@ -52,4 +52,4 @@ namespace Dynamic_Static {
          */
         NotImplementedError(const std::string& message);
     };
-}
+} // namespace Dynamic_Static

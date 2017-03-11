@@ -89,4 +89,4 @@ namespace Dynamic_Static {
     MoveNotifier<T>::~MoveNotifier()
     {
     }
-}
+} // namespace Dynamic_Static

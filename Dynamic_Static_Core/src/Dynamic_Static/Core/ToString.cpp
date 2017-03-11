@@ -41,4 +41,4 @@ namespace Dynamic_Static {
     {
         return std::wstring(str.begin(), str.end());
     }
-}
+} // namespace Dynamic_Static

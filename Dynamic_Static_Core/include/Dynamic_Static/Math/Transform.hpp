@@ -205,5 +205,5 @@ namespace Dynamic_Static {
              */
             Matrix4x4 local_to_world() const;
         };
-    }
-}
+    } // namespace Math
+} // namespace Dynamic_Static

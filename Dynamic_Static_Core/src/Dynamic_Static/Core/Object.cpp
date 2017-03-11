@@ -48,4 +48,4 @@ namespace Dynamic_Static {
     const std::string& Object::name() const { return mName; }
     void Object::name(const std::string& name) { mName = name; }
     std::string Object::to_string() const { return name(); }
-}
+} // namespace Dynamic_Static

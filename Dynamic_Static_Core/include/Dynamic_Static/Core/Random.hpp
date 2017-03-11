@@ -189,11 +189,11 @@ namespace Dynamic_Static {
     {
         return value >= range<float>(0, 1);
     }
-}
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     /**
      * TODO : Documentation.
      */
     static RandomNumberGenerator Random;
-}
+} // namespace Dynamic_Static

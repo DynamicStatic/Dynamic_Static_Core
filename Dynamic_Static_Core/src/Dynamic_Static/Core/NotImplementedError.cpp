@@ -39,4 +39,4 @@ namespace Dynamic_Static {
         : std::logic_error("Not implemented" + message.size() ? " : " + message : std::string())
     {
     }
-}
+} // namespace Dynamic_Static

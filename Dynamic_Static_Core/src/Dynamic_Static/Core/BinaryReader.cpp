@@ -121,4 +121,4 @@ namespace Dynamic_Static {
         mFileStream.close();
         mSize = 0;
     }
-}
+} // namespace Dynamic_Static

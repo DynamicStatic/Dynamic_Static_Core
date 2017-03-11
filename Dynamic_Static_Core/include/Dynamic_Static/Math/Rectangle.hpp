@@ -53,5 +53,5 @@ namespace Dynamic_Static {
         //    T bottom() const { return y + height; } const;
         //    T area() const { return width * height; } const;
         //};
-    }
-}
+    } // namespace Math
+} // namespace Dynamic_Static

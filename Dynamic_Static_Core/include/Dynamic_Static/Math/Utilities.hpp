@@ -58,5 +58,5 @@ namespace Dynamic_Static {
         {
             return glm::degrees(radians);
         }
-    }
-}
+    } // namespace Math
+} // namespace Dynamic_Static

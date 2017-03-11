@@ -35,5 +35,5 @@ namespace Dynamic_Static {
     namespace Math {
         struct OrientedBoundingBox3D final {
         };
-    }
-}
+    } // namespace Math
+} // namespace Dynamic_Static

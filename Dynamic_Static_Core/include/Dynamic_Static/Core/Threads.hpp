@@ -84,7 +84,7 @@ namespace Dynamic_Static {
             --mCount;
         }
     };
-}
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     /**
@@ -135,7 +135,7 @@ namespace Dynamic_Static {
          */
         void push(const Task& task);
     };
-}
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     /**
@@ -184,4 +184,4 @@ namespace Dynamic_Static {
          */
         void push(Worker::Task task);
     };
-}
+} // namespace Dynamic_Static

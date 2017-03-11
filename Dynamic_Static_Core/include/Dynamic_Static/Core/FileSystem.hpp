@@ -39,4 +39,4 @@
 
 namespace Dynamic_Static {
     namespace filesystem = std::experimental::filesystem;
-}
+} // namespace Dynamic_Static

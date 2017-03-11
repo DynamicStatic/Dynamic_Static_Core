@@ -52,13 +52,13 @@ namespace Dynamic_Static {
         struct Vector4;
         class Transform;
         //template <typename T> struct Rectangle;
-    }
+    } // namespace Math
 
     /**
      * Alias for the Dynamic_Static::Math namespace.
      */
     namespace math = Math;
-}
+} // namespace Dynamic_Static
 
 /**
  * Use this macro to typedef dst::math objects into another namespace.

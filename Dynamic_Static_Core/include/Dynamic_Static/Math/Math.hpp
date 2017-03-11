@@ -30,8 +30,13 @@
 #pragma once
 
 #include "Dynamic_Static/Math/Defines.hpp"
+#include "Dynamic_Static/Math/AxisAlignedBoundingBox2D.hpp"
+#include "Dynamic_Static/Math/AxisAlignedBoundingBox3D.hpp"
+#include "Dynamic_Static/Math/Color.hpp"
 #include "Dynamic_Static/Math/Matrix3x3.hpp"
 #include "Dynamic_Static/Math/Matrix4x4.hpp"
+#include "Dynamic_Static/Math/OrientedBoundingBox2D.hpp"
+#include "Dynamic_Static/Math/OrientedBoundingBox3D.hpp"
 #include "Dynamic_Static/Math/Quaternion.hpp"
 #include "Dynamic_Static/Math/Rectangle.hpp"
 #include "Dynamic_Static/Math/Transform.hpp"

@@ -53,5 +53,5 @@ namespace Dynamic_Static {
             sizeof(Matrix3x3) == sizeof(float) * 9,
             "sizeof(Matrix3x3) must equal sizeof(float) * 9"
         );
-    }
-}
+    } // namespace Math
+} // namespace Dynamic_Static

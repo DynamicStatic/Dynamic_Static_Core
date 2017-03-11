@@ -34,8 +34,8 @@
 namespace Dynamic_Static {
     namespace detail {
         static std::string replace(const std::string& str, const std::string& find, const std::string& replacement, bool recursive);
-    }
-}
+    } // namespace detail
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     std::string remove(const std::string& str, char find)
@@ -86,23 +86,23 @@ namespace Dynamic_Static {
         std::transform(altered.begin(), altered.end(), altered.begin(), toupper);
         return altered;
     }
-}
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     namespace detail {
         static std::string replace(const std::string& str, const std::string& find, const std::string& replacement, bool recursive)
         {
-            std::string replaced_str = str;
+            std::string replacedStr = str;
             if (find.length()) {
-                size_t index = replaced_str.find(find);
+                size_t index = replacedStr.find(find);
                 while (index != std::string::npos) {
-                    replaced_str.replace(index, find.size(), replacement);
+                    replacedStr.replace(index, find.size(), replacement);
                     index += recursive ? 0 : replacement.size();
-                    index = replaced_str.find(find, index);
+                    index = replacedStr.find(find, index);
                 }
             }
 
-            return replaced_str;
+            return replacedStr;
         }
-    }
-}
+    } // namespace detail
+} // namespace Dynamic_Static

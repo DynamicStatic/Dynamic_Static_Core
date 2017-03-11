@@ -50,7 +50,7 @@ namespace Dynamic_Static {
         mCondition->wait(lock, [&]() { return mCount > 0; });
         --mCount;
     }
-}
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     Worker::Worker()
@@ -106,7 +106,7 @@ namespace Dynamic_Static {
         mTasks.push(task);
         mSemaphore.notify();
     }
-}
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     ThreadPool::ThreadPool(size_t worker_count)
@@ -151,4 +151,4 @@ namespace Dynamic_Static {
             mWorkerIndex = 0;
         }
     }
-}
+} // namespace Dynamic_Static

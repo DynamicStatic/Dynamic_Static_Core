@@ -48,4 +48,4 @@ namespace Dynamic_Static {
      * TODO : Documentation.
      */
     typedef detail::NonCopyable NonCopyable;
-}
+} // namespace Dynamic_Static

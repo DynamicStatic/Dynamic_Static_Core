@@ -85,5 +85,5 @@ namespace Dynamic_Static {
             sizeof(Quaternion) == sizeof(float) * 4,
             "sizeof(Quaternion) must equal sizeof(float) * 4"
         );
-    }
-}
+    } // namespace Math
+} // namespace Dynamic_Static

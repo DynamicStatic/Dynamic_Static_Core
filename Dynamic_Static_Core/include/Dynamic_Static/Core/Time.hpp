@@ -99,7 +99,7 @@ namespace Dynamic_Static {
     {
         return std::chrono::duration_cast<ToType>(duration);
     }
-}
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     namespace Time {
@@ -110,8 +110,8 @@ namespace Dynamic_Static {
         {
             return HighResolutionClock::now();
         }
-    }
-}
+    } // namespace Time
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     /**
@@ -139,7 +139,7 @@ namespace Dynamic_Static {
             mBegin = Time::now();
         }
     };
-}
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     /**
@@ -203,4 +203,4 @@ namespace Dynamic_Static {
             mCurrent = Time::now();
         }
     };
-}
+} // namespace Dynamic_Static

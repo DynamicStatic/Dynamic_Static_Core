@@ -41,7 +41,7 @@ namespace Dynamic_Static {
     {
         return dst::to_wstring(to_string());
     }
-}
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     template <>
@@ -55,4 +55,4 @@ namespace Dynamic_Static {
     {
         return printable.to_wstring();
     }
-}
+} // namespace Dynamic_Static

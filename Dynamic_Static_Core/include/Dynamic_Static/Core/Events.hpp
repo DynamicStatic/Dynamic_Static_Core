@@ -41,8 +41,8 @@ namespace Dynamic_Static {
     namespace detail {
         template <typename ...Args>
         class Event;
-    }
-}
+    } // namespace detail
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     namespace detail {
@@ -237,8 +237,8 @@ namespace Dynamic_Static {
         {
             return !(obj0 == obj1);
         }
-    }
-}
+    } // namespace detail
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     namespace detail {
@@ -257,8 +257,8 @@ namespace Dynamic_Static {
                 Subscribable<Args...>::unlock();
             }
         };
-    }
-}
+    } // namespace detail
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     /**
@@ -266,7 +266,7 @@ namespace Dynamic_Static {
      */
     template <typename ...Args>
     using Action = std::function<void(Args...)>;
-}
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     /**
@@ -333,7 +333,7 @@ namespace Dynamic_Static {
             detail::Subscribable<Args...>::clear();
         }
     };
-}
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     /**
@@ -401,4 +401,4 @@ namespace Dynamic_Static {
             detail::Subscribable<Args...>::clear();
         }
     };
-}
+} // namespace Dynamic_Static

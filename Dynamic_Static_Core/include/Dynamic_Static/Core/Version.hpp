@@ -61,7 +61,7 @@ namespace Dynamic_Static {
          */
         std::string to_string() const override;
     };
-}
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     /**
@@ -69,4 +69,4 @@ namespace Dynamic_Static {
      * @return The current Dynamic_Static_Core Version
      */
     const Version& current_version();
-}
+} // namespace Dynamic_Static

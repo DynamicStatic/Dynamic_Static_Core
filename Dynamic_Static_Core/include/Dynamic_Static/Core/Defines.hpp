@@ -53,7 +53,7 @@
 #include <cstdint>
 
 namespace Dynamic_Static {
-}
+} // namespace Dynamic_Static
 
 /**
  * Alias for the Dynamic_Static namespace.

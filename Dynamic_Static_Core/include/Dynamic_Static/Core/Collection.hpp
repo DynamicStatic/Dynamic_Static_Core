@@ -271,4 +271,4 @@ namespace Dynamic_Static {
             return mCount == 0;
         }
     };
-}
+} // namespace Dynamic_Static

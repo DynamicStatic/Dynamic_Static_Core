@@ -117,4 +117,4 @@ namespace Dynamic_Static {
 
         return std::fma(t, v1, std::fma(-t, v0, v0));
     }
-}
+} // namespace Dynamic_Static

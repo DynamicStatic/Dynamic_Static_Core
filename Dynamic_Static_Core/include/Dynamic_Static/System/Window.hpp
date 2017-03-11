@@ -110,9 +110,9 @@ namespace Dynamic_Static {
             uint32_t height() const;
 
             /**
-            * Updates this Window.
-            * \n NOTE : This method needs to be called at regular intervals to keep this Window's contents up to date
-            */
+             * Updates this Window.
+             * \n NOTE : This method needs to be called at regular intervals to keep this Window's contents up to date
+             */
             void update();
 
             /**

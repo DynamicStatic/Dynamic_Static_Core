@@ -93,4 +93,4 @@ namespace Dynamic_Static {
         strstr << "0x" << std::hex << value;
         return strstr.str();
     }
-}
+} // namespace Dynamic_Static

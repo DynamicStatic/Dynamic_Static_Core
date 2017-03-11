@@ -128,5 +128,5 @@ namespace Dynamic_Static {
             sizeof(Matrix4x4) == sizeof(float) * 16,
             "sizeof(Matrix4x4) must equal sizeof(float) * 16"
         );
-    }
-}
+    } // namespace Math
+} // namespace Dynamic_Static

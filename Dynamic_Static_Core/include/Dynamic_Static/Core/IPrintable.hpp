@@ -61,7 +61,7 @@ namespace Dynamic_Static {
          */
         virtual std::wstring to_wstring() const;
     };
-}
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     /**
@@ -77,4 +77,4 @@ namespace Dynamic_Static {
      */
     template <>
     std::wstring to_wstring<IPrintable>(const IPrintable& printable);
-}
+} // namespace Dynamic_Static

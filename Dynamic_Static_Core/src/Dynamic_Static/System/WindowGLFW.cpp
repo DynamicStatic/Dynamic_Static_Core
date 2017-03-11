@@ -30,7 +30,6 @@
 #include "Dynamic_Static/System/Window.hpp"
 
 namespace Dynamic_Static {
-    namespace Window {
-
-    }
-}
+    namespace System {
+    } // namespace System
+} // namespace System

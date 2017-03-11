@@ -132,4 +132,4 @@ namespace Dynamic_Static {
 
         return uptr;
     }
-}
+} // namespace Dynamic_Static

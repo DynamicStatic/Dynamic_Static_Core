@@ -44,7 +44,7 @@ namespace Dynamic_Static {
 
     /**
      * Removes all occurences of an std::string from another std::string.
-     * @param [in] str  The std::string to operate on
+     * @param [in] str The std::string to operate on
      * @param [in] find The std::string to remove
      * @return An std::string with the completed removal
      */
@@ -107,4 +107,4 @@ namespace Dynamic_Static {
      * @return An std::string with all lower case characters converted to upper case
      */
     std::string to_upper(const std::string& str);
-}
+} // namespace Dynamic_Static

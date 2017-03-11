@@ -88,5 +88,5 @@ namespace Dynamic_Static {
             throw NotImplementedError();
             return Matrix4x4::identity;
         }
-    }
-}
+    } // namespace Math
+} // namespace Dynamic_Static

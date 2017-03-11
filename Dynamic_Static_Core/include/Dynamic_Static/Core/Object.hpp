@@ -101,4 +101,4 @@ namespace Dynamic_Static {
          */
         virtual std::string to_string() const;
     };
-}
+} // namespace Dynamic_Static

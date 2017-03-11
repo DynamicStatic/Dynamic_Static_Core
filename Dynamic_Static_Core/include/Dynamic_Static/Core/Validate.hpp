@@ -39,4 +39,4 @@ namespace Dynamic_Static {
     void validate(const T&)
     {
     }
-}
+} // namespace Dynamic_Static

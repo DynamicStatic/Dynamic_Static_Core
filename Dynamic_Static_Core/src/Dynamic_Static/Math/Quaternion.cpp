@@ -93,5 +93,5 @@ namespace Dynamic_Static {
         }
 
         const Quaternion Quaternion::identity = Quaternion { 0, 0, 0, 1 };
-    }
-}
+    } // namespace Math
+} // namespace Dynamic_Static

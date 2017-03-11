@@ -48,4 +48,4 @@ namespace Dynamic_Static {
      * TODO : Documentation.
      */
     typedef detail::NonMoveable NonMoveable;
-}
+} // namespace Dynamic_Static

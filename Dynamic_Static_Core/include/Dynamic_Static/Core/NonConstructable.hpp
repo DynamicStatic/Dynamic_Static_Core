@@ -47,4 +47,4 @@ namespace Dynamic_Static {
      * TODO : Documentation.
      */
     typedef detail::NonConstructable NonConstructable;
-}
+} // namespace Dynamic_Static

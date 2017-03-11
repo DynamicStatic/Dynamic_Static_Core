@@ -166,4 +166,4 @@ namespace Dynamic_Static {
             mHandle = static_cast<T*>(&target);
         }
     };
-}
+} // namespace Dynamic_Static

@@ -107,5 +107,5 @@ namespace Dynamic_Static {
         }
 
         const Matrix4x4 Matrix4x4::identity;
-    }
-}
+    } // namespace Math
+} // namespace Dynamic_Static
