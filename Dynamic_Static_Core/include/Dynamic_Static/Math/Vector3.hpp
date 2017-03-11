@@ -30,104 +30,466 @@
 #pragma once
 
 #include "Dynamic_Static/Core/ToString.hpp"
+#include "Dynamic_Static/Core/Algorithm.hpp"
 #include "Dynamic_Static/Math/Defines.hpp"
 
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(push, 0)
 #endif
+
 #include <glm/glm.hpp>
+#include <glm/gtx/norm.hpp>
 #define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/hash.hpp>
-#if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
-#pragma warning(pop)
-#endif
 
+#include <array>
 #include <string>
+
+#define DST_TO_GLM(DSTVECTOR3) (*reinterpret_cast<glm::vec3>(&DSTVECTOR3))
 
 namespace std {
     template <>
     struct hash<dst::math::Vector3>;
-}
+} // namespace std
 
 namespace Dynamic_Static {
     namespace Math {
         /**
-         * TODO : Documentation.
+         * Representation of 3D vectors and points.
          */
         struct Vector3 final {
-            friend struct Vector2;
-            friend struct Vector4;
-            friend struct Matrix3x3;
-            friend struct Matrix4x4;
-            friend struct Quaternion;
+            friend Vector3 operator+(const Vector3&, const Vector3&);
+            friend Vector3 operator-(const Vector3&, const Vector3&);
+            friend Vector3 operator*(const Vector3&, const Vector3&);
+            friend Vector3 operator*(const Vector3&, float);
+            friend Vector3 operator/(const Vector3&, const Vector3&);
+            friend Vector3 operator/(const Vector3&, float);
             friend struct std::hash<Vector3>;
-        private:
-            glm::vec3 mVec3;
+        public:
+            /**
+             * Constant Vector3(1, 1, 1).
+             */
+            static const Vector3 One;
+
+            /**
+             * Constant Vector3(0, 0, 0).
+             */
+            static const Vector3 Zero;
+
+            /**
+             * Constant Vector3(0, 1, 0).
+             */
+            static const Vector3 Up;
+
+            /**
+             * Constant Vector3(0, -1, 0).
+             */
+            static const Vector3 Down;
+
+            /**
+             * Constant Vector3(-1, 0, 0).
+             */
+            static const Vector3 Left;
+
+            /**
+             * Constant Vector3(1, 0, 0).
+             */
+            static const Vector3 Right;
+
+            /**
+             * Constant Vector3(0, 0, 1).
+             */
+            static const Vector3 Forward;
+
+            /**
+             * Constant Vector3(0, 0, -1).
+             */
+            static const Vector3 Backward;
+
+            /**
+             * Constant Vector3(1, 0, 0).
+             */
+            static const Vector3 UnitX;
+
+            /**
+             * Constant Vector3(0, 1, 0).
+             */
+            static const Vector3 UnitY;
+
+            /**
+             * Constant Vector3(0, 0, 1).
+             */
+            static const Vector3 UnitZ;
 
         public:
-            Vector3() = default;
-            Vector3(float x, float y, float z);
-            Vector3(const Vector3& other);
-            Vector3(const Vector4& other);
+            union {
+                glm::vec3 _vec3;
+                std::array<float, 3> values;
+                struct { float x, y, z; };
+                struct { float r, g, b; };
+                struct { float s, t, p; };
+            };
 
-            Vector3& operator+=(const Vector3& other);
+        public:
+            /**
+             * Constructs an instance of Vector3.
+             * @param [in] value The initial value for this Vector3's elements
+             */
+            inline Vector3(float value = 0)
+                : Vector3(value, value, value)
+            {
+            }
 
-            float x() const;
-            float y() const;
-            float z() const;
-            void x(float x);
-            void y(float y);
-            void z(float z);
+            /**
+             * Constructs an instance of Vector3.
+             * @param [in] x This Vector3's x value
+             * @param [in] y This Vector3's y value
+             * @param [in] z This Vector3's z value
+             */
+            inline Vector3(float x, float y, float z)
+            {
+                values[0] = x;
+                values[1] = y;
+                values[2] = z;
+            }
 
-            void normalize();
-            Vector3 normalized() const;
-            std::string to_string() const;
+            /**
+             * Constructs an instance of Vector3.
+             * @param [in] values An array containing this Vector3's values
+             */
+            inline Vector3(const float* values)
+            {
+                std::copy_n(values, this->values.size(), this->values.begin());
+            }
 
-            static const Vector3 one;
-            static const Vector3 zero;
-            static const Vector3 up;
-            static const Vector3 down;
-            static const Vector3 left;
-            static const Vector3 right;
-            static const Vector3 forward;
-            static const Vector3 backward;
-            static const Vector3 unit_x;
-            static const Vector3 unit_y;
-            static const Vector3 unit_z;
+            /**
+             * Constructs an instance of Vector3.
+             * @param [in] xy The Vector2 to copy the x and y values from
+             * @param [in] z This Vector3's z value
+             */
+            Vector3(const Vector2& xy, float z);
+
+            /**
+             * Constructs an instance of Vector3.
+             * @param [in] x This Vector3's x value
+             * @param [in] yz The Vector2 to copy the yz and y values from
+             */
+            Vector3(float x, const Vector2& yz);
+
+            /**
+             * Constructs an instance of Vector3.
+             * @param [in] xyz The Vector4 to copy the x, y, and z elements from
+             */
+            Vector3(const Vector4& xyz);
+
+            /**
+             * Copies an instance of Vector3.
+             * @param [in] other The Vector3 to copy from
+             */
+            Vector3(const Vector3& other) = default;
+
+            /**
+             * Moves an instance of Vector3.
+             * @param [in] other The Vector3 to move from
+             */
+            Vector3& operator=(Vector3&& other) = default;
+
+            /**
+             * Copies an instance of Vector3.
+             * @param [in] other The Vector4 to copy from
+             */
+            inline Vector3& operator=(const Vector3& other) = default;
+
+            /**
+             * Adds a specified Vector3 to this Vector3.
+             * @param [in] other The Vector3 to add to this Vector3
+             */
+            inline Vector3& operator+=(const Vector3& other)
+            {
+                _vec3 += other._vec3;
+                return *this;
+            }
+
+            /**
+             * Subtracts a specified Vector3 from this Vector3.
+             * @param [in] other The Vector3 to subtract from this Vector3
+             */
+            inline Vector3& operator-=(const Vector3& other)
+            {
+                _vec3 -= other._vec3;
+                return *this;
+            }
+
+            /**
+             * Multiplies this Vector3 by a specified Vector3.
+             * @param [in] other The Vector3 to multiply this Vector3 by
+             */
+            inline Vector3& operator*=(const Vector3& other)
+            {
+                _vec3 *= other._vec3;
+                return *this;
+            }
+
+            /**
+             * Multiplies this Vector3 by a specified scalar.
+             * @param [in] other The scalar to multiply this Vector3 by
+             */
+            inline Vector3& operator*=(float scalar)
+            {
+                _vec3 *= scalar;
+                return *this;
+            }
+
+            /**
+             * Divides this Vector3 by a specified Vector3.
+             * @param [in] other The Vector3 to divide this Vector3 by
+             */
+            inline Vector3& operator/=(const Vector3& other)
+            {
+                _vec3 /= other._vec3;
+                return *this;
+            }
+
+            /**
+             * Divides this Vector3 by a specified scalar.
+             * @param [in] other The scalar to divide this Vector3 by
+             */
+            inline Vector3& operator/=(float scalar)
+            {
+                _vec3 /= scalar;
+                return *this;
+            }
+
+            /**
+             * Gets the opposite of this Vector2.
+             * @return The opposite of this Vector2
+             */
+            inline Vector3 operator-() const
+            {
+                return -_vec3;
+            }
+
+            /**
+             * Gets a value indicating whether or not a specified Vector3 is equal to this Vector3.
+             * @parram [in] other The Vector3 to check for equality
+             * @return Whether or not the specified Vector3 is equal to this Vector3
+             */
+            inline bool operator==(const Vector3& other)
+            {
+                return _vec3 == other._vec3;
+            }
+
+            /**
+             * Gets a value indicating whether or not a specified Vector3 is inequal to this Vector3.
+             * @parram [in] other The Vector3 to check for inequality
+             * @return Whether or not the specified Vector3 is inequal to this Vector3
+             */
+            inline bool operator!=(const Vector3 other)
+            {
+                return _vec3 != other._vec3;
+            }
+
+            /**
+             * Gets the value at the specified index.
+             * @param [in] index The index of the value to get
+             * @return The value at the specified index
+             */
+            inline float operator[](size_t index) const
+            {
+                return values[index];
+            }
+
+            /**
+             * Gets the value at the specified index.
+             * @param [in] index The index of the value to get
+             * @return The value at the specified index
+             */
+            inline float& operator[](size_t index)
+            {
+                return values[index];
+            }
 
         private:
-            Vector3(const glm::vec3& vec3);
-        };
+            inline Vector3(const glm::vec3& other)
+            {
+                _vec3 = other;
+            }
 
-        bool operator==(const Vector3& lhs, const Vector3& rhs);
-        Vector3 operator+(const Vector3& lhs, const Vector3& rhs);
-        Vector3 operator-(const Vector3& v);
-        Vector3 operator*(const Vector3&v, float s);
+        public:
+            /**
+             * Gets this Vector3's magnitude.
+             */
+            inline float magnitude() const
+            {
+                return glm::length(_vec3);
+            }
+
+            /**
+             * Gets this Vector3's magnitude squared.
+             */
+            inline float magnitude_sqaured() const
+            {
+                return glm::length2(_vec3);
+            }
+
+            /**
+             * Gets a normalized copy of this Vector3.
+             * @return A normalized copy of this Vector3
+             */
+            inline Vector3 normalized() const
+            {
+                return glm::normalize(_vec3);
+            }
+
+            /**
+             * Normalizes this Vector3.
+             */
+            inline void normalize()
+            {
+                _vec3 = glm::normalize(_vec3);
+            }
+
+            /**
+             * Gets the std::string representation of this Vector2.
+             */
+            inline std::string to_string() const
+            {
+                return 
+                    "(" +
+                    std::to_string(x) + ", " +
+                    std::to_string(y) + ", " +
+                    std::to_string(z) +
+                    ")";
+            }
+
+            /**
+             * Gets a Vector3 lineraly interpolated between two Vector3s by a specified weight.
+             * @param [in] v0 The Vector3 to interpolate from
+             * @param [in] v1 The Vector3 to interpolate towards
+             * @param [in] s The weight of the interpolation
+             * @return The result of the linear interpolation
+             */
+            static inline Vector3 lerp(const Vector3& v0, const Vector3& v1, float t)
+            {
+                return Vector3(
+                    dst::lerp(v0.x, v1.x, t),
+                    dst::lerp(v0.y, v1.y, t),
+                    dst::lerp(v0.z, v1.z, t)
+                );
+            }
+        };
 
         static_assert(
             sizeof(Vector3) == sizeof(float) * 3,
             "sizeof(Vector3) must equal sizeof(float) * 3"
         );
-    }
-}
+
+        /**
+         * Gets the result of addition between two Vector3s.
+         * @param [in] v0 The first Vector3
+         * @param [in] v1 The second Vector3
+         * @param The result of addition between the Vector3s
+         */
+        inline Vector3 operator+(const Vector3& v0, const Vector3& v1)
+        {
+            return v0._vec3 + v1._vec3;
+        }
+
+        /**
+         * Gets the result of subtracting a Vector3 from another.
+         * @param [in] v0 The Vector3 to subtract from
+         * @param [in] v1 The Vector3 to subtract
+         * @return The result of subtraction between the Vector3s
+         */
+        inline Vector3 operator-(const Vector3& v0, const Vector3& v1)
+        {
+            return v0._vec3 - v1._vec3;
+        }
+
+        /**
+         * Gets the result of multiplication between two Vector3s.
+         * @param [in] v0 The first Vector3
+         * @param [in] v1 The second Vector3
+         * @param The result of multiplication between the Vector3s
+         */
+        inline Vector3 operator*(const Vector3& v0, const Vector3& v1)
+        {
+            return v0._vec3 * v1._vec3;
+        }
+
+        /**
+         * Gets the result of multiplication between a Vector3 and a scalar
+         * @param [in] v The Vector3
+         * @param [in] scalar The scalar
+         * @param The result of multiplication between the Vector3 and the scalar
+         */
+        inline Vector3 operator*(const Vector3& v, float scalar)
+        {
+            return v._vec3 * scalar;
+        }
+
+        /**
+         * Gets the result of dividing a Vector3 by another.
+         * @param [in] v0 The Vector3 to divide
+         * @param [in] v1 The Vector3 to divide by
+         * @param The result of division between the Vector3s
+         */
+        inline Vector3 operator/(const Vector3& v0, const Vector3& v1)
+        {
+            return v0._vec3 / v1._vec3;
+        }
+
+        /**
+         * Gets the result of dividing a Vector3 by a scalar
+         * @param [in] v The Vector3
+         * @param [in] scalar The scalar
+         * @param The result of dividision of the Vector3 by the scalar
+         */
+        inline Vector3 operator/(const Vector3& v, float scalar)
+        {
+            return v._vec3 / scalar;
+        }
+
+        /**
+         * Pushes a specified Vector3 into a specified std::ostream.
+         * @param [in] stream The std::ostream to push into
+         * @param [in] v The Vector3 to push
+         * @return The std::ostream with the Vector3 pushed
+         */
+        inline std::ostream& operator<<(std::ostream& stream, const Vector3& v)
+        {
+            stream << v.to_string();
+            return stream;
+        }
+    } // namespace Math
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     template <>
-    std::string to_string<dst::math::Vector3>(const dst::math::Vector3& v);
-}
+    inline std::string to_string<dst::math::Vector3>(const dst::math::Vector3& v)
+    {
+        return v.to_string();
+    }
+} // namespace Dynamic_Static
 
 namespace std {
     /**
-     * TODO : Documentation.
+     * Function object for dst::math::Vector3's hash function.
      */
     template <>
     struct hash<dst::math::Vector3> {
         /**
-         * TODO : Documentation.
+         * Hash function for dst::math::Vector3.
          */
-        size_t operator()(const dst::math::Vector3& v) const
+        inline size_t operator()(const dst::math::Vector3& v) const
         {
-            return hash<glm::vec3>()(v.mVec3);
+            return hash<glm::vec3>()(v._vec3);
         }
     };
-}
+} // namespace std
+
+#undef DST_TO_GLM
+
+#if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
+#pragma warning(pop)
+#endif

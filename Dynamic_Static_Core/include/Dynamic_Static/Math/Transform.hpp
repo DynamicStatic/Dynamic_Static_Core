@@ -41,12 +41,12 @@ namespace Dynamic_Static {
          */
         class Transform final {
         private:
-            Vector3 mLocalPosition { Vector3::zero };
+            Vector3 mLocalPosition { Vector3::Zero };
             Quaternion mLocalRotation;// { Quaternion::identity };
-            Vector3 mLocalScale { Vector3::one };
-            Vector3 mUp { Vector3::up };
-            Vector3 mLeft { Vector3::left };
-            Vector3 mForward { Vector3::forward };
+            Vector3 mLocalScale { Vector3::One };
+            Vector3 mUp { Vector3::Up };
+            Vector3 mLeft { Vector3::Left };
+            Vector3 mForward { Vector3::Forward };
 
         public:
             /**

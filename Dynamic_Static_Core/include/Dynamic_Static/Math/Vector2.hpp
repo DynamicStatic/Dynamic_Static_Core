@@ -29,6 +29,7 @@
 
 #pragma once
 
+#include "Dynamic_Static/Core/ToString.hpp"
 #include "Dynamic_Static/Core/Algorithm.hpp"
 #include "Dynamic_Static/Math/Defines.hpp"
 
@@ -44,11 +45,14 @@
 
 #include <array>
 #include <string>
+#include <ostream>
+
+#define DST_TO_GLM(DSTVECTOR2) (*reinterpret_cast<glm::vec2>(&DSTVECTOR2))
 
 namespace std {
     template <>
     struct hash<dst::math::Vector3>;
-}
+} // namespace std
 
 namespace Dynamic_Static {
     namespace Math {
@@ -85,12 +89,12 @@ namespace Dynamic_Static {
             static const Vector2 Down;
 
             /**
-             * Constant Vector2(0, -1).
+             * Constant Vector2(-1, 0).
              */
             static const Vector2 Left;
 
             /**
-             * Constant Vector2(0, 1).
+             * Constant Vector2(1, 0).
              */
             static const Vector2 Right;
 
@@ -106,7 +110,7 @@ namespace Dynamic_Static {
 
         public:
             union {
-                glm::vec2 vec2;
+                glm::vec2 _vec2;
                 std::array<float, 2> values;
                 struct { float x, y; };
                 struct { float r, g; };
@@ -116,10 +120,19 @@ namespace Dynamic_Static {
         public:
             /**
              * Constructs an instance of Vector2.
+             * @param [in] value The initial value for this Vector2's elements
+             */
+            inline Vector2(float value = 0)
+                : Vector2(value, value)
+            {
+            }
+
+            /**
+             * Constructs an instance of Vector2.
              * @param [in] x This Vector2's x value
              * @param [in] y This Vector2's y value
              */
-            inline Vector2(float x = 0, float y = 0)
+            inline Vector2(float x, float y)
             {
                 values[0] = x;
                 values[1] = y;
@@ -127,31 +140,30 @@ namespace Dynamic_Static {
 
             /**
              * Constructs an instance of Vector2.
-             * @param [in] values This Vector2's values
+             * @param [in] values An array containing this Vector2's values
              */
-            inline Vector2(float* values)
+            inline Vector2(const float* values)
             {
-                this->values[0] = values[0];
-                this->values[1] = values[1];
+                std::copy_n(values, this->values.size(), this->values.begin());
             }
+
+            /**
+             * Constructs an instance of Vector2.
+             * @param [in] xy The Vector3 to copy the x and y elements from
+             */
+            Vector2(const Vector3& xy);
+
+            /**
+             * Constructs an instance of Vector2.
+             * @param [in] xy The Vector4 to copy the x and y elements from
+             */
+            Vector2(const Vector4& xy);
 
             /**
              * Copies an instance of Vector2.
              * @param [in] other The Vector2 to copy from
              */
             Vector2(const Vector2& other) = default;
-
-            /**
-             * Copies an instance of Vector2 from the first two elements of a Vector3.
-             * @param [in] other The Vector3 to copy from
-             */
-            Vector2(const Vector3& other);
-
-            /**
-             * Copies an instance of Vector2 from the first two elements of a Vector4.
-             * @param [in] other The Vector4 to copy from
-             */
-            Vector2(const Vector4& other);
 
             /**
              * Moves an instance of Vector2.
@@ -171,7 +183,7 @@ namespace Dynamic_Static {
              */
             inline Vector2& operator+=(const Vector2& other)
             {
-                vec2 += other.vec2;
+                _vec2 += other._vec2;
                 return *this;
             }
 
@@ -179,9 +191,9 @@ namespace Dynamic_Static {
              * Subtracts a specified Vector2 from this Vector2.
              * @param [in] other The Vector2 to subtract from this Vector2
              */
-            inline Vector2 operator-=(const Vector2& other)
+            inline Vector2& operator-=(const Vector2& other)
             {
-                vec2 -= other.vec2;
+                _vec2 -= other._vec2;
                 return *this;
             }
 
@@ -191,7 +203,7 @@ namespace Dynamic_Static {
              */
             inline Vector2& operator*=(const Vector2& other)
             {
-                vec2 *= other.vec2;
+                _vec2 *= other._vec2;
                 return *this;
             }
 
@@ -201,7 +213,7 @@ namespace Dynamic_Static {
              */
             inline Vector2& operator*=(float scalar)
             {
-                vec2 *= scalar;
+                _vec2 *= scalar;
                 return *this;
             }
 
@@ -211,7 +223,7 @@ namespace Dynamic_Static {
              */
             inline Vector2& operator/=(const Vector2& other)
             {
-                vec2 /= other.vec2;
+                _vec2 /= other._vec2;
                 return *this;
             }
 
@@ -221,14 +233,63 @@ namespace Dynamic_Static {
              */
             inline Vector2& operator/=(float scalar)
             {
-                vec2 /= scalar;
+                _vec2 /= scalar;
                 return *this;
+            }
+
+            /**
+             * Gets the opposite of this Vector2.
+             * @return The opposite of this Vector2
+             */
+            inline Vector2 operator-() const
+            {
+                return -_vec2;
+            }
+
+            /**
+             * Gets a value indicating whether or not a specified Vector2 is equal to this Vector2.
+             * @parram [in] other The Vector2 to check for equality
+             * @return Whether or not the specified Vector2 is equal to this Vector2
+             */
+            inline bool operator==(const Vector2& other)
+            {
+                return _vec2 == other._vec2;
+            }
+
+            /**
+             * Gets a value indicating whether or not a specified Vector2 is inequal to this Vector2.
+             * @parram [in] other The Vector2 to check for inequality
+             * @return Whether or not the specified Vector2 is inequal to this Vector2
+             */
+            inline bool operator!=(const Vector2 other)
+            {
+                return _vec2 != other._vec2;
+            }
+
+            /**
+             * Gets the value at the specified index.
+             * @param [in] index The index of the value to get
+             * @return The value at the specified index
+             */
+            inline float operator[](size_t index) const
+            {
+                return values[index];
+            }
+
+            /**
+             * Gets the value at the specified index.
+             * @param [in] index The index of the value to get
+             * @return The value at the specified index
+             */
+            inline float& operator[](size_t index)
+            {
+                return values[index];
             }
 
         private:
             inline Vector2(const glm::vec2& other)
             {
-                vec2 = other;
+                _vec2 = other;
             }
 
         public:
@@ -237,7 +298,7 @@ namespace Dynamic_Static {
              */
             inline float magnitude() const
             {
-                return glm::length(vec2);
+                return glm::length(_vec2);
             }
 
             /**
@@ -245,7 +306,7 @@ namespace Dynamic_Static {
              */
             inline float magnitude_sqaured() const
             {
-                return glm::length2(vec2);
+                return glm::length2(_vec2);
             }
 
             /**
@@ -254,7 +315,7 @@ namespace Dynamic_Static {
              */
             inline Vector2 normalized() const
             {
-                return glm::normalize(vec2);
+                return glm::normalize(_vec2);
             }
 
             /**
@@ -262,7 +323,7 @@ namespace Dynamic_Static {
              */
             inline void normalize()
             {
-                vec2 = glm::normalize(vec2);
+                _vec2 = glm::normalize(_vec2);
             }
 
             /**
@@ -270,7 +331,11 @@ namespace Dynamic_Static {
              */
             inline std::string to_string() const
             {
-                return "(" + std::to_string(x) + ", " + std::to_string(y) + ")";
+                return 
+                    "(" +
+                    std::to_string(x) + ", " +
+                    std::to_string(y) +
+                    ")";
             }
 
             /**
@@ -281,7 +346,7 @@ namespace Dynamic_Static {
              */
             static inline float absolute_angle(const Vector2& v0, const Vector2& v1)
             {
-                return glm::angle(v0.vec2, v1.vec2);
+                return glm::angle(v0._vec2, v1._vec2);
             }
 
             /**
@@ -292,7 +357,7 @@ namespace Dynamic_Static {
              */
             static inline float oriented_angle(const Vector2& from, const Vector2& to)
             {
-                return glm::orientedAngle(from.vec2, to.vec2);
+                return glm::orientedAngle(from._vec2, to._vec2);
             }
 
             /**
@@ -303,7 +368,7 @@ namespace Dynamic_Static {
              */
             static inline float dot(const Vector2& v0, const Vector2& v1)
             {
-                return glm::dot(v0.vec2, v1.vec2);
+                return glm::dot(v0._vec2, v1._vec2);
             }
 
             /**
@@ -327,24 +392,15 @@ namespace Dynamic_Static {
             "sizeof(Vector2) must equal sizeof(float) * 2"
         );
 
-        const Vector2 Vector2::One   { 1,  1 };
-        const Vector2 Vector2::Zero  { 0,  0 };
-        const Vector2 Vector2::Up    { 0,  1 };
-        const Vector2 Vector2::Down  { 0, -1 };
-        const Vector2 Vector2::Left  { 0,  0 };
-        const Vector2 Vector2::Right { 0,  0 };
-        const Vector2 Vector2::UnitX { 1,  0 };
-        const Vector2 Vector2::UnitY { 0,  1 };
-
         /**
          * Gets the result of addition between two Vector2s.
          * @param [in] v0 The first Vector2
          * @param [in] v1 The second Vector2
          * @param The result of addition between the Vector2s
          */
-        Vector2 operator+(const Vector2& v0, const Vector2& v1)
+        inline Vector2 operator+(const Vector2& v0, const Vector2& v1)
         {
-            return v0.vec2 + v1.vec2;
+            return v0._vec2 + v1._vec2;
         }
 
         /**
@@ -353,9 +409,9 @@ namespace Dynamic_Static {
          * @param [in] v1 The Vector2 to subtract
          * @return The result of subtraction between the Vector2s
          */
-        Vector2 operator-(const Vector2& v0, const Vector2& v1)
+        inline Vector2 operator-(const Vector2& v0, const Vector2& v1)
         {
-            return v0.vec2 - v1.vec2;
+            return v0._vec2 - v1._vec2;
         }
 
         /**
@@ -364,9 +420,9 @@ namespace Dynamic_Static {
          * @param [in] v1 The second Vector2
          * @param The result of multiplication between the Vector2s
          */
-        Vector2 operator*(const Vector2& v0, const Vector2& v1)
+        inline Vector2 operator*(const Vector2& v0, const Vector2& v1)
         {
-            return v0.vec2 * v1.vec2;
+            return v0._vec2 * v1._vec2;
         }
 
         /**
@@ -375,9 +431,9 @@ namespace Dynamic_Static {
          * @param [in] scalar The scalar
          * @param The result of multiplication between the Vector2 and the scalar
          */
-        Vector2 operator*(const Vector2& v, float scalar)
+        inline Vector2 operator*(const Vector2& v, float scalar)
         {
-            return v.vec2 * scalar;
+            return v._vec2 * scalar;
         }
 
         /**
@@ -386,9 +442,9 @@ namespace Dynamic_Static {
          * @param [in] v1 The Vector2 to divide by
          * @param The result of division between the Vector2s
          */
-        Vector2 operator/(const Vector2& v0, const Vector2& v1)
+        inline Vector2 operator/(const Vector2& v0, const Vector2& v1)
         {
-            return v0.vec2 / v1.vec2;
+            return v0._vec2 / v1._vec2;
         }
 
         /**
@@ -397,11 +453,31 @@ namespace Dynamic_Static {
          * @param [in] scalar The scalar
          * @param The result of dividision of the Vector2 by the scalar
          */
-        Vector2 operator/(const Vector2& v, float scalar)
+        inline Vector2 operator/(const Vector2& v, float scalar)
         {
-            return v.vec2 / scalar;
+            return v._vec2 / scalar;
+        }
+
+        /**
+         * Pushes a specified Vector2 into a specified std::ostream.
+         * @param [in] stream The std::ostream to push into
+         * @param [in] v The Vector2 to push
+         * @return The std::ostream with the Vector2 pushed
+         */
+        inline std::ostream& operator<<(std::ostream& stream, const Vector2& v)
+        {
+            stream << v.to_string();
+            return stream;
         }
     } // namespace Math
+} // namespace Dynamic_Static
+
+namespace Dynamic_Static {
+    template <>
+    inline std::string to_string<dst::math::Vector2>(const dst::math::Vector2& v)
+    {
+        return v.to_string();
+    }
 } // namespace Dynamic_Static
 
 namespace std {
@@ -413,12 +489,14 @@ namespace std {
         /**
          * Hash function for dst::math::Vector2.
          */
-        size_t operator()(const dst::math::Vector2& v) const
+        inline size_t operator()(const dst::math::Vector2& v) const
         {
-            return hash<glm::vec2>()(v.vec2);
+            return hash<glm::vec2>()(v._vec2);
         }
     };
 } // namespace std
+
+#undef DST_TO_GLM
 
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(pop)

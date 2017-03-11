@@ -53,7 +53,7 @@ namespace Dynamic_Static {
 
         void Matrix4x4::rotate(float angle, const Vector3& axis)
         {
-            *this = glm::rotate(*this, angle, axis.mVec3);
+            *this = glm::rotate(*this, angle, axis._vec3);
         }
 
         void Matrix4x4::rotate_x(float angleRadians)
@@ -73,12 +73,12 @@ namespace Dynamic_Static {
 
         void Matrix4x4::look_at(const Vector3& eye, const Vector3& center, const Vector3& up)
         {
-            *this = glm::lookAt(eye.mVec3, center.mVec3, up.mVec3);
+            *this = glm::lookAt(eye._vec3, center._vec3, up._vec3);
         }
 
         Matrix4x4 Matrix4x4::rotate(const Matrix4x4& matrix, float angle, const Vector3& axis)
         {
-            return glm::rotate(matrix, angle, axis.mVec3);
+            return glm::rotate(matrix, angle, axis._vec3);
         }
 
         Matrix4x4 Matrix4x4::perspective(float fovY, float aspect_ratio, float nearPlane, float farPlane)
@@ -103,7 +103,7 @@ namespace Dynamic_Static {
 
         Matrix4x4 Matrix4x4::create_scale(const Vector3& scale)
         {
-            return glm::scale(glm::mat4x4(), scale.mVec3);
+            return glm::scale(glm::mat4x4(), scale._vec3);
         }
 
         const Matrix4x4 Matrix4x4::identity;

@@ -59,9 +59,9 @@ namespace Dynamic_Static {
         {
             mLocalRotation = localRotation;
             mLocalRotation.normalize();
-            mUp = mLocalRotation.rotate(Vector3::up);
-            mLeft = mLocalRotation.rotate(Vector3::left);
-            mForward = mLocalRotation.rotate(Vector3::forward);
+            mUp = mLocalRotation.rotate(Vector3::Up);
+            mLeft = mLocalRotation.rotate(Vector3::Left);
+            mForward = mLocalRotation.rotate(Vector3::Forward);
             mUp.normalize();
             mLeft.normalize();
             mForward.normalize();

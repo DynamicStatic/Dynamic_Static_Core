@@ -29,91 +29,501 @@
 
 #pragma once
 
+#include "Dynamic_Static/Core/ToString.hpp"
+#include "Dynamic_Static/Core/Algorithm.hpp"
 #include "Dynamic_Static/Math/Defines.hpp"
 
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(push, 0)
 #endif
+
 #include <glm/glm.hpp>
+#include <glm/gtx/norm.hpp>
+#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/hash.hpp>
-#if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
-#pragma warning(pop)
-#endif
+
+#include <array>
+#include <string>
+
+#define DST_TO_GLM(DSTVECTOR4) (*reinterpret_cast<glm::vec4>(&DSTVECTOR4))
 
 namespace std {
     template <>
-    struct hash<dst::math::Vector3>;
-}
+    struct hash<dst::math::Vector4>;
+} // namespace std
 
 namespace Dynamic_Static {
     namespace Math {
         /**
-         * TODO : Documentation.
+         * Representation of 3D vectors and points.
          */
         struct Vector4 final {
-            friend struct Vector2;
-            friend struct Vector3;
-            friend struct Matrix3x3;
-            friend struct Matrix4x4;
-            friend struct Quaternion;
+            friend Vector4 operator+(const Vector4&, const Vector4&);
+            friend Vector4 operator-(const Vector4&, const Vector4&);
+            friend Vector4 operator*(const Vector4&, const Vector4&);
+            friend Vector4 operator*(const Vector4&, float);
+            friend Vector4 operator/(const Vector4&, const Vector4&);
+            friend Vector4 operator/(const Vector4&, float);
             friend struct std::hash<Vector4>;
-        private:
-            glm::vec4 mVec4;
+        public:
+            /**
+             * Constant Vector4(1, 1, 1, 1).
+             */
+            static const Vector4 One;
+
+            /**
+             * Constant Vector4(0, 0, 0, 0).
+             */
+            static const Vector4 Zero;
+
+            /**
+             * Constant Vector4(0, 1, 0, 0).
+             */
+            static const Vector4 Up;
+
+            /**
+             * Constant Vector4(0, -1, 0, 0).
+             */
+            static const Vector4 Down;
+
+            /**
+             * Constant Vector4(-1, 0, 0, 0).
+             */
+            static const Vector4 Left;
+
+            /**
+             * Constant Vector4(1, 0, 0, 0).
+             */
+            static const Vector4 Right;
+
+            /**
+             * Constant Vector4(0, 0, 1, 0).
+             */
+            static const Vector4 Forward;
+
+            /**
+             * Constant Vector4(0, 0, -1, 0).
+             */
+            static const Vector4 Backward;
+
+            /**
+             * Constant Vector4(1, 0, 0, 0).
+             */
+            static const Vector4 UnitX;
+
+            /**
+             * Constant Vector4(0, 1, 0, 0).
+             */
+            static const Vector4 UnitY;
+
+            /**
+             * Constant Vector4(0, 0, 1, 0).
+             */
+            static const Vector4 UnitZ;
+
+            /**
+             * Constant Vector4(0, 0, 0, 1).
+             */
+            static const Vector4 UnitW;
 
         public:
-            Vector4() = default;
-            Vector4(float x, float y, float z, float w);
-            Vector4(const Vector4& other);
-            Vector4(const Vector3& other);
-            Vector4(const Vector3& other, float w);
+            union {
+                glm::vec4 _vec4;
+                std::array<float, 4> values;
+                struct { float x, y, z, w; };
+                struct { float r, g, b, a; };
+                struct { float s, t, p, q; };
+            };
 
-            float x() const;
-            float y() const;
-            float z() const;
-            float w() const;
-            void x(float x);
-            void y(float y);
-            void z(float z);
-            void w(float w);
+        public:
+            /**
+             * Constructs an instance of Vector4.
+             * @param [in] value The initial value for this Vector4's elements
+             */
+            inline Vector4(float value = 0)
+                : Vector4(value, value, value, value)
+            {
+            }
 
-            void normalize();
+            /**
+             * Constructs an instance of Vector4.
+             * @param [in] x This Vector4's x value
+             * @param [in] y This Vector4's y value
+             * @param [in] z This Vector4's z value
+             * @param [in] w This Vector4's w value
+             */
+            inline Vector4(float x, float y, float z, float w)
+            {
+                values[0] = x;
+                values[1] = y;
+                values[2] = z;
+                values[3] = w;
+            }
 
-            static const Vector4 one;
-            static const Vector4 zero;
-            static const Vector4 up;
-            static const Vector4 down;
-            static const Vector4 left;
-            static const Vector4 right;
-            static const Vector4 forward;
-            static const Vector4 backward;
+            /**
+             * Constructs an instance of Vector4.
+             * @param [in] values An array containing this Vector4's values
+             */
+            inline Vector4(const float* values)
+            {
+                std::copy_n(values, this->values.size(), this->values.begin());
+            }
+
+            /**
+             * Constructs an instance of Vector4.
+             * @param [in] xy The Vector2 to copy the x and y values from
+             * @param [in] z This Vector4's z value
+             * @param [in] w This Vector4's w value
+             */
+            Vector4(const Vector2& xy, float z, float w);
+
+            /**
+             * Constructs an instance of Vector4.
+             * @param [in] x This Vector4's x value
+             * @param [in] yz The Vector2 to copy the y and z values from
+             * @param [in] w This Vector4's w value
+             */
+            Vector4(float x, const Vector2& yz, float w);
+
+            /**
+             * Constructs an instance of Vector4.
+             * @param [in] x This Vector4's x value
+             * @param [in] y This Vector4's y value
+             * @param [in] zw The Vector2 to copy the z and w values from
+             */
+            Vector4(float x, float y, const Vector2& zw);
+
+            /**
+             * Constructs an instance of Vector4.
+             * @param [in] xy The Vector2 to copy the x and y values from
+             * @param [in] zw The Vector2 to copy the x and y values from
+             */
+            Vector4(const Vector2& xy, const Vector2& zw);
+
+            /**
+             * Constructs an instance of Vector4.
+             * @param [in] xyz The Vector3 to copy the x, y, and z values from
+             * @param [in] w This Vector4's w value
+             */
+            Vector4(const Vector3& xyz, float w);
+
+            /**
+             * Constructs an instance of Vector4.
+             * @param [in] x This Vector4's x value
+             * @param [in] yzw The Vector3 to copy the y, z, and w values from
+             */
+            Vector4(float x, const Vector3& yzw);
+
+            /**
+             * Copies an instance of Vector4.
+             * @param [in] other The Vector4 to copy from
+             */
+            Vector4(const Vector4& other) = default;
+
+            /**
+             * Moves an instance of Vector4.
+             * @param [in] other The Vector4 to move from
+             */
+            Vector4& operator=(Vector4&& other) = default;
+
+            /**
+             * Copies an instance of Vector4.
+             * @param [in] other The Vector4 to copy from
+             */
+            inline Vector4& operator=(const Vector4& other) = default;
+
+            /**
+             * Adds a specified Vector4 to this Vector4.
+             * @param [in] other The Vector4 to add to this Vector4
+             */
+            inline Vector4& operator+=(const Vector4& other)
+            {
+                _vec4 += other._vec4;
+                return *this;
+            }
+
+            /**
+             * Subtracts a specified Vector4 from this Vector4.
+             * @param [in] other The Vector4 to subtract from this Vector4
+             */
+            inline Vector4& operator-=(const Vector4& other)
+            {
+                _vec4 -= other._vec4;
+                return *this;
+            }
+
+            /**
+             * Multiplies this Vector4 by a specified Vector4.
+             * @param [in] other The Vector4 to multiply this Vector4 by
+             */
+            inline Vector4& operator*=(const Vector4& other)
+            {
+                _vec4 *= other._vec4;
+                return *this;
+            }
+
+            /**
+             * Multiplies this Vector4 by a specified scalar.
+             * @param [in] other The scalar to multiply this Vector4 by
+             */
+            inline Vector4& operator*=(float scalar)
+            {
+                _vec4 *= scalar;
+                return *this;
+            }
+
+            /**
+             * Divides this Vector4 by a specified Vector4.
+             * @param [in] other The Vector4 to divide this Vector4 by
+             */
+            inline Vector4& operator/=(const Vector4& other)
+            {
+                _vec4 /= other._vec4;
+                return *this;
+            }
+
+            /**
+             * Divides this Vector4 by a specified scalar.
+             * @param [in] other The scalar to divide this Vector4 by
+             */
+            inline Vector4& operator/=(float scalar)
+            {
+                _vec4 /= scalar;
+                return *this;
+            }
+
+            /**
+             * Gets the opposite of this Vector2.
+             * @return The opposite of this Vector2
+             */
+            inline Vector4 operator-() const
+            {
+                return -_vec4;
+            }
+
+            /**
+             * Gets a value indicating whether or not a specified Vector4 is equal to this Vector4.
+             * @parram [in] other The Vector4 to check for equality
+             * @return Whether or not the specified Vector4 is equal to this Vector4
+             */
+            inline bool operator==(const Vector4& other)
+            {
+                return _vec4 == other._vec4;
+            }
+
+            /**
+             * Gets a value indicating whether or not a specified Vector4 is inequal to this Vector4.
+             * @parram [in] other The Vector4 to check for inequality
+             * @return Whether or not the specified Vector4 is inequal to this Vector4
+             */
+            inline bool operator!=(const Vector4 other)
+            {
+                return _vec4 != other._vec4;
+            }
+
+            /**
+             * Gets the value at the specified index.
+             * @param [in] index The index of the value to get
+             * @return The value at the specified index
+             */
+            inline float operator[](size_t index) const
+            {
+                return values[index];
+            }
+
+            /**
+             * Gets the value at the specified index.
+             * @param [in] index The index of the value to get
+             * @return The value at the specified index
+             */
+            inline float& operator[](size_t index)
+            {
+                return values[index];
+            }
 
         private:
-            Vector4(const glm::vec4 vec4);
-        };
+            inline Vector4(const glm::vec4& other)
+            {
+                _vec4 = other;
+            }
 
-        bool operator==(const Vector4& lhs, const Vector4& rhs);
-        Vector4 operator+(const Vector4& lhs, const Vector4& rhs);
-        Vector4 operator-(const Vector4& v);
+        public:
+            /**
+             * Gets this Vector4's magnitude.
+             */
+            inline float magnitude() const
+            {
+                return glm::length(_vec4);
+            }
+
+            /**
+             * Gets this Vector4's magnitude squared.
+             */
+            inline float magnitude_sqaured() const
+            {
+                return glm::length2(_vec4);
+            }
+
+            /**
+             * Gets a normalized copy of this Vector4.
+             * @return A normalized copy of this Vector4
+             */
+            inline Vector4 normalized() const
+            {
+                return glm::normalize(_vec4);
+            }
+
+            /**
+             * Normalizes this Vector4.
+             */
+            inline void normalize()
+            {
+                _vec4 = glm::normalize(_vec4);
+            }
+
+            /**
+             * Gets the std::string representation of this Vector2.
+             */
+            inline std::string to_string() const
+            {
+                return 
+                    "(" +
+                    std::to_string(x) + ", " +
+                    std::to_string(y) + ", " +
+                    std::to_string(z) + ", " +
+                    std::to_string(w) +
+                    ")";
+            }
+
+            /**
+             * Gets a Vector4 lineraly interpolated between two Vector4s by a specified weight.
+             * @param [in] v0 The Vector4 to interpolate from
+             * @param [in] v1 The Vector4 to interpolate towards
+             * @param [in] s The weight of the interpolation
+             * @return The result of the linear interpolation
+             */
+            static inline Vector4 lerp(const Vector4& v0, const Vector4& v1, float t)
+            {
+                return Vector4(
+                    dst::lerp(v0.x, v1.x, t),
+                    dst::lerp(v0.y, v1.y, t),
+                    dst::lerp(v0.z, v1.z, t),
+                    dst::lerp(v0.w, v1.w, t)
+                );
+            }
+        };
 
         static_assert(
             sizeof(Vector4) == sizeof(float) * 4,
             "sizeof(Vector4) must equal sizeof(float) * 4"
         );
+
+        /**
+         * Gets the result of addition between two Vector4s.
+         * @param [in] v0 The first Vector4
+         * @param [in] v1 The second Vector4
+         * @param The result of addition between the Vector4s
+         */
+        inline Vector4 operator+(const Vector4& v0, const Vector4& v1)
+        {
+            return v0._vec4 + v1._vec4;
+        }
+
+        /**
+         * Gets the result of subtracting a Vector4 from another.
+         * @param [in] v0 The Vector4 to subtract from
+         * @param [in] v1 The Vector4 to subtract
+         * @return The result of subtraction between the Vector4s
+         */
+        inline Vector4 operator-(const Vector4& v0, const Vector4& v1)
+        {
+            return v0._vec4 - v1._vec4;
+        }
+
+        /**
+         * Gets the result of multiplication between two Vector4s.
+         * @param [in] v0 The first Vector4
+         * @param [in] v1 The second Vector4
+         * @param The result of multiplication between the Vector4s
+         */
+        inline Vector4 operator*(const Vector4& v0, const Vector4& v1)
+        {
+            return v0._vec4 * v1._vec4;
+        }
+
+        /**
+         * Gets the result of multiplication between a Vector4 and a scalar
+         * @param [in] v The Vector4
+         * @param [in] scalar The scalar
+         * @param The result of multiplication between the Vector4 and the scalar
+         */
+        inline Vector4 operator*(const Vector4& v, float scalar)
+        {
+            return v._vec4 * scalar;
+        }
+
+        /**
+         * Gets the result of dividing a Vector4 by another.
+         * @param [in] v0 The Vector4 to divide
+         * @param [in] v1 The Vector4 to divide by
+         * @param The result of division between the Vector4s
+         */
+        inline Vector4 operator/(const Vector4& v0, const Vector4& v1)
+        {
+            return v0._vec4 / v1._vec4;
+        }
+
+        /**
+         * Gets the result of dividing a Vector4 by a scalar
+         * @param [in] v The Vector4
+         * @param [in] scalar The scalar
+         * @param The result of dividision of the Vector4 by the scalar
+         */
+        inline Vector4 operator/(const Vector4& v, float scalar)
+        {
+            return v._vec4 / scalar;
+        }
+
+        /**
+         * Pushes a specified Vector4 into a specified std::ostream.
+         * @param [in] stream The std::ostream to push into
+         * @param [in] v The Vector4 to push
+         * @return The std::ostream with the Vector4 pushed
+         */
+        inline std::ostream& operator<<(std::ostream& stream, const Vector4& v)
+        {
+            stream << v.to_string();
+            return stream;
+        }
+    } // namespace Math
+} // namespace Dynamic_Static
+
+namespace Dynamic_Static {
+    template <>
+    inline std::string to_string<dst::math::Vector4>(const dst::math::Vector4& v)
+    {
+        return v.to_string();
     }
-}
+} // namespace Dynamic_Static
 
 namespace std {
     /**
-     * TODO : Documentation.
+     * Function object for dst::math::Vector4's hash function.
      */
     template <>
     struct hash<dst::math::Vector4> {
         /**
-         * TODO : Documentation.
+         * Hash function for dst::math::Vector4.
          */
-        size_t operator()(const dst::math::Vector4& v) const
+        inline size_t operator()(const dst::math::Vector4& v) const
         {
-            return hash<glm::vec4>()(v.mVec4);
+            return hash<glm::vec3>()(v._vec4);
         }
     };
-}
+} // namespace std
+
+#undef DST_TO_GLM
+
+#if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
+#pragma warning(pop)
+#endif

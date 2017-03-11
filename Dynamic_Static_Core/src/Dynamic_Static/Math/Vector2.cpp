@@ -31,20 +31,25 @@
 #include "Dynamic_Static/Math/Vector3.hpp"
 #include "Dynamic_Static/Math/Vector4.hpp"
 
-#include <sstream>
-
 namespace Dynamic_Static {
     namespace Math {
-        Vector2::Vector2(const Vector3& other)
+        Vector2::Vector2(const Vector3& xy)
+            : Vector2(xy.values.data())
         {
-            values[0] = other.x();
-            values[1] = other.y();
         }
 
-        Vector2::Vector2(const Vector4& other)
+        Vector2::Vector2(const Vector4& xy)
+            : Vector2(xy.values.data())
         {
-            values[0] = other.x();
-            values[1] = other.y();
         }
-    }
-}
+
+        const Vector2 Vector2::One   {  1,  1 };
+        const Vector2 Vector2::Zero  {  0,  0 };
+        const Vector2 Vector2::Up    {  0,  1 };
+        const Vector2 Vector2::Down  {  0, -1 };
+        const Vector2 Vector2::Left  { -1,  0 };
+        const Vector2 Vector2::Right {  1,  0 };
+        const Vector2 Vector2::UnitX {  1,  0 };
+        const Vector2 Vector2::UnitY {  0,  1 };
+    } // namespace Math
+} // namespace Dynamic_Static

@@ -47,7 +47,7 @@ namespace Dynamic_Static {
         }
 
         Quaternion::Quaternion(const Vector3& v)
-            : mQuat { v.mVec3 }
+            : mQuat { v._vec3 }
         {
         }
 
@@ -72,17 +72,19 @@ namespace Dynamic_Static {
 
         Vector3 Quaternion::rotate(const Vector3& v)
         {
-            return Vector3 { glm::rotate(mQuat, v.mVec3) };
+            auto vec3 = glm::rotate(mQuat, v._vec3);
+            return Vector3 { vec3.x, vec3.y, vec3.y };
         }
 
         Vector4 Quaternion::rotate(const Vector4& v)
         {
-            return Vector4 { glm::rotate(mQuat, v.mVec4) };
+            auto vec4 = glm::rotate(mQuat, v._vec4);
+            return Vector4 { vec4.x, vec4.y, vec4.z, vec4.w };
         }
 
         Quaternion Quaternion::angle_axis(float angle, const Vector3& axis)
         {
-            return Quaternion { glm::angleAxis(angle, axis.mVec3) };
+            return Quaternion { glm::angleAxis(angle, axis._vec3) };
         }
 
         Quaternion operator*(const Quaternion& lhs, const Quaternion& rhs)

@@ -28,86 +28,52 @@
 */
 
 #include "Dynamic_Static/Math/Vector4.hpp"
+#include "Dynamic_Static/Math/Vector2.hpp"
 #include "Dynamic_Static/Math/Vector3.hpp"
 
 namespace Dynamic_Static {
     namespace Math {
-        Vector4::Vector4(const glm::vec4 vec4)
-            : mVec4 { vec4 }
+        Vector4::Vector4(const Vector2& xy, float z, float w)
+            : Vector4(xy[0], xy[1], z, w)
         {
         }
 
-        Vector4::Vector4(float x, float y, float z, float w)
-            : mVec4 { x, y, z, w }
+        Vector4::Vector4(float x, const Vector2& yz, float w)
+            : Vector4(x, yz[0], yz[1], w)
         {
         }
 
-        Vector4::Vector4(const Vector4& other)
-        {
-            mVec4.x = other.mVec4.x;
-            mVec4.y = other.mVec4.y;
-            mVec4.z = other.mVec4.z;
-            mVec4.w = other.mVec4.w;
-        }
-
-        Vector4::Vector4(const Vector3& other)
-            : Vector4 { other, 0 }
+        Vector4::Vector4(float x, float y, const Vector2& zw)
+            : Vector4(x, y, zw[0], zw[1])
         {
         }
 
-        Vector4::Vector4(const Vector3& other, float w)
+        Vector4::Vector4(const Vector2& xy, const Vector2& zw)
+            : Vector4(xy[0], xy[1], zw[0], zw[1])
         {
-            mVec4.x = other.mVec3.x;
-            mVec4.y = other.mVec3.y;
-            mVec4.z = other.mVec3.z;
-            mVec4.w = w;
         }
 
-        float Vector4::x() const { return mVec4.x; }
-        float Vector4::y() const { return mVec4.y; }
-        float Vector4::z() const { return mVec4.z; }
-        float Vector4::w() const { return mVec4.w; }
-        void Vector4::x(float x) { mVec4.x = x; }
-        void Vector4::y(float y) { mVec4.y = y; }
-        void Vector4::z(float z) { mVec4.z = z; }
-        void Vector4::w(float w) { mVec4.w = w; }
-
-        void Vector4::normalize()
+        Vector4::Vector4(const Vector3& xyz, float w)
+            : Vector4(xyz[0], xyz[1], xyz[2], w)
         {
-            mVec4 = glm::normalize(mVec4);
         }
 
-        const Vector4 Vector4::one      = Vector4 { 1, 1, 1, 1 };
-        const Vector4 Vector4::zero     = Vector4 { 0, 0, 0, 0 };
-        const Vector4 Vector4::up       = Vector4 { 0, 1, 0, 0         };
-        const Vector4 Vector4::down     = Vector4 { -Vector4::up       };
-        const Vector4 Vector4::left     = Vector4 { -Vector4::right    };
-        const Vector4 Vector4::right    = Vector4 { 1, 0, 0, 0         };
-        const Vector4 Vector4::forward  = Vector4 { -Vector4::backward };
-        const Vector4 Vector4::backward = Vector4 { 0, 0, 1, 0         };
-
-        bool operator==(const Vector4& lhs, const Vector4& rhs)
+        Vector4::Vector4(float x, const Vector3& yzw)
+            : Vector4(x, yzw[0], yzw[1], yzw[2])
         {
-            return
-                lhs.x() == rhs.x() &&
-                lhs.y() == rhs.y() &&
-                lhs.z() == rhs.z() &&
-                lhs.w() == rhs.w();
         }
 
-        Vector4 operator+(const Vector4& lhs, const Vector4& rhs)
-        {
-            return Vector4 {
-                lhs.x() + rhs.x(),
-                lhs.y() + rhs.y(),
-                lhs.z() + rhs.z(),
-                lhs.w() + rhs.w(),
-            };
-        }
-
-        Vector4 operator-(const Vector4& v)
-        {
-            return Vector4 { -v.x(), -v.y(), -v.z(), -v.w() };
-        }
-    }
-}
+        const Vector4 Vector4::One      {  1,  1,  1,  1 };
+        const Vector4 Vector4::Zero     {  0,  0,  0,  0 };
+        const Vector4 Vector4::Up       {  0,  1,  0,  0 };
+        const Vector4 Vector4::Down     {  0, -1,  0,  0 };
+        const Vector4 Vector4::Left     { -1,  0,  0,  0 };
+        const Vector4 Vector4::Right    {  1,  0,  0,  0 };
+        const Vector4 Vector4::Forward  {  0,  0,  1,  0 };
+        const Vector4 Vector4::Backward {  0,  0, -1,  0 };
+        const Vector4 Vector4::UnitX    {  1,  0,  0,  0 };
+        const Vector4 Vector4::UnitY    {  0,  1,  0,  0 };
+        const Vector4 Vector4::UnitZ    {  0,  0,  1,  0 };
+        const Vector4 Vector4::UnitW    {  0,  0,  0,  1 };
+    } // namespace Math
+} // namespace Dynamic_Static
