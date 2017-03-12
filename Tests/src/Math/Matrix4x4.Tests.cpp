@@ -38,50 +38,46 @@
 
 #include "catch.hpp"
 
-#include "Dynamic_Static/Core/Random.hpp"
-#include "Dynamic_Static/Math/Math.hpp"
+#include "Dynamic_Static/Math/Matrix4x4.hpp"
+#include "Vector.Tests.inl"
 
 #include <glm/glm.hpp>
 
 namespace Dynamic_Static {
     namespace Math {
         namespace Tests {
-            Vector4 create_randomized_vector4()
+            TEST_CASE("Matrix4x4 assignment and access", "[Math::Matrix4x4]")
             {
-                float value = 64;
-                return Vector4 {
-                    Random.range(-value, value),
-                    Random.range(-value, value),
-                    Random.range(-value, value),
-                    Random.range(-value, value)
-                };
-            }
+                glm::mat4 glmMatrix;
+                Matrix4x4 dstMatrix;
 
-            TEST_CASE("Indexed access works correctly", "[Math::Matrix4x4]")
-            {
-                SECTION("1D access works correctly")
+                SECTION("1D indexed assignment")
                 {
-                    glm::mat4 mat4;
-                    Matrix4x4 matrix4x4;
-                    for (size_t i = 0; i < mat4.length(); ++i) {
-                        auto v = create_randomized_vector4();
-                        mat4[i] = DST_TO_GLMVEC4_CONST(v);
-                        matrix4x4[i] = v;
-                    }
-
-                    for (size_t i = 0; i < mat4.length(); ++i) {
-                        bool success =
-                            mat4[i][0] == matrix4x4[i][0] &&
-                            mat4[i][1] == matrix4x4[i][1] &&
-                            mat4[i][2] == matrix4x4[i][2] &&
-                            mat4[i][3] == matrix4x4[i][3];
-                        REQUIRE(success);
+                    for (glm::length_t i = 0; i < 4; ++i) {
+                        auto v = random_vector4();
+                        glmMatrix[i] = DST_TO_GLMVEC4_CONST(v);
+                        dstMatrix[i] = v;
                     }
                 }
 
-                SECTION("2D access works correctly")
+                SECTION("2D indexed assignment")
                 {
+                    for (glm::length_t i = 0; i < 4; ++i) {
+                        for (glm::length_t j = 0; j < 4; ++j) {
+                            float f = random_float();
+                            glmMatrix[i][j] = f;
+                            dstMatrix[i][j] = f;
+                        }
+                    }
+                }
 
+                for (glm::length_t i = 0; i < 4; ++i) {
+                    bool success =
+                        dstMatrix[i][0] == glmMatrix[i][0] &&
+                        dstMatrix[i][1] == glmMatrix[i][1] &&
+                        dstMatrix[i][2] == glmMatrix[i][2] &&
+                        dstMatrix[i][3] == glmMatrix[i][3];
+                    REQUIRE(success);
                 }
             }
         } // namespace Tests

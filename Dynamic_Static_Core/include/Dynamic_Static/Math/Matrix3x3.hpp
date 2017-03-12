@@ -56,17 +56,11 @@ namespace Dynamic_Static {
             static const Matrix3x3 Identity;
 
         public:
-            union {
-                std::array<Vector3, 3> columns;
-                // struct {
-                //     float m00, m10, m20;
-                //     float m01, m11, m21;
-                //     float m02, m12, m22;
-                // };
-            };
+            std::array<Vector3, 3> columns;
 
         public:
             inline Matrix3x3()
+                : Matrix3x3(Identity)
             {
             }
 
@@ -76,6 +70,9 @@ namespace Dynamic_Static {
                 const Vector3& column2
             )
             {
+                columns[0] = column0;
+                columns[1] = column1;
+                columns[2] = column2;
             }
 
             /**

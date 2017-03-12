@@ -57,18 +57,11 @@ namespace Dynamic_Static {
             static const Matrix4x4 Identity;
 
         public:
-            union {
-                std::array<Vector4, 4> columns;
-                // struct {
-                //     float m00, m10, m20, m30;
-                //     float m01, m11, m21, m31;
-                //     float m02, m12, m22, m32;
-                //     float m03, m13, m23, m33;
-                // };
-            };
+            std::array<Vector4, 4> columns;
 
         public:
             inline Matrix4x4()
+                : Matrix4x4(Identity)
             {
             }
 

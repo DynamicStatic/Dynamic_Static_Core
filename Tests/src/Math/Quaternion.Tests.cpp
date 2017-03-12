@@ -27,6 +27,15 @@
 =====================================================================================
 */
 
+/*
+
+    NOTE : Since Dynamic_Static::Math implements very little mathematical functionality itself,
+           the purpose of these tests is to ensure that the results of Dynamic_Static::Math are
+           always the same regardless of what math library is used underneath.  To this end, the
+           reference library is glm.
+
+*/
+
 #include "catch.hpp"
 
 #include "Dynamic_Static/Core/Random.hpp"
