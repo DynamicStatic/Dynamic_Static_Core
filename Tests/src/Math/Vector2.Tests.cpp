@@ -233,6 +233,42 @@ namespace Dynamic_Static {
                     REQUIRE(equal(dstVectors[0], glmVecs[0]));
                 }
             }
+
+            TEST_CASE("Magnitude", "[Math::Vector2]")
+            {
+                glm::vec2 glmVec;
+                Vector2 dstVector;
+                random_vectors(dstVector, glmVec);
+
+                SECTION("Magnitude")
+                {
+                    REQUIRE(dstVector.magnitude() == glm::length(glmVec));
+                }
+
+                SECTION("Magnitude squared")
+                {
+                    REQUIRE(dstVector.magnitude_squared() == glm::length2(glmVec));
+                }
+            }
+
+            TEST_CASE("Normalize", "[Math::Vector2]")
+            {
+                glm::vec2 glmVec;
+                Vector2 dstVector;
+                random_vectors(dstVector, glmVec);
+
+                SECTION("Normalize")
+                {
+                    dstVector.normalize();
+                    glmVec = glm::normalize(glmVec);
+                    REQUIRE(equal(dstVector, glmVec));
+                }
+
+                SECTION("Normalized")
+                {
+                    REQUIRE(equal(dstVector.normalized(), glm::normalize(glmVec)));
+                }
+            }
         } // namespace Tests
     } // namespace Math
 } // namespace Dynamic_Static
