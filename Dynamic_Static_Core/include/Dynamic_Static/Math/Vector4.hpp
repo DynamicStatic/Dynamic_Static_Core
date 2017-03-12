@@ -168,7 +168,7 @@ namespace Dynamic_Static {
             /**
              * Constructs an instance of Vector4.
              * @param [in] xy The Vector2 to copy the x and y values from
-             *                \n NOTE : This Vector4's z and w values will be set to zero
+             * \n NOTE : This Vector4's z and w values will be set to zero
              */
             Vector4(const Vector2& xy);
 

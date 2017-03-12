@@ -39,7 +39,9 @@
 #include "catch.hpp"
 
 #include "Dynamic_Static/Math/Vector2.hpp"
-#include "Dynamic_Static/Core/Random.hpp"
+#include "Dynamic_Static/Math/Vector3.hpp"
+#include "Dynamic_Static/Math/Vector4.hpp"
+#include "Vector.Tests.inl"
 
 #include "glm/glm.hpp"
 
@@ -48,120 +50,98 @@
 namespace Dynamic_Static {
     namespace Math {
         namespace Tests {
-            static float random_float()
+            TEST_CASE("Vector2 assignment and access", "[Math::Vector2]")
             {
-                float value = 64;
-                return Random.range<float>(-value, value);
-            }
-
-            static void random_vectors(Vector2& dstVector, glm::vec2& glmVec)
-            {
-                float f0 = random_float();
-                float f1 = random_float();
-                glmVec    = { f0, f1 };
-                dstVector = { f0, f1 };
-            }
-
-            static bool equal(const Vector2& dstVector, const glm::vec2& glmVec)
-            {
-                return
-                    dstVector.x == glmVec.x &&
-                    dstVector.y == glmVec.y &&
-
-                    dstVector.r == glmVec.r &&
-                    dstVector.g == glmVec.g &&
-
-                    dstVector.s == glmVec.s &&
-                    dstVector.t == glmVec.t &&
-
-                    dstVector[0] == glmVec[0] &&
-                    dstVector[1] == glmVec[1];
-            }
-
-            TEST_CASE("Assignment and access", "[Math::Vector2]")
-            {
-                float f0 = random_float();
-                float f1 = random_float();
+                float x = random_float();
+                float y = random_float();
 
                 SECTION("Initializer list")
                 {
-                    glm::vec2 vec  { f0, f1 };
-                    Vector2 vector { f0, f1 };
-                    REQUIRE(equal(vector, vec));
+                    Vector2 dstVector { x, y };
+                    glm::vec2 glmVector { x, y };
+                    REQUIRE(equal(dstVector, glmVector));
                 }
 
                 SECTION("Constructor")
                 {
-                    glm::vec2 glmVec (f0, f1);
-                    Vector2 dstVector(f0, f1);
-                    REQUIRE(equal(dstVector, glmVec));
+                    Vector2 dstVector(x, y);
+                    glm::vec2 glmVector(x, y);
+                    REQUIRE(equal(dstVector, glmVector));
+                }
+
+                SECTION("Construct from Vector3")
+                {
+                    auto randomizedDstVector = random_vector3();
+                    Vector2 dstVector = randomizedDstVector;
+                    bool success =
+                        dstVector[0] == randomizedDstVector[0] &&
+                        dstVector[1] == randomizedDstVector[1];
+                    REQUIRE(success);
+                }
+
+                SECTION("Construct from Vector4")
+                {
+                    auto randomizedDstVector = random_vector4();
+                    Vector2 dstVector = randomizedDstVector;
+                    bool success =
+                        dstVector[0] == randomizedDstVector[0] &&
+                        dstVector[1] == randomizedDstVector[1];
+                    REQUIRE(success);
                 }
             }
 
-            TEST_CASE("Addition", "[Math::Vector2]")
+            TEST_CASE("Vector2 addition", "[Math::Vector2]")
             {
-                std::array<glm::vec2, 2> glmVecs;
-                std::array<Vector2,   2> dstVectors;
-                random_vectors(dstVectors[0], glmVecs[0]);
-                random_vectors(dstVectors[1], glmVecs[1]);
-
+                DST_CREATE_VECTOR_PAIRS(2)
                 SECTION("Non assignment")
                 {
                     REQUIRE(
                         equal(
                             dstVectors[0] + dstVectors[1],
-                            glmVecs   [0] + glmVecs   [1]
+                            glmVectors[0] + glmVectors[1]
                         )
                     );
                 }
 
                 SECTION("Assignment")
                 {
-                    glmVecs   [0] += glmVecs   [1];
+                    glmVectors[0] += glmVectors[1];
                     dstVectors[0] += dstVectors[1];
-                    REQUIRE(equal(dstVectors[0], glmVecs[0]));
+                    REQUIRE(equal(dstVectors[0], glmVectors[0]));
                 }
             }
 
-            TEST_CASE("Subtraction", "[Math::Vector2]")
+            TEST_CASE("Vector2 subtraction", "[Math::Vector2]")
             {
-                std::array<glm::vec2, 2> glmVecs;
-                std::array<Vector2,   2> dstVectors;
-                random_vectors(dstVectors[0], glmVecs[0]);
-                random_vectors(dstVectors[1], glmVecs[1]);
-
+                DST_CREATE_VECTOR_PAIRS(2)
                 SECTION("Non assignment")
                 {
                     REQUIRE(
                         equal(
                             dstVectors[0] - dstVectors[1],
-                            glmVecs   [0] - glmVecs   [1]
+                            glmVectors[0] - glmVectors[1]
                         )
                     );
                 }
 
                 SECTION("Assignment")
                 {
-                    glmVecs   [0] -= glmVecs   [1];
+                    glmVectors[0] -= glmVectors[1];
                     dstVectors[0] -= dstVectors[1];
-                    REQUIRE(equal(dstVectors[0], glmVecs[0]));
+                    REQUIRE(equal(dstVectors[0], glmVectors[0]));
                 }
             }
 
-            TEST_CASE("Multiplication", "[Math::Vector2]")
+            TEST_CASE("Vector2 multiplication", "[Math::Vector2]")
             {
                 float scalar = random_float();
-                std::array<glm::vec2, 2> glmVecs;
-                std::array<Vector2,   2> dstVectors;
-                random_vectors(dstVectors[0], glmVecs[0]);
-                random_vectors(dstVectors[1], glmVecs[1]);
-
+                DST_CREATE_VECTOR_PAIRS(2)
                 SECTION("Non assignment")
                 {
                     REQUIRE(
                         equal(
                             dstVectors[0] * dstVectors[1],
-                            glmVecs   [0] * glmVecs   [1]
+                            glmVectors[0] * glmVectors[1]
                         )
                     );
                 }
@@ -171,40 +151,36 @@ namespace Dynamic_Static {
                     REQUIRE(
                         equal(
                             dstVectors[0] * scalar,
-                            glmVecs   [0] * scalar
+                            glmVectors[0] * scalar
                         )
                     );
                 }
 
                 SECTION("Assignment")
                 {
-                    glmVecs   [0] *= glmVecs   [1];
+                    glmVectors[0] *= glmVectors[1];
                     dstVectors[0] *= dstVectors[1];
-                    REQUIRE(equal(dstVectors[0], glmVecs[0]));
+                    REQUIRE(equal(dstVectors[0], glmVectors[0]));
                 }
 
                 SECTION("Assignment with scalar")
                 {
-                    glmVecs   [0] *= scalar;
+                    glmVectors[0] *= scalar;
                     dstVectors[0] *= scalar;
-                    REQUIRE(equal(dstVectors[0], glmVecs[0]));
+                    REQUIRE(equal(dstVectors[0], glmVectors[0]));
                 }
             }
 
-            TEST_CASE("Division", "[Math::Vector2]")
+            TEST_CASE("Vector2 division", "[Math::Vector2]")
             {
                 float scalar = random_float();
-                std::array<glm::vec2, 2> glmVecs;
-                std::array<Vector2,   2> dstVectors;
-                random_vectors(dstVectors[0], glmVecs[0]);
-                random_vectors(dstVectors[1], glmVecs[1]);
-
+                DST_CREATE_VECTOR_PAIRS(2)
                 SECTION("Non assignment")
                 {
                     REQUIRE(
                         equal(
                             dstVectors[0] / dstVectors[1],
-                            glmVecs   [0] / glmVecs   [1]
+                            glmVectors[0] / glmVectors[1]
                         )
                     );
                 }
@@ -214,59 +190,53 @@ namespace Dynamic_Static {
                     REQUIRE(
                         equal(
                             dstVectors[0] / scalar,
-                            glmVecs   [0] / scalar
+                            glmVectors[0] / scalar
                         )
                     );
                 }
 
                 SECTION("Assignment")
                 {
-                    glmVecs   [0] /= glmVecs   [1];
+                    glmVectors[0] /= glmVectors[1];
                     dstVectors[0] /= dstVectors[1];
-                    REQUIRE(equal(dstVectors[0], glmVecs[0]));
+                    REQUIRE(equal(dstVectors[0], glmVectors[0]));
                 }
 
                 SECTION("Assignment with scalar")
                 {
-                    glmVecs   [0] /= scalar;
+                    glmVectors[0] /= scalar;
                     dstVectors[0] /= scalar;
-                    REQUIRE(equal(dstVectors[0], glmVecs[0]));
+                    REQUIRE(equal(dstVectors[0], glmVectors[0]));
                 }
             }
 
-            TEST_CASE("Magnitude", "[Math::Vector2]")
+            TEST_CASE("Vector2 magnitude", "[Math::Vector2]")
             {
-                glm::vec2 glmVec;
-                Vector2 dstVector;
-                random_vectors(dstVector, glmVec);
-
+                DST_CREATE_VECTORS(2)
                 SECTION("Magnitude")
                 {
-                    REQUIRE(dstVector.magnitude() == glm::length(glmVec));
+                    REQUIRE(dstVector.magnitude() == glm::length(glmVector));
                 }
 
                 SECTION("Magnitude squared")
                 {
-                    REQUIRE(dstVector.magnitude_squared() == glm::length2(glmVec));
+                    REQUIRE(dstVector.magnitude_squared() == glm::length2(glmVector));
                 }
             }
 
-            TEST_CASE("Normalize", "[Math::Vector2]")
+            TEST_CASE("Vector2 normalize", "[Math::Vector2]")
             {
-                glm::vec2 glmVec;
-                Vector2 dstVector;
-                random_vectors(dstVector, glmVec);
-
+                DST_CREATE_VECTORS(2)
                 SECTION("Normalize")
                 {
                     dstVector.normalize();
-                    glmVec = glm::normalize(glmVec);
-                    REQUIRE(equal(dstVector, glmVec));
+                    glmVector = glm::normalize(glmVector);
+                    REQUIRE(equal(dstVector, glmVector));
                 }
 
                 SECTION("Normalized")
                 {
-                    REQUIRE(equal(dstVector.normalized(), glm::normalize(glmVec)));
+                    REQUIRE(equal(dstVector.normalized(), glm::normalize(glmVector)));
                 }
             }
         } // namespace Tests
