@@ -202,6 +202,7 @@
     <ClCompile Include="src\Dynamic_Static\Core\Threads.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\ToString.cpp" />
     <ClCompile Include="src\Dynamic_Static\Math\Color.cpp" />
+    <ClCompile Include="src\Dynamic_Static\Math\Matrix3x3.cpp" />
     <ClCompile Include="src\Dynamic_Static\Math\Quaternion.cpp" />
     <ClCompile Include="src\Dynamic_Static\Math\Vector2.cpp" />
     <ClCompile Include="src\Dynamic_Static\Math\Vector3.cpp" />

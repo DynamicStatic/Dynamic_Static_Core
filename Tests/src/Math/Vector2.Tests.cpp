@@ -29,22 +29,13 @@
 
 #include "catch.hpp"
 
-#include "Dynamic_Static/Math/Vector2.hpp"
 #include "Dynamic_Static/Core/Random.hpp"
 
 namespace Dynamic_Static {
     namespace Math {
         namespace Tests {
-            TEST_CASE("normalize() works correctly", "[Math::Vector2]")
+            TEST_CASE("Vector2 works correctly", "[Math::<>]")
             {
-                SECTION("Vector2::Zero")
-                {
-                    auto v = Vector2::Zero;
-                    v.normalize();
-                    int breaker = 0;
-                }
-
-                REQUIRE(false);
             }
         } // namespace Tests
     } // namespace Math

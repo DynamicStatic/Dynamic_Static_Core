@@ -175,7 +175,12 @@
     <ClCompile Include="src\Core\StringUtilities.Tests.cpp" />
     <ClCompile Include="src\Core\Threads.Tests.cpp" />
     <ClCompile Include="src\Core\VectorUtilities.Tests.cpp" />
+    <ClCompile Include="src\Math\Matrix3x3.Tests.cpp" />
+    <ClCompile Include="src\Math\Matrix4x4.Tests.cpp" />
+    <ClCompile Include="src\Math\Quaternion.Tests.cpp" />
     <ClCompile Include="src\Math\Vector2.Tests.cpp" />
+    <ClCompile Include="src\Math\Vector3.Tests.cpp" />
+    <ClCompile Include="src\Math\Vector4.Tests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Core\Events.Tests.inl" />

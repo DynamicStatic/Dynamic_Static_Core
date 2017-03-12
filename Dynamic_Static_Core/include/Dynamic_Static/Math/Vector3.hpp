@@ -39,18 +39,14 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtx/norm.hpp>
-#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/hash.hpp>
 
 #include <array>
 #include <string>
+#include <ostream>
 
-#define DST_TO_GLMVEC3(DSTVECTOR3) (*reinterpret_cast<glm::vec3>(&DSTVECTOR3))
-
-namespace std {
-    template <>
-    struct hash<dst::math::Vector3>;
-} // namespace std
+#define DST_TO_GLMVEC3(DSTVECTOR3) (*reinterpret_cast<glm::vec3*>(&DSTVECTOR3))
+#define DST_TO_GLMVEC3_CONST(DSTVECTOR3) (*reinterpret_cast<const glm::vec3*>(&DSTVECTOR3))
 
 namespace Dynamic_Static {
     namespace Math {
@@ -58,6 +54,7 @@ namespace Dynamic_Static {
          * Representation of 3D vectors and points.
          */
         struct Vector3 {
+            friend class Quaternion;
             friend Vector3 operator+(const Vector3&, const Vector3&);
             friend Vector3 operator-(const Vector3&, const Vector3&);
             friend Vector3 operator*(const Vector3&, const Vector3&);
@@ -189,6 +186,12 @@ namespace Dynamic_Static {
             Vector3(const Vector4& xyz);
 
             /**
+             * Moves an instance of Vector3.
+             * @param [in] other The Vector3 to move from
+             */
+            Vector3(Vector3&& other) = default;
+
+            /**
              * Copies an instance of Vector3.
              * @param [in] other The Vector3 to copy from
              */
@@ -204,7 +207,7 @@ namespace Dynamic_Static {
              * Copies an instance of Vector3.
              * @param [in] other The Vector4 to copy from
              */
-            inline Vector3& operator=(const Vector3& other) = default;
+            Vector3& operator=(const Vector3& other) = default;
 
             /**
              * Adds a specified Vector3 to this Vector3.
@@ -336,7 +339,7 @@ namespace Dynamic_Static {
             }
 
             /**
-             * Gets the std::string representation of this Vector2.
+             * Gets the std::string representation of this Vector3.
              */
             inline std::string to_string() const
             {
@@ -371,7 +374,7 @@ namespace Dynamic_Static {
         );
 
         /**
-         * Gets a value indicating whether or two specified Vector3s are equal.
+         * Gets a value indicating whether or not two specified Vector3s are equal.
          * @param [in] v0 The first Vector3
          * @param [in] v1 The second Vector3
          * @return whether or not the two specified Vector3s are equal
@@ -389,7 +392,7 @@ namespace Dynamic_Static {
          */
         inline bool operator!=(const Vector3 v0, const Vector3& v1)
         {
-            return v0 != v1;
+            return !(v0 == v1);
         }
 
         /**

@@ -80,13 +80,13 @@ namespace Dynamic_Static {
         Matrix4x4 Transform::world_to_local() const
         {
             throw NotImplementedError();
-            return Matrix4x4::identity;
+            return Matrix4x4::Identity;
         }
 
         Matrix4x4 Transform::local_to_world() const
         {
             throw NotImplementedError();
-            return Matrix4x4::identity;
+            return Matrix4x4::Identity;
         }
     } // namespace Math
 } // namespace Dynamic_Static

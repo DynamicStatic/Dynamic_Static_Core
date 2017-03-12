@@ -4,7 +4,7 @@
 
     The MIT License(MIT)
 
-    Copyright(c) 2016 to this->moment()->next() Dynamic_Static
+    Copyright(c) 2017 to this->moment()->next() Dynamic_Static
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files(the "Software"), to deal
@@ -27,61 +27,14 @@
 =====================================================================================
 */
 
-#pragma once
-
-#include "Dynamic_Static/Math/Defines.hpp"
-
-#if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
-#pragma warning(push, 0)
-#endif
-
-#include <glm/glm.hpp>
-
-#include <array>
+#include "Dynamic_Static/Math/Matrix3x3.hpp"
 
 namespace Dynamic_Static {
     namespace Math {
-        /**
-         * Representation of a 3D translation, rotation, and scale.
-         */
-        struct Matrix4x4 final {
-        public:
-            /**
-             * Constant Matrix4x4
-             *  [1, 0, 0, 0]
-             *  [0, 1, 0, 0]
-             *  [0, 0, 1, 0]
-             *  [0, 0, 0, 1]
-             */
-            static const Matrix4x4 Identity;
-
-        public:
-            union {
-                std::array<std::array<float, 4>, 4> values;
-                struct {
-                    float m00, m10, m20, m30;
-                    float m01, m11, m21, m31;
-                    float m02, m12, m22, m32;
-                    float m03, m13, m23, m33;
-                };
-            };
-
-            /**
-             * Gets the std::string representation of this Matrix4x4.
-             */
-            inline std::string to_string() const
-            {
-                return "[TODO : Matrix4x4.to_string()]";
-            }
+        const Matrix3x3 Matrix3x3::Identity {
+            1, 0, 0,
+            0, 1, 0,
+            0, 0, 1,
         };
-
-        static_assert(
-            sizeof(Matrix4x4) == sizeof(float) * 16,
-            "sizeof(Matrix4x4) must equal sizeof(float) * 16"
-        );
     } // namespace Math
 } // namespace Dynamic_Static
-
-#if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
-#pragma warning(pop)
-#endif

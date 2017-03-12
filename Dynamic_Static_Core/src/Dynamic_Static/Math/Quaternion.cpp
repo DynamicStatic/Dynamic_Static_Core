@@ -28,70 +28,9 @@
 */
 
 #include "Dynamic_Static/Math/Quaternion.hpp"
-#include "Dynamic_Static/Math/Vector3.hpp"
-#include "Dynamic_Static/Math/Vector4.hpp"
-#include "Dynamic_Static/Math/Utilities.hpp"
-
-#include <glm/gtx/quaternion.hpp>
 
 namespace Dynamic_Static {
     namespace Math {
-        Quaternion::Quaternion()
-            : mQuat { }
-        {
-        }
-
-        Quaternion::Quaternion(float x, float y, float z, float w)
-            : mQuat { x, y, z, w }
-        {
-        }
-
-        Quaternion::Quaternion(const Vector3& v)
-            : mQuat { v._vec3 }
-        {
-        }
-
-        Quaternion::Quaternion(const glm::quat& quat)
-            : mQuat { quat }
-        {
-        }
-
-        float Quaternion::x() const { return mQuat.x; }
-        float Quaternion::y() const { return mQuat.y; }
-        float Quaternion::z() const { return mQuat.z; }
-        float Quaternion::w() const { return mQuat.w; }
-        void Quaternion::x(float x) { mQuat.x = x; }
-        void Quaternion::y(float y) { mQuat.y = y; }
-        void Quaternion::z(float z) { mQuat.z = z; }
-        void Quaternion::w(float w) { mQuat.w = w; }
-
-        void Quaternion::normalize()
-        {
-            mQuat = glm::normalize(mQuat);
-        }
-
-        Vector3 Quaternion::rotate(const Vector3& v)
-        {
-            auto vec3 = glm::rotate(mQuat, v._vec3);
-            return Vector3 { vec3.x, vec3.y, vec3.y };
-        }
-
-        Vector4 Quaternion::rotate(const Vector4& v)
-        {
-            auto vec4 = glm::rotate(mQuat, v._vec4);
-            return Vector4 { vec4.x, vec4.y, vec4.z, vec4.w };
-        }
-
-        Quaternion Quaternion::angle_axis(float angle, const Vector3& axis)
-        {
-            return Quaternion { glm::angleAxis(angle, axis._vec3) };
-        }
-
-        Quaternion operator*(const Quaternion& lhs, const Quaternion& rhs)
-        {
-            return Quaternion { lhs.mQuat * rhs.mQuat };
-        }
-
-        const Quaternion Quaternion::identity = Quaternion { 0, 0, 0, 1 };
+        const Quaternion Quaternion::Identity { 0, 0, 0, 1 };
     } // namespace Math
 } // namespace Dynamic_Static

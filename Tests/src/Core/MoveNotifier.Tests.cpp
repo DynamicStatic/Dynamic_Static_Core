@@ -47,7 +47,7 @@ namespace Dynamic_Static {
             {
                 using namespace std::placeholders;
                 mDelegate = std::bind(&Listener::on_activator_moved, this, _1);
-                activator.on_moved += mDelegate;
+                activator.OnMoved += mDelegate;
             }
 
         public:

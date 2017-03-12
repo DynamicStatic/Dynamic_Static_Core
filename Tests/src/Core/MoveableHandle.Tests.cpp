@@ -50,6 +50,7 @@ namespace Dynamic_Static {
             }
 
         public:
+            bool valid() const { return mDependency.get() != nullptr; }
             const Dependency& dependency() const { return *mDependency; }
         };
 
@@ -98,12 +99,6 @@ namespace Dynamic_Static {
             }
 
             REQUIRE(&objMoveTo.dependency() == &dependencyMoveTo);
-        }
-
-        TEST_CASE("MoveableHandle clears its' handle when target is destroyed", "[MoveableHandle]")
-        {
-            bool untested = false;
-            REQUIRE(untested);
         }
     }
 }

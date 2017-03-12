@@ -34,19 +34,43 @@
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(push, 0)
 #endif
+
 #include <glm/glm.hpp>
-#if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
-#pragma warning(pop)
-#endif
+
+#include <array>
 
 namespace Dynamic_Static {
     namespace Math {
         /**
-         * TODO : Documentation.
+         * Representation of a 3D rotation and scale.
          */
-        struct Matrix3x3 final
-            : public glm::mat3x3 {
-            using glm::mat3x3::tmat3x3;
+        struct Matrix3x3 final {
+        public:
+            /**
+             * Constant Matrix3x3
+             *  [1, 0, 0]
+             *  [0, 1, 0]
+             *  [0, 0, 1]
+             */
+            static const Matrix3x3 Identity;
+
+        public:
+            union {
+                std::array<std::array<float, 3>, 3> values;
+                struct {
+                    float m00, m10, m20;
+                    float m01, m11, m21;
+                    float m02, m12, m22;
+                };
+            };
+
+            /**
+             * Gets the std::string representation of this Matrix3x3.
+             */
+            inline std::string to_string() const
+            {
+                return "[TODO : Matrix3x3.to_string()]";
+            }
         };
 
         static_assert(
@@ -55,3 +79,7 @@ namespace Dynamic_Static {
         );
     } // namespace Math
 } // namespace Dynamic_Static
+
+#if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
+#pragma warning(pop)
+#endif

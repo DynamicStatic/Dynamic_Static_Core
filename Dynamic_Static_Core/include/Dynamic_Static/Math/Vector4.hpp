@@ -39,18 +39,13 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtx/norm.hpp>
-#define GLM_ENABLE_EXPERIMENTAL
 #include <glm/gtx/hash.hpp>
 
 #include <array>
 #include <string>
+#include <ostream>
 
-#define DST_TO_GLMVEC4(DSTVECTOR4) (*reinterpret_cast<glm::vec4>(&DSTVECTOR4))
-
-namespace std {
-    template <>
-    struct hash<dst::math::Vector4>;
-} // namespace std
+#define DST_TO_GLMVEC4(DSTVECTOR4) (*reinterpret_cast<glm::vec4*>(&DSTVECTOR4))
 
 namespace Dynamic_Static {
     namespace Math {
@@ -58,6 +53,7 @@ namespace Dynamic_Static {
          * Representation of 3D vectors and points.
          */
         struct Vector4 {
+            friend class Quaternion;
             friend Vector4 operator+(const Vector4&, const Vector4&);
             friend Vector4 operator-(const Vector4&, const Vector4&);
             friend Vector4 operator*(const Vector4&, const Vector4&);
@@ -209,7 +205,7 @@ namespace Dynamic_Static {
             /**
              * Constructs an instance of Vector4.
              * @param [in] xyz The Vector3 to copy the x, y, and z values from
-             *                 \n NOTE : This Vector4's w value will be set to zero
+             * \n NOTE : This Vector4's w value will be set to zero
              */
             Vector4(const Vector3& xyz);
 
@@ -223,9 +219,15 @@ namespace Dynamic_Static {
             /**
              * Constructs an instance of Vector4.
              * @param [in] x This Vector4's x value
-             * @param [in] yzw The Vector3 to copy the y, z, and w values from
+             * @param [in] yzw The Vector4's y, z, and w values
              */
             Vector4(float x, const Vector3& yzw);
+
+            /**
+             * Moves an instance of Vector4.
+             * @param [in] other The Vector4 to move from
+             */
+            Vector4(Vector4&& other) = default;
 
             /**
              * Copies an instance of Vector4.
@@ -243,7 +245,7 @@ namespace Dynamic_Static {
              * Copies an instance of Vector4.
              * @param [in] other The Vector4 to copy from
              */
-            inline Vector4& operator=(const Vector4& other) = default;
+            Vector4& operator=(const Vector4& other) = default;
 
             /**
              * Adds a specified Vector4 to this Vector4.
@@ -375,7 +377,7 @@ namespace Dynamic_Static {
             }
 
             /**
-             * Gets the std::string representation of this Vector2.
+             * Gets the std::string representation of this Vector4.
              */
             inline std::string to_string() const
             {
@@ -412,7 +414,7 @@ namespace Dynamic_Static {
         );
 
         /**
-         * Gets a value indicating whether or two specified Vector4s are equal.
+         * Gets a value indicating whether or not two specified Vector4s are equal.
          * @param [in] v0 The first Vector4
          * @param [in] v1 The second Vector4
          * @return whether or not the two specified Vector4s are equal
@@ -423,14 +425,14 @@ namespace Dynamic_Static {
         }
 
         /**
-         * Gets a value indicating whether or two specified Vector4 are inequal.
+         * Gets a value indicating whether or not two specified Vector4s are inequal.
          * @param [in] v0 The first Vector4
          * @param [in] v1 The second Vector4
-         * @return whether or not the two specified Vector4 are inequal
+         * @return whether or not the two specified Vector4s are inequal
          */
         inline bool operator!=(const Vector4 v0, const Vector4& v1)
         {
-            return v0 != v1;
+            return !(v0 == v1);
         }
 
         /**
