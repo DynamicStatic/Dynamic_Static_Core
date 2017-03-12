@@ -159,5 +159,5 @@ namespace Dynamic_Static {
 
             REQUIRE(deterministic);
         }
-    }
-}
+    } // namespace Tests
+} // namespace Dynamic_Static

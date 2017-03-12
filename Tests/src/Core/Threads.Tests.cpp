@@ -51,14 +51,14 @@ namespace Dynamic_Static {
                 }
             );
 
-            // NOTE : This assumes that 500ms sleep is long enough for
-            //        the other thread to get to the semaphore().wait() call.
+            // NOTE : This assumes that 500ms sleep is long enough for the
+            //        other thread to get to the semaphore.wait() call.
             std::this_thread::sleep_for(Millisecond(500));
             REQUIRE(counter == WaitTarget);
             semaphore.notify();
 
-            // NOTE : This assumes that 500ms sleep is long enough for
-            //        the other thread to finish counting.
+            // NOTE : This assumes that 500ms sleep is long enough
+            //        for the other thread to finish counting.
             std::this_thread::sleep_for(Millisecond(500));
             REQUIRE(counter == CounterTarget);
             thread.join();
@@ -119,5 +119,5 @@ namespace Dynamic_Static {
             worker.join();
             REQUIRE(counter == CounterTarget);
         }
-    }
-}
+    } // namespace Tests
+} // namespace Dynamic_Static

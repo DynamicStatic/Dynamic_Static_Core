@@ -170,5 +170,5 @@ namespace Dynamic_Static {
 
             REQUIRE(listenersUnsubscribed);
         }
-    }
-}
+    } // namespace Tests
+} // namespace Dynamic_Static

@@ -32,9 +32,9 @@
 namespace Dynamic_Static {
     namespace Math {
         const Matrix3x3 Matrix3x3::Identity {
-            1, 0, 0,
-            0, 1, 0,
-            0, 0, 1,
+            { 1, 0, 0 },
+            { 0, 1, 0 },
+            { 0, 0, 1 },
         };
     } // namespace Math
 } // namespace Dynamic_Static

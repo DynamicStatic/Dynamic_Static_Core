@@ -67,5 +67,5 @@ namespace Dynamic_Static {
             auto move_to = std::move(activator);
             REQUIRE(listener.event_raised());
         }
-    }
-}
+    } // namespace Tests
+} // namespace Dynamic_Static

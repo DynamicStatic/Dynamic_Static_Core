@@ -30,6 +30,7 @@
 #pragma once
 
 #include "Dynamic_Static/Math/Defines.hpp"
+#include "Dynamic_Static/Math/Vector4.hpp"
 
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(push, 0)
@@ -57,15 +58,50 @@ namespace Dynamic_Static {
 
         public:
             union {
-                std::array<std::array<float, 4>, 4> values;
-                struct {
-                    float m00, m10, m20, m30;
-                    float m01, m11, m21, m31;
-                    float m02, m12, m22, m32;
-                    float m03, m13, m23, m33;
-                };
+                std::array<Vector4, 4> columns;
+                // struct {
+                //     float m00, m10, m20, m30;
+                //     float m01, m11, m21, m31;
+                //     float m02, m12, m22, m32;
+                //     float m03, m13, m23, m33;
+                // };
             };
 
+        public:
+            inline Matrix4x4()
+            {
+            }
+
+            inline Matrix4x4(
+                const Vector4& column0,
+                const Vector4& column1,
+                const Vector4& column2,
+                const Vector4& column3
+            )
+            {
+            }
+
+            /**
+             * Gets the column at the specified index.
+             * @param [in] index The index of the column to get
+             * @return The column at the specified index
+             */
+            inline const Vector4& operator[](size_t index) const
+            {
+                return columns[index];
+            }
+
+            /**
+             * Gets the column at the specified index.
+             * @param [in] index The index of the column to get
+             * @return The column at the specified index
+             */
+            inline Vector4& operator[](size_t index)
+            {
+                return columns[index];
+            }
+
+        public:
             /**
              * Gets the std::string representation of this Matrix4x4.
              */

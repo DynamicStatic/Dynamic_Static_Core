@@ -46,6 +46,7 @@
 #include <ostream>
 
 #define DST_TO_GLMVEC4(DSTVECTOR4) (*reinterpret_cast<glm::vec4*>(&DSTVECTOR4))
+#define DST_TO_GLMVEC4_CONST(DSTVECTOR4) (*reinterpret_cast<const glm::vec4*>(&DSTVECTOR4))
 
 namespace Dynamic_Static {
     namespace Math {

@@ -4,7 +4,7 @@
 
     The MIT License(MIT)
 
-    Copyright(c) 2017 to this->moment()->next() Dynamic_Static
+    Copyright(c) 2016 to this->moment()->next() Dynamic_Static
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files(the "Software"), to deal
@@ -27,52 +27,14 @@
 =====================================================================================
 */
 
-#include "catch.hpp"
+#pragma once
 
-#include "Dynamic_Static/Math/Vector2.hpp"
 #include "Dynamic_Static/Core/Random.hpp"
-
-#include "glm/glm.hpp"
 
 namespace Dynamic_Static {
     namespace Math {
         namespace Tests {
-            TEST_CASE("Assignment works correctly", "[Math::Vector2]")
-            {
-                float value = 64;
-                float f0 = Random.range(-value, value);
-                float f1 = Random.range(-value, value);
 
-                SECTION("Initializer list")
-                {
-                    glm::vec2 vec2 { f0, f1 };
-                    Vector2 vector2 { f0, f1 };
-
-                    REQUIRE(vec2.x == vector2.x);
-                    REQUIRE(vec2.y == vector2.y);
-
-                    REQUIRE(vec2.r == vector2.r);
-                    REQUIRE(vec2.g == vector2.g);
-
-                    REQUIRE(vec2.s == vector2.s);
-                    REQUIRE(vec2.t == vector2.t);
-                }
-
-                SECTION("Constructor")
-                {
-                    glm::vec2 vec2(f0, f1);
-                    Vector2 vector2(f0, f1);
-
-                    REQUIRE(vec2.x == vector2.x);
-                    REQUIRE(vec2.y == vector2.y);
-
-                    REQUIRE(vec2.r == vector2.r);
-                    REQUIRE(vec2.g == vector2.g);
-
-                    REQUIRE(vec2.s == vector2.s);
-                    REQUIRE(vec2.t == vector2.t);
-                }
-            }
         } // namespace Tests
     } // namespace Math
 } // namespace Dynamic_Static

@@ -72,5 +72,5 @@ namespace Dynamic_Static {
             str = replace(str, "Shitty", "Good");
             REQUIRE(str == "Some/Windows/Path/With/A/Good/Extension.ext");
         }
-    }
-}
+    } // namespace Tests
+} // namespace Dynamic_Static

@@ -29,6 +29,7 @@
 
 #include "catch.hpp"
 
+#include "Dynamic_Static/Math/Math.hpp"
 #include "Dynamic_Static/Core/Random.hpp"
 
 namespace Dynamic_Static {

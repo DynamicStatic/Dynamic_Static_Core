@@ -30,6 +30,7 @@
 #pragma once
 
 #include "Dynamic_Static/Math/Defines.hpp"
+#include "Dynamic_Static/Math/Vector3.hpp"
 
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(push, 0)
@@ -56,13 +57,26 @@ namespace Dynamic_Static {
 
         public:
             union {
-                std::array<std::array<float, 3>, 3> values;
-                struct {
-                    float m00, m10, m20;
-                    float m01, m11, m21;
-                    float m02, m12, m22;
-                };
+                std::array<Vector3, 3> columns;
+                // struct {
+                //     float m00, m10, m20;
+                //     float m01, m11, m21;
+                //     float m02, m12, m22;
+                // };
             };
+
+        public:
+            inline Matrix3x3()
+            {
+            }
+
+            inline Matrix3x3(
+                const Vector3& column0,
+                const Vector3& column1,
+                const Vector3& column2
+            )
+            {
+            }
 
             /**
              * Gets the std::string representation of this Matrix3x3.

@@ -39,23 +39,50 @@
 #include "catch.hpp"
 
 #include "Dynamic_Static/Core/Random.hpp"
+#include "Dynamic_Static/Math/Math.hpp"
+
+#include <glm/glm.hpp>
 
 namespace Dynamic_Static {
     namespace Math {
         namespace Tests {
+            Vector4 create_randomized_vector4()
+            {
+                float value = 64;
+                return Vector4 {
+                    Random.range(-value, value),
+                    Random.range(-value, value),
+                    Random.range(-value, value),
+                    Random.range(-value, value)
+                };
+            }
+
             TEST_CASE("Indexed access works correctly", "[Math::Matrix4x4]")
             {
                 SECTION("1D access works correctly")
                 {
+                    glm::mat4 mat4;
+                    Matrix4x4 matrix4x4;
+                    for (size_t i = 0; i < mat4.length(); ++i) {
+                        auto v = create_randomized_vector4();
+                        mat4[i] = DST_TO_GLMVEC4_CONST(v);
+                        matrix4x4[i] = v;
+                    }
 
+                    for (size_t i = 0; i < mat4.length(); ++i) {
+                        bool success =
+                            mat4[i][0] == matrix4x4[i][0] &&
+                            mat4[i][1] == matrix4x4[i][1] &&
+                            mat4[i][2] == matrix4x4[i][2] &&
+                            mat4[i][3] == matrix4x4[i][3];
+                        REQUIRE(success);
+                    }
                 }
 
                 SECTION("2D access works correctly")
                 {
 
                 }
-
-                REQUIRE(false);
             }
         } // namespace Tests
     } // namespace Math

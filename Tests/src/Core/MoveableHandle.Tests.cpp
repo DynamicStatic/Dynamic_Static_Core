@@ -100,5 +100,5 @@ namespace Dynamic_Static {
 
             REQUIRE(&objMoveTo.dependency() == &dependencyMoveTo);
         }
-    }
-}
+    } // namespace Tests
+} // namespace Dynamic_Static

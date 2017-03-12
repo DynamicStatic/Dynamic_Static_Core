@@ -27,10 +27,10 @@
 =====================================================================================
 */
 
+#pragma once
+
 #include "Dynamic_Static/Core/Events.hpp"
 #include "Dynamic_Static/Core/Random.hpp"
-
-#pragma once
 
 namespace Dynamic_Static {
     namespace Tests {
@@ -43,8 +43,8 @@ namespace Dynamic_Static {
             bool subscribed(SubscribableObj& subscription) { return Subscribable::subscribed(subscription); }
             void clear() { Subscribable::clear(); }
         };
-    }
-}
+    } // namespace Tests
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     namespace Tests {
@@ -83,8 +83,8 @@ namespace Dynamic_Static {
                     !subscribable1->subscribed(*subscribable0);
             }
         };
-    }
-}
+    } // namespace Tests
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     namespace Tests {
@@ -102,8 +102,8 @@ namespace Dynamic_Static {
         };
 
         static Obj gTestObj;
-    }
-}
+    } // namespace Tests
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     namespace Tests {
@@ -116,8 +116,8 @@ namespace Dynamic_Static {
                 on_event(*this);
             }
         };
-    }
-}
+    } // namespace Tests
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     namespace Tests {
@@ -175,8 +175,8 @@ namespace Dynamic_Static {
                 ++mInvocationCount;
             }
         };
-    }
-}
+    } // namespace Tests
+} // namespace Dynamic_Static
 
 namespace Dynamic_Static {
     namespace Tests {
@@ -289,5 +289,5 @@ namespace Dynamic_Static {
 
             return allSubscribersInvoked;
         }
-    }
-}
+    } // namespace Tests
+} // namespace Dynamic_Static

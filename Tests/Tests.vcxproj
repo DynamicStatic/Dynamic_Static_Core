@@ -184,6 +184,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="src\Core\Events.Tests.inl" />
+    <None Include="src\Math\Vector.Tests.inl" />
     <None Include="Tests.licenseheader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

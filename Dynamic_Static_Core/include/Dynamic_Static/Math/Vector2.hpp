@@ -47,6 +47,7 @@
 #include <ostream>
 
 #define DST_TO_GLMVEC2(DSTVECTOR2) (*reinterpret_cast<glm::vec2*>(&DSTVECTOR2))
+#define DST_TO_GLMVEC2_CONST(DSTVECTOR2) (*reinterpret_cast<const glm::vec2*>(&DSTVECTOR2))
 
 namespace Dynamic_Static {
     namespace Math {
@@ -315,39 +316,6 @@ namespace Dynamic_Static {
                     std::to_string(x) + ", " +
                     std::to_string(y) +
                     ")";
-            }
-
-            /**
-             * Gets the absolute angle in radians between two specified Vector2s.
-             * @param [in] v0 The first Vector2.
-             * @param [in] v1 The second Vector2.
-             * @return The absolute angle in radians between the two specified Vector2s.
-             */
-            static inline float absolute_angle(const Vector2& v0, const Vector2& v1)
-            {
-                return glm::angle(v0._vec2, v1._vec2);
-            }
-
-            /**
-             * Gets the oriented angle in radians between two specified Vector2s.
-             * @param [in] from The first Vector2.
-             * @param [in] to The second Vector2.
-             * @return The oriented angle in radians between the two specified Vector2s.
-             */
-            static inline float oriented_angle(const Vector2& from, const Vector2& to)
-            {
-                return glm::orientedAngle(from._vec2, to._vec2);
-            }
-
-            /**
-             * Gets the dot product between two specified Vector2s.
-             * @param [in] The first Vector2
-             * @param [in] The second Vector2
-             * @return The dot product between the two specified Vector2s
-             */
-            static inline float dot(const Vector2& v0, const Vector2& v1)
-            {
-                return glm::dot(v0._vec2, v1._vec2);
             }
 
             /**

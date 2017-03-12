@@ -32,7 +32,9 @@
 #include "Dynamic_Static/Core/BinaryReader.hpp"
 
 namespace Dynamic_Static {
-    TEST_CASE("BinaryReader", "[BinaryReader]")
-    {
-    }
-}
+    namespace Tests {
+        TEST_CASE("BinaryReader", "[BinaryReader]")
+        {
+        }
+    } // namespace Tests
+} // namespace Dynamic_Static

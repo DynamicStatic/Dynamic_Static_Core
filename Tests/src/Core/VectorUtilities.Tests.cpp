@@ -124,5 +124,5 @@ namespace Dynamic_Static {
             REQUIRE(std::find(dogs.begin(), dogs.end(), takenDogUPtr) == dogs.end());
             REQUIRE(take_ownership(takenDogUPtr, dogs) == nullptr);
         }
-    }
-}
+    } // namespace Tests
+} // namespace Dynamic_Static

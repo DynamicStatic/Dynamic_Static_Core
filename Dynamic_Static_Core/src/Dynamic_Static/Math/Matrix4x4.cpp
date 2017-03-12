@@ -41,10 +41,10 @@
 namespace Dynamic_Static {
     namespace Math {
         const Matrix4x4 Matrix4x4::Identity {
-            1, 0, 0, 0,
-            0, 1, 0, 0,
-            0, 0, 1, 0,
-            0, 0, 0, 1,
+            { 1, 0, 0, 0 },
+            { 0, 1, 0, 0 },
+            { 0, 0, 1, 0 },
+            { 0, 0, 0, 1 },
         };
     } // namespace Math
 } // namespace Dynamic_Static
