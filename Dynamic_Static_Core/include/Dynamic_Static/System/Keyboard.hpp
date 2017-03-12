@@ -272,41 +272,41 @@ namespace Dynamic_Static {
             State mCurrent;
             State mPrevious;
 
-            public:
-                /**
-                 * TODO : Documentation.
-                 */
-                bool up(Key key) const;
+        public:
+            /**
+             * TODO : Documentation.
+             */
+            bool up(Key key) const;
 
-                /**
-                 * TODO : Documentation.
-                 */
-                bool down(Key key) const;
+            /**
+             * TODO : Documentation.
+             */
+            bool down(Key key) const;
 
-                /**
-                 * TODO : Documentation.
-                 */
-                bool held(Key key) const;
+            /**
+             * TODO : Documentation.
+             */
+            bool held(Key key) const;
 
-                /**
-                 * TODO : Documentation.
-                 */
-                bool pressed(Key key) const;
+            /**
+             * TODO : Documentation.
+             */
+            bool pressed(Key key) const;
 
-                /**
-                 * TODO : Documentation.
-                 */
-                bool released(Key key) const;
+            /**
+             * TODO : Documentation.
+             */
+            bool released(Key key) const;
 
-                /**
-                 * TODO : Documentation.
-                 */
-                void update();
+            /**
+             * TODO : Documentation.
+             */
+            void update();
 
-                /**
-                 * TODO : Documentation.
-                 */
-                void reset();
+            /**
+             * TODO : Documentation.
+             */
+            void reset();
         };
     } // namespace System
 } // namespace Dynamic_Static
