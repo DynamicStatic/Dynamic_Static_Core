@@ -27,6 +27,15 @@
 =====================================================================================
 */
 
+/*
+
+    NOTE : Since Dynamic_Static::Math implements very little mathematical functionality itself,
+           the purpose of these tests is to ensure that the results of Dynamic_Static::Math are
+           always the same regardless of what math library is used underneath.  To this end, the
+           reference library is glm.
+
+*/
+
 #include "catch.hpp"
 
 #include "Dynamic_Static/Math/Vector2.hpp"
@@ -34,43 +43,194 @@
 
 #include "glm/glm.hpp"
 
+#include <array>
+
 namespace Dynamic_Static {
     namespace Math {
         namespace Tests {
-            TEST_CASE("Assignment works correctly", "[Math::Vector2]")
+            static float random_float()
             {
                 float value = 64;
-                float f0 = Random.range(-value, value);
-                float f1 = Random.range(-value, value);
+                return Random.range<float>(-value, value);
+            }
+
+            static void random_vectors(Vector2& dstVector, glm::vec2& glmVec)
+            {
+                float f0 = random_float();
+                float f1 = random_float();
+                glmVec    = { f0, f1 };
+                dstVector = { f0, f1 };
+            }
+
+            static bool equal(const Vector2& dstVector, const glm::vec2& glmVec)
+            {
+                return
+                    dstVector.x == glmVec.x &&
+                    dstVector.y == glmVec.y &&
+
+                    dstVector.r == glmVec.r &&
+                    dstVector.g == glmVec.g &&
+
+                    dstVector.s == glmVec.s &&
+                    dstVector.t == glmVec.t &&
+
+                    dstVector[0] == glmVec[0] &&
+                    dstVector[1] == glmVec[1];
+            }
+
+            TEST_CASE("Assignment and access", "[Math::Vector2]")
+            {
+                float f0 = random_float();
+                float f1 = random_float();
 
                 SECTION("Initializer list")
                 {
-                    glm::vec2 vec2 { f0, f1 };
-                    Vector2 vector2 { f0, f1 };
-
-                    REQUIRE(vec2.x == vector2.x);
-                    REQUIRE(vec2.y == vector2.y);
-
-                    REQUIRE(vec2.r == vector2.r);
-                    REQUIRE(vec2.g == vector2.g);
-
-                    REQUIRE(vec2.s == vector2.s);
-                    REQUIRE(vec2.t == vector2.t);
+                    glm::vec2 vec  { f0, f1 };
+                    Vector2 vector { f0, f1 };
+                    REQUIRE(equal(vector, vec));
                 }
 
                 SECTION("Constructor")
                 {
-                    glm::vec2 vec2(f0, f1);
-                    Vector2 vector2(f0, f1);
+                    glm::vec2 glmVec (f0, f1);
+                    Vector2 dstVector(f0, f1);
+                    REQUIRE(equal(dstVector, glmVec));
+                }
+            }
 
-                    REQUIRE(vec2.x == vector2.x);
-                    REQUIRE(vec2.y == vector2.y);
+            TEST_CASE("Addition", "[Math::Vector2]")
+            {
+                std::array<glm::vec2, 2> glmVecs;
+                std::array<Vector2,   2> dstVectors;
+                random_vectors(dstVectors[0], glmVecs[0]);
+                random_vectors(dstVectors[1], glmVecs[1]);
 
-                    REQUIRE(vec2.r == vector2.r);
-                    REQUIRE(vec2.g == vector2.g);
+                SECTION("Non assignment")
+                {
+                    REQUIRE(
+                        equal(
+                            dstVectors[0] + dstVectors[1],
+                            glmVecs   [0] + glmVecs   [1]
+                        )
+                    );
+                }
 
-                    REQUIRE(vec2.s == vector2.s);
-                    REQUIRE(vec2.t == vector2.t);
+                SECTION("Assignment")
+                {
+                    glmVecs   [0] += glmVecs   [1];
+                    dstVectors[0] += dstVectors[1];
+                    REQUIRE(equal(dstVectors[0], glmVecs[0]));
+                }
+            }
+
+            TEST_CASE("Subtraction", "[Math::Vector2]")
+            {
+                std::array<glm::vec2, 2> glmVecs;
+                std::array<Vector2,   2> dstVectors;
+                random_vectors(dstVectors[0], glmVecs[0]);
+                random_vectors(dstVectors[1], glmVecs[1]);
+
+                SECTION("Non assignment")
+                {
+                    REQUIRE(
+                        equal(
+                            dstVectors[0] - dstVectors[1],
+                            glmVecs   [0] - glmVecs   [1]
+                        )
+                    );
+                }
+
+                SECTION("Assignment")
+                {
+                    glmVecs   [0] -= glmVecs   [1];
+                    dstVectors[0] -= dstVectors[1];
+                    REQUIRE(equal(dstVectors[0], glmVecs[0]));
+                }
+            }
+
+            TEST_CASE("Multiplication", "[Math::Vector2]")
+            {
+                float scalar = random_float();
+                std::array<glm::vec2, 2> glmVecs;
+                std::array<Vector2,   2> dstVectors;
+                random_vectors(dstVectors[0], glmVecs[0]);
+                random_vectors(dstVectors[1], glmVecs[1]);
+
+                SECTION("Non assignment")
+                {
+                    REQUIRE(
+                        equal(
+                            dstVectors[0] * dstVectors[1],
+                            glmVecs   [0] * glmVecs   [1]
+                        )
+                    );
+                }
+
+                SECTION("Non assignment with scalar")
+                {
+                    REQUIRE(
+                        equal(
+                            dstVectors[0] * scalar,
+                            glmVecs   [0] * scalar
+                        )
+                    );
+                }
+
+                SECTION("Assignment")
+                {
+                    glmVecs   [0] *= glmVecs   [1];
+                    dstVectors[0] *= dstVectors[1];
+                    REQUIRE(equal(dstVectors[0], glmVecs[0]));
+                }
+
+                SECTION("Assignment with scalar")
+                {
+                    glmVecs   [0] *= scalar;
+                    dstVectors[0] *= scalar;
+                    REQUIRE(equal(dstVectors[0], glmVecs[0]));
+                }
+            }
+
+            TEST_CASE("Division", "[Math::Vector2]")
+            {
+                float scalar = random_float();
+                std::array<glm::vec2, 2> glmVecs;
+                std::array<Vector2,   2> dstVectors;
+                random_vectors(dstVectors[0], glmVecs[0]);
+                random_vectors(dstVectors[1], glmVecs[1]);
+
+                SECTION("Non assignment")
+                {
+                    REQUIRE(
+                        equal(
+                            dstVectors[0] / dstVectors[1],
+                            glmVecs   [0] / glmVecs   [1]
+                        )
+                    );
+                }
+
+                SECTION("Non assignment with scalar")
+                {
+                    REQUIRE(
+                        equal(
+                            dstVectors[0] / scalar,
+                            glmVecs   [0] / scalar
+                        )
+                    );
+                }
+
+                SECTION("Assignment")
+                {
+                    glmVecs   [0] /= glmVecs   [1];
+                    dstVectors[0] /= dstVectors[1];
+                    REQUIRE(equal(dstVectors[0], glmVecs[0]));
+                }
+
+                SECTION("Assignment with scalar")
+                {
+                    glmVecs   [0] /= scalar;
+                    dstVectors[0] /= scalar;
+                    REQUIRE(equal(dstVectors[0], glmVecs[0]));
                 }
             }
         } // namespace Tests

@@ -355,7 +355,7 @@ namespace Dynamic_Static {
             /**
              * Gets this Vector4's magnitude squared.
              */
-            inline float magnitude_sqaured() const
+            inline float magnitude_squared() const
             {
                 return glm::length2(_vec4);
             }
