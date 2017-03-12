@@ -45,8 +45,8 @@
 #include <string>
 #include <ostream>
 
-#define DST_TO_GLMVEC3(DSTVECTOR3) (*reinterpret_cast<glm::vec3*>(&DSTVECTOR3))
-#define DST_TO_GLMVEC3_CONST(DSTVECTOR3) (*reinterpret_cast<const glm::vec3*>(&DSTVECTOR3))
+#define DST_TO_GLM_VEC3(DST_VECTOR3) (*reinterpret_cast<glm::vec3*>(&DST_VECTOR3))
+#define DST_TO_GLM_VEC3_CONST(DST_VECTOR3) (*reinterpret_cast<const glm::vec3*>(&DST_VECTOR3))
 
 namespace Dynamic_Static {
     namespace Math {
@@ -61,6 +61,8 @@ namespace Dynamic_Static {
             friend Vector3 operator*(const Vector3&, float);
             friend Vector3 operator/(const Vector3&, const Vector3&);
             friend Vector3 operator/(const Vector3&, float);
+            friend Vector3 operator*(const Matrix4x4&, const Vector3&);
+            friend Vector3 operator*(const Quaternion&, const Vector3&);
         public:
             /**
              * Constant Vector3(1, 1, 1).
@@ -119,7 +121,6 @@ namespace Dynamic_Static {
 
         public:
             union {
-                glm::vec3 _vec3;
                 std::array<float, 3> values;
                 struct { float x, y, z; };
                 struct { float r, g, b; };
@@ -155,7 +156,7 @@ namespace Dynamic_Static {
              */
             inline Vector3(const float* values)
             {
-                std::copy_n(values, this->values.size(), this->values.begin());
+                std::memcpy(this, values, sizeof(*this));
             }
 
             /**
@@ -215,7 +216,7 @@ namespace Dynamic_Static {
              */
             inline Vector3& operator+=(const Vector3& other)
             {
-                _vec3 += other._vec3;
+                DST_TO_GLM_VEC3(*this) += DST_TO_GLM_VEC3_CONST(other);
                 return *this;
             }
 
@@ -225,7 +226,7 @@ namespace Dynamic_Static {
              */
             inline Vector3& operator-=(const Vector3& other)
             {
-                _vec3 -= other._vec3;
+                DST_TO_GLM_VEC3(*this) -= DST_TO_GLM_VEC3_CONST(other);
                 return *this;
             }
 
@@ -235,7 +236,7 @@ namespace Dynamic_Static {
              */
             inline Vector3& operator*=(const Vector3& other)
             {
-                _vec3 *= other._vec3;
+                DST_TO_GLM_VEC3(*this) *= DST_TO_GLM_VEC3_CONST(other);
                 return *this;
             }
 
@@ -245,7 +246,7 @@ namespace Dynamic_Static {
              */
             inline Vector3& operator*=(float scalar)
             {
-                _vec3 *= scalar;
+                DST_TO_GLM_VEC3(*this) *= scalar;
                 return *this;
             }
 
@@ -255,7 +256,7 @@ namespace Dynamic_Static {
              */
             inline Vector3& operator/=(const Vector3& other)
             {
-                _vec3 /= other._vec3;
+                DST_TO_GLM_VEC3(*this) /= DST_TO_GLM_VEC3_CONST(other);
                 return *this;
             }
 
@@ -265,7 +266,7 @@ namespace Dynamic_Static {
              */
             inline Vector3& operator/=(float scalar)
             {
-                _vec3 /= scalar;
+                DST_TO_GLM_VEC3(*this) /= scalar;
                 return *this;
             }
 
@@ -275,7 +276,7 @@ namespace Dynamic_Static {
              */
             inline Vector3 operator-() const
             {
-                return -_vec3;
+                return -DST_TO_GLM_VEC3_CONST(*this);
             }
 
             /**
@@ -298,10 +299,19 @@ namespace Dynamic_Static {
                 return values[index];
             }
 
+            /**
+             * Gets a pointer Vector3's underlying data.
+             * @return A pointer to this Vector3's underlying data
+             */
+            inline const float* data() const
+            {
+                return values.data();
+            }
+
         private:
             inline Vector3(const glm::vec3& other)
             {
-                _vec3 = other;
+                DST_TO_GLM_VEC3(*this) = other;
             }
 
         public:
@@ -310,7 +320,7 @@ namespace Dynamic_Static {
              */
             inline float magnitude() const
             {
-                return glm::length(_vec3);
+                return glm::length(DST_TO_GLM_VEC3_CONST(*this));
             }
 
             /**
@@ -318,7 +328,7 @@ namespace Dynamic_Static {
              */
             inline float magnitude_squared() const
             {
-                return glm::length2(_vec3);
+                return glm::length2(DST_TO_GLM_VEC3_CONST(*this));
             }
 
             /**
@@ -327,7 +337,7 @@ namespace Dynamic_Static {
              */
             inline Vector3 normalized() const
             {
-                return glm::normalize(_vec3);
+                return glm::normalize(DST_TO_GLM_VEC3_CONST(*this));
             }
 
             /**
@@ -335,7 +345,7 @@ namespace Dynamic_Static {
              */
             inline void normalize()
             {
-                _vec3 = glm::normalize(_vec3);
+                DST_TO_GLM_VEC3(*this) = glm::normalize(DST_TO_GLM_VEC3_CONST(*this));
             }
 
             /**
@@ -381,7 +391,7 @@ namespace Dynamic_Static {
          */
         inline bool operator==(const Vector3 v0, const Vector3& v1)
         {
-            return v0._vec3 == v1._vec3;
+            return v0.values == v1.values;
         }
 
         /**
@@ -403,7 +413,7 @@ namespace Dynamic_Static {
          */
         inline Vector3 operator+(const Vector3& v0, const Vector3& v1)
         {
-            return v0._vec3 + v1._vec3;
+            return DST_TO_GLM_VEC3_CONST(v0) + DST_TO_GLM_VEC3_CONST(v1);
         }
 
         /**
@@ -414,7 +424,7 @@ namespace Dynamic_Static {
          */
         inline Vector3 operator-(const Vector3& v0, const Vector3& v1)
         {
-            return v0._vec3 - v1._vec3;
+            return DST_TO_GLM_VEC3_CONST(v0) - DST_TO_GLM_VEC3_CONST(v1);
         }
 
         /**
@@ -425,7 +435,7 @@ namespace Dynamic_Static {
          */
         inline Vector3 operator*(const Vector3& v0, const Vector3& v1)
         {
-            return v0._vec3 * v1._vec3;
+            return DST_TO_GLM_VEC3_CONST(v0) * DST_TO_GLM_VEC3_CONST(v1);
         }
 
         /**
@@ -436,7 +446,7 @@ namespace Dynamic_Static {
          */
         inline Vector3 operator*(const Vector3& v, float scalar)
         {
-            return v._vec3 * scalar;
+            return DST_TO_GLM_VEC3_CONST(v) * scalar;
         }
 
         /**
@@ -447,7 +457,7 @@ namespace Dynamic_Static {
          */
         inline Vector3 operator/(const Vector3& v0, const Vector3& v1)
         {
-            return v0._vec3 / v1._vec3;
+            return DST_TO_GLM_VEC3_CONST(v0) / DST_TO_GLM_VEC3_CONST(v1);
         }
 
         /**
@@ -458,7 +468,7 @@ namespace Dynamic_Static {
          */
         inline Vector3 operator/(const Vector3& v, float scalar)
         {
-            return v._vec3 / scalar;
+            return DST_TO_GLM_VEC3_CONST(v) / scalar;
         }
 
         /**
@@ -494,7 +504,7 @@ namespace std {
          */
         inline size_t operator()(const dst::math::Vector3& v) const
         {
-            return hash<glm::vec3>()(v._vec3);
+            return hash<glm::vec3>()(DST_TO_GLM_VEC3_CONST(v));
         }
     };
 } // namespace std

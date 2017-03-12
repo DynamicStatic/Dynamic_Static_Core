@@ -31,14 +31,21 @@
 
 #include "Dynamic_Static/Math/Defines.hpp"
 #include "Dynamic_Static/Math/Vector3.hpp"
+#include "Dynamic_Static/Math/Vector4.hpp"
 
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(push, 0)
 #endif
 
 #include <glm/glm.hpp>
+#include <glm/gtx/transform.hpp>
 
 #include <array>
+#include <string>
+#include <ostream>
+
+#define DST_TO_GLM_MAT3(DST_MATRIX3X3) (*reinterpret_cast<glm::mat3*>(&DST_MATRIX3X3))
+#define DST_TO_GLM_MAT3_CONST(DST_MATRIX3X3) (*reinterpret_cast<const glm::mat3*>(&DST_MATRIX3X3))
 
 namespace Dynamic_Static {
     namespace Math {

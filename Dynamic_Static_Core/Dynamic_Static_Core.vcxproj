@@ -208,7 +208,6 @@
     <ClCompile Include="src\Dynamic_Static\Math\Vector3.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\Version.cpp" />
     <ClCompile Include="src\Dynamic_Static\Math\Matrix4x4.cpp" />
-    <ClCompile Include="src\Dynamic_Static\Math\Transform.cpp" />
     <ClCompile Include="src\Dynamic_Static\Math\Vector4.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Directory.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\File.cpp" />

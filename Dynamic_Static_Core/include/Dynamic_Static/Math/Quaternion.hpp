@@ -32,7 +32,6 @@
 #include "Dynamic_Static/Core/ToString.hpp"
 #include "Dynamic_Static/Core/Algorithm.hpp"
 #include "Dynamic_Static/Math/Defines.hpp"
-#include "Dynamic_Static/Math/Vector2.hpp"
 #include "Dynamic_Static/Math/Vector3.hpp"
 #include "Dynamic_Static/Math/Vector4.hpp"
 
@@ -47,8 +46,8 @@
 #include <string>
 #include <ostream>
 
-#define DST_TO_GLMQUAT(DSTQUATERNION) (*reinterpret_cast<glm::quat*>(&DSTQUATERNION))
-#define DST_TO_GLMQUAT_CONST(DSTQUATERNION) (*reinterpret_cast<const glm::quat*>(&DSTQUATERNION))
+#define DST_TO_GLM_QUAT(DST_QUATERNION) (*reinterpret_cast<glm::quat*>(&DST_QUATERNION))
+#define DST_TO_GLM_QUAT_CONST(DST_QUATERNION) (*reinterpret_cast<const glm::quat*>(&DST_QUATERNION))
 
 namespace Dynamic_Static {
     namespace Math {
@@ -56,6 +55,9 @@ namespace Dynamic_Static {
          * Representation of a 3D rotation.
          */
         struct Quaternion final {
+            friend Quaternion operator*(const Quaternion&, const Quaternion&);
+            friend Vector3 operator*(const Quaternion&, const Vector3&);
+            friend Vector4 operator*(const Quaternion&, const Vector4&);
         public:
             /**
              * Constant Quaternion(0, 0, 0, 1).
@@ -108,7 +110,7 @@ namespace Dynamic_Static {
              */
             inline Quaternion(const Vector3& eulerAngles)
             {
-                DST_TO_GLMQUAT(*this) = glm::quat(DST_TO_GLMVEC3_CONST(eulerAngles));
+                DST_TO_GLM_QUAT(*this) = glm::quat(DST_TO_GLM_VEC3_CONST(eulerAngles));
             }
 
             /**
@@ -145,6 +147,14 @@ namespace Dynamic_Static {
             Quaternion& operator=(const Quaternion& other) = default;
 
             /**
+             * TODO : Documentation.
+             */
+            inline Quaternion& operator*=(const Quaternion& other)
+            {
+                DST_TO_GLM_QUAT(*this) *= DST_TO_GLM_QUAT_CONST(other);
+            }
+
+            /**
              * Gets the value at the specified index.
              * @param [in] index The index of the value to get
              * @return The value at the specified index
@@ -164,10 +174,19 @@ namespace Dynamic_Static {
                 return values[index];
             }
 
+            /**
+             * Gets a pointer Quaternion's underlying data.
+             * @return A pointer to this Quaternion's underlying data
+             */
+            inline const float* data() const
+            {
+                return values.data();
+            }
+
         private:
             inline Quaternion(const glm::quat& other)
             {
-                DST_TO_GLMQUAT(*this) = other;
+                DST_TO_GLM_QUAT(*this) = other;
             }
 
         public:
@@ -177,7 +196,7 @@ namespace Dynamic_Static {
              */
             inline Quaternion normalized() const
             {
-                return glm::normalize(DST_TO_GLMQUAT_CONST(*this));
+                return glm::normalize(DST_TO_GLM_QUAT_CONST(*this));
             }
 
             /**
@@ -185,7 +204,7 @@ namespace Dynamic_Static {
              */
             inline void normalize()
             {
-                DST_TO_GLMQUAT(*this) = glm::normalize(DST_TO_GLMQUAT_CONST(*this));
+                DST_TO_GLM_QUAT(*this) = glm::normalize(DST_TO_GLM_QUAT_CONST(*this));
             }
 
             /**
@@ -195,12 +214,12 @@ namespace Dynamic_Static {
              */
             inline Vector3 rotate(const Vector3& v)
             {
-                return glm::rotate(DST_TO_GLMQUAT_CONST(*this), DST_TO_GLMVEC3_CONST(v));
+                return glm::rotate(DST_TO_GLM_QUAT_CONST(*this), DST_TO_GLM_VEC3_CONST(v));
             }
 
             static inline Quaternion angle_axis(float angle, const Vector3& axis)
             {
-                return glm::angleAxis(angle, DST_TO_GLMVEC3_CONST(axis));
+                return glm::angleAxis(angle, DST_TO_GLM_VEC3_CONST(axis));
             }
 
             /**
@@ -244,6 +263,30 @@ namespace Dynamic_Static {
         {
             return !(q0 == q1);
         }
+
+        /**
+         * TODO : Documentation.
+         */
+        inline Quaternion operator*(const Quaternion& q0, const Quaternion& q1)
+        {
+            return DST_TO_GLM_QUAT_CONST(q0) * DST_TO_GLM_QUAT_CONST(q1);
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        inline Vector3 operator*(const Quaternion& q, const Vector3& v)
+        {
+            return DST_TO_GLM_QUAT_CONST(q) * DST_TO_GLM_VEC3_CONST(v);
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        inline Vector4 operator*(const Quaternion& q, const Vector4& v)
+        {
+            return DST_TO_GLM_QUAT_CONST(q) * DST_TO_GLM_VEC4_CONST(v);
+        }
     } // namespace Math
 } // namespace Dynamic_Static
 
@@ -266,7 +309,7 @@ namespace std {
          */
         inline size_t operator()(const dst::math::Quaternion& q) const
         {
-            return hash<glm::quat>()(DST_TO_GLMQUAT_CONST(q));
+            return hash<glm::quat>()(DST_TO_GLM_QUAT_CONST(q));
         }
     };
 } // namespace std

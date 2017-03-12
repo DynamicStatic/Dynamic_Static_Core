@@ -46,8 +46,8 @@
 #include <string>
 #include <ostream>
 
-#define DST_TO_GLMVEC2(DSTVECTOR2) (*reinterpret_cast<glm::vec2*>(&DSTVECTOR2))
-#define DST_TO_GLMVEC2_CONST(DSTVECTOR2) (*reinterpret_cast<const glm::vec2*>(&DSTVECTOR2))
+#define DST_TO_GLM_VEC2(DST_VECTOR2) (*reinterpret_cast<glm::vec2*>(&DST_VECTOR2))
+#define DST_TO_GLM_VEC2_CONST(DST_VECTOR2) (*reinterpret_cast<const glm::vec2*>(&DST_VECTOR2))
 
 namespace Dynamic_Static {
     namespace Math {
@@ -137,7 +137,7 @@ namespace Dynamic_Static {
              */
             inline Vector2(const float* values)
             {
-                std::copy_n(values, this->values.size(), this->values.begin());
+                std::memcpy(this, values, sizeof(*this));
             }
 
             /**
@@ -182,7 +182,7 @@ namespace Dynamic_Static {
              */
             inline Vector2& operator+=(const Vector2& other)
             {
-                DST_TO_GLMVEC2(*this) += DST_TO_GLMVEC2_CONST(other);
+                DST_TO_GLM_VEC2(*this) += DST_TO_GLM_VEC2_CONST(other);
                 return *this;
             }
 
@@ -192,7 +192,7 @@ namespace Dynamic_Static {
              */
             inline Vector2& operator-=(const Vector2& other)
             {
-                DST_TO_GLMVEC2(*this) -= DST_TO_GLMVEC2_CONST(other);
+                DST_TO_GLM_VEC2(*this) -= DST_TO_GLM_VEC2_CONST(other);
                 return *this;
             }
 
@@ -202,7 +202,7 @@ namespace Dynamic_Static {
              */
             inline Vector2& operator*=(const Vector2& other)
             {
-                DST_TO_GLMVEC2(*this) *= DST_TO_GLMVEC2_CONST(other);
+                DST_TO_GLM_VEC2(*this) *= DST_TO_GLM_VEC2_CONST(other);
                 return *this;
             }
 
@@ -212,7 +212,7 @@ namespace Dynamic_Static {
              */
             inline Vector2& operator*=(float scalar)
             {
-                DST_TO_GLMVEC2(*this) *= scalar;
+                DST_TO_GLM_VEC2(*this) *= scalar;
                 return *this;
             }
 
@@ -222,7 +222,7 @@ namespace Dynamic_Static {
              */
             inline Vector2& operator/=(const Vector2& other)
             {
-                DST_TO_GLMVEC2(*this) /= DST_TO_GLMVEC2_CONST(other);
+                DST_TO_GLM_VEC2(*this) /= DST_TO_GLM_VEC2_CONST(other);
                 return *this;
             }
 
@@ -232,7 +232,7 @@ namespace Dynamic_Static {
              */
             inline Vector2& operator/=(float scalar)
             {
-                DST_TO_GLMVEC2(*this) /= scalar;
+                DST_TO_GLM_VEC2(*this) /= scalar;
                 return *this;
             }
 
@@ -242,7 +242,7 @@ namespace Dynamic_Static {
              */
             inline Vector2 operator-() const
             {
-                return -DST_TO_GLMVEC2_CONST(*this);
+                return -DST_TO_GLM_VEC2_CONST(*this);
             }
 
             /**
@@ -265,10 +265,19 @@ namespace Dynamic_Static {
                 return values[index];
             }
 
+            /**
+             * Gets a pointer Vector2's underlying data.
+             * @return A pointer to this Vector2's underlying data
+             */
+            inline const float* data() const
+            {
+                return values.data();
+            }
+
         private:
             inline Vector2(const glm::vec2& other)
             {
-                DST_TO_GLMVEC2(*this) = other;
+                DST_TO_GLM_VEC2(*this) = other;
             }
 
         public:
@@ -277,7 +286,7 @@ namespace Dynamic_Static {
              */
             inline float magnitude() const
             {
-                return glm::length(DST_TO_GLMVEC2_CONST(*this));
+                return glm::length(DST_TO_GLM_VEC2_CONST(*this));
             }
 
             /**
@@ -285,7 +294,7 @@ namespace Dynamic_Static {
              */
             inline float magnitude_squared() const
             {
-                return glm::length2(DST_TO_GLMVEC2_CONST(*this));
+                return glm::length2(DST_TO_GLM_VEC2_CONST(*this));
             }
 
             /**
@@ -294,7 +303,7 @@ namespace Dynamic_Static {
              */
             inline Vector2 normalized() const
             {
-                return glm::normalize(DST_TO_GLMVEC2_CONST(*this));
+                return glm::normalize(DST_TO_GLM_VEC2_CONST(*this));
             }
 
             /**
@@ -302,7 +311,7 @@ namespace Dynamic_Static {
              */
             inline void normalize()
             {
-                DST_TO_GLMVEC2(*this) = glm::normalize(DST_TO_GLMVEC2_CONST(*this));
+                DST_TO_GLM_VEC2(*this) = glm::normalize(DST_TO_GLM_VEC2_CONST(*this));
             }
 
             /**
@@ -368,7 +377,7 @@ namespace Dynamic_Static {
          */
         inline Vector2 operator+(const Vector2& v0, const Vector2& v1)
         {
-            return DST_TO_GLMVEC2_CONST(v0) + DST_TO_GLMVEC2_CONST(v1);
+            return DST_TO_GLM_VEC2_CONST(v0) + DST_TO_GLM_VEC2_CONST(v1);
         }
 
         /**
@@ -379,7 +388,7 @@ namespace Dynamic_Static {
          */
         inline Vector2 operator-(const Vector2& v0, const Vector2& v1)
         {
-            return DST_TO_GLMVEC2_CONST(v0) - DST_TO_GLMVEC2_CONST(v1);
+            return DST_TO_GLM_VEC2_CONST(v0) - DST_TO_GLM_VEC2_CONST(v1);
         }
 
         /**
@@ -390,7 +399,7 @@ namespace Dynamic_Static {
          */
         inline Vector2 operator*(const Vector2& v0, const Vector2& v1)
         {
-            return DST_TO_GLMVEC2_CONST(v0) * DST_TO_GLMVEC2_CONST(v1);
+            return DST_TO_GLM_VEC2_CONST(v0) * DST_TO_GLM_VEC2_CONST(v1);
         }
 
         /**
@@ -401,7 +410,7 @@ namespace Dynamic_Static {
          */
         inline Vector2 operator*(const Vector2& v, float scalar)
         {
-            return DST_TO_GLMVEC2_CONST(v) * scalar;
+            return DST_TO_GLM_VEC2_CONST(v) * scalar;
         }
 
         /**
@@ -412,7 +421,7 @@ namespace Dynamic_Static {
          */
         inline Vector2 operator/(const Vector2& v0, const Vector2& v1)
         {
-            return DST_TO_GLMVEC2_CONST(v0) / DST_TO_GLMVEC2_CONST(v1);
+            return DST_TO_GLM_VEC2_CONST(v0) / DST_TO_GLM_VEC2_CONST(v1);
         }
 
         /**
@@ -423,7 +432,7 @@ namespace Dynamic_Static {
          */
         inline Vector2 operator/(const Vector2& v, float scalar)
         {
-            return DST_TO_GLMVEC2_CONST(v) / scalar;
+            return DST_TO_GLM_VEC2_CONST(v) / scalar;
         }
 
         /**
@@ -459,7 +468,7 @@ namespace std {
          */
         inline size_t operator()(const dst::math::Vector2& v) const
         {
-            return hash<glm::vec2>()(DST_TO_GLMVEC2_CONST(v));
+            return hash<glm::vec2>()(DST_TO_GLM_VEC2_CONST(v));
         }
     };
 } // namespace std

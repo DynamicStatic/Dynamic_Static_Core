@@ -55,7 +55,7 @@ namespace Dynamic_Static {
                 {
                     for (glm::length_t i = 0; i < 4; ++i) {
                         auto v = random_vector4();
-                        glmMatrix[i] = DST_TO_GLMVEC4_CONST(v);
+                        glmMatrix[i] = DST_TO_GLM_VEC4_CONST(v);
                         dstMatrix[i] = v;
                     }
                 }
