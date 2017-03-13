@@ -31,8 +31,9 @@
 
 #include "Dynamic_Static/Core/Defines.hpp"
 
-#define _USE_MATH_DEFINES
 #include <cmath>
+#define _USE_MATH_DEFINES
+#include <math.h>
 
 #define GLM_FORCE_RADIANS
 #define GLM_ENABLE_EXPERIMENTAL

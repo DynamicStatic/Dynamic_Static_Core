@@ -152,6 +152,7 @@ namespace Dynamic_Static {
             inline Quaternion& operator*=(const Quaternion& other)
             {
                 DST_TO_GLM_QUAT(*this) *= DST_TO_GLM_QUAT_CONST(other);
+                return *this;
             }
 
             /**

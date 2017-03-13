@@ -55,6 +55,8 @@ namespace Dynamic_Static {
                 // The codes are listed in numeric order.
                 // http://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx
 
+                Unknown      = -1,
+
                 Left         = 0x01,
                 Right        = 0x02,
 
@@ -67,17 +69,23 @@ namespace Dynamic_Static {
             };
             // #endif
 
-        private:
+        public:
             class State final {
             private:
                 float mX { 0 };
                 float mY { 0 };
+                float mScroll { 0 };
                 std::bitset<static_cast<size_t>(Button::Count)> mButtons;
 
             public:
                 float x() const;
+                void x(float x);
                 float y() const;
+                void y(float y);
+                float scroll() const;
+                void scroll(float scroll);
                 bool down(Button button) const;
+                void down(Button button, bool down);
                 bool up(Button button) const;
                 void update();
                 void reset();
@@ -107,6 +115,11 @@ namespace Dynamic_Static {
              * TODO : Documentation.
              */
             float delta_y() const;
+
+            /**
+             * TODO : Documentation.
+             */
+            float scroll() const;
 
             /**
              * TODO : Documentation.
@@ -141,7 +154,23 @@ namespace Dynamic_Static {
             /**
              * TODO : Documentation.
              */
+            void update(const Mouse::State& mouseState);
+
+            /**
+             * TODO : Documentation.
+             */
             void reset();
         };
+    } // namespace System
+} // namespace Dynamic_Static
+
+namespace Dynamic_Static {
+    namespace System {
+        /**
+        * Converts a GLFW mouse button to a Mouse::Button.
+        * @param [in] mouseButton The GLFW mouse button to convert to a Mouse::Button
+        * @return The converted Mouse::Button
+        */
+        Mouse::Button from_glfw_mouse_button(int mouseButton);
     } // namespace System
 } // namespace Dynamic_Static

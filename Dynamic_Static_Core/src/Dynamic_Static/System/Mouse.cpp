@@ -39,6 +39,7 @@ namespace Dynamic_Static {
         float Mouse::y() const { return mCurrent.y(); }
         float Mouse::delta_x() const { return mCurrent.x() - mPrevious.x(); }
         float Mouse::delta_y() const { return mCurrent.y() - mPrevious.y(); }
+        float Mouse::scroll() const { return mCurrent.scroll() - mPrevious.scroll(); }
 
         bool Mouse::up(Button button) const
         {
@@ -71,6 +72,12 @@ namespace Dynamic_Static {
             mCurrent.update();
         }
 
+        void Mouse::update(const Mouse::State& mouseState)
+        {
+            mPrevious = mCurrent;
+            mCurrent = mouseState;
+        }
+
         void Mouse::reset()
         {
             mPrevious.reset();
@@ -82,11 +89,20 @@ namespace Dynamic_Static {
 namespace Dynamic_Static {
     namespace System {
         float Mouse::State::x() const { return mX; }
+        void Mouse::State::x(float x) { mX = x; }
         float Mouse::State::y() const { return mY; }
+        void Mouse::State::y(float y) { mY = y; }
+        float Mouse::State::scroll() const { return mScroll; }
+        void Mouse::State::scroll(float scroll) { mScroll = scroll; }
 
         bool Mouse::State::down(Button button) const
         {
             return mButtons[static_cast<size_t>(button)];
+        }
+
+        void Mouse::State::down(Button button, bool down)
+        {
+            mButtons[static_cast<size_t>(button)] = down ? 1 : 0;
         }
 
         bool Mouse::State::up(Button button) const
@@ -119,6 +135,28 @@ namespace Dynamic_Static {
             // mButtons.reset();
             // mX = 0;
             // mY = 0;
+        }
+    } // namespace System
+} // namespace Dynamic_Static
+
+namespace Dynamic_Static {
+    namespace System {
+        Mouse::Button from_glfw_mouse_button(int mouseButton)
+        {
+            auto button = Mouse::Button::Unknown;
+            switch (mouseButton) {
+                case /* GLFW_MOUSE_BUTTON_LEFT   */ 0: button = Mouse::Button::Left; break;
+                case /* GLFW_MOUSE_BUTTON_RIGHT  */ 1: button = Mouse::Button::Right; break;
+                case /* GLFW_MOUSE_BUTTON_MIDDLE */ 2: button = Mouse::Button::Middle; break;
+                // case /* GLFW_MOUSE_BUTTON_4      */ 3: button = Mouse::Button::Unknown; break;
+                // case /* GLFW_MOUSE_BUTTON_5      */ 4: button = Mouse::Button::Unknown; break;
+                // case /* GLFW_MOUSE_BUTTON_6      */ 5: button = Mouse::Button::Unknown; break;
+                // case /* GLFW_MOUSE_BUTTON_7      */ 6: button = Mouse::Button::Unknown; break;
+                // case /* GLFW_MOUSE_BUTTON_LAST   */ 7: button = Mouse::Button::Unknown; break;
+                default: button = Mouse::Button::Unknown;
+            }
+
+            return button;
         }
     } // namespace System
 } // namespace Dynamic_Static

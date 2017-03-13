@@ -80,7 +80,7 @@ namespace Dynamic_Static {
              * Updates this Input.
              * \n NOTE : This method must be called periodically to keep this Input up to date.
              */
-            void update(const Keyboard::State& keyboardState);
+            void update(const Keyboard::State& keyboardState, const Mouse::State& mouseState);
 
             /**
              * Resets this Input.
