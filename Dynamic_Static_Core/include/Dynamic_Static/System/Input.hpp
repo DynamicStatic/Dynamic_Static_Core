@@ -48,6 +48,8 @@ namespace Dynamic_Static {
             Keyboard mKeyboard;
 
         public:
+
+        public:
             /**
              * Gets this Input's Mouse.
              */
@@ -73,6 +75,12 @@ namespace Dynamic_Static {
              * \n NOTE : This method must be called periodically to keep this Input up to date.
              */
             void update();
+
+            /**
+             * Updates this Input.
+             * \n NOTE : This method must be called periodically to keep this Input up to date.
+             */
+            void update(const Keyboard::State& keyboardState);
 
             /**
              * Resets this Input.

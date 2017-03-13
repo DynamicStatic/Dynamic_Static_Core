@@ -42,6 +42,11 @@ namespace Dynamic_Static {
             mKeyboard.update();
         }
 
+        void Input::update(const Keyboard::State& keyboardState)
+        {
+            mKeyboard.update(keyboardState);
+        }
+
         void Input::reset()
         {
             mMouse.reset();

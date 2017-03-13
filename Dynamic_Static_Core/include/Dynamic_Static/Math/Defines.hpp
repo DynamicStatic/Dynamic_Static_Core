@@ -50,7 +50,7 @@ namespace Dynamic_Static {
         struct Vector2;
         struct Vector3;
         struct Vector4;
-        class Transform;
+        struct Transform;
         //template <typename T> struct Rectangle;
     } // namespace Math
 

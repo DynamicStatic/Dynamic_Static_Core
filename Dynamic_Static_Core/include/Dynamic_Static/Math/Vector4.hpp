@@ -376,7 +376,11 @@ namespace Dynamic_Static {
              */
             inline Vector4 normalized() const
             {
-                return glm::normalize(DST_TO_GLM_VEC4_CONST(*this));
+                if (magnitude_squared()) {
+                    return glm::normalize(DST_TO_GLM_VEC4_CONST(*this));
+                } else {
+                    return Vector4::Zero;
+                }
             }
 
             /**
@@ -384,7 +388,7 @@ namespace Dynamic_Static {
              */
             inline void normalize()
             {
-                DST_TO_GLM_VEC4(*this) = glm::normalize(DST_TO_GLM_VEC4_CONST(*this));
+                *this = normalized();
             }
 
             /**

@@ -55,6 +55,8 @@ namespace Dynamic_Static {
                 // The codes are listed in numeric order.
                 // http://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx
 
+                Unknown              = -1,
+
                 // Left                 = 0x01,
                 // Right                = 0x02,
 
@@ -256,13 +258,13 @@ namespace Dynamic_Static {
             };
             // #endif
 
-        private:
             class State final {
             private:
                 std::bitset<static_cast<size_t>(Key::Count)> mKeys;
 
             public:
                 bool down(Key key) const;
+                void down(Key key, bool down);
                 bool up(Key key) const;
                 void update();
                 void reset();
@@ -306,7 +308,23 @@ namespace Dynamic_Static {
             /**
              * TODO : Documentation.
              */
+            void update(const Keyboard::State& keyboardState);
+
+            /**
+             * TODO : Documentation.
+             */
             void reset();
         };
+    } // namespace System
+} // namespace Dynamic_Static
+
+namespace Dynamic_Static {
+    namespace System {
+        /**
+         * Converts a GLFW keycode to a Keyboard::Key.
+         * @param [in] keycode The GLFW keycode to convert to a Keyboard:Key
+         * @return The converted Keyboard::Key
+         */
+        Keyboard::Key from_glfw_keycode(int keycode);
     } // namespace System
 } // namespace Dynamic_Static
