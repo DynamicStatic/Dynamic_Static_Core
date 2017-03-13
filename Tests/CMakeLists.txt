@@ -11,7 +11,7 @@ add_executable(
     ${CMAKE_CURRENT_SOURCE_DIR}/Main.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Core/BinaryReader.Tests.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Core/Event.Tests.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Core/Events.Tests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Core/MoveableHandle.Tests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Core/MoveNotifier.Tests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Core/Random.Tests.cpp
@@ -22,7 +22,6 @@ add_executable(
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Math/Matrix3x3.Tests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Math/Matrix4x4.Tests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Math/Quaternion.Tests.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Math/Vector.Tests.inl
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Math/Vector2.Tests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Math/Vector3.Tests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Math/Vector4.Tests.cpp
