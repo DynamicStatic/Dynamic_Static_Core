@@ -372,8 +372,7 @@ namespace Dynamic_Static {
          */
         inline Vector3 operator*(const Matrix4x4& m, const Vector3& v)
         {
-            using namespace glm;
-            return DST_TO_GLM_MAT4_CONST(m) * DST_TO_GLM_VEC3_CONST(v);
+            return m * Vector4(v);
         }
 
         /**

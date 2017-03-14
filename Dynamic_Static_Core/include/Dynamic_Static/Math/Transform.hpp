@@ -151,8 +151,7 @@ namespace Dynamic_Static {
              */
             inline Vector3 forward() const
             {
-                auto wtf = forward(world());
-                return wtf;
+                return forward(world());
             }
 
             /**
