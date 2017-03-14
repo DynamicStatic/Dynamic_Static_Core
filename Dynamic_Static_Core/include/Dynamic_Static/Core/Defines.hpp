@@ -49,6 +49,7 @@
 
 #include <cstdlib>
 #include <cstdint>
+#include <cstring>
 
 namespace Dynamic_Static {
 } // namespace Dynamic_Static

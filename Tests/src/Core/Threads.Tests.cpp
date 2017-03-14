@@ -103,6 +103,7 @@ namespace Dynamic_Static {
             );
 
             Timer timer;
+            std::this_thread::sleep_for(Millisecond(500));
             REQUIRE(counter == WaitTarget);
             semaphore.notify();
             std::this_thread::sleep_for(Second(0.1f));

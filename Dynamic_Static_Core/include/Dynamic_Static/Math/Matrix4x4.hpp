@@ -183,6 +183,7 @@ namespace Dynamic_Static {
             inline Matrix4x4& operator*=(const Matrix4x4& other)
             {
                 DST_TO_GLM_MAT4(*this) *= DST_TO_GLM_MAT4_CONST(other);
+                return *this;
             }
 
             /**
