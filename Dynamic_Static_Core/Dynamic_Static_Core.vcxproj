@@ -93,7 +93,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/include/;$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/external/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/include/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -104,7 +104,7 @@
       <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/include/;$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/external/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/include/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -117,7 +117,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/include/;$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/external/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/include/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -132,7 +132,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/include/;$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/external/</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/include/</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -184,6 +184,7 @@
     <ClInclude Include="include\Dynamic_Static\System\Directory.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\File.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Input.hpp" />
+    <ClInclude Include="include\Dynamic_Static\System\Input.Manager.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Keyboard.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Mouse.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Path.hpp" />
@@ -212,8 +213,11 @@
     <ClCompile Include="src\Dynamic_Static\System\Directory.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\File.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Input.cpp" />
+    <ClCompile Include="src\Dynamic_Static\System\Input.Manager.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Keyboard.cpp" />
+    <ClCompile Include="src\Dynamic_Static\System\Keyboard.State.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Mouse.cpp" />
+    <ClCompile Include="src\Dynamic_Static\System\Mouse.State.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Path.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Win32LeanAndMean.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Window.cpp" />

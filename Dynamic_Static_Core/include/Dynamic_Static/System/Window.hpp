@@ -33,6 +33,7 @@
 #include "Dynamic_Static/Core/Events.hpp"
 #include "Dynamic_Static/Core/MoveNotifier.hpp"
 #include "Dynamic_Static/System/Defines.hpp"
+#include "Dynamic_Static/System/Input.hpp"
 
 #include <string>
 

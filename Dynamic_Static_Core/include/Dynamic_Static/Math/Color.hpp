@@ -41,6 +41,14 @@ namespace Dynamic_Static {
             /**
              * TODO : Documentation.
              */
+            inline Color()
+                : Vector4()
+            {
+            }
+
+            /**
+             * TODO : Documentation.
+             */
             inline Color(float r, float g, float b)
                 : Vector4(r, g, b, 1)
             {
@@ -74,21 +82,6 @@ namespace Dynamic_Static {
             }
 
         public:
-            /**
-             * Constant Color (1, 0, 0, 1).
-             */
-            static const Color R;
-
-            /**
-             * Constant Color (0, 1, 0, 1).
-             */
-            static const Color G;
-
-            /**
-             * Constant Color (0, 0, 1, 1).
-             */
-            static const Color B;
-
             /**
              * Constant Color (1, 1, 1, 1).
              */
@@ -355,7 +348,7 @@ namespace Dynamic_Static {
             static const Color Gray;
 
             /**
-             * Constant Color (0, 0.501961f, 0, 1).
+             * Constant Color (0, 1, 0, 1).
              */
             static const Color Green;
 

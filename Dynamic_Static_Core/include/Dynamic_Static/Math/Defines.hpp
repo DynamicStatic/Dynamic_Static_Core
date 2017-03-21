@@ -43,6 +43,7 @@ namespace Dynamic_Static {
     namespace Math {
         struct AxisAlignedBoundingBox2D;
         struct AxisAlignedBoundingBox3D;
+        struct Color;
         struct Matrix3x3;
         struct Matrix4x4;
         struct OrientedBoundingBox2D;
@@ -52,7 +53,7 @@ namespace Dynamic_Static {
         struct Vector3;
         struct Vector4;
         struct Transform;
-        //template <typename T> struct Rectangle;
+        struct Rectangle;
     } // namespace Math
 
     /**
@@ -65,16 +66,17 @@ namespace Dynamic_Static {
  * Use this macro to typedef dst::math objects into another namespace.
  * \n NOTE : This macro can only be used once per namespace
  */
-#define DYNAMIC_STATIC_MATH_TYPEDEFS                                   \
-typedef dst::math::AxisAlignedBoundingBox2D  AxisAlignedBoundingBox2D; \
-typedef dst::math::AxisAlignedBoundingBox3D  AxisAlignedBoundingBox3D; \
-typedef dst::math::Matrix3x3                 Matrix3x3;                \
-typedef dst::math::Matrix4x4                 Matrix4x4;                \
-typedef dst::math::OrientedBoundingBox2D     OrientedBoundingBox2D;    \
-typedef dst::math::OrientedBoundingBox3D     OrientedBoundingBox3D;    \
-typedef dst::math::Quaternion                Quaternion;               \
-typedef dst::math::Vector2                   Vector2;                  \
-typedef dst::math::Vector3                   Vector3;                  \
-typedef dst::math::Vector4                   Vector4;                  \
-typedef dst::math::Transform                 Transform;                //\
-//template <typename T> using Rectangle<T> = dst::math::Rectangle<T>;
+#define DYNAMIC_STATIC_MATH_TYPEDEFS                                  \
+using AxisAlignedBoundingBox2D = dst::math::AxisAlignedBoundingBox2D; \
+using AxisAlignedBoundingBox3D = dst::math::AxisAlignedBoundingBox3D; \
+using Color                    = dst::math::Color;                    \
+using Matrix3x3                = dst::math::Matrix3x3;                \
+using Matrix4x4                = dst::math::Matrix4x4;                \
+using OrientedBoundingBox2D    = dst::math::OrientedBoundingBox2D;    \
+using OrientedBoundingBox3D    = dst::math::OrientedBoundingBox3D;    \
+using Quaternion               = dst::math::Quaternion;               \
+using Rectangle                = dst::math::Rectangle;                \
+using Transform                = dst::math::Transform;                \
+using Vector2                  = dst::math::Vector2;                  \
+using Vector3                  = dst::math::Vector3;                  \
+using Vector4                  = dst::math::Vector4;

@@ -37,9 +37,9 @@
 #pragma warning(push, 0)
 #endif
 
-#include <glm/glm.hpp>
-#include <glm/gtx/norm.hpp>
-#include <glm/gtx/hash.hpp>
+#include "Dynamic_Static/Math/glm/glm.hpp"
+#include "Dynamic_Static/Math/glm/gtx/norm.hpp"
+#include "Dynamic_Static/Math/glm/gtx/hash.hpp"
 
 #include <array>
 #include <string>
@@ -85,12 +85,12 @@ namespace Dynamic_Static {
             static const Vector3 Down;
 
             /**
-             * Constant Vector3(-1, 0, 0).
+             * Constant Vector3(1, 0, 0).
              */
             static const Vector3 Left;
 
             /**
-             * Constant Vector3(1, 0, 0).
+             * Constant Vector3(-1, 0, 0).
              */
             static const Vector3 Right;
 
@@ -124,7 +124,6 @@ namespace Dynamic_Static {
                 std::array<float, 3> values;
                 struct { float x, y, z; };
                 struct { float r, g, b; };
-                struct { float s, t, p; };
             };
 
         public:

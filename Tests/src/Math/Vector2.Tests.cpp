@@ -43,7 +43,7 @@
 #include "Dynamic_Static/Math/Vector4.hpp"
 #include "Vector.Tests.inl"
 
-#include "glm/glm.hpp"
+#include "Dynamic_Static/Math/glm/glm.hpp"
 
 #include <array>
 

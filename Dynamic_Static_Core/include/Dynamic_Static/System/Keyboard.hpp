@@ -38,21 +38,20 @@
 namespace Dynamic_Static {
     namespace System {
         /**
-         * TODO : Documentation.
+         * Provides high level control over a system keyboard.
          */
         class Keyboard final
             : NonCopyable
             , NonMoveable {
+            friend class Input;
         public:
-            // #if defined(DYNAMIC_STATIC_WINDOWS)
             /**
              * Specifies keys on a keyboard.
              */
             enum class Key {
-                // TODO : Wrap these values for cross compile.
-                // The following table shows the symbolic constant names, hexadecimal values,
-                // and mouse or keyboard equivalents for the virtual-key codes used by Windows.
-                // The codes are listed in numeric order.
+                // NOTE : The following table shows the symbolic constant names, hexadecimal values,
+                //         and mouse or keyboard equivalents for the virtual-key codes used by Windows.
+                //         The codes are listed in numeric order.
                 // http://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx
 
                 Unknown              = -1,
@@ -256,17 +255,39 @@ namespace Dynamic_Static {
 
                 Count                = OEM_Clear,
             };
-            // #endif
 
+            /**
+             * Represents a Keyboard's state.
+             */
             class State final {
             private:
                 std::bitset<static_cast<size_t>(Key::Count)> mKeys;
 
             public:
+                /**
+                 * Gets a value indicating whether or not a specified Keyboard::Key is down in this Keyboard::State.
+                 * @param [in] key The Keyboard::Key to check
+                 * @return Whether or not the specified Mouse::Button is down in this Keyboard::Key.
+                 */
                 bool down(Key key) const;
+
+                /**
+                 * Sets a value indicating whether or not a specified Keyboard::Key is down in this Keyboard::State.
+                 * @param [in] key The Keyboard::Key to set
+                 * @param [in] down Whether or not the specified Keyboard::Key is down in this Keyboard::State.
+                 */
                 void down(Key key, bool down);
+
+                /**
+                 * Gets a value indicating whether or not a specified Keyboard::Key is up in this Keyboard::State.
+                 * @param [in] key The Keyboard::Key to check
+                 * @return Whether or not the specified Keyboard::Key is up in this Keyboard::State.
+                 */
                 bool up(Key key) const;
-                void update();
+
+                /**
+                 * Resets this Keyboard::State.
+                 */
                 void reset();
             };
 
@@ -276,44 +297,47 @@ namespace Dynamic_Static {
 
         public:
             /**
-             * TODO : Documentation.
+             * Gets a value indicating whether or not a specified Keyboard::Key is up.
+             * @param [in] key The Keyboard::Key to check
+             * @return Whether or not thea specified Keyboard::Key is up
              */
             bool up(Key key) const;
 
             /**
-             * TODO : Documentation.
+             * Gets a value indicating whether or not a specified Keyboard::Key is down.
+             * @param [in] key The Keyboard::Key to check
+             * @return Whether or not the specified Keyboard::Key is down
              */
             bool down(Key key) const;
 
             /**
-             * TODO : Documentation.
+             * Gets a value indicating whether or not a specified Keyboard::Key has been held.
+             * @param [in] key The Keyboard::Key to check
+             * @return Whether or not the specified Keyboard::Key has been held
              */
             bool held(Key key) const;
 
             /**
-             * TODO : Documentation.
+             * Gets a value indicating whether or not a specified Keyboard::Key has been pressed.
+             * @param [in] key The Keyboard::Key to check
+             * @return Whether or not the specified Keyboard::Key has been pressed
              */
             bool pressed(Key key) const;
 
             /**
-             * TODO : Documentation.
+             * Gets a value indicating whether or not a specified Keyboard::Key has been released.
+             * @param [in] key The Keyboard::Key to check
+             * @return Whether or not the specified Keyboard::Key has been released
              */
             bool released(Key key) const;
 
             /**
-             * TODO : Documentation.
-             */
-            void update();
-
-            /**
-             * TODO : Documentation.
-             */
-            void update(const Keyboard::State& keyboardState);
-
-            /**
-             * TODO : Documentation.
+             * Resets this Keyboard.
              */
             void reset();
+
+        private:
+            void update(const Keyboard::State& keyboardState);
         };
     } // namespace System
 } // namespace Dynamic_Static
@@ -321,10 +345,10 @@ namespace Dynamic_Static {
 namespace Dynamic_Static {
     namespace System {
         /**
-         * Converts a GLFW keycode to a Keyboard::Key.
-         * @param [in] keycode The GLFW keycode to convert to a Keyboard:Key
+         * Converts a GLFW key to a Keyboard::Key.
+         * @param [in] glfwKey The GLFW key to convert to a Keyboard:Key
          * @return The converted Keyboard::Key
          */
-        Keyboard::Key from_glfw_keycode(int keycode);
+        Keyboard::Key glfw_to_dst_keyboard_key(int glfwKey);
     } // namespace System
 } // namespace Dynamic_Static

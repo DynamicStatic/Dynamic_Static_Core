@@ -31,6 +31,7 @@
 
 #include "Dynamic_Static/Core/NonCopyable.hpp"
 #include "Dynamic_Static/Core/NonMoveable.hpp"
+#include "Dynamic_Static/Math/Vector2.hpp"
 #include "Dynamic_Static/System/Defines.hpp"
 
 #include <bitset>
@@ -38,21 +39,20 @@
 namespace Dynamic_Static {
     namespace System {
         /**
-         * TODO : Documentation.
+         * Provides high level control over a system mouse.
          */
         class Mouse final
             : NonCopyable
             , NonMoveable {
+            friend class Input;
         public:
-            // #if defined(DYNAMIC_STATIC_WINDOWS)
             /**
              * Specifies buttons on a mouse.
              */
             enum class Button {
-                // TODO : Wrap these values for cross compile.
-                // The following table shows the symbolic constant names, hexadecimal values,
-                // and mouse or keyboard equivalents for the virtual-key codes used by Windows.
-                // The codes are listed in numeric order.
+                // NOTE : The following table shows the symbolic constant names, hexadecimal values,
+                //        and mouse or keyboard equivalents for the virtual-key codes used by Windows.
+                //        The codes are listed in numeric order.
                 // http://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx
 
                 Unknown      = -1,
@@ -67,99 +67,135 @@ namespace Dynamic_Static {
                 X2           = 0x06,
                 Count        = X2,
             };
-            // #endif
 
         public:
+            /**
+             * Represents a Mouse's state.
+             */
             class State final {
             private:
-                float mX { 0 };
-                float mY { 0 };
                 float mScroll { 0 };
+                math::Vector2 mPosition;
                 std::bitset<static_cast<size_t>(Button::Count)> mButtons;
 
             public:
-                float x() const;
-                void x(float x);
-                float y() const;
-                void y(float y);
+                /**
+                 * Gets this Mouse::State's scroll value.
+                 * @return This Mouse::State's scroll value
+                 */
                 float scroll() const;
+
+                /**
+                 * Sets this Mouse::State's scroll value.
+                 * @param [in] scroll This Mouse::State's scroll value
+                 */
                 void scroll(float scroll);
+
+                /**
+                 * Gets this Mouse::State's position.
+                 * @return This Mouse::State's position
+                 */
+                const math::Vector2& position() const;
+
+                /**
+                 * Sets this Mouse::State's position.
+                 * @param [in] position This Mouse::State's position
+                 */
+                void position(const math::Vector2& position);
+
+                /**
+                 * Gets a value indicating whether or not a specified Mouse::Button is down in this Mouse::State.
+                 * @param [in] button The Mouse::Button to check
+                 * @return Whether or not the specified Mouse::Button is down in this Mouse::State.
+                 */
                 bool down(Button button) const;
+
+                /**
+                 * Sets a value indicating whether or not a specified Mouse::Button is down in this Mouse::State.
+                 * @param [in] button The Mouse::Button to set
+                 * @param [in] down Whether or not the specified Mouse::Button is down in this Mouse::State.
+                 */
                 void down(Button button, bool down);
+
+                /**
+                 * Gets a value indicating whether or not a specified Mouse::Button is up in this Mouse::State.
+                 * @param [in] button The Mouse::Button to check
+                 * @return Whether or not the specified Mouse::Button is up in this Mouse::State.
+                 */
                 bool up(Button button) const;
-                void update();
+
+                /**
+                 * Resets this Mouse::State.
+                 */
                 void reset();
             };
 
         private:
             State mCurrent;
             State mPrevious;
+            math::Vector2 mDelta;
 
         public:
             /**
-             * TODO : Documentation.
+             * Gets this Mouse's current position.
+             * @return This Mouse's current position
              */
-            float x() const;
+            const math::Vector2& position() const;
 
             /**
-             * TODO : Documentation.
+             * Gets the delta between this Mouse's current and previous position.
+             * @return The delta between this Mouse's current and previous position
              */
-            float y() const;
+            const math::Vector2& delta() const;
 
             /**
-             * TODO : Documentation.
-             */
-            float delta_x() const;
-
-            /**
-             * TODO : Documentation.
-             */
-            float delta_y() const;
-
-            /**
-             * TODO : Documentation.
+             * Gets the delta between this Mouse's current and previous scroll.
+             * @return The delta between this Mouse's current and previous scroll
              */
             float scroll() const;
 
             /**
-             * TODO : Documentation.
+             * Gets a value indicating whether or not a specified Mouse::Button is up.
+             * @param [in] button The Mouse::Button to check
+             * @return Whether or not thea specified Mouse::Button is up
              */
             bool up(Button button) const;
 
             /**
-             * TODO : Documentation.
+             * Gets a value indicating whether or not a specified Mouse::Button is down.
+             * @param [in] button The Mouse::Button to check
+             * @return Whether or not the specified Mouse::Button is down
              */
             bool down(Button button) const;
 
             /**
-             * TODO : Documentation.
+             * Gets a value indicating whether or not a specified Mouse::Button has been held.
+             * @param [in] button The Mouse::Button to check
+             * @return Whether or not the specified Mouse::Button has been held
              */
             bool held(Button button) const;
 
             /**
-             * TODO : Documentation.
+             * Gets a value indicating whether or not a specified Mouse::Button has been pressed.
+             * @param [in] button The Mouse::Button to check
+             * @return Whether or not the specified Mouse::Button has been pressed
              */
             bool pressed(Button button) const;
 
             /**
-             * TODO : Documentation.
+             * Gets a value indicating whether or not a specified Mouse::Button has been released.
+             * @param [in] button The Mouse::Button to check
+             * @return Whether or not the specified Mouse::Button has been released
              */
             bool released(Button button) const;
 
             /**
-             * TODO : Documentation.
-             */
-            void update();
-
-            /**
-             * TODO : Documentation.
-             */
-            void update(const Mouse::State& mouseState);
-
-            /**
-             * TODO : Documentation.
+             * Resets this Mouse.
              */
             void reset();
+
+        private:
+            void update(const Mouse::State& mouseState);
         };
     } // namespace System
 } // namespace Dynamic_Static
@@ -167,10 +203,10 @@ namespace Dynamic_Static {
 namespace Dynamic_Static {
     namespace System {
         /**
-        * Converts a GLFW mouse button to a Mouse::Button.
-        * @param [in] mouseButton The GLFW mouse button to convert to a Mouse::Button
-        * @return The converted Mouse::Button
-        */
-        Mouse::Button from_glfw_mouse_button(int mouseButton);
+         * Converts a GLFW mouse button to a Mouse::Button.
+         * @param [in] glfwMouseButton The GLFW mouse button to convert to a Mouse::Button
+         * @return The converted Mouse::Button
+         */
+        Mouse::Button glfw_to_dst_mouse_button(int glfwMouseButton);
     } // namespace System
 } // namespace Dynamic_Static

@@ -38,8 +38,8 @@
 #pragma warning(push, 0)
 #endif
 
-#include <glm/glm.hpp>
-#include <glm/gtx/transform.hpp>
+#include "Dynamic_Static/Math/glm/glm.hpp"
+#include "Dynamic_Static/Math/glm/gtx/transform.hpp"
 
 #include <array>
 #include <string>

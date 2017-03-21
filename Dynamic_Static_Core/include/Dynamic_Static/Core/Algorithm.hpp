@@ -117,4 +117,16 @@ namespace Dynamic_Static {
 
         return std::fma(t, v1, std::fma(-t, v0, v0));
     }
+
+    /**
+     * Rounds a specified floating point value to the nearest whole number then casts the result to the specified type.
+     * @param <T> The type to cast the rounding result to
+     * @param [in] value The floating point value to round and cast
+     * @return The specified value after rounding and casting
+     */
+    template <typename T>
+    inline T round_cast(float value)
+    {
+        return static_cast<T>(std::round(value));
+    }
 } // namespace Dynamic_Static

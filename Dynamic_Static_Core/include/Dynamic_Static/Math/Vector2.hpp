@@ -37,10 +37,10 @@
 #pragma warning(push, 0)
 #endif
 
-#include <glm/glm.hpp>
-#include <glm/gtx/norm.hpp>
-#include <glm/gtx/hash.hpp>
-#include <glm/gtx/vector_angle.hpp>
+#include "Dynamic_Static/Math/glm/glm.hpp"
+#include "Dynamic_Static/Math/glm/gtx/norm.hpp"
+#include "Dynamic_Static/Math/glm/gtx/hash.hpp"
+#include "Dynamic_Static/Math/glm/gtx/vector_angle.hpp"
 
 #include <array>
 #include <string>
@@ -83,12 +83,12 @@ namespace Dynamic_Static {
             static const Vector2 Down;
 
             /**
-             * Constant Vector2(-1, 0).
+             * Constant Vector2(1, 0).
              */
             static const Vector2 Left;
 
             /**
-             * Constant Vector2(1, 0).
+             * Constant Vector2(-1, 0).
              */
             static const Vector2 Right;
 
@@ -107,7 +107,6 @@ namespace Dynamic_Static {
                 std::array<float, 2> values;
                 struct { float x, y; };
                 struct { float r, g; };
-                struct { float s, t; };
             };
 
         public:

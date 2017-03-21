@@ -31,9 +31,6 @@
 
 namespace Dynamic_Static {
     namespace Math {
-            const Color Color::R                    { 1.0f,       0.0f,       0.0f,       1.0f };
-            const Color Color::G                    { 0.0f,       1.0f,       0.0f,       1.0f };
-            const Color Color::B                    { 0.0f,       0.0f,       1.0f,       1.0f };
             const Color Color::White                { 1.0f,       1.0f,       1.0f,       1.0f };
             const Color Color::Black                { 0.0f,       0.0f,       0.0f,       1.0f };
             const Color Color::Transparent          { 0.0f,       0.0f,       0.0f,       0.0f };
@@ -87,7 +84,7 @@ namespace Dynamic_Static {
             const Color Color::Gold                 { 1.0f,       0.843137f,  0.0f,       1.0f };
             const Color Color::Goldenrod            { 0.854902f,  0.647059f,  0.12549f,   1.0f };
             const Color Color::Gray                 { 0.501961f,  0.501961f,  0.501961f,  1.0f };
-            const Color Color::Green                { 0.0f,       0.501961f,  0.0f,       1.0f };
+            const Color Color::Green                { 0.0f,       1.0f,       0.0f,       1.0f };
             const Color Color::GreenYellow          { 0.678431f,  1.0f,       0.184314f,  1.0f };
             const Color Color::Honeydew             { 0.941177f,  1.0f,       0.941177f,  1.0f };
             const Color Color::HotPink              { 1.0f,       0.411765f,  0.705882f,  1.0f };

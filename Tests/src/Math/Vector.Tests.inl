@@ -117,9 +117,6 @@ namespace Dynamic_Static {
                     dstVector.r == glmVec.r &&
                     dstVector.g == glmVec.g &&
 
-                    dstVector.s == glmVec.s &&
-                    dstVector.t == glmVec.t &&
-
                     dstVector[0] == glmVec[0] &&
                     dstVector[1] == glmVec[1];
             }
@@ -134,10 +131,6 @@ namespace Dynamic_Static {
                     dstVector.r == glmVec.r &&
                     dstVector.g == glmVec.g &&
                     dstVector.b == glmVec.b &&
-
-                    dstVector.s == glmVec.s &&
-                    dstVector.t == glmVec.t &&
-                    dstVector.p == glmVec.p &&
 
                     dstVector[0] == glmVec[0] &&
                     dstVector[1] == glmVec[1] &&
@@ -156,11 +149,6 @@ namespace Dynamic_Static {
                     dstVector.g == glmVec.g &&
                     dstVector.b == glmVec.b &&
                     dstVector.a == glmVec.a &&
-
-                    dstVector.s == glmVec.s &&
-                    dstVector.t == glmVec.t &&
-                    dstVector.p == glmVec.p &&
-                    dstVector.q == glmVec.q &&
 
                     dstVector[0] == glmVec[0] &&
                     dstVector[1] == glmVec[1] &&

@@ -27,61 +27,50 @@
 =====================================================================================
 */
 
-#include "Dynamic_Static/System/Mouse.hpp"
+#include "Dynamic_Static/System/Input.Manager.hpp"
 
 namespace Dynamic_Static {
     namespace System {
-        const math::Vector2& Mouse::position() const
+        const Input& Input::Manager::input() const
         {
-            return mCurrent.position();
+            return mInput;
         }
 
-        const math::Vector2& Mouse::delta() const
+        Input& Input::Manager::input()
         {
-            return mDelta;
+            return mInput;
         }
 
-        float Mouse::scroll() const
+        const Mouse::State& Input::Manager::mouse_state() const
         {
-            return mCurrent.scroll() - mPrevious.scroll();
+            return mMouseState;
         }
 
-        bool Mouse::up(Button button) const
+        Mouse::State& Input::Manager::mouse_state()
         {
-            return mCurrent.up(button);
+            return mMouseState;
         }
 
-        bool Mouse::down(Button button) const
+        const Keyboard::State& Input::Manager::keyboard_state() const
         {
-            return mCurrent.down(button);
+            return mKeyboardState;
         }
 
-        bool Mouse::held(Button button) const
+        Keyboard::State& Input::Manager::keyboard_state()
         {
-            return mCurrent.down(button) && mPrevious.down(button);
+            return mKeyboardState;
         }
 
-        bool Mouse::pressed(Button button) const
+        void Input::Manager::update()
         {
-            return mCurrent.down(button) && mPrevious.up(button);
+            mInput.update(mKeyboardState, mMouseState);
         }
 
-        bool Mouse::released(Button button) const
+        void Input::Manager::reset()
         {
-            return mCurrent.up(button) && mPrevious.down(button);
-        }
-
-        void Mouse::reset()
-        {
-            mPrevious.reset();
-            mCurrent.reset();
-        }
-
-        void Mouse::update(const Mouse::State& mouseState)
-        {
-            mPrevious = mCurrent;
-            mCurrent = mouseState;
-            mDelta = mCurrent.position() - mPrevious.position();
+            mInput.reset();
+            mMouseState.reset();
+            mKeyboardState.reset();
         }
     } // namespace System
 } // namespace Dynamic_Static

@@ -56,4 +56,4 @@ namespace Dynamic_Static {
             std::string current();
         } // namespace Directory
     } // namespace System
-} // namespace Dynamic_Static 
+} // namespace Dynamic_Static

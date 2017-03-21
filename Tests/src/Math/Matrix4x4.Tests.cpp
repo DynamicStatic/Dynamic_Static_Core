@@ -41,7 +41,7 @@
 #include "Dynamic_Static/Math/Matrix4x4.hpp"
 #include "Vector.Tests.inl"
 
-#include <glm/glm.hpp>
+#include "Dynamic_Static/Math/glm/glm.hpp"
 
 namespace Dynamic_Static {
     namespace Math {

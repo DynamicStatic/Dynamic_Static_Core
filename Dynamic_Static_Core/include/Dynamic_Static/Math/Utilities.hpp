@@ -34,7 +34,7 @@
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(push, 0)
 #endif
-#include <glm/glm.hpp>
+#include "glm/glm.hpp"
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
 #pragma warning(pop)
 #endif

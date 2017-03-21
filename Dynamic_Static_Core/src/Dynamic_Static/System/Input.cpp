@@ -31,15 +31,24 @@
 
 namespace Dynamic_Static {
     namespace System {
-        const Mouse& Input::mouse() const { return mMouse; }
-        Mouse& Input::mouse() { return mMouse; }
-        const Keyboard& Input::keyboard() const { return mKeyboard; }
-        Keyboard& Input::keyboard() { return mKeyboard; }
-
-        void Input::update()
+        const Mouse& Input::mouse() const
         {
-            mMouse.update();
-            mKeyboard.update();
+            return mMouse;
+        }
+
+        Mouse& Input::mouse()
+        {
+            return mMouse;
+        }
+
+        const Keyboard& Input::keyboard() const
+        {
+            return mKeyboard;
+        }
+
+        Keyboard& Input::keyboard()
+        {
+            return mKeyboard;
         }
 
         void Input::update(const Keyboard::State& keyboardState, const Mouse::State& mouseState)

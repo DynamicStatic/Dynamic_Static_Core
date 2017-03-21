@@ -39,8 +39,8 @@
 #pragma warning(push, 0)
 #endif
 
-#include <glm/gtc/quaternion.hpp>
-#include <glm/gtx/quaternion.hpp>
+#include "Dynamic_Static/Math/glm/gtc/quaternion.hpp"
+#include "Dynamic_Static/Math/glm/gtx/quaternion.hpp"
 
 #include <array>
 #include <string>

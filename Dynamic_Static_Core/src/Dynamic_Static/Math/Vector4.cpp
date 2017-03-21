@@ -77,8 +77,8 @@ namespace Dynamic_Static {
         const Vector4 Vector4::Zero     {  0,  0,  0,  0 };
         const Vector4 Vector4::Up       {  0,  1,  0,  0 };
         const Vector4 Vector4::Down     {  0, -1,  0,  0 };
-        const Vector4 Vector4::Left     { -1,  0,  0,  0 };
-        const Vector4 Vector4::Right    {  1,  0,  0,  0 };
+        const Vector4 Vector4::Left     {  1,  0,  0,  0 };
+        const Vector4 Vector4::Right    { -1,  0,  0,  0 };
         const Vector4 Vector4::Forward  {  0,  0,  1,  0 };
         const Vector4 Vector4::Backward {  0,  0, -1,  0 };
         const Vector4 Vector4::UnitX    {  1,  0,  0,  0 };

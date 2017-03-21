@@ -30,28 +30,41 @@
 #pragma once
 
 #include "Dynamic_Static/Math/Defines.hpp"
+#include "Dynamic_Static/Math/Vector2.hpp"
 
 #include <type_traits>
 
 namespace Dynamic_Static {
     namespace Math {
-        //template <typename T = float>
-        //struct Rectangle final {
-        //    static_assert(
-        //        std::is_arithmetic<T>::value,
-        //        "Dynamic_Static::Math::Rectangle<T> can only be used with built in arithmetic types"
-        //    );
-        //
-        //    T x { 0 };
-        //    T y { 0 };
-        //    T width { 0 };
-        //    T height { 0 };
-        //
-        //    T top() { return y; } const;
-        //    T left() const { return x; } const;
-        //    T right() const { return x + width; } const;
-        //    T bottom() const { return y + height; } const;
-        //    T area() const { return width * height; } const;
-        //};
+        struct Rectangle final {
+            float width;
+            float height;
+            Vector2 center;
+
+            inline float top() const
+            {
+                return center.y + height * 0.5f;
+            }
+
+            inline float left() const
+            {
+                return center.x - width * 0.5f;
+            }
+
+            inline float right() const
+            {
+                return center.x + width * 0.5f;
+            }
+
+            inline float bottom() const
+            {
+                return center.y - height * 0.5f;
+            }
+
+            inline float area() const
+            {
+                return width * height;
+            }
+        };
     } // namespace Math
 } // namespace Dynamic_Static

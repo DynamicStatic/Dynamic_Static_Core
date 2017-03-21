@@ -32,56 +32,66 @@
 #include "Dynamic_Static/Core/NonCopyable.hpp"
 #include "Dynamic_Static/Core/NonMoveable.hpp"
 #include "Dynamic_Static/System/Defines.hpp"
+#include "Dynamic_Static/System/Input.hpp"
 #include "Dynamic_Static/System/Mouse.hpp"
 #include "Dynamic_Static/System/Keyboard.hpp"
 
 namespace Dynamic_Static {
     namespace System {
-        /**
-         * Provides high level control over input devices.
-         */
-        class Input final
+        class Input::Manager final
             : NonCopyable
             , NonMoveable {
-            friend class Manager;
-        public:
-            class Manager;
-
         private:
-            Mouse mMouse;
-            Keyboard mKeyboard;
-
-        private:
-            Input() = default;
-
+            Input mInput;
+            Mouse::State mMouseState;
+            Keyboard::State mKeyboardState;
         public:
             /**
-             * Gets this Input's Mouse.
+             * Gets this Input::Manager's Input.
+             * @return This Input::Manager's Input
              */
-            const Mouse& mouse() const;
+            const Input& input() const;
 
             /**
-             * Gets this Input's Mouse.
+             * Gets this Input::Manager's Input.
+             * @return This Input::Manager's Input
              */
-            Mouse& mouse();
+            Input& input();
 
             /**
-             * Gets this Input's Keyboard.
+             * Gets this Input::Manager's Mouse::State.
+             * @return This Input::Manager's Mouse::State
              */
-            const Keyboard& keyboard() const;
+            const Mouse::State& mouse_state() const;
 
             /**
-             * Gets this Input's Keyboard.
+             * Gets this Input::Manager's Mouse::State.
+             * @return This Input::Manager's Mouse::State
              */
-            Keyboard& keyboard();
+            Mouse::State& mouse_state();
 
             /**
-             * Resets this Input.
+             * Gets this Input::Manager's Keyboard::State.
+             * @return This Input::Manager's Keyboard::State
+             */
+            const Keyboard::State& keyboard_state() const;
+
+            /**
+             * Gets this Input::Manager's Keyboard::State.
+             * @return This Input::Manager's Keyboard::State
+             */
+            Keyboard::State& keyboard_state();
+
+            /**
+             * Updates this Input::Manager's Input.
+             * \n NOTE : This method must be called periodically to keep this Input::Manager's Input up to date.
+             */
+            void update();
+
+            /**
+             * Resets this Input::Manager's Input.
              */
             void reset();
-
-        private:
-            void update(const Keyboard::State& keyboardState, const Mouse::State& mouseState);
         };
     } // namespace System
 } // namespace Dynamic_Static
