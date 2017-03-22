@@ -54,8 +54,6 @@ namespace Dynamic_Static {
                 //         The codes are listed in numeric order.
                 // http://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx
 
-                Unknown              = -1,
-
                 // Left                 = 0x01,
                 // Right                = 0x02,
 
@@ -254,6 +252,7 @@ namespace Dynamic_Static {
                 OEM_Clear            = 0xfe,
 
                 Count                = OEM_Clear,
+                Unknown              = Count,
             };
 
             /**

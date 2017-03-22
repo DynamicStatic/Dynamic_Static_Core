@@ -38,7 +38,9 @@ namespace Dynamic_Static {
 
         void Keyboard::State::down(Key key, bool down)
         {
-            mKeys[static_cast<size_t>(key)] = down ? 1 : 0;
+            if (key != Key::Unknown) {
+                mKeys[static_cast<size_t>(key)] = down ? 1 : 0;
+            }
         }
 
         bool Keyboard::State::up(Key key) const

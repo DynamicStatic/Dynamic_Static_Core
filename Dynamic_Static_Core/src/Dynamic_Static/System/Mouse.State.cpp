@@ -58,7 +58,9 @@ namespace Dynamic_Static {
 
         void Mouse::State::down(Button button, bool down)
         {
-            mButtons[static_cast<size_t>(button)] = down ? 1 : 0;
+            if (button != Button::Unknown) {
+                mButtons[static_cast<size_t>(button)] = down ? 1 : 0;
+            }
         }
 
         bool Mouse::State::up(Button button) const

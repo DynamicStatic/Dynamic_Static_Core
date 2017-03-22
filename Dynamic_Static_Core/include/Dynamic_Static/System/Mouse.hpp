@@ -55,8 +55,6 @@ namespace Dynamic_Static {
                 //        The codes are listed in numeric order.
                 // http://msdn.microsoft.com/en-us/library/windows/desktop/dd375731(v=vs.85).aspx
 
-                Unknown      = -1,
-
                 Left         = 0x01,
                 Right        = 0x02,
 
@@ -66,6 +64,7 @@ namespace Dynamic_Static {
                 X1           = 0x05,
                 X2           = 0x06,
                 Count        = X2,
+                Unknown      = Count,
             };
 
         public:
