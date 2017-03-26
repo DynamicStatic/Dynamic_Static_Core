@@ -78,7 +78,7 @@ namespace Dynamic_Static {
          * @param [in] data The address of this Collection's data
          * @param [in] count The number of elements in this Collection
          */
-        Collection(T* data, size_t count)
+        Collection(const T* data, size_t count)
             : mData { data }
             , mCount { count }
         {

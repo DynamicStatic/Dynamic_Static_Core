@@ -169,7 +169,6 @@
     <ClInclude Include="include\Dynamic_Static\Math\Color.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Defines.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Math.hpp" />
-    <ClInclude Include="include\Dynamic_Static\Math\Matrix3x3.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\Matrix4x4.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\OrientedBoundingBox2D.hpp" />
     <ClInclude Include="include\Dynamic_Static\Math\OrientedBoundingBox3D.hpp" />
@@ -195,6 +194,7 @@
     <None Include="Dynamic_Static_Core.licenseheader" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Dynamic_Static\Core\Algorithm.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\BinaryReader.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\IPrintable.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\NotImplementedError.cpp" />
@@ -203,7 +203,6 @@
     <ClCompile Include="src\Dynamic_Static\Core\Threads.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\ToString.cpp" />
     <ClCompile Include="src\Dynamic_Static\Math\Color.cpp" />
-    <ClCompile Include="src\Dynamic_Static\Math\Matrix3x3.cpp" />
     <ClCompile Include="src\Dynamic_Static\Math\Quaternion.cpp" />
     <ClCompile Include="src\Dynamic_Static\Math\Vector2.cpp" />
     <ClCompile Include="src\Dynamic_Static\Math\Vector3.cpp" />

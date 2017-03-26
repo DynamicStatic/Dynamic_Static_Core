@@ -36,31 +36,54 @@
 
 namespace Dynamic_Static {
     namespace Math {
+        /**
+         * TODO : Documentation.
+         */
         struct Rectangle final {
             float width;
             float height;
             Vector2 center;
 
+            /**
+             * Gets this Rectangle's top edge.
+             * @return This Rectangle's top edge
+             */
             inline float top() const
             {
                 return center.y + height * 0.5f;
             }
 
+            /**
+             * Gets this Rectangle's left edge.
+             * @return This Rectangle's left edge
+             */
             inline float left() const
             {
                 return center.x - width * 0.5f;
             }
 
+            /**
+             * Gets this Rectangle's right edge.
+             * @return This Rectangle's right edge
+             */
             inline float right() const
             {
                 return center.x + width * 0.5f;
             }
 
+            /**
+             * Gets this Rectangle's bottom edge.
+             * @return This Rectangle's bottom edge
+             */
             inline float bottom() const
             {
                 return center.y - height * 0.5f;
             }
 
+            /**
+             * Gets this Rectangle's area.
+             * @return This Rectangle's area
+             */
             inline float area() const
             {
                 return width * height;

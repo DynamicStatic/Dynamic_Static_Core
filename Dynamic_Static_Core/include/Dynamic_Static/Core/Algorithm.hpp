@@ -33,6 +33,7 @@
 #include "Dynamic_Static/Core/Collection.hpp"
 
 #include <cmath>
+#include <memory>
 #include <algorithm>
 #include <type_traits>
 #include <initializer_list>
@@ -129,4 +130,29 @@ namespace Dynamic_Static {
     {
         return static_cast<T>(std::round(value));
     }
+
+    /**
+     * Entry for bin_pack().
+     */
+    struct BinEntry2D final {
+        size_t page { 0 };
+        uint32_t x { 0 };
+        uint32_t y { 0 };
+        uint32_t width { 0 };
+        uint32_t height { 0 };
+        void* object { nullptr };
+    };
+
+    /**
+     * TODO : Documentation.
+     */
+    struct BinPackResult final {
+        uint32_t pageCount { 1 };
+        uint32_t pageSize { 1 };
+    };
+
+    /**
+     * TODO : Documentation.
+     */
+    BinPackResult bin_pack(std::vector<BinEntry2D>& entries, uint32_t padding = 0, uint32_t pageCountHint = 1);
 } // namespace Dynamic_Static
