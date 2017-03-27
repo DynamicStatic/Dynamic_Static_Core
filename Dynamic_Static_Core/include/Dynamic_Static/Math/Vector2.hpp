@@ -356,7 +356,7 @@ namespace Dynamic_Static {
          * @param [in] v1 The second Vector2
          * @return whether or not the two specified Vector2s are equal
          */
-        inline bool operator==(const Vector2 v0, const Vector2& v1)
+        inline bool operator==(const Vector2& v0, const Vector2& v1)
         {
             return v0.values == v1.values;
         }
@@ -367,7 +367,7 @@ namespace Dynamic_Static {
          * @param [in] v1 The second Vector2
          * @return whether or not the two specified Vector2s are inequal
          */
-        inline bool operator!=(const Vector2 v0, const Vector2& v1)
+        inline bool operator!=(const Vector2& v0, const Vector2& v1)
         {
             return !(v0 == v1);
         }

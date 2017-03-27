@@ -181,6 +181,7 @@
     <ClInclude Include="include\Dynamic_Static\System\Input.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Input.Manager.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Keyboard.hpp" />
+    <ClInclude Include="include\Dynamic_Static\System\Monitor.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Mouse.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Path.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Win32LeanAndMean.hpp" />
@@ -211,6 +212,7 @@
     <ClCompile Include="src\Dynamic_Static\System\Input.Manager.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Keyboard.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Keyboard.State.cpp" />
+    <ClCompile Include="src\Dynamic_Static\System\Monitor.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Mouse.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Mouse.State.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Path.cpp" />

@@ -130,6 +130,7 @@ namespace Dynamic_Static {
             sourceArea += entry.width * entry.height;
         }
 
+        // TODO : Make max page size configurable...
         while (result.pageSize * result.pageSize * result.pageCount < sourceArea) {
             if (result.pageCount++ >= std::max<uint32_t>(pageCountHint, 1) - 1) {
                 result.pageCount = 1;

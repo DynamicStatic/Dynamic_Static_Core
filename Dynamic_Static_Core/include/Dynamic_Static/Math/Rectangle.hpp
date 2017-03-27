@@ -37,20 +37,60 @@
 namespace Dynamic_Static {
     namespace Math {
         /**
-         * TODO : Documentation.
+         * Representation of a 2D axis aligned rectangle.
          */
         struct Rectangle final {
-            float width;
-            float height;
-            Vector2 center;
+        public:
+            float width { 0 };
+            float height { 0 };
+            Vector2 position;
 
+        public:
+            inline Rectangle(float width, float height)
+                : width { width }
+                , height { height }
+            {
+            }
+
+            inline Rectangle(float width, float height, const Vector2& position)
+                : width { width }
+                , height { height }
+                , position { position }
+            {
+            }
+
+            /**
+             * Copies an instance of Rectangle.
+             * @param [in] other The Rectangle to copy from
+             */
+            Rectangle(const Rectangle& other) = default;
+
+            /**
+             * Moves an instance of Rectangle.
+             * @param [in] other The Rectangle to move from
+             */
+            Rectangle(Rectangle&& other) = default;
+
+            /**
+             * Copies an instance of Rectangle.
+             * @param [in] other The Rectangle to copy from
+             */
+            Rectangle& operator=(const Rectangle& other) = default;
+
+            /**
+             * Moves an instance of Rectangle.
+             * @param [in] other The Rectangle to move from
+             */
+            Rectangle& operator=(Rectangle&& other) = default;
+
+        public:
             /**
              * Gets this Rectangle's top edge.
              * @return This Rectangle's top edge
              */
             inline float top() const
             {
-                return center.y + height * 0.5f;
+                return position.y + height * 0.5f;
             }
 
             /**
@@ -59,7 +99,7 @@ namespace Dynamic_Static {
              */
             inline float left() const
             {
-                return center.x - width * 0.5f;
+                return position.x - width * 0.5f;
             }
 
             /**
@@ -68,7 +108,7 @@ namespace Dynamic_Static {
              */
             inline float right() const
             {
-                return center.x + width * 0.5f;
+                return position.x + width * 0.5f;
             }
 
             /**
@@ -77,7 +117,7 @@ namespace Dynamic_Static {
              */
             inline float bottom() const
             {
-                return center.y - height * 0.5f;
+                return position.y - height * 0.5f;
             }
 
             /**
@@ -89,5 +129,32 @@ namespace Dynamic_Static {
                 return width * height;
             }
         };
+
+        static_assert(
+            sizeof(Rectangle) == sizeof(float) * 4,
+            "sizeof(Rectangle) must equal sizeof(float) * 4"
+        );
+
+        /**
+         * Gets a value indicating whether or not two specified Rectangles are equal.
+         * @param [in] v0 The first Rectangles
+         * @param [in] v1 The second Rectangles
+         * @return whether or not the two specified Rectangles are equal
+         */
+        inline bool operator==(const Rectangle& r0, const Rectangle& r1)
+        {
+            return r0.width == r1.width;
+        }
+
+        /**
+         * Gets a value indicating whether or not two specified Rectangles are inequal.
+         * @param [in] v0 The first Rectangles
+         * @param [in] v1 The second Rectangles
+         * @return whether or not the two specified Rectangles are inequal
+         */
+        inline bool operator!=(const Rectangle& r0, const Rectangle& r1)
+        {
+            return !(r0 == r1);
+        }
     } // namespace Math
 } // namespace Dynamic_Static
