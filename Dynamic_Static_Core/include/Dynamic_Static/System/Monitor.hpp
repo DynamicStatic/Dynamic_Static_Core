@@ -28,3 +28,58 @@
 */
 
 #pragma once
+
+#include "Dynamic_Static/Core/Object.hpp"
+#include "Dynamic_Static/Math/Vector2.hpp"
+#include "Dynamic_Static/System/Defines.hpp"
+#include "Dynamic_Static/System/Resolution.hpp"
+
+#include <vector>
+
+namespace Dynamic_Static {
+    namespace System {
+        /**
+         * Provides high level control over a system monitor.
+         */
+        class Monitor final
+            : public Object {
+        public:
+            /**
+             * Represents a Monitor mode line.
+             */
+            struct Mode final {
+            public:
+                Resolution resolution;
+                uint32_t redBits;
+                uint32_t greenBits;
+                uint32_t blueBits;
+                uint32_t refreshRate;
+
+            public:
+                /**
+                 * Gets this Monitor::Mode's std::string representation.
+                 * @return This Monitor::Mode's std::string representation
+                 */
+                std::string to_string() const;
+            };
+
+        private:
+            Mode mMode;
+            math::Vector2 mPosition;
+            std::vector<Mode> mModes;
+
+        public:
+            const Mode& mode() const;
+
+            const std::vector<Mode>& modes() const;
+
+            const Resolution& resolution() const;
+
+            const math::Vector2 position() const;
+
+            void position(const math::Vector2& position);
+
+            static std::vector<Monitor*> enumerate_monitors();
+        };
+    } // namespace System
+} // namespace Dynamic_Static
