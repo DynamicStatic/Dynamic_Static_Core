@@ -33,7 +33,7 @@ namespace Dynamic_Static {
     namespace System {
         std::string Monitor::Mode::to_string() const
         {
-            return std::string();
+            return resolution.to_string() + " @ " + std::to_string(refreshRate);
         }
     } // namespace System
 } // namespace Dynamic_Static

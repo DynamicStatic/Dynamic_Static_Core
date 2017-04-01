@@ -27,37 +27,16 @@
 =====================================================================================
 */
 
+#pragma once
 
-#include "Dynamic_Static/System/Resolution.hpp"
+#include "Dynamic_Static/Core/Defines.hpp"
+
+#include <functional>
 
 namespace Dynamic_Static {
-    namespace System {
-        Resolution::Resolution(uint32_t width, uint32_t height)
-            : width { width }
-            , height { height }
-        {
-        }
-
-        float Resolution::aspect_ratio() const
-        {
-            auto w = static_cast<float>(width);
-            auto h = static_cast<float>(height);
-            return height ? w / h : 0;
-        }
-
-        std::string Resolution::to_string() const
-        {
-            return std::to_string(width) + " x " + std::to_string(height);
-        }
-
-        bool operator==(const Resolution & lhs, const Resolution & rhs)
-        {
-            return lhs.width == rhs.width && lhs.height == rhs.height;
-        }
-
-        bool operator!=(const Resolution & lhs, const Resolution & rhs)
-        {
-            return !(lhs == rhs);
-        }
-    } // namespace System
+    /**
+     * Alias for a variadic std::function with no return value.
+     */
+    template <typename ...Args>
+    using Action = std::function<void(Args...)>;
 } // namespace Dynamic_Static

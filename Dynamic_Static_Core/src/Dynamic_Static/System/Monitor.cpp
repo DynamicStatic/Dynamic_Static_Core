@@ -29,8 +29,44 @@
 
 #include "Dynamic_Static/System/Monitor.hpp"
 
+#include "GLFWInclude.hpp"
+
 namespace Dynamic_Static {
     namespace System {
+        static Monitor::Mode create_mode(GLFWvidmode videoMode)
+        {
+            Resolution resolution {
+                static_cast<uint32_t>(videoMode.width),
+                static_cast<uint32_t>(videoMode.height)
+            };
+
+            return Monitor::Mode {
+                resolution,
+                static_cast<uint32_t>(videoMode.redBits),
+                static_cast<uint32_t>(videoMode.greenBits),
+                static_cast<uint32_t>(videoMode.blueBits),
+                static_cast<uint32_t>(videoMode.refreshRate),
+            };
+        }
+    } // namespace System
+} // namespace Dynamic_Static
+
+namespace Dynamic_Static {
+    namespace System {
+        Monitor::Monitor(void* glfwHandle)
+            : mGLFWHandle { glfwHandle }
+        {
+            int modeCount;
+            const GLFWvidmode* videoModes = glfwGetVideoModes(glfw_handle(), &modeCount);
+            mModes.reserve(modeCount);
+            for (int i = 0; i < modeCount; ++i) {
+                mModes.push_back(create_mode(videoModes[i]));
+            }
+
+            mMode = create_mode(*glfwGetVideoMode(glfw_handle()));
+            mName = glfwGetMonitorName(glfw_handle());
+        }
+
         const Monitor::Mode& Monitor::mode() const
         {
             return mMode;
@@ -41,23 +77,44 @@ namespace Dynamic_Static {
             return mModes;
         }
 
-        const Resolution & Monitor::resolution() const
+        Point Monitor::position() const
         {
-            return mMode.resolution;
+            int x, y;
+            glfwGetMonitorPos(glfw_handle(), &x, &y);
+            return Point {
+                static_cast<uint32_t>(x),
+                static_cast<uint32_t>(y)
+            };
         }
 
-        const math::Vector2 Monitor::position() const
+        void Monitor::name(const std::string& /* name */)
         {
-            return mPosition;
+            // NOPE :
         }
 
-        void Monitor::position(const math::Vector2& position)
+        GLFWmonitor* Monitor::glfw_handle() const
         {
+            return reinterpret_cast<GLFWmonitor*>(mGLFWHandle);
         }
 
-        std::vector<Monitor*> Monitor::enumerate_monitors()
+        const std::vector<Monitor>& Monitor::enumerate_monitors()
         {
-            return std::vector<Monitor*>();
+            static const std::vector<Monitor> sMonitors(
+                []()
+                {
+                    std::vector<Monitor> monitors;
+                    int monitorCount;
+                    GLFWmonitor** glfwMonitors = glfwGetMonitors(&monitorCount);
+                    monitors.reserve(monitorCount);
+                    for (int i = 0; i < monitorCount; ++i) {
+                        monitors.push_back(Monitor(glfwMonitors[i]));
+                    }
+
+                    return monitors;
+                }()
+            );
+
+            return sMonitors;
         }
     } // namespace System
 } // namespace Dynamic_Static

@@ -31,6 +31,21 @@
 
 namespace Dynamic_Static {
     namespace System {
+        Mouse::Mouse(Mouse&& other)
+        {
+            *this = std::move(other);
+        }
+
+        Mouse& Mouse::operator=(Mouse&& other)
+        {
+            if (this != &other) {
+                mCurrent = std::move(other.mCurrent);
+                mPrevious = std::move(other.mPrevious);
+                mDelta = std::move(other.mDelta);
+            }
+
+            return *this;
+        }
         const math::Vector2& Mouse::position() const
         {
             return mCurrent.position();

@@ -39,12 +39,30 @@
 namespace Dynamic_Static {
     namespace System {
         class Input::Manager final
-            : NonCopyable
-            , NonMoveable {
+            : NonCopyable {
         private:
             Input mInput;
             Mouse::State mMouseState;
             Keyboard::State mKeyboardState;
+
+        public:
+            /**
+             * Constructs an instance of Input::Manager.
+             */
+            Manager() = default;
+
+            /**
+             * Moves an instance of Input::Manager.
+             * @param [in] other The Input::Manager to move from
+             */
+            Manager(Manager&& other);
+
+            /**
+             * Moves an instance of Input::Manager.
+             * @param [in] other The Input::Manager to move from
+             */
+            Manager& operator=(Manager&& other);
+
         public:
             /**
              * Gets this Input::Manager's Input.

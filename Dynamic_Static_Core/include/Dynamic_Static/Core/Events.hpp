@@ -30,6 +30,7 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Defines.hpp"
+#include "Dynamic_Static/Core/Action.hpp"
 #include "Dynamic_Static/Core/NonCopyable.hpp"
 
 #include <vector>
@@ -258,14 +259,6 @@ namespace Dynamic_Static {
             }
         };
     } // namespace detail
-} // namespace Dynamic_Static
-
-namespace Dynamic_Static {
-    /**
-     * Alias for a variadic std::function with no return value.
-     */
-    template <typename ...Args>
-    using Action = std::function<void(Args...)>;
 } // namespace Dynamic_Static
 
 namespace Dynamic_Static {

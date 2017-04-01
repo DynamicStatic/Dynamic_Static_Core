@@ -141,8 +141,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\Dynamic_Static\Core\Action.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Algorithm.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\BinaryReader.hpp" />
+    <ClInclude Include="include\Dynamic_Static\Core\Callback.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Collection.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Defines.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Events.hpp" />
@@ -184,9 +186,11 @@
     <ClInclude Include="include\Dynamic_Static\System\Monitor.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Mouse.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Path.hpp" />
+    <ClInclude Include="include\Dynamic_Static\System\Point.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Resolution.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Win32LeanAndMean.hpp" />
     <ClInclude Include="include\Dynamic_Static\System\Window.hpp" />
+    <ClInclude Include="src\Dynamic_Static\System\GLFWInclude.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Dynamic_Static_Core.licenseheader" />
@@ -218,6 +222,7 @@
     <ClCompile Include="src\Dynamic_Static\System\Mouse.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Mouse.State.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Path.cpp" />
+    <ClCompile Include="src\Dynamic_Static\System\Point.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Resolution.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Win32LeanAndMean.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Window.cpp" />

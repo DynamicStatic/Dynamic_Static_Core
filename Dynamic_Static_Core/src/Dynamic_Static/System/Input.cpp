@@ -31,6 +31,21 @@
 
 namespace Dynamic_Static {
     namespace System {
+        Input::Input(Input&& other)
+        {
+            *this = std::move(other);
+        }
+
+        Input& Input::operator=(Input&& other)
+        {
+            if (this != &other) {
+                mMouse = std::move(other.mMouse);
+                mKeyboard = std::move(other.mKeyboard);
+            }
+
+            return *this;
+        }
+
         const Mouse& Input::mouse() const
         {
             return mMouse;

@@ -27,25 +27,14 @@
 =====================================================================================
 */
 
-/*
-
-    NOTE : Since Dynamic_Static::Math implements very little mathematical functionality itself,
-           the purpose of these tests is to ensure that the results of Dynamic_Static::Math are
-           always the same regardless of what math library is used underneath.  To this end, the
-           reference library is glm.
-
-*/
-
-#include "catch.hpp"
-
-#include "Dynamic_Static/Math/Matrix3x3.hpp"
+#include "Dynamic_Static/System/Point.hpp"
 
 namespace Dynamic_Static {
-    namespace Math {
-        namespace Tests {
-            TEST_CASE("Matrix3x3", "[Math::Matrix3x3]")
-            {
-            }
-        } // namespace Tests
-    } // namespace Math
+    namespace System {
+        Point::Point(uint32_t x, uint32_t y)
+            : x { x }
+            , y { y }
+        {
+        }
+    } // namespace System
 } // namespace Dynamic_Static

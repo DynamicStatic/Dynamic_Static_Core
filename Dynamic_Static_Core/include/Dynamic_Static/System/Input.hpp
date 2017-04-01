@@ -41,8 +41,7 @@ namespace Dynamic_Static {
          * Provides high level control over input devices.
          */
         class Input final
-            : NonCopyable
-            , NonMoveable {
+            : NonCopyable {
             friend class Manager;
         public:
             class Manager;
@@ -53,6 +52,19 @@ namespace Dynamic_Static {
 
         private:
             Input() = default;
+
+        public:
+            /**
+             * Moves an instance of Input.
+             * @param [in] other The Input to move from
+             */
+            Input(Input&& other);
+
+            /**
+             * Moves an instance of Input.
+             * @param [in] other The Input to move from
+             */
+            Input& operator=(Input&& other);
 
         public:
             /**

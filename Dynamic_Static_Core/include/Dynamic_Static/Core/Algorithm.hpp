@@ -128,6 +128,7 @@ namespace Dynamic_Static {
     template <typename T>
     inline T round_cast(float value)
     {
+        // TODO : Specialize for floats and doubles.
         return static_cast<T>(std::round(value));
     }
 

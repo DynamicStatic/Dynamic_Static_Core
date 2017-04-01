@@ -27,37 +27,19 @@
 =====================================================================================
 */
 
+#pragma once
 
-#include "Dynamic_Static/System/Resolution.hpp"
+#include "Dynamic_Static/System/Defines.hpp"
 
 namespace Dynamic_Static {
     namespace System {
-        Resolution::Resolution(uint32_t width, uint32_t height)
-            : width { width }
-            , height { height }
-        {
-        }
+        struct Point final {
+        public:
+            uint32_t x { 0 };
+            uint32_t y { 0 };
 
-        float Resolution::aspect_ratio() const
-        {
-            auto w = static_cast<float>(width);
-            auto h = static_cast<float>(height);
-            return height ? w / h : 0;
-        }
-
-        std::string Resolution::to_string() const
-        {
-            return std::to_string(width) + " x " + std::to_string(height);
-        }
-
-        bool operator==(const Resolution & lhs, const Resolution & rhs)
-        {
-            return lhs.width == rhs.width && lhs.height == rhs.height;
-        }
-
-        bool operator!=(const Resolution & lhs, const Resolution & rhs)
-        {
-            return !(lhs == rhs);
-        }
+        public:
+            Point(uint32_t x, uint32_t y);
+        };
     } // namespace System
 } // namespace Dynamic_Static

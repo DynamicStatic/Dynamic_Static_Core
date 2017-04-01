@@ -30,19 +30,23 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Object.hpp"
-#include "Dynamic_Static/Math/Vector2.hpp"
+#include "Dynamic_Static/System/Point.hpp"
 #include "Dynamic_Static/System/Defines.hpp"
 #include "Dynamic_Static/System/Resolution.hpp"
 
 #include <vector>
 
+struct GLFWmonitor;
 namespace Dynamic_Static {
     namespace System {
+        class Window;
+
         /**
          * Provides high level control over a system monitor.
          */
         class Monitor final
             : public Object {
+            friend class Window;
         public:
             /**
              * Represents a Monitor mode line.
@@ -65,21 +69,40 @@ namespace Dynamic_Static {
 
         private:
             Mode mMode;
-            math::Vector2 mPosition;
             std::vector<Mode> mModes;
+            mutable void* mGLFWHandle { nullptr };
+
+        private:
+            Monitor(void* glfwHandle);
 
         public:
+            /**
+             * Gets this Monitor's current Mode.
+             * @return This Monitor's current Mode
+             */
             const Mode& mode() const;
 
+            /**
+             * Gets all of the Modes supported by this Monitor.
+             * @return All of the Modes supported by this Monitor
+             */
             const std::vector<Mode>& modes() const;
 
-            const Resolution& resolution() const;
+            /**
+             * Gets this Monitor's position.
+             * @return This Monitor's position
+             */
+            Point position() const;
 
-            const math::Vector2 position() const;
+            /**
+             * Gets all of the currently attached Monitors.
+             * @return All of the currently attached Monitors
+             */
+            static const std::vector<Monitor>& enumerate_monitors();
 
-            void position(const math::Vector2& position);
-
-            static std::vector<Monitor*> enumerate_monitors();
+        private:
+            void name(const std::string& name) final override;
+            GLFWmonitor* glfw_handle() const;
         };
     } // namespace System
 } // namespace Dynamic_Static

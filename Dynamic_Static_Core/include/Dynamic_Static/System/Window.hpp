@@ -30,45 +30,89 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Object.hpp"
-#include "Dynamic_Static/Core/Events.hpp"
-#include "Dynamic_Static/Core/MoveNotifier.hpp"
+#include "Dynamic_Static/Core/Version.hpp"
+#include "Dynamic_Static/Core/Callback.hpp"
+
+#include "Dynamic_Static/System/Point.hpp"
 #include "Dynamic_Static/System/Defines.hpp"
-#include "Dynamic_Static/System/Input.hpp"
+#include "Dynamic_Static/System/Monitor.hpp"
+#include "Dynamic_Static/System/Resolution.hpp"
+#include "Dynamic_Static/System/Input.Manager.hpp"
 
 #include <string>
 
+struct GLFWwindow;
 namespace Dynamic_Static {
     namespace System {
+        class Monitor;
+
+        /**
+         * Provides high level control over a system window.
+         */
         class Window final
-            : public Object
-            , public MoveNotifier<Window> {
-        private:
-            class Platform;
+            : public Object {
+            friend static void frame_buffer_resize_callback(GLFWwindow*, int, int);
+            friend static void keyboard_callback(GLFWwindow*, int, int, int, int);
+            friend static void mouse_button_callback(GLFWwindow*, int, int, int);
+            friend static void mouse_position_callback(GLFWwindow*, double, double);
+            friend static void mouse_scroll_callback(GLFWwindow*, double, double);
+        public:
+            /**
+             * Specifies a rendering API.
+             */
+            enum class API {
+                Vulkan,
+                OpenGL,
+                OpenGLES,
+            };
+
+            /**
+             * Specifies cursor modes.
+             */
+            enum class CursorMode {
+                Normal,
+                Hidden,
+                Disabled,
+            };
+
+            /**
+             * Specifies construction parameters for a Window.
+             */
+            class Configuration final {
+            public:
+                API api { API::Vulkan };
+                Version apiVersion { 0, 0, 0 };
+                std::string name { "Dynamic_Static" };
+                CursorMode cursorMode { CursorMode::Normal };
+                Resolution resolution { 1280, 720 };
+                Point position { 320, 180 };
+                Monitor* monitor { nullptr };
+                Window* parent { nullptr };
+                bool decorated { true };
+                bool resizable { true };
+                bool visible { true };
+            };
 
         private:
-            uint32_t mX { 320 };
-            uint32_t mY { 180 };
-            uint32_t mWidth { 1280 };
-            uint32_t mHeight { 720 };
-            void* mHandle { nullptr };
-            #if defined(DYNAMIC_STATIC_WINDOWS)
-            void* mInstance { nullptr };
-            std::wstring mTitle { L"Dynamic_Static" };
-            std::wstring mClassName { L"Dynamic_Static::System::Window" };
-            #endif
+            API mAPI { API::Vulkan };
+            Version mAPIVersion { 0, 0, 0 };
+            Monitor* mMonitor { nullptr };
+            Window* mParent { nullptr };
+            Input::Manager mInputManager;
+            mutable void* mGLFWHandle { nullptr };
 
         public:
             /**
-             * Event fired when this Window is resized.
+             * Callback executed when this Window is resized.
              * @param [in] The Window being resized
              */
-            Event<Window, const Window&> OnResized;
+            Callback<Window, const Window&> OnResized;
 
             /**
-             * Event fired when this Window is closed.
+             * Callback executed when this Window is closed.
              * @param [in] The Window being closed
              */
-            Event<Window, const Window&> OnClosed;
+            Callback<Window, const Window&> OnClosed;
 
         public:
             /**
@@ -78,68 +122,135 @@ namespace Dynamic_Static {
 
             /**
              * Constructs an instance of Window.
-             * @param [in] width  This Window's initial width
-             * @param [in] height This Window's initial height
+             * @param [in] configuration This Window's Configuration
              */
-            Window(uint32_t width, uint32_t height);
+            Window(const Configuration& configuration);
+
+            /**
+             * Moves an instance of Window.
+             * @param [in] other The Window to move from
+             */
+            Window(Window&& other);
+
+            /**
+             * Destroys this Window.
+             */
+            ~Window();
+
+            /**
+             * Moves an instance of Window.
+             * @param [in] other The Window to move from
+             */
+            Window& operator=(Window&& other);
 
         public:
             /**
-             * Gets this Window's handle.
-             * @return This Window's handle
+             * Sets this Window's name.
+             * @param [in] name This Window's name
              */
-            void* handle() const;
-
-            #if defined(DYNAMIC_STATIC_WINDOWS)
-            /**
-             * Gets this Window's instance.
-             * @return This Window's instance
-             */
-            void* instance() const;
-            #endif
+            void name(const std::string& name) final override;
 
             /**
-             * Gets this Window's width.
-             * @return This Window's width
+             * Gets this Window's OS handle.
+             * @return This Window's OS handle
              */
-            uint32_t width() const;
+            void* handle();
 
             /**
-             * Gets this Window's height.
-             * @return This Window's height
+             * Gets this Window's Input.
+             * @return This Window's Input
              */
-            uint32_t height() const;
+            const Input& input() const;
+
+            /**
+             * Gets this Window's Monitor.
+             * @return This Window's Monitor
+             */
+            const Monitor* monitor() const;
+
+            /**
+             * Gets this Window's parent.
+             * @return This Window's parent
+             */
+            const Window* parent() const;
+
+            /**
+             * Gets this Window's Window::CursorMode.
+             * @return This Window's Window::CursorMode
+             */
+            Window::CursorMode cursor_mode() const;
+
+            /**
+             * Sets this Window's Window::CursorMode.
+             * @param [in] cursorMode This Window's Window::CursorMode
+             */
+            void cursor_mode(Window::CursorMode cursorMode);
+
+            /**
+             * Gets this Window's Resolution.
+             * @return This Window's Resolution
+             */
+            Resolution resolution() const;
+
+            /**
+             * Sets this Window's Resolution.
+             * @param [in] resolution This Window's Resolution
+             */
+            void resolution(const Resolution& resolution);
+
+            /**
+             * Gets this Window's position.
+             * @return This Window's position
+             */
+            Point position() const;
+
+            /**
+             * Sets this Window's position.
+             * @param [in] position This Window's position
+             */
+            void position(const Point& position);
+
+            /**
+             * Gets a value indicating whether or not this Window is visible.
+             * @return Whether or not this Window is visible
+             */
+            bool visible() const;
+
+            /**
+             * Sets a value indicating whether or not this Window is visible.
+             * @return Whether or not this Window is visible
+             */
+            void visible(bool visible);
+
+            /**
+             * Makes this Window's OpenGL context current.
+             * \n NOTE : If using Vulkan this method is a no-op
+             */
+            void make_current() const;
 
             /**
              * Updates this Window.
-             * \n NOTE : This method needs to be called at regular intervals to keep this Window's contents up to date
+             * \n NOTE : This method must be called periodically to keep this Window up to date.
              */
             void update();
 
             /**
-             * Opens this Window.
+             * Renders this Window.
+             * \n NOTE : If using Vulkan this method is a no-op
+             * \n NOTE : If not using Vulkan this method must be called periodically to keep this Window up to date
              */
-            void open();
+            void render() const;
 
             /**
-             * Closes this Window.
+             * Processes OS events for all Windows.
+             * \n NOTE : This method must be called periodically to keep Windows up to date.
              */
-            void close();
+            static void process_os_events();
 
-            /**
-             * Hides this Window.
-             */
-            void hide();
-
-            /**
-             * Minimizes this Window.
-             */
-            void minimize();
-
-            /**
-             * Maximizes this Window.
-             */
-            void maximize();
+        private:
+            GLFWwindow* glfw_handle() const;
+            void fire_on_resized() const;
+            void fire_on_closed() const;
         };
     } // namespace System
 } // namespace Dynamic_Static

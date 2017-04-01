@@ -38,6 +38,7 @@ namespace Dynamic_Static {
      */
     struct Version final
         : public IPrintable {
+    public:
         uint32_t major { 0 };
         uint32_t minor { 0 };
         uint32_t patch { 0 };
@@ -55,6 +56,13 @@ namespace Dynamic_Static {
          */
         Version(uint32_t major, uint32_t minor, uint32_t patch);
 
+        /**
+         * Gets a value indicating whether or not any field in this Version is non zero.
+         * @return Whether or not any field in this Version is non zero
+         */
+        operator bool() const;
+
+    public:
         /**
          * Gets the std::string representation of this Version.
          * @return The std::string representation of this Version

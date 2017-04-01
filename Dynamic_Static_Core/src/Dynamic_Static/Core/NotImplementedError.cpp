@@ -36,7 +36,7 @@ namespace Dynamic_Static {
     }
 
     NotImplementedError::NotImplementedError(const std::string& message)
-        : std::logic_error("Not implemented" + message.size() ? " : " + message : std::string())
+        : std::logic_error("Not implemented" + (message.size() ? " : " + message : std::string()))
     {
     }
 } // namespace Dynamic_Static

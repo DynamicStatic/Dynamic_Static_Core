@@ -35,6 +35,21 @@
 
 namespace Dynamic_Static {
     namespace System {
+        Keyboard::Keyboard(Keyboard&& other)
+        {
+            *this = std::move(other);
+        }
+
+        Keyboard& Keyboard::operator=(Keyboard&& other)
+        {
+            if (this != &other) {
+                mCurrent = std::move(other.mCurrent);
+                mPrevious = std::move(other.mPrevious);
+            }
+
+            return *this;
+        }
+
         bool Keyboard::up(Key key) const
         {
             return mCurrent.up(key);

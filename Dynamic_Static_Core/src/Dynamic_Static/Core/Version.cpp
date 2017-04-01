@@ -38,6 +38,11 @@ namespace Dynamic_Static {
     {
     }
 
+    Version::operator bool() const
+    {
+        return major || minor || patch;
+    }
+
     std::string Version::to_string() const
     {
         return dst::to_string(major) + "." + dst::to_string(minor) + "." + dst::to_string(patch);

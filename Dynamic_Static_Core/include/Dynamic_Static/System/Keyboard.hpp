@@ -296,6 +296,24 @@ namespace Dynamic_Static {
 
         public:
             /**
+             * Constructs an instance of Keyboard.
+             */
+            Keyboard() = default;
+
+            /**
+             * Moves an instance of Keyboard.
+             * @param [in] other The Keyboard to move from
+             */
+            Keyboard(Keyboard&& other);
+
+            /**
+             * Moves an instance of Keyboard.
+             * @param [in] other The Keyboard to move from
+             */
+            Keyboard& operator=(Keyboard&& other);
+
+        public:
+            /**
              * Gets a value indicating whether or not a specified Keyboard::Key is up.
              * @param [in] key The Keyboard::Key to check
              * @return Whether or not thea specified Keyboard::Key is up

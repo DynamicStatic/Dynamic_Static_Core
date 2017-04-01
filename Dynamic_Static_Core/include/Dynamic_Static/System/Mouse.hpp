@@ -42,8 +42,7 @@ namespace Dynamic_Static {
          * Provides high level control over a system mouse.
          */
         class Mouse final
-            : NonCopyable
-            , NonMoveable {
+            : NonCopyable {
             friend class Input;
         public:
             /**
@@ -133,6 +132,24 @@ namespace Dynamic_Static {
             State mCurrent;
             State mPrevious;
             math::Vector2 mDelta;
+
+        public:
+            /**
+             * Constructs an instance of Mouse.
+             */
+            Mouse() = default;
+
+            /**
+             * Moves an instance of Mouse.
+             * @param [in] other The Mouse to move from
+             */
+            Mouse(Mouse&& other);
+
+            /**
+             * Moves an instance of Mouse.
+             * @param [in] other The Mouse to move from
+             */
+            Mouse& operator=(Mouse&& other);
 
         public:
             /**
