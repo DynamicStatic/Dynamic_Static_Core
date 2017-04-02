@@ -40,6 +40,7 @@
 namespace Dynamic_Static {
     namespace System {
         static std::set<void*> gGLFWWindowHandles;
+        static Input::Manager gAggregateInputManager;
     } // namespace System
 } // namespace Dynamic_Static
 
@@ -63,9 +64,20 @@ namespace Dynamic_Static {
             auto& window = dst_window(handle);
             auto dstKey = glfw_to_dst_keyboard_key(glfwKey);
             switch (action) {
-                case GLFW_PRESS: window.mInputManager.keyboard_state().down(dstKey, true); break;
-                case GLFW_RELEASE: window.mInputManager.keyboard_state().down(dstKey, false); break;
-                case GLFW_REPEAT: window.mInputManager.keyboard_state().down(dstKey, true); break;
+                case GLFW_PRESS:
+                    window.mInputManager.keyboard_state().down(dstKey, true);
+                    gAggregateInputManager.keyboard_state().down(dstKey, true);
+                    break;
+
+                case GLFW_RELEASE:
+                    window.mInputManager.keyboard_state().down(dstKey, false);
+                    gAggregateInputManager.keyboard_state().down(dstKey, false);
+                    break;
+
+                case GLFW_REPEAT:
+                    window.mInputManager.keyboard_state().down(dstKey, true);
+                    gAggregateInputManager.keyboard_state().down(dstKey, true);
+                    break;
             }
         }
 
@@ -74,18 +86,33 @@ namespace Dynamic_Static {
             auto& window = dst_window(handle);
             auto dstButton = glfw_to_dst_mouse_button(glfwButton);
             switch (action) {
-                case GLFW_PRESS: window.mInputManager.mouse_state().down(dstButton, true); break;
-                case GLFW_RELEASE: window.mInputManager.mouse_state().down(dstButton, false); break;
-                case GLFW_REPEAT: window.mInputManager.mouse_state().down(dstButton, true); break;
+                case GLFW_PRESS:
+                    window.mInputManager.mouse_state().down(dstButton, true);
+                    gAggregateInputManager.mouse_state().down(dstButton, true);
+                    break;
+
+                case GLFW_RELEASE:
+                    window.mInputManager.mouse_state().down(dstButton, false);
+                    gAggregateInputManager.mouse_state().down(dstButton, false);
+                    break;
+
+                case GLFW_REPEAT:
+                    window.mInputManager.mouse_state().down(dstButton, true);
+                    gAggregateInputManager.mouse_state().down(dstButton, true);
+                    break;
             }
         }
 
         static void mouse_position_callback(GLFWwindow* handle, double xOffset, double yOffset)
         {
-            auto& inputManager = dst_window(handle).mInputManager;
+            auto& dstWindow = dst_window(handle);
             float x = static_cast<float>(xOffset);
             float y = static_cast<float>(yOffset);
-            inputManager.mouse_state().position({ x, y });
+            auto cursorPosition = math::Vector2 { x, y };
+            dstWindow.mInputManager.mouse_state().position(cursorPosition);
+            cursorPosition.x += static_cast<float>(dstWindow.position().x);
+            cursorPosition.y += static_cast<float>(dstWindow.position().y);
+            gAggregateInputManager.mouse_state().position(cursorPosition);
         }
 
         static void mouse_scroll_callback(GLFWwindow* handle, double /* xOffset */, double yOffset)
@@ -93,6 +120,8 @@ namespace Dynamic_Static {
             auto& inputManager = dst_window(handle).mInputManager;
             auto scroll = inputManager.mouse_state().scroll();
             inputManager.mouse_state().scroll(scroll + static_cast<float>(yOffset));
+            auto aggregateScroll = gAggregateInputManager.mouse_state().scroll();
+            gAggregateInputManager.mouse_state().scroll(aggregateScroll + static_cast<float>(yOffset));
         }
 
         static void glfw_error_callback(int error, const char* description)
@@ -163,7 +192,7 @@ namespace Dynamic_Static {
                 glfwParentWindow = reinterpret_cast<GLFWwindow*>(configuration.parent->mGLFWHandle);
             }
 
-            mGLFWHandle = glfwCreateWindow(width, height, mName.c_str(), glfwMonitor, nullptr);
+            mGLFWHandle = glfwCreateWindow(width, height, mName.c_str(), glfwMonitor, glfwParentWindow);
             if (mGLFWHandle) {
                 gGLFWWindowHandles.insert(mGLFWHandle);
             } else {
@@ -329,11 +358,6 @@ namespace Dynamic_Static {
             }
         }
 
-        void Window::update()
-        {
-            mInputManager.update();
-        }
-
         void Window::render() const
         {
             if (mAPI != API::Vulkan) {
@@ -341,9 +365,19 @@ namespace Dynamic_Static {
             }
         }
 
-        void Window::process_os_events()
+        void Window::update()
         {
             glfwPollEvents();
+            gAggregateInputManager.update();
+            for (auto glfwHandle : gGLFWWindowHandles) {
+                auto& dstWindow = dst_window(reinterpret_cast<GLFWwindow*>(glfwHandle));
+                dstWindow.mInputManager.update();
+            }
+        }
+
+        const Input& Window::aggregate_input()
+        {
+            return gAggregateInputManager.input();
         }
 
         GLFWwindow* Window::glfw_handle() const

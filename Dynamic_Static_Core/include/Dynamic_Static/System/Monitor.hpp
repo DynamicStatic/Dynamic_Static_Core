@@ -77,6 +77,12 @@ namespace Dynamic_Static {
 
         public:
             /**
+             * Gets this Monitor's name.
+             * @return This Monitor's name
+             */
+            const std::string& name() const;
+
+            /**
              * Gets this Monitor's current Mode.
              * @return This Monitor's current Mode
              */

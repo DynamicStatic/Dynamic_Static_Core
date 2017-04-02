@@ -34,12 +34,7 @@
 #include "GLFW/glfw3.h"
 
 #if defined(DYNAMIC_STATIC_WINDOWS)
-#define GLFW_EXPOSE_NATIVE_WIN32 
+#define GLFW_EXPOSE_NATIVE_WIN32
 #endif
 
 #include "GLFW/glfw3native.h"
-
-namespace Dynamic_Static {
-    namespace System {
-    } // namespace System
-} // namespace Dynamic_Static

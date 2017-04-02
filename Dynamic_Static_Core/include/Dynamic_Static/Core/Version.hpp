@@ -45,7 +45,7 @@ namespace Dynamic_Static {
 
         /**
          * Constructs an instance of Version.
-         */
+         */ 
         Version() = default;
 
         /**

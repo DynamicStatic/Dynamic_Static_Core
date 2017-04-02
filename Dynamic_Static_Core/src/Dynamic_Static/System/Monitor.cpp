@@ -28,6 +28,7 @@
 */
 
 #include "Dynamic_Static/System/Monitor.hpp"
+#include "Dynamic_Static/Core/VectorUtilities.hpp"
 
 #include "GLFWInclude.hpp"
 
@@ -67,6 +68,11 @@ namespace Dynamic_Static {
             mName = glfwGetMonitorName(glfw_handle());
         }
 
+        const std::string& Monitor::name() const
+        {
+            return Object::name();
+        }
+
         const Monitor::Mode& Monitor::mode() const
         {
             return mMode;
@@ -99,7 +105,7 @@ namespace Dynamic_Static {
 
         const std::vector<Monitor>& Monitor::enumerate_monitors()
         {
-            static const std::vector<Monitor> sMonitors(
+            static std::vector<Monitor> sMonitors(
                 []()
                 {
                     std::vector<Monitor> monitors;

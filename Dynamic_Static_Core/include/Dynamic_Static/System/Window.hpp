@@ -86,8 +86,8 @@ namespace Dynamic_Static {
                 CursorMode cursorMode { CursorMode::Normal };
                 Resolution resolution { 1280, 720 };
                 Point position { 320, 180 };
-                Monitor* monitor { nullptr };
                 Window* parent { nullptr };
+                const Monitor* monitor { nullptr };
                 bool decorated { true };
                 bool resizable { true };
                 bool visible { true };
@@ -96,8 +96,8 @@ namespace Dynamic_Static {
         private:
             API mAPI { API::Vulkan };
             Version mAPIVersion { 0, 0, 0 };
-            Monitor* mMonitor { nullptr };
             Window* mParent { nullptr };
+            const Monitor* mMonitor { nullptr };
             Input::Manager mInputManager;
             mutable void* mGLFWHandle { nullptr };
 
@@ -229,12 +229,6 @@ namespace Dynamic_Static {
             void make_current() const;
 
             /**
-             * Updates this Window.
-             * \n NOTE : This method must be called periodically to keep this Window up to date.
-             */
-            void update();
-
-            /**
              * Renders this Window.
              * \n NOTE : If using Vulkan this method is a no-op
              * \n NOTE : If not using Vulkan this method must be called periodically to keep this Window up to date
@@ -242,10 +236,16 @@ namespace Dynamic_Static {
             void render() const;
 
             /**
-             * Processes OS events for all Windows.
+             * Updates all Windows' OS events.
              * \n NOTE : This method must be called periodically to keep Windows up to date.
              */
-            static void process_os_events();
+            static void update();
+
+            /**
+             * Gets aggregate Input for all Windows
+             * @return Aggregate Input for all Windows
+             */
+            static const Input& aggregate_input();
 
         private:
             GLFWwindow* glfw_handle() const;
