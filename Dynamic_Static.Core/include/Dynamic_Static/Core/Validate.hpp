@@ -36,7 +36,7 @@ namespace Dynamic_Static {
      * TODO : Documentation.
      */
     template <typename T>
-    void validate(const T&)
+    void validate(T)
     {
     }
 } // namespace Dynamic_Static

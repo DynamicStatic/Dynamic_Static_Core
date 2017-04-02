@@ -67,13 +67,8 @@ namespace Dynamic_Static {
  * \n NOTE : This macro can only be used once per namespace
  */
 #define DYNAMIC_STATIC_MATH_TYPEDEFS                                  \
-using AxisAlignedBoundingBox2D = dst::math::AxisAlignedBoundingBox2D; \
-using AxisAlignedBoundingBox3D = dst::math::AxisAlignedBoundingBox3D; \
 using Color                    = dst::math::Color;                    \
-using Matrix3x3                = dst::math::Matrix3x3;                \
 using Matrix4x4                = dst::math::Matrix4x4;                \
-using OrientedBoundingBox2D    = dst::math::OrientedBoundingBox2D;    \
-using OrientedBoundingBox3D    = dst::math::OrientedBoundingBox3D;    \
 using Quaternion               = dst::math::Quaternion;               \
 using Rectangle                = dst::math::Rectangle;                \
 using Transform                = dst::math::Transform;                \

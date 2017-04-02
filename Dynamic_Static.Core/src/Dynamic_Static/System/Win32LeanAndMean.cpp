@@ -135,7 +135,7 @@ namespace Dynamic_Static {
     }
 
     template <>
-    void validate<HRESULT>(const HRESULT& result)
+    void validate<HRESULT>(HRESULT result)
     {
         if (FAILED(result)) {
             throw System::Win32Exception(result);

@@ -227,7 +227,6 @@
     <ClCompile Include="src\Dynamic_Static\System\Resolution.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Win32LeanAndMean.cpp" />
     <ClCompile Include="src\Dynamic_Static\System\Window.cpp" />
-    <ClCompile Include="src\Dynamic_Static\System\WindowWin32.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

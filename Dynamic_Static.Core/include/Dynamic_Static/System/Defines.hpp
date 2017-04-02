@@ -36,7 +36,7 @@ namespace Dynamic_Static {
     } // namespace System
 
     /**
-     * Alias for the Dynamic_Static::System namepsace.
+     * Alias for the Dynamic_Static::System namespace.
      */
     namespace sys = System;
 } // namespace Dynamic_Static

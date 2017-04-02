@@ -118,7 +118,7 @@ namespace Dynamic_Static {
      * TODO : Documentation.
      */
     template <>
-    void validate<HRESULT>(const HRESULT& result);
+    void validate<HRESULT>(HRESULT result);
 } // namespace Dynamic_Static
 
 #endif

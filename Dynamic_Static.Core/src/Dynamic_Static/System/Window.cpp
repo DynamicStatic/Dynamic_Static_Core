@@ -241,6 +241,11 @@ namespace Dynamic_Static {
             return *this;
         }
 
+        const std::string& Window::name() const
+        {
+            return mName;
+        }
+
         void Window::name(const std::string& name)
         {
             if (mName != name) {

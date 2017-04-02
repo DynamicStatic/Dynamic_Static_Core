@@ -145,6 +145,12 @@ namespace Dynamic_Static {
 
         public:
             /**
+             * Gets this Window's name.
+             * @return This Window's name
+             */
+            const std::string& name() const final override;
+
+            /**
              * Sets this Window's name.
              * @param [in] name This Window's name
              */
