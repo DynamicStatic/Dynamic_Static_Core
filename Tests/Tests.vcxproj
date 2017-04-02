@@ -94,15 +94,15 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/include/;$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/external/;$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Tests/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static.Core/Tests/include/;$(DYNAMIC_STATIC_HOME)/Dynamic_Static.Core/Dynamic_Static.Core/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/lib/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Dynamic_Static_Core-$(Configuration)-$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static.Core/Dynamic_Static.Core/lib/</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dynamic_Static.Core-$(Configuration)-$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <LinkTimeCodeGeneration>
       </LinkTimeCodeGeneration>
@@ -110,15 +110,15 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/include/;$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/external/;$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Tests/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static.Core/Tests/include/;$(DYNAMIC_STATIC_HOME)/Dynamic_Static.Core/Dynamic_Static.Core/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/lib/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Dynamic_Static_Core-$(Configuration)-$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static.Core/Dynamic_Static.Core/lib/</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dynamic_Static.Core-$(Configuration)-$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <LinkTimeCodeGeneration>
       </LinkTimeCodeGeneration>
@@ -126,38 +126,38 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/include/;$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/external/;$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Tests/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static.Core/Tests/include/;$(DYNAMIC_STATIC_HOME)/Dynamic_Static.Core/Dynamic_Static.Core/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/lib/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Dynamic_Static_Core-$(Configuration)-$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static.Core/Dynamic_Static.Core/lib/</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dynamic_Static.Core-$(Configuration)-$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <WarningLevel>Level3</WarningLevel>
+      <WarningLevel>Level4</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/include/;$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/external/;$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Tests/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static.Core/Tests/include/;$(DYNAMIC_STATIC_HOME)/Dynamic_Static.Core/Dynamic_Static.Core/include/;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static_Core/Dynamic_Static_Core/lib/</AdditionalLibraryDirectories>
-      <AdditionalDependencies>Dynamic_Static_Core-$(Configuration)-$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(DYNAMIC_STATIC_HOME)/Dynamic_Static.Core/Dynamic_Static.Core/lib/</AdditionalLibraryDirectories>
+      <AdditionalDependencies>Dynamic_Static.Core-$(Configuration)-$(Platform).lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Console</SubSystem>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
     </Link>

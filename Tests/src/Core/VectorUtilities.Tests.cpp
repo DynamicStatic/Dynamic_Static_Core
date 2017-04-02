@@ -53,7 +53,7 @@ namespace Dynamic_Static {
         {
             std::string name = "name";
             for (size_t i = 0; i < name.size(); ++i) {
-                name[i] = Random.range(32, 126);
+                name[i] = static_cast<char>(Random.range(32, 126));
             }
 
             return name;
