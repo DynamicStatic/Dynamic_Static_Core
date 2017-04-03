@@ -115,7 +115,7 @@ namespace Dynamic_Static {
     std::wstring to_wstring<HRESULT>(const HRESULT& result);
 
     /**
-     * TODO : Documentation.
+     * Validates an HRESULT.
      */
     template <>
     void validate<HRESULT>(HRESULT result);

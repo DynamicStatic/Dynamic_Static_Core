@@ -106,13 +106,13 @@ namespace Dynamic_Static {
              * Callback executed when this Window is resized.
              * @param [in] The Window being resized
              */
-            Callback<Window, const Window&> OnResized;
+            Callback<Window, const Window&> on_resized;
 
             /**
              * Callback executed when this Window is closed.
              * @param [in] The Window being closed
              */
-            Callback<Window, const Window&> OnClosed;
+            Callback<Window, const Window&> on_closed;
 
         public:
             /**

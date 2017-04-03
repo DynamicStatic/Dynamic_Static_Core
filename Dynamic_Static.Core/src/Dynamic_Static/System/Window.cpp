@@ -392,12 +392,12 @@ namespace Dynamic_Static {
 
         void Window::fire_on_resized() const
         {
-            OnResized(*this);
+            on_resized(*this);
         }
 
         void Window::fire_on_closed() const
         {
-            OnClosed(*this);
+            on_closed(*this);
         }
     } // namespace System
 } // namespace Dynamic_Static

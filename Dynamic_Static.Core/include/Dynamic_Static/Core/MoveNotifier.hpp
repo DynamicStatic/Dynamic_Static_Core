@@ -31,6 +31,7 @@
 
 #include "Dynamic_Static/Core/Events.hpp"
 #include "Dynamic_Static/Core/Defines.hpp"
+#include "Dynamic_Static/Core/Callback.hpp"
 #include "Dynamic_Static/Core/NonCopyable.hpp"
 
 #include <utility>
@@ -87,6 +88,61 @@ namespace Dynamic_Static {
 
     template <typename T>
     MoveNotifier<T>::~MoveNotifier()
+    {
+    }
+} // namespace Dynamic_Static
+
+namespace Dynamic_Static {
+    /**
+     * Executes a Callback when this object is moved.
+     * \n NOTE : MoveNotifier must be extended using the Curiously Recurring Template Pattern (CRTP)
+     * @param <T> The type extending MoveNotifer
+     */
+    template <typename T>
+    class MoveNotifier_ex
+        : NonCopyable {
+    public:
+        /**
+         * Callback executed when this MoveNotifier is moved.
+         * @param [in] The object being moved
+         */
+        Callback<MoveNotifier_ex<T>, T&> on_moved;
+
+    private:
+        MoveNotifier_ex() = default;
+
+    public:
+        /**
+         * Moves an instance of MoveNotifier.
+         * @param [in] other The MoveNotifier to move from
+         */
+        MoveNotifier_ex(MoveNotifier_ex<T>&& other)
+        {
+            *this = std::move(other);
+        }
+
+        /**
+         * Destroys this instance of MoveNotifier.
+         */
+        virtual ~MoveNotifier_ex() = 0;
+
+        /**
+         * Moves an instance of MoveNotifier.
+         * @param [in] other The MoveNotifier to move from
+         */
+        MoveNotifier_ex<T>& operator=(MoveNotifier_ex<T>&& other)
+        {
+            if (this != &other) {
+                on_moved = std::move(other.OnMoved);
+                on_moved(*static_cast<T*>(this));
+            }
+
+            return *this;
+        }
+    };
+
+    template <typename T>
+    MoveNotifier_ex<T>::~MoveNotifier_ex()
     {
     }
 } // namespace Dynamic_Static
