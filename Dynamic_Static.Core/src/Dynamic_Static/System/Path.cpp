@@ -68,12 +68,26 @@ namespace Dynamic_Static {
                 return dst::filesystem::path(path).has_extension();
             }
 
+            std::string remove_extension(const std::string& path, bool recursive)
+            {
+                // TODO : Tests and iterate instead of recurse...
+                auto result = path;
+                if (has_extension(path)) {
+                    result = dst::remove(path, extension(path));
+                    if (recursive) {
+                       result = remove_extension(result, recursive);
+                    }
+                }
+
+                return result;
+            }
+
             std::string file_name(const std::string& path)
             {
                 return dst::filesystem::path(path).filename().string();
             }
 
-            std::string directory(const std::string& path)
+            std::string directory_name(const std::string& path)
             {
                 return scrub(dst::filesystem::path(path).parent_path().string());
             }

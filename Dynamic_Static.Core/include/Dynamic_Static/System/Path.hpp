@@ -74,6 +74,14 @@ namespace Dynamic_Static {
             bool has_extension(const std::string& path);
 
             /**
+             * Removes the file extension from a specified path.
+             * @param [in] path The path to remove the file extension from
+             * @param [in, optional] recursive Whether or not to remove all '.' separated file extensions
+             * @return The path with the file extension removed
+             */
+            std::string remove_extension(const std::string& path, bool recursive);
+
+            /**
              * Gets the file name and extension of the specified path.
              * @param [in] path The path to get the file name and extension from
              * @return The file name and extension of the specified path
@@ -85,7 +93,7 @@ namespace Dynamic_Static {
              * @param [in] path The path to get the directory name from
              * @return The directory name of the specified path
              */
-            std::string directory(const std::string& path);
+            std::string directory_name(const std::string& path);
         } // namespace Path
     } // namespace System
 } // namespace Dynamic_Static

@@ -75,16 +75,16 @@ namespace Dynamic_Static {
 
     std::string to_lower(const std::string& str)
     {
-        std::string altered = str;
-        std::transform(altered.begin(), altered.end(), altered.begin(), tolower);
-        return altered;
+        std::string result = str;
+        std::transform(result.begin(), result.end(), result.begin(), tolower);
+        return result;
     }
 
     std::string to_upper(const std::string& str)
     {
-        std::string altered = str;
-        std::transform(altered.begin(), altered.end(), altered.begin(), toupper);
-        return altered;
+        std::string result = str;
+        std::transform(result.begin(), result.end(), result.begin(), toupper);
+        return result;
     }
 } // namespace Dynamic_Static
 
