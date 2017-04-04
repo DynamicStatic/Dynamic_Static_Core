@@ -125,8 +125,8 @@ namespace Dynamic_Static {
         BinPackResult result;
         uint32_t sourceArea = 0;
         for (auto& entry : entries) {
-            entry.width += padding;
-            entry.height += padding;
+            entry.width = padding + entry.width + padding;
+            entry.height = padding + entry.height + padding;
             sourceArea += entry.width * entry.height;
         }
 
@@ -160,8 +160,10 @@ namespace Dynamic_Static {
 
         BinPack::Node::clear();
         for (auto& entry : entries) {
-            entry.width -= padding;
-            entry.height -= padding;
+            entry.x += padding;
+            entry.y += padding;
+            entry.width -= padding + padding;
+            entry.height -= padding + padding;
         }
 
         return result;
