@@ -4,7 +4,7 @@
 
     The MIT License(MIT)
 
-    Copyright(c) 2016 to this->moment()->next() Dynamic_Static
+    Copyright(c) 2017 to this->moment()->next() Dynamic_Static
 
     Permission is hereby granted, free of charge, to any person obtaining a copy
     of this software and associated documentation files(the "Software"), to deal
@@ -31,47 +31,27 @@
 
 #include "Dynamic_Static/Core/Defines.hpp"
 
-#include <cmath>
-#define _USE_MATH_DEFINES
-#include <math.h>
-
-#define GLM_FORCE_RADIANS
-#define GLM_ENABLE_EXPERIMENTAL
-#define GLM_FORCE_DEPTH_ZERO_TO_ONE
-
 namespace Dynamic_Static {
-    namespace Math {
-        struct AxisAlignedBoundingBox2D;
-        struct AxisAlignedBoundingBox3D;
-        struct Color;
-        struct Matrix3x3;
-        struct Matrix4x4;
-        struct OrientedBoundingBox2D;
-        struct OrientedBoundingBox3D;
-        struct Quaternion;
-        struct Vector2;
-        struct Vector3;
-        struct Vector4;
-        struct Transform;
-        struct Rectangle;
-    } // namespace Math
+    template <typename DependencyType>
+    class Dependency {
+    private:
+        DependencyType mDependency;
 
-    /**
-     * Alias for the Dynamic_Static::Math namespace.
-     */
-    namespace math = Math;
+    public:
+        Dependency(DependencyType dependency)
+            : mDependency { dependency }
+        {
+        }
+
+    public:
+        DependencyType& dependency()
+        {
+            return mDependency;
+        }
+
+        const DependencyType& dependency() const
+        {
+            return mDependency;
+        }
+    };
 } // namespace Dynamic_Static
-
-/**
- * Use this macro to typedef dst::math objects into another namespace.
- * \n NOTE : This macro can only be used once per namespace
- */
-#define DYNAMIC_STATIC_MATH_TYPEDEFS      \
-using Color      = dst::math::Color;      \
-using Matrix4x4  = dst::math::Matrix4x4;  \
-using Quaternion = dst::math::Quaternion; \
-using Rectangle  = dst::math::Rectangle;  \
-using Transform  = dst::math::Transform;  \
-using Vector2    = dst::math::Vector2;    \
-using Vector3    = dst::math::Vector3;    \
-using Vector4    = dst::math::Vector4;

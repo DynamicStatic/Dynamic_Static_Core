@@ -31,6 +31,8 @@
 #include "Dynamic_Static/Core/FileSystem.hpp"
 #include "Dynamic_Static/Core/BinaryReader.hpp"
 
+#include <stdexcept>
+
 namespace Dynamic_Static {
     namespace System {
         namespace File {
@@ -60,6 +62,11 @@ namespace Dynamic_Static {
 
             void read_string(const std::string& filePath, std::string& contents)
             {
+                if (filePath.empty()) {
+                    // TODO : https://msdn.microsoft.com/en-us/library/dd383503(v=vs.110).aspx
+                    throw std::runtime_error("TODO : throw what : dst::sys::File::read_string()");
+                }
+
                 contents.clear();
                 auto bytes = BinaryReader(filePath).contents();
                 char* begin = reinterpret_cast<char*>(&*bytes.begin());

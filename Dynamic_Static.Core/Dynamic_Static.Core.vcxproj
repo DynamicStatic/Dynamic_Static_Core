@@ -148,6 +148,7 @@
     <ClInclude Include="include\Dynamic_Static\Core\Callback.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Collection.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Defines.hpp" />
+    <ClInclude Include="include\Dynamic_Static\Core\Dependency.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Events.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\FileSystem.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\IPrintable.hpp" />

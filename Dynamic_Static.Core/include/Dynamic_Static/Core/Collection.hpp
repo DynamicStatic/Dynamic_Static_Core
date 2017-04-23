@@ -282,4 +282,16 @@ namespace Dynamic_Static {
             return mCount == 0;
         }
     };
+
+    /**
+     * Gets the size in bytes of a specified Collection.
+     * @param <T> The type of the Collection
+     * @param collection The Collection to get the byte size of
+     * @return The size of the specified Collection
+     */
+    template <typename T>
+    inline size_t byte_size(const Collection<T> collection)
+    {
+        return collection.byte_size();
+    }
 } // namespace Dynamic_Static

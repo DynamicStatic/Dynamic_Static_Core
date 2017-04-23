@@ -51,7 +51,7 @@ namespace Dynamic_Static {
          * Assigns this Callback's Action.
          * @param [in] action This Callback's Action
          */
-        Callback<CallerType, Args...>& operator=(const Action<Args...>& action)
+        Callback<CallerType, Args...>& operator=(Action<Args...> action)
         {
             mAction = action;
             return *this;
