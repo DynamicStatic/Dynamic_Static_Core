@@ -160,10 +160,12 @@
     <ClInclude Include="include\Dynamic_Static\Core\NotImplementedError.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Object.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Random.hpp" />
+    <ClInclude Include="include\Dynamic_Static\Core\SharedObjectFactory.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\StringUtilities.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Threads.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Time.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\ToString.hpp" />
+    <ClInclude Include="include\Dynamic_Static\Core\TypeUtilities.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Utilities.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\Validate.hpp" />
     <ClInclude Include="include\Dynamic_Static\Core\VectorUtilities.hpp" />
@@ -203,6 +205,7 @@
     <ClCompile Include="src\Dynamic_Static\Core\IPrintable.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\NotImplementedError.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\Object.cpp" />
+    <ClCompile Include="src\Dynamic_Static\Core\SharedObjectFactory.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\StringUtilities.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\Threads.cpp" />
     <ClCompile Include="src\Dynamic_Static\Core\ToString.cpp" />

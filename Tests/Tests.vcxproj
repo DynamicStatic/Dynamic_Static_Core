@@ -174,6 +174,7 @@
     <ClCompile Include="src\Core\Random.Tests.cpp" />
     <ClCompile Include="src\Core\StringUtilities.Tests.cpp" />
     <ClCompile Include="src\Core\Threads.Tests.cpp" />
+    <ClCompile Include="src\Core\TypeUtilities.Tests.cpp" />
     <ClCompile Include="src\Core\VectorUtilities.Tests.cpp" />
     <ClCompile Include="src\Math\Matrix4x4.Tests.cpp" />
     <ClCompile Include="src\Math\Quaternion.Tests.cpp" />
