@@ -35,19 +35,18 @@
 #include "Dynamic_Static/Core/TypeUtilities.hpp"
 
 #include <tuple>
-#include <array>
 #include <vector>
 #include <memory>
-#include <cstddef>
-#include <utility>
-#include <type_traits>
+#include <algorithm>
 
 namespace Dynamic_Static {
     template <typename ...ObjectTypes>
-    class SharedObjectFactory {
+    class SharedObjectFactory
+        : NonCopyable {
 
     private:
         mutable std::tuple<std::vector<std::weak_ptr<ObjectTypes>>...> mSharedObjects;
+        // TODO : MultiTypeContainer...ala http://stackoverflow.com/a/20703174/3453616
 
     public:
         /**
@@ -89,10 +88,26 @@ namespace Dynamic_Static {
             return sharedObject;
         }
 
+        /**
+         * Creates a shared object.
+         * @param <ObjectType> The type of shared object to create
+         * @param [in] object A pointer to the object to make shared
+         * @return The newly created shared object
+         */
+        template <typename ObjectType>
+        std::shared_ptr<ObjectType> create(ObjectType* object)
+        {
+            auto sharedObject = std::shared_ptr<ObjectType>(object);
+            validated_objects<ObjectType>().push_back(sharedObject);
+            return sharedObject;
+        }
+
     private:
         template <typename ObjectType>
         std::vector<std::weak_ptr<ObjectType>>& validated_objects() const
         {
+            // TODO : Why isn't std::get<>() by type working?
+            //        http://en.cppreference.com/w/cpp/utility/tuple/get
             constexpr size_t index = dst::type_index<ObjectType, ObjectTypes...>();
             auto& objects = std::get<index>(mSharedObjects);
             objects.erase(
