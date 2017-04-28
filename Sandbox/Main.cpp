@@ -27,69 +27,7 @@
 =====================================================================================
 */
 
-#include "Dynamic_Static/Core/SharedObjectFactory.hpp"
-
-namespace Dynamic_Static {
-    class Widget final {
-
-    private:
-        float mValue { };
-
-    public:
-        Widget(float value)
-            : mValue { value }
-        {
-        }
-
-    public:
-        float value() const
-        {
-            return mValue;
-        }
-
-        // template <typename ...Args>
-        // static std::shared_ptr<Widget> create(Args&&... args)
-        // {
-        //     return std::shared_ptr<Widget>(new Widget(std::forward<Args>(args)...));
-        // }
-    };
-} // namespace Dynamic_Static
-
-namespace Dynamic_Static {
-    class Whatsit final {
-
-    private:
-        size_t mValue { };
-
-    public:
-        Whatsit(size_t value)
-            : mValue { value }
-        {
-        }
-
-    public:
-        size_t value() const
-        {
-            return mValue;
-        }
-    };
-} // namespace Dynamic_Static
-
-namespace Dynamic_Static {
-    class Machine final {
-    };
-}  // namespace Dynamic_Static
-
 int main(/* int argc, char* argv[] */)
 {
-    using namespace Dynamic_Static;
-    dst::SharedObjectFactory<
-        Widget,
-        Whatsit
-    > factory;
-    auto w0 = factory.make_shared<Widget>(3.14f);
-    auto w1 = factory.make_shared<Whatsit>(16);
-    auto w2 = factory.make_shared<Widget>(64.0f);
-    auto ws = factory.objects<Widget>();
     return 0;
 }

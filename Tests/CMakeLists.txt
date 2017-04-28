@@ -1,5 +1,5 @@
 
-# CMake configuration for Dynamic_Static_Core/Tests
+# CMake configuration for Dynamic_Static.Core/Tests
 
 include_directories(
     include/
@@ -7,7 +7,7 @@ include_directories(
 )
 
 add_executable(
-    Dynamic_Static_Core.Tests
+    Dynamic_Static.Core.Tests
     ${CMAKE_CURRENT_SOURCE_DIR}/Main.cpp
 
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Core/BinaryReader.Tests.cpp
@@ -19,7 +19,6 @@ add_executable(
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Core/Threads.Tests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Core/VectorUtilities.Tests.cpp
 
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Math/Matrix3x3.Tests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Math/Matrix4x4.Tests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Math/Quaternion.Tests.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Math/Vector2.Tests.cpp
@@ -28,7 +27,7 @@ add_executable(
 )
 
 target_link_libraries(
-    Dynamic_Static_Core.Tests
-    Dynamic_Static_Core
+    Dynamic_Static.Core.Tests
+    Dynamic_Static.Core
     pthread
 )

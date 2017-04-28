@@ -48,13 +48,13 @@ random_vectors(dstVectors[1], glmVectors[1]);
 namespace Dynamic_Static {
     namespace Math {
         namespace Tests {
-            static float random_float()
+            inline float random_float()
             {
                 float value = 64;
                 return Random.range<float>(-value, value);
             }
 
-            static Vector2 random_vector2()
+            inline Vector2 random_vector2()
             {
                 return Vector2(
                     random_float(),
@@ -62,7 +62,7 @@ namespace Dynamic_Static {
                 );
             }
 
-            static Vector3 random_vector3()
+            inline Vector3 random_vector3()
             {
                 return Vector3(
                     random_float(),
@@ -71,7 +71,7 @@ namespace Dynamic_Static {
                 );
             }
 
-            static Vector4 random_vector4()
+            inline Vector4 random_vector4()
             {
                 return Vector4(
                     random_float(),
@@ -81,7 +81,7 @@ namespace Dynamic_Static {
                 );
             }
 
-            static void random_vectors(Vector2& dstVector, glm::vec2& glmVector)
+            inline void random_vectors(Vector2& dstVector, glm::vec2& glmVector)
             {
                 float x = random_float();
                 float y = random_float();
@@ -89,7 +89,7 @@ namespace Dynamic_Static {
                 dstVector = { x, y };
             }
 
-            static void random_vectors(Vector3& dstVector, glm::vec3& glmVector)
+            inline void random_vectors(Vector3& dstVector, glm::vec3& glmVector)
             {
                 float x = random_float();
                 float y = random_float();
@@ -98,7 +98,7 @@ namespace Dynamic_Static {
                 dstVector = { x, y, z };
             }
 
-            static void random_vectors(Vector4& dstVector, glm::vec4& glmVector)
+            inline void random_vectors(Vector4& dstVector, glm::vec4& glmVector)
             {
                 float x = random_float();
                 float y = random_float();
@@ -108,7 +108,7 @@ namespace Dynamic_Static {
                 dstVector = { x, y, z, w };
             }
 
-            static bool equal(const Vector2& dstVector, const glm::vec2& glmVec)
+            inline bool equal(const Vector2& dstVector, const glm::vec2& glmVec)
             {
                 return
                     dstVector.x == glmVec.x &&
@@ -121,7 +121,7 @@ namespace Dynamic_Static {
                     dstVector[1] == glmVec[1];
             }
 
-            static bool equal(const Vector3& dstVector, const glm::vec3& glmVec)
+            inline bool equal(const Vector3& dstVector, const glm::vec3& glmVec)
             {
                 return
                     dstVector.x == glmVec.x &&
@@ -137,7 +137,7 @@ namespace Dynamic_Static {
                     dstVector[2] == glmVec[2];
             }
 
-            static bool equal(const Vector4& dstVector, const glm::vec4& glmVec)
+            inline bool equal(const Vector4& dstVector, const glm::vec4& glmVec)
             {
                 return
                     dstVector.x == glmVec.x &&

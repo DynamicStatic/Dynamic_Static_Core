@@ -90,46 +90,47 @@ namespace Dynamic_Static {
         v.erase(std::unique(v.begin(), v.end()), v.end());
     }
 
-    /**
-     * Takes ownership of an std::unique_ptr from an std::vector.
-     * \n NOTE : This function returns a null std::unique_ptr if the target isn't found
-     * @param <T> The type of the std::unique_ptr and std::vector
-     * @param [in] target The std::unique_ptr to take
-     * @param [in] v The std::vector to take the std::unique_ptr from
-     * @return The std::unique_ptr taken from the std::vector
-     */
-    template <typename T>
-    std::unique_ptr<T> take_ownership(const std::unique_ptr<T>& target, std::vector<std::unique_ptr<T>>& v)
-    {
-        return take_ownership(*target, v);
-    }
+    // /**
+    //  * Takes ownership of an std::unique_ptr from an std::vector.
+    //  * \n NOTE : This function returns a null std::unique_ptr if the target isn't found
+    //  * @param <T> The type of the std::unique_ptr and std::vector
+    //  * @param [in] target The std::unique_ptr to take
+    //  * @param [in] v The std::vector to take the std::unique_ptr from
+    //  * @return The std::unique_ptr taken from the std::vector
+    //  */
+    // template <typename T>
+    // std::unique_ptr<T> take_ownership(const std::unique_ptr<T>& target, std::vector<std::unique_ptr<T>>& v)
+    // {
+    //     return take_ownership(*target, v);
+    // }
 
-    /**
-     * Takes ownership of an std::unique_ptr from an std::vector.
-     * \n NOTE : This function returns a null std::unique_ptr if the target isn't found
-     * @param <T> The type of the std::unique_ptr and std::vector
-     * @param [in] target The object pointed to by the std::unique_ptr to take
-     * @param [in] v The std::vector to take the std::unique_ptr from
-     * @return The std::unique_ptr taken from the std::vector
-     */
-    template <typename T>
-    std::unique_ptr<T> take_ownership(const T& target, std::vector<std::unique_ptr<T>>& v)
-    {
-        auto uptr = std::unique_ptr<T>(nullptr);
-        auto itr = std::find_if(
-            v.begin(),
-            v.end(),
-            [&](std::unique_ptr<T>& element)
-            {
-                return element.get() == &target;
-            }
-        );
+    // /**
+    //  * Takes ownership of an std::unique_ptr from an std::vector.
+    //  * \n NOTE : This function returns a null std::unique_ptr if the target isn't found
+    //  * @param <T> The type of the std::unique_ptr and std::vector
+    //  * @param [in] target The object pointed to by the std::unique_ptr to take
+    //  * @param [in] v The std::vector to take the std::unique_ptr from
+    //  * @return The std::unique_ptr taken from the std::vector
+    //  */
+    // template <typename T>
+    // std::unique_ptr<T> take_ownership(const T& target, std::vector<std::unique_ptr<T>>& v)
+    // {
+    //     // TODO : Make take_ownership() compile with Clang.
+    //     auto uptr = std::unique_ptr<T>(nullptr);
+    //     auto itr = std::find_if(
+    //         v.begin(),
+    //         v.end(),
+    //         [&](std::unique_ptr<T>& element)
+    //         {
+    //             return element.get() == &target;
+    //         }
+    //     );
 
-        if (itr != v.end()) {
-            uptr = std::unique_ptr<T>(itr->release());
-            v.erase(itr);
-        }
+    //     if (itr != v.end()) {
+    //         uptr = std::unique_ptr<T>(itr->release());
+    //         v.erase(itr);
+    //     }
 
-        return uptr;
-    }
+    //     return uptr;
+    // }
 } // namespace Dynamic_Static

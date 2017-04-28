@@ -29,7 +29,6 @@
 
 #include "Dynamic_Static/System/Window.hpp"
 #include "Dynamic_Static/System/Monitor.hpp"
-
 #include "GLFWInclude.hpp"
 
 #include <set>
@@ -54,12 +53,12 @@ namespace Dynamic_Static {
             return *dstWindow;
         }
 
-        static void frame_buffer_resize_callback(GLFWwindow* handle, int, int)
+        void frame_buffer_resize_callback(GLFWwindow* handle, int, int)
         {
             dst_window(handle).fire_on_resized();
         }
 
-        static void keyboard_callback(GLFWwindow* handle, int glfwKey, int /* scanCode */, int action, int /* mods */)
+        void keyboard_callback(GLFWwindow* handle, int glfwKey, int /* scanCode */, int action, int /* mods */)
         {
             auto& window = dst_window(handle);
             auto dstKey = glfw_to_dst_keyboard_key(glfwKey);
@@ -81,7 +80,7 @@ namespace Dynamic_Static {
             }
         }
 
-        static void mouse_button_callback(GLFWwindow* handle, int glfwButton, int action, int /* mods */)
+        void mouse_button_callback(GLFWwindow* handle, int glfwButton, int action, int /* mods */)
         {
             auto& window = dst_window(handle);
             auto dstButton = glfw_to_dst_mouse_button(glfwButton);
@@ -103,7 +102,7 @@ namespace Dynamic_Static {
             }
         }
 
-        static void mouse_position_callback(GLFWwindow* handle, double xOffset, double yOffset)
+        void mouse_position_callback(GLFWwindow* handle, double xOffset, double yOffset)
         {
             auto& dstWindow = dst_window(handle);
             float x = static_cast<float>(xOffset);
@@ -115,7 +114,7 @@ namespace Dynamic_Static {
             gAggregateInputManager.mouse_state().position(cursorPosition);
         }
 
-        static void mouse_scroll_callback(GLFWwindow* handle, double /* xOffset */, double yOffset)
+        void mouse_scroll_callback(GLFWwindow* handle, double /* xOffset */, double yOffset)
         {
             auto& inputManager = dst_window(handle).mInputManager;
             auto scroll = inputManager.mouse_state().scroll();

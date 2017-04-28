@@ -32,7 +32,6 @@
 #include "Dynamic_Static/Core/Object.hpp"
 #include "Dynamic_Static/Core/Version.hpp"
 #include "Dynamic_Static/Core/Callback.hpp"
-
 #include "Dynamic_Static/System/Point.hpp"
 #include "Dynamic_Static/System/Defines.hpp"
 #include "Dynamic_Static/System/Monitor.hpp"
@@ -51,11 +50,11 @@ namespace Dynamic_Static {
          */
         class Window final
             : public Object {
-            friend static void frame_buffer_resize_callback(GLFWwindow*, int, int);
-            friend static void keyboard_callback(GLFWwindow*, int, int, int, int);
-            friend static void mouse_button_callback(GLFWwindow*, int, int, int);
-            friend static void mouse_position_callback(GLFWwindow*, double, double);
-            friend static void mouse_scroll_callback(GLFWwindow*, double, double);
+            friend void frame_buffer_resize_callback(GLFWwindow*, int, int);
+            friend void keyboard_callback(GLFWwindow*, int, int, int, int);
+            friend void mouse_button_callback(GLFWwindow*, int, int, int);
+            friend void mouse_position_callback(GLFWwindow*, double, double);
+            friend void mouse_scroll_callback(GLFWwindow*, double, double);
         public:
             /**
              * Specifies a rendering API.
@@ -86,8 +85,8 @@ namespace Dynamic_Static {
                 CursorMode cursorMode { CursorMode::Normal };
                 Resolution resolution { 1280, 720 };
                 Point position { 320, 180 };
-                Window* parent { nullptr };
                 const Monitor* monitor { nullptr };
+                Window* parent { nullptr };
                 bool decorated { true };
                 bool resizable { true };
                 bool visible { true };
@@ -96,8 +95,8 @@ namespace Dynamic_Static {
         private:
             API mAPI { API::Vulkan };
             Version mAPIVersion { 0, 0, 0 };
-            Window* mParent { nullptr };
             const Monitor* mMonitor { nullptr };
+            Window* mParent { nullptr };
             Input::Manager mInputManager;
             mutable void* mGLFWHandle { nullptr };
 

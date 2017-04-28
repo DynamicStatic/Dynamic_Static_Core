@@ -31,7 +31,11 @@
 
 #include "Dynamic_Static/Core/Defines.hpp"
 
-#include <filesystem>
+#if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
+    #include <filesystem>
+#else
+    #include <experimental/filesystem>
+#endif
 
 // NOTE : This file can be removed once C++17 is fully supported.
 //        Until then use dst::filesystem wherever std::filesystem
