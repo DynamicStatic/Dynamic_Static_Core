@@ -67,6 +67,11 @@ namespace Dynamic_Static {
         SharedObjectFactory& operator=(SharedObjectFactory&& other) = default;
 
     public:
+        /**
+         * Gets this SharedObjectFactory's shared objects.
+         * @param <ObjectType> The type of shared objects to get
+         * @return This SharedObjectFactory's shared objects
+         */
         template <typename ObjectType>
         const Collection<std::weak_ptr<ObjectType>> objects() const
         {
@@ -80,7 +85,7 @@ namespace Dynamic_Static {
          * @return The newly created shared object
          */
         template <typename ObjectType, typename ...Args>
-        std::shared_ptr<ObjectType> create(Args&&... args)
+        std::shared_ptr<ObjectType> make_shared(Args&&... args)
         {
             // TODO : Accept an allocator and use std::allocate_shared<>().
             auto sharedObject = std::make_shared<ObjectType>(std::forward<Args>(args)...);
@@ -95,7 +100,7 @@ namespace Dynamic_Static {
          * @return The newly created shared object
          */
         template <typename ObjectType>
-        std::shared_ptr<ObjectType> create(ObjectType* object)
+        std::shared_ptr<ObjectType> make_shared(ObjectType* object)
         {
             auto sharedObject = std::shared_ptr<ObjectType>(object);
             validated_objects<ObjectType>().push_back(sharedObject);

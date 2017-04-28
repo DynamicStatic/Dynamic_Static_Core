@@ -87,9 +87,9 @@ int main(/* int argc, char* argv[] */)
         Widget,
         Whatsit
     > factory;
-    auto w0 = factory.create<Widget>(3.14f);
-    auto w1 = factory.create<Whatsit>(16);
-    auto w2 = factory.create<Widget>(64.0f);
+    auto w0 = factory.make_shared<Widget>(3.14f);
+    auto w1 = factory.make_shared<Whatsit>(16);
+    auto w2 = factory.make_shared<Widget>(64.0f);
     auto ws = factory.objects<Widget>();
     return 0;
 }
