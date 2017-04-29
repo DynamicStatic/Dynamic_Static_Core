@@ -1,5 +1,5 @@
 
-# CMake configuration for Dynamic_Static_Core/Dynamic_Static.Core
+# CMake configuration for Dynamic_Static.Core
 
 include_directories(
     ${DYNAMIC_STATIC_CORE_INCLUDE}
