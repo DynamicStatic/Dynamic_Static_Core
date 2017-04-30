@@ -27,7 +27,16 @@
 =====================================================================================
 */
 
+#include "Dynamic_Static/System/Window.hpp"
+
 int main(/* int argc, char* argv[] */)
 {
+    using namespace dst::sys;
+    Window::Configuration configuration;
+    Window window(configuration);
+    while (true) {
+        Window::update();
+    }
+
     return 0;
 }

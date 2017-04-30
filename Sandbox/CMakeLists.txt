@@ -11,8 +11,15 @@ add_executable(
     ${CMAKE_CURRENT_SOURCE_DIR}/Main.cpp
 )
 
+message(STATUS "GLFW libraries : ${GLFW_LIBRARIES}")
+
+find_package(glfw)
 target_link_libraries(
     Dynamic_Static.Core.Sandbox
     Dynamic_Static.Core
-    pthread
+    glfw ${GLFW_LIBRARIES}
+
+    # pthread
+
+    # X11
 )

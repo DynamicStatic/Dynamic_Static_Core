@@ -3,11 +3,9 @@
 
 include_directories(
     ${DYNAMIC_STATIC_CORE_INCLUDE}
-    ${CMAKE_SOURCE_DIR}/Dynamic_Static.Core/external/glfw-3.2.1/include/
+    ${DYNAMIC_STATIC_CORE_EXTERNAL}/glfw-3.2.1/include/
 )
 
-set(PACKAGE_DIRECTORY ${PROJECT_BINARY_DIR}/package/)
-set(LIBRARY_OUTPUT_PATH ${PACKAGE_DIRECTORY}/lib/)
 add_library(
     Dynamic_Static.Core
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/Core/Algorithm.cpp
@@ -40,17 +38,12 @@ add_library(
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Mouse.State.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Path.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Point.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Resolution.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Win32LeanAndMean.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Window.cpp
 )
 
 set_target_properties(Dynamic_Static.Core PROPERTIES PREFIX "")
-
-add_custom_command(
-    TARGET Dynamic_Static.Core POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/ ${PACKAGE_DIRECTORY}/include/
-)
 
 add_custom_command(
     TARGET Dynamic_Static.Core POST_BUILD
