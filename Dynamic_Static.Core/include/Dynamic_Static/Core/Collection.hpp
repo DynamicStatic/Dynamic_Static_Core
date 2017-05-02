@@ -59,7 +59,7 @@ namespace Dynamic_Static {
         /**
          * Constructs an instance of Collection.
          */
-        Collection(nullptr_t)
+        Collection(std::nullptr_t)
         {
         }
 

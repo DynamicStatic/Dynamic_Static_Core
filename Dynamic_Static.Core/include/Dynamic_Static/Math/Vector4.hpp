@@ -39,7 +39,7 @@
 
 #include "Dynamic_Static/Math/glm/glm.hpp"
 #include "Dynamic_Static/Math/glm/gtx/norm.hpp"
-#include "Dynamic_Static/Math/glm/gtx/hash.hpp"
+// #include "Dynamic_Static/Math/glm/gtx/hash.hpp"
 
 #include <array>
 #include <string>
@@ -54,7 +54,7 @@ namespace Dynamic_Static {
          * Representation of 3D vectors and points.
          */
         struct Vector4 {
-            friend class Quaternion;
+            friend struct Quaternion;
             friend Vector4 operator+(const Vector4&, const Vector4&);
             friend Vector4 operator-(const Vector4&, const Vector4&);
             friend Vector4 operator*(const Vector4&, const Vector4&);
@@ -538,19 +538,20 @@ namespace Dynamic_Static {
 } // namespace Dynamic_Static
 
 namespace std {
-    /**
-     * Function object for dst::math::Vector4's hash function.
-     */
-    template <>
-    struct hash<dst::math::Vector4> {
-        /**
-         * Hash function for dst::math::Vector4.
-         */
-        inline size_t operator()(const dst::math::Vector4& v) const
-        {
-            return hash<glm::vec3>()(DST_TO_GLM_VEC4_CONST(v));
-        }
-    };
+    // TODO : Clang really doesn't want to compile these hash functions.
+    // /**
+    //  * Function object for dst::math::Vector4's hash function.
+    //  */
+    // template <>
+    // struct hash<dst::math::Vector4> {
+    //     /**
+    //      * Hash function for dst::math::Vector4.
+    //      */
+    //     inline size_t operator()(const dst::math::Vector4& v) const
+    //     {
+    //         return hash<glm::vec3>()(DST_TO_GLM_VEC4_CONST(v));
+    //     }
+    // };
 } // namespace std
 
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)

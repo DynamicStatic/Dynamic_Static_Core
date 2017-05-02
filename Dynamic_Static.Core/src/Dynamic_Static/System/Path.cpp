@@ -70,7 +70,6 @@ namespace Dynamic_Static {
 
             std::string remove_extension(const std::string& path, bool recursive)
             {
-                // TODO : Tests and iterate instead of recurse...
                 auto result = path;
                 if (has_extension(path)) {
                     result = dst::remove(path, extension(path));

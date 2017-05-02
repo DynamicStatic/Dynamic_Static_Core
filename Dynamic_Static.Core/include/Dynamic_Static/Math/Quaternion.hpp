@@ -39,6 +39,7 @@
 #pragma warning(push, 0)
 #endif
 
+// #include "Dynamic_Static/Math/glm/gtx/hash.hpp"
 #include "Dynamic_Static/Math/glm/gtc/quaternion.hpp"
 #include "Dynamic_Static/Math/glm/gtx/quaternion.hpp"
 
@@ -300,19 +301,20 @@ namespace Dynamic_Static {
 } // namespace Dynamic_Static
 
 namespace std {
-    /**
-     * Function object for dst::math::Quaternion's hash function.
-     */
-    template <>
-    struct hash<dst::math::Quaternion> {
-        /**
-         * Hash function for dst::math::Quaternion.
-         */
-        inline size_t operator()(const dst::math::Quaternion& q) const
-        {
-            return hash<glm::quat>()(DST_TO_GLM_QUAT_CONST(q));
-        }
-    };
+    // TODO : Clang really doesn't want to compile these hash functions.
+    // /**
+    //  * Function object for dst::math::Quaternion's hash function.
+    //  */
+    // template <>
+    // struct hash<dst::math::Quaternion> {
+    //     /**
+    //      * Hash function for dst::math::Quaternion.
+    //      */
+    //     inline size_t operator()(const dst::math::Quaternion& q) const
+    //     {
+    //         return hash<glm::quat>()(DST_TO_GLM_QUAT_CONST(q));
+    //     }
+    // };
 } // namespace std
 
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)

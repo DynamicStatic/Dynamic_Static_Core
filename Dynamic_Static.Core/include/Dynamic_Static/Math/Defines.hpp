@@ -41,13 +41,8 @@
 
 namespace Dynamic_Static {
     namespace Math {
-        struct AxisAlignedBoundingBox2D;
-        struct AxisAlignedBoundingBox3D;
         struct Color;
-        struct Matrix3x3;
         struct Matrix4x4;
-        struct OrientedBoundingBox2D;
-        struct OrientedBoundingBox3D;
         struct Quaternion;
         struct Vector2;
         struct Vector3;

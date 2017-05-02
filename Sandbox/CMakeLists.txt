@@ -17,7 +17,7 @@ target_link_libraries(
     Dynamic_Static.Core
     glfw ${GLFW_LIBRARIES}
 
-    # pthread
+    pthread
 
     # X11
 )

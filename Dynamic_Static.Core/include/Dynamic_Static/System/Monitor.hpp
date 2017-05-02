@@ -47,6 +47,7 @@ namespace Dynamic_Static {
         class Monitor final
             : public Object {
             friend class Window;
+
         public:
             /**
              * Represents a Monitor mode line.
@@ -80,7 +81,7 @@ namespace Dynamic_Static {
              * Gets this Monitor's name.
              * @return This Monitor's name
              */
-            const std::string& name() const;
+            const std::string& name() const override final;
 
             /**
              * Gets this Monitor's current Mode.

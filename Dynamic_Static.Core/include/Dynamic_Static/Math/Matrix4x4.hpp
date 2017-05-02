@@ -39,6 +39,7 @@
 #endif
 
 #include "Dynamic_Static/Math/glm/glm.hpp"
+// #include "Dynamic_Static/Math/glm/gtx/hash.hpp"
 #include "Dynamic_Static/Math/glm/gtx/transform.hpp"
 
 #include <array>
@@ -407,19 +408,20 @@ namespace Dynamic_Static {
 } // namespace Dynamic_Static
 
 namespace std {
-    /**
-     * Function object for dst::math::Matrix4x4's hash function.
-     */
-    template <>
-    struct hash<dst::math::Matrix4x4> {
-        /**
-         * Hash function for dst::math::Matrix4x4.
-         */
-        inline size_t operator()(const dst::math::Matrix4x4& m) const
-        {
-            return hash<glm::mat4>()(DST_TO_GLM_MAT4_CONST(m));
-        }
-    };
+    // TODO : Clang really doesn't want to compile these hash functions.
+    // /**
+    //  * Function object for dst::math::Matrix4x4's hash function.
+    //  */
+    // template <>
+    // struct hash<dst::math::Matrix4x4> {
+    //     /**
+    //      * Hash function for dst::math::Matrix4x4.
+    //      */
+    //     inline size_t operator()(const dst::math::Matrix4x4& m) const
+    //     {
+    //         return hash<glm::mat4>()(DST_TO_GLM_MAT4_CONST(m));
+    //     }
+    // };
 } // namespace std
 
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)

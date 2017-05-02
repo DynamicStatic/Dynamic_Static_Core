@@ -38,7 +38,8 @@ namespace Dynamic_Static {
         namespace File {
             void remove(const std::string& filePath)
             {
-                dst::filesystem::remove(filePath);
+                // TODO : Clang compile.
+                // dst::filesystem::remove(filePath);
             }
 
             std::vector<uint8_t> read_bytes(const std::string& filePath)

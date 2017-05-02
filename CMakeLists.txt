@@ -3,6 +3,7 @@
 
 cmake_minimum_required(VERSION 3.2)
 project(Dynamic_Static.Core)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall")
 set(PACKAGE_DIRECTORY ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.Package/)

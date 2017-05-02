@@ -39,7 +39,7 @@
 
 #include "Dynamic_Static/Math/glm/glm.hpp"
 #include "Dynamic_Static/Math/glm/gtx/norm.hpp"
-#include "Dynamic_Static/Math/glm/gtx/hash.hpp"
+// #include "Dynamic_Static/Math/glm/gtx/hash.hpp"
 #include "Dynamic_Static/Math/glm/gtx/vector_angle.hpp"
 
 #include <array>
@@ -461,19 +461,20 @@ namespace Dynamic_Static {
 } // namespace Dynamic_Static
 
 namespace std {
-    /**
-     * Function object for dst::math::Vector2's hash function.
-     */
-    template <>
-    struct hash<dst::math::Vector2> {
-        /**
-         * Hash function for dst::math::Vector2.
-         */
-        inline size_t operator()(const dst::math::Vector2& v) const
-        {
-            return hash<glm::vec2>()(DST_TO_GLM_VEC2_CONST(v));
-        }
-    };
+    // TODO : Clang really doesn't want to compile these hash functions.
+    // /**
+    //  * Function object for dst::math::Vector2's hash function.
+    //  */
+    // template <>
+    // struct hash<dst::math::Vector2> {
+    //     /**
+    //      * Hash function for dst::math::Vector2.
+    //      */
+    //     inline size_t operator()(const dst::math::Vector2& v) const
+    //     {
+    //         return hash<glm::vec2>()(DST_TO_GLM_VEC2_CONST(v));
+    //     }
+    // };
 } // namespace std
 
 #if defined(DYNAMIC_STATIC_VISUAL_STUDIO)
