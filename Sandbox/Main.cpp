@@ -33,10 +33,18 @@ int main(/* int argc, char* argv[] */)
 {
     using namespace dst::sys;
     Window::Configuration configuration;
+    configuration.api = Window::API::OpenGL;
+    configuration.apiVersion.major = 4;
+    configuration.apiVersion.minor = 5;
     Window window(configuration);
     while (true) {
         Window::update();
+        auto quitKey = Keyboard::Key::Escape;
+        if (window.input().keyboard().pressed(quitKey)) {
+            break;
+        }
     }
 
     return 0;
 }
+

@@ -137,9 +137,11 @@ namespace Dynamic_Static {
                     throw std::runtime_error("GLFW failed to initialize");
                 }
 
+                /*
                 if (configuration.api == Window::API::Vulkan) {
                     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
                 } else {
+                */
                     if (configuration.api == Window::API::OpenGL) {
                         glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, true);
                         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -147,7 +149,9 @@ namespace Dynamic_Static {
 
                     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, configuration.apiVersion.major);
                     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, configuration.apiVersion.minor);
+                /*
                 }
+                */
             }
         }
 

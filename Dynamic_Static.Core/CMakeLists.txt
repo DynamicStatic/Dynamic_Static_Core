@@ -1,10 +1,21 @@
 
 # CMake configuration for Dynamic_Static.Core
 
+if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "aarch64")
+    set(GLFW_INCLUDE ${DYNAMIC_STATIC_CORE_EXTERNAL}/glfw3/include/)
+else()
+    set(GLFW_INCLUDE ${DYNAMIC_STATIC_CORE_EXTERNAL}/glfw-3.2.1/include/)
+endif()
+
 include_directories(
     ${DYNAMIC_STATIC_CORE_INCLUDE}
-    ${DYNAMIC_STATIC_CORE_EXTERNAL}/glfw-3.2.1/include/
+    ${GLFW_INCLUDE}
 )
+
+# include_directories(
+#     ${DYNAMIC_STATIC_CORE_INCLUDE}
+#     ${DYNAMIC_STATIC_CORE_EXTERNAL}/glfw-3.2.1/include/
+# )
 
 add_library(
     Dynamic_Static.Core

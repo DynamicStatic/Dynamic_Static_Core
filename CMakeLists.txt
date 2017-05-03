@@ -9,6 +9,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall")
 set(PACKAGE_DIRECTORY ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.Package/)
 set(LIBRARY_OUTPUT_PATH ${PACKAGE_DIRECTORY}/lib/)
 
+message(STATUS "CPU : ${CMAKE_SYSTEM_PROCESSOR}")
+
 set(DYNAMIC_STATIC_CORE_EXTERNAL
     ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/external/
 )
@@ -19,13 +21,21 @@ set(DYNAMIC_STATIC_CORE_EXTERNAL
 # include(CheckIncludeFileCXX)
 # include(${DYNAMIC_STATIC_CORE_EXTERNAL}/glfw.cmake)
 
+# set(GLFW_BUILD_TESTS false)
+# set(GLFW_BUILD_EXAMPLES false)
+
+
+
+if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "aarch64")
+    
+else()
+    add_subdirectory(${DYNAMIC_STATIC_CORE_EXTERNAL}/glfw-3.2.1/)
+endif()
+
 set(DYNAMIC_STATIC_CORE_INCLUDE
     ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include/
 )
 
-# set(GLFW_BUILD_TESTS false)
-# set(GLFW_BUILD_EXAMPLES false)
-add_subdirectory(${DYNAMIC_STATIC_CORE_EXTERNAL}/glfw-3.2.1/)
 add_subdirectory(${PROJECT_NAME}/)
 add_subdirectory(Sandbox/)
 add_subdirectory(Tests/)
@@ -33,12 +43,12 @@ add_subdirectory(Tests/)
 set(PLATFORM_BUILD_SCRIPTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/PlatformBuildScripts/)
 
 if (UNIX)
-    add_custom_target(
-        run ALL
-        COMMAND /bin/sh ${PLATFORM_BUILD_SCRIPTS_DIR}/build.sh "${PACKAGE_DIRECTORY}"
-        DEPENDS ${PROJECT_NAME}
-        VERBATIM
-    )
+    # add_custom_target(
+    #     run ALL
+    #     COMMAND /bin/sh ${PLATFORM_BUILD_SCRIPTS_DIR}/build.sh "${PACKAGE_DIRECTORY}"
+    #     DEPENDS ${PROJECT_NAME}
+    #     VERBATIM
+    # )
 endif (UNIX)
 
 if (WIN32)

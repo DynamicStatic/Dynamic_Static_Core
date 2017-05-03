@@ -34,7 +34,14 @@
 #include "GLFW/glfw3.h"
 
 #if defined(DYNAMIC_STATIC_WINDOWS)
-#define GLFW_EXPOSE_NATIVE_WIN32
+    #define GLFW_EXPOSE_NATIVE_WIN32
+#else
 #endif
 
+#if defined(DYNAMIC_STATIC_LINUX)
+    #define GLFW_EXPOSE_NATIVE_X11
+#endif
+
+#define GLFW_EXPOSE_NATIVE_X11
+#define GLFW_EXPOSE_NATIVE_GLX
 #include "GLFW/glfw3native.h"
