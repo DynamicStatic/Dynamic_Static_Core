@@ -1,48 +1,48 @@
 
 /*
-=====================================================================================
+================================================================================
 
-    The MIT License(MIT)
+  MIT License
 
-    Copyright(c) 2016 to this->moment()->next() Dynamic_Static
+  Copyright (c) 2016 Dynamic_Static
 
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files(the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions :
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
 
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
 
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
 
-=====================================================================================
+================================================================================
 */
 
 #pragma once
 
 #include "Dynamic_Static/Core/Defines.hpp"
-#include "Dynamic_Static/Core/IPrintable.hpp"
 #include "Dynamic_Static/Core/NonCopyable.hpp"
 
 #include <string>
 
-namespace Dynamic_Static {
+namespace Dynamic_Static
+{
     /**
-     * Common base for all Dynamic_Static objects.
+     * Common base for Dynamic_Static Objects.
      */
     class Object
-        : public IPrintable
-        , NonCopyable {
-    protected:
+        : NonCopyable
+    {
+    private:
         std::string mName { "Dynamic_Static::Object" };
 
     public:
@@ -71,14 +71,14 @@ namespace Dynamic_Static {
         /**
          * Compares two Objects for equality.
          * @param [in] other The Object to compare to this Object
-         * @return Whether or not the copmared Objects are equal
+         * @return Whether or not the compared Objects are equal
          */
         virtual bool operator==(const Object& other);
 
         /**
          * Compares two Objects for inequality.
          * @param [in] other The Object to compare to this Object
-         * @return Whether or not the copmared Objects are inequal
+         * @return Whether or not the compared Objects are inequal
          */
         virtual bool operator!=(const Object& other);
 
@@ -91,14 +91,8 @@ namespace Dynamic_Static {
 
         /**
          * Sets this Object's name.
-         * @param [in] This Object's name
+         * @param [in] name This Object's name
          */
         virtual void name(const std::string& name);
-
-        /**
-         * Gets this Object's std::string representation.
-         * @return This Object's std::string representation
-         */
-        virtual std::string to_string() const;
     };
 } // namespace Dynamic_Static

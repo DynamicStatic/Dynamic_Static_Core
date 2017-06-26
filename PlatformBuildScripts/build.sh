@@ -1,4 +1,0 @@
-
-#!/bin/bash
-DYNAMIC_STATIC_CORE_HOME="$1"
-export DYNAMIC_STATIC_CORE_HOME

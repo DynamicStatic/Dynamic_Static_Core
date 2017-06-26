@@ -1,63 +1,86 @@
 
 # CMake configuration for Dynamic_Static.Core
 
-if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "aarch64")
-    set(GLFW_INCLUDE ${DYNAMIC_STATIC_CORE_EXTERNAL}/glfw3/include/)
-else()
-    set(GLFW_INCLUDE ${DYNAMIC_STATIC_CORE_EXTERNAL}/glfw-3.2.1/include/)
-endif()
-
-include_directories(
-    ${DYNAMIC_STATIC_CORE_INCLUDE}
-    ${GLFW_INCLUDE}
+set(INCLUDE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/)
+set(INCLUDE_PATH ${INCLUDE_DIRECTORY}/Dynamic_Static/Core/)
+set(INCLUDE_FILES
+    ${INCLUDE_PATH}/Action.hpp
+    ${INCLUDE_PATH}/Algorithm.hpp
+    ${INCLUDE_PATH}/BinaryReader.hpp
+    ${INCLUDE_PATH}/Callback.hpp
+    ${INCLUDE_PATH}/Collection.hpp
+    ${INCLUDE_PATH}/Defines.hpp
+    ${INCLUDE_PATH}/Events.hpp
+    ${INCLUDE_PATH}/Events/Delegate.hpp
+    ${INCLUDE_PATH}/Events/Event.hpp
+    ${INCLUDE_PATH}/Events/Subscribable.hpp
+    ${INCLUDE_PATH}/FileSystem.hpp
+    ${INCLUDE_PATH}/FileSystem/Directory.hpp
+    ${INCLUDE_PATH}/FileSystem/File.hpp
+    ${INCLUDE_PATH}/FileSystem/Path.hpp
+    ${INCLUDE_PATH}/FileSystem/StdFileSystemInclude.hpp
+    ${INCLUDE_PATH}/NonCopyable.hpp
+    ${INCLUDE_PATH}/NonMoveable.hpp
+    ${INCLUDE_PATH}/NotImplementedError.hpp
+    ${INCLUDE_PATH}/Object.hpp
+    ${INCLUDE_PATH}/Random.hpp
+    ${INCLUDE_PATH}/SharedObjectFactory.hpp
+    ${INCLUDE_PATH}/String.hpp
+    ${INCLUDE_PATH}/StringUtilities.hpp
+    ${INCLUDE_PATH}/Threads.hpp
+    ${INCLUDE_PATH}/Threads/Semaphore.hpp
+    ${INCLUDE_PATH}/Threads/ThreadPool.hpp
+    ${INCLUDE_PATH}/Threads/ThreadUtilities.hpp
+    ${INCLUDE_PATH}/Threads/Worker.hpp
+    ${INCLUDE_PATH}/Time.hpp
+    ${INCLUDE_PATH}/ToString.hpp
+    ${INCLUDE_PATH}/TypeUtilities.hpp
+    ${INCLUDE_PATH}/VectorUtilities.hpp
+    ${INCLUDE_PATH}/Version.hpp
+    ${INCLUDE_PATH}/Win32LeanAndMean.hpp
 )
 
-# include_directories(
-#     ${DYNAMIC_STATIC_CORE_INCLUDE}
-#     ${DYNAMIC_STATIC_CORE_EXTERNAL}/glfw-3.2.1/include/
-# )
+set(SOURCE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/source/)
+set(SOURCE_PATH ${SOURCE_DIRECTORY}/Dynamic_Static/Core/)
+set(SOURCE_FILES
+    ${SOURCE_PATH}/BinaryReader.cpp
+    ${SOURCE_PATH}/FileSystem/Directory.cpp
+    ${SOURCE_PATH}/FileSystem/File.cpp
+    ${SOURCE_PATH}/FileSystem/Path.cpp
+    ${SOURCE_PATH}/NotImplementedError.cpp
+    ${SOURCE_PATH}/Object.cpp
+    ${SOURCE_PATH}/String.cpp
+    ${SOURCE_PATH}/StringUtilities.cpp
+    ${SOURCE_PATH}/Threads/Semaphore.cpp
+    ${SOURCE_PATH}/Threads/ThreadPool.cpp
+    ${SOURCE_PATH}/Threads/Worker.cpp
+    ${SOURCE_PATH}/Version.cpp
+    ${SOURCE_PATH}/Win32LeanAndMean.cpp
+)
+
+include_directories(
+    ${INCLUDE_DIRECTORY}
+)
 
 add_library(
     Dynamic_Static.Core
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/Core/Algorithm.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/Core/BinaryReader.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/Core/IPrintable.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/Core/NotImplementedError.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/Core/Object.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/Core/SharedObjectFactory.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/Core/StringUtilities.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/Core/Threads.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/Core/ToString.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/Core/Version.cpp
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/Math/Color.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/Math/Matrix4x4.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/Math/Quaternion.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/Math/Vector2.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/Math/Vector3.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/Math/Vector4.cpp
-
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Directory.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/File.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Input.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Input.Manager.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Keyboard.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Keyboard.State.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Monitor.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Monitor.Mode.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Mouse.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Mouse.State.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Path.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Point.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Resolution.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Win32LeanAndMean.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/Dynamic_Static/System/Window.cpp
+    ${INCLUDE_FILES}
+    ${SOURCE_FILES}
 )
 
+if (MSVC)
+    set(DYNAMIC_STATIC_CORE_DEPENDENCIES
+        PARENT_SCOPE
+    )
+else()
+    set(DYNAMIC_STATIC_CORE_DEPENDENCIES
+        stdc++fs
+        pthread
+        PARENT_SCOPE
+    )
+endif()
+
+set(DYNAMIC_STATIC_CORE_INCLUDE_DIRECTORY ${INCLUDE_DIRECTORY} PARENT_SCOPE)
 set_target_properties(Dynamic_Static.Core PROPERTIES PREFIX "")
-
-add_custom_command(
-    TARGET Dynamic_Static.Core POST_BUILD
-    COMMAND ${CMAKE_COMMAND} -E copy_directory
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/ ${PACKAGE_DIRECTORY}/include/
-)
+create_file_group("${INCLUDE_FILES}")
+create_file_group("${SOURCE_FILES}")

@@ -1,22 +1,61 @@
-# Dynamic_Static.Core provides general purpose C++ utilities.
 
-`Dynamic_Static.Core` requires Visual Studio 2015 with the latest updates.
-Ubuntu 16.04 support will be merged soon.
+# Dynamic_Static.Core
 
-To build on Windows 10 (7 and 8 likely work but are untested), create a `/Dynamic_Static/` directory wherever it's convienient.
-`Dynamic_Static.Core` should live in that directory...ie... `some/path/Dynamic_Static/Dynamic_Static.Core/`.
-Then add the environment variable `DYNAMIC_STATIC_HOME` and point it at the `/Dynamic_Static/` directory.
+Description...
 
-[Rapid Environment Editor](https://www.rapidee.com/en/about) isn't required, but it's a great tool for editing environment variables on Windows.
+___
+___
+On Windows 10 or Ubuntu 16.04, create a directory named **"Dynamic_Static"** wherever is convenient.<br/>
+___
+___
+### Windows 10
+- ***Get Tools***
+    - Download and install [CMake](https://cmake.org/download/).
+    - Download and install [Git and GitBash](https://git-scm.com/downloads)
+    - Download and install [Visual Studio 2017 Community Edition](https://www.visualstudio.com/downloads/).
+    
+- ***Get Code***
+    - From Windows Explorer, in **"Dynamic_Static/"**, right click and select **"Git Bash Here"**
+    - Run `git clone https://github.com/DynamicStatic/Dynamic_Static.Core.git`
 
-Open `Dynamic_Static.Core.sln` in Visual Studio and use `[Alt] + [B], [Alt] + [T]`, then click `Select All`, then click `Build` to build all.
+- ***Build***
+    - From Windows Explorer, in **"Dynamic_Static/"**, right click and select **"Git Bash Here"**
+    - Run the following commands...
+        - `cd Dynamic_Static.Core`
+        - `mkdir build`
+        - `cd build`
+        - `cmake -G "Visual Studio 15 2017 Win64" ..`
+    - In Windows Explorer, explore to **"Dynamic_Static/Dynamic_Static.Core/build/"**
+    - Open **Dynamic_Static.Core.sln** in Visual Studio 2017
+    - In Visual Studio, while holding **[Alt]**, press **[B]** then **[T]** to **Batch Build**, click **"Select All"** then **"Build"**
 
-To run `Dynamic_Static.Core.Tests`, right click on the `Tests` project in the `Solution Explorer`, then click `Set as Startup Project` then run...some of the tests will fail.
+- ***Running Tests***
+    - Right click on the **"Dynamic_Static.Core.Tests"** project in the Solution Explorer and select **"Set as Startup Project"**
+    - Click the **Run (green triangle)** button or press **F5** to begin debugging, or press **[Ctrl] + F5** to run without debugging
 
-Unless otherwise noted, all of the files in `Dynamic_Static.Core` are licensed under the [MIT License](https://opensource.org/licenses/MIT).<br />
+___
+___
+### Ubuntu 16.04
+- ***Get Tools***
+    - Run the following commands...
+        - `sudo apt-get update`
+        - `sudo apt-get git`
+        - `sudo apt-get install cmake`
 
-____
-3rd Party Libraries used by `Dynamic_Static.Core` :<br />
-[glm](http://glm.g-truc.net/) : [The Happy Bunny License and MIT License](http://glm.g-truc.net/copying.txt)
+- ***Get Code***
+    - `cd` into **"Dynamic_Static/"**
+    - Run `git clone https://github.com/DynamicStatic/Dynamic_Static.Core.git`
 
-// TODO : MORE BETTER README.
+- ***Build***
+    - `cd` into **"Dynamic_Static/"**
+    - Run the following commands...
+        - `cd Dynamic_Static.Core`
+        - `mkdir build`
+        - `cd build`
+        - `cmake ..`
+        - `make`
+        - `cd ..`
+
+- ***Running Tests***
+    - `cd` into **"Dynamic_Static/"**
+    - Run `./build/Dynamic_Static.Core.Tests/Dynamic_Static.Core.Tests`

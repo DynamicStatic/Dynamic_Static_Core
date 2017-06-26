@@ -3,63 +3,46 @@
 
 cmake_minimum_required(VERSION 3.2)
 project(Dynamic_Static.Core)
+
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14 -Wall")
-set(PACKAGE_DIRECTORY ${PROJECT_BINARY_DIR}/${PROJECT_NAME}.Package/)
-set(LIBRARY_OUTPUT_PATH ${PACKAGE_DIRECTORY}/lib/)
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
 
-message(STATUS "CPU : ${CMAKE_SYSTEM_PROCESSOR}")
+include(CheckCXXCompilerFlag)
+function(set_cxx_flag CXX_FLAG)
+    CHECK_CXX_COMPILER_FLAG(CXX_FLAG CXX_FLAG_AVAILABLE)
+    if (CXX_FLAG_AVAILABLE)
+        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} CXX_FLAG")
+    endif()
+endfunction()
 
-set(DYNAMIC_STATIC_CORE_EXTERNAL
-    ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/external/
-)
+set_cxx_flag(-W4)
+set_cxx_flag(-Wall)
+set_cxx_flag(-Wextra)
+set_cxx_flag(-Wuninitialized)
+set_cxx_flag(-Wwrite-strings)
+set_cxx_flag(-Wpointer-arith)
+set_cxx_flag(-Wunreachable-code)
+set_cxx_flag(-Wstrict_prototypes)
 
-# include(ExternalProject)
-# include(CheckIncludeFile)
-# include(CheckIncludeFiles)
-# include(CheckIncludeFileCXX)
-# include(${DYNAMIC_STATIC_CORE_EXTERNAL}/glfw.cmake)
+add_definitions(-DUNICODE -D_UNICODE)
 
-# set(GLFW_BUILD_TESTS false)
-# set(GLFW_BUILD_EXAMPLES false)
-
-
-
-if (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "aarch64")
-    
-else()
-    add_subdirectory(${DYNAMIC_STATIC_CORE_EXTERNAL}/glfw-3.2.1/)
-endif()
-
-set(DYNAMIC_STATIC_CORE_INCLUDE
-    ${CMAKE_SOURCE_DIR}/${PROJECT_NAME}/include/
-)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+function(create_file_group FILE_GROUP)
+    foreach(FILE ${FILE_GROUP})
+        get_filename_component(PARENT_DIR "${FILE}" DIRECTORY)
+        string(REPLACE "${CMAKE_CURRENT_SOURCE_DIR}" "" GROUP "${PARENT_DIR}")
+        if (MSVC)
+            string(REPLACE "/" "\\" GROUP "${GROUP}")
+        endif()
+        source_group("${GROUP}" FILES "${FILE}")
+    endforeach()
+endfunction()
 
 add_subdirectory(${PROJECT_NAME}/)
-add_subdirectory(Sandbox/)
-add_subdirectory(Tests/)
+add_subdirectory(${PROJECT_NAME}.Application/)
+add_subdirectory(${PROJECT_NAME}.Tests/)
 
-set(PLATFORM_BUILD_SCRIPTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/PlatformBuildScripts/)
-
-if (UNIX)
-    # add_custom_target(
-    #     run ALL
-    #     COMMAND /bin/sh ${PLATFORM_BUILD_SCRIPTS_DIR}/build.sh "${PACKAGE_DIRECTORY}"
-    #     DEPENDS ${PROJECT_NAME}
-    #     VERBATIM
-    # )
-endif (UNIX)
-
-if (WIN32)
-    # build.bat
-
-    # @ECHO OFF
-    # set PATH="C:\\Some\\Path;%PATH%"
-    # %*
-
-    # add_custom_target(
-    #     ...
-    #     COMMAND cmd /c $CMAKE_CURRENT_SOURCE_DIR}/build.bat
-    # )
-endif (WIN32)
+# NOTE : This configuration will generate directories in the project's root directory for
+#        ALL_BUILD and/or ZERO_CHECK in VS2017 projects...this is a known issue in VS2017.
+#        https://gitlab.kitware.com/cmake/cmake/issues/16458
+#        https://developercommunity.visualstudio.com/content/problem/25240/inconsistent-behaviour-with-output-directory-and-i.html

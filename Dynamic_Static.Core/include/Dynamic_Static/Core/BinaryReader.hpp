@@ -1,33 +1,31 @@
 
 /*
-=====================================================================================
+================================================================================
 
-    The MIT License(MIT)
+  MIT License
 
-    Copyright(c) 2016 to this->moment()->next() Dynamic_Static
+  Copyright (c) 2016 Dynamic_Static
 
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files(the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions :
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
 
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
 
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
 
-=====================================================================================
+================================================================================
 */
-
-#pragma once
 
 #include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/NonCopyable.hpp"
@@ -36,12 +34,14 @@
 #include <vector>
 #include <fstream>
 
-namespace Dynamic_Static {
+namespace Dynamic_Static
+{
     /**
      * Provides high level control over read operations on binary files.
      */
     class BinaryReader
-        : NonCopyable {
+        : NonCopyable
+    {
     private:
         size_t mSize { 0 };
         std::ifstream mFileStream;
@@ -54,20 +54,20 @@ namespace Dynamic_Static {
 
         /**
          * Constructs an instance of BinaryReader.
-         * \n Exception - std::runtime_error : The specified file couldn't be opened
-         * @param [in] filePath The file path to construct this BinaryReader with.
+         * @param [in] filePath The path of the binary file to open for reading
+         * \n Exception - std::runtime_error : File couldn't be opened
          */
         BinaryReader(const std::string& filePath);
 
         /**
          * Moves an instance of BinaryReader.
-         * @param [in] other The BniaryReader to move from
+         * @param [in] other The BinaryReader to move from
          */
         BinaryReader(BinaryReader&& other) = default;
 
         /**
          * Moves an instance of BinaryReader.
-         * @param [in] other The BniaryReader to move from
+         * @param [in] other The BinaryReader to move from
          */
         BinaryReader& operator=(BinaryReader&& other) = default;
 
@@ -79,156 +79,125 @@ namespace Dynamic_Static {
         size_t size() const;
 
         /**
-         * Gets this BinaryReader's postion in the file being read.
-         * @return This BinaryReader's postion in the file being read.
+         * Gets this BinaryReader's position in the file being read.
+         * @return This BinaryReader's position in the file being read
          */
         size_t position() const;
 
         /**
          * Sets this BinaryReader's position in the file being read.
-         * \n Exception - std::runtime_error : The position exceeds the size of the file being read
-         * @param [in] position The byte to set this BinaryReader's position to
+         * @param [in] position This BinaryReader's position in the file being read
+         * \n Exception - std::runtime_error : offset exceeds file size
          */
         void position(size_t position);
 
         /**
-         * TODO : Documentation.
-         * Sets this BinaryReader's position to a specified offset from a specified position.
-         * \n Exception - std::runtime_error : The position after the offset exceeds the size of the file being read
-         * \n Exception - std::runtime_error : The position after the offset is negative
-         * \n Exception - std::logic_error : A value besides std::ios::beg, std::ios::cur, or std::ios::end was passed for seekOrigin
+         * Sets this BinaryReader's position to a given offset from a given origin.
+         * @param [in]           offset The number of bytes to seek from the given origin
+         * @param [in, optional] origin The position to seek from (default = std::ios::cur)
+         * \n Exception - std::runtime_error : offset exceeds file size
+         * \n Exception - std::runtime_error : offset from current position exceeds file size
+         * \n Exception - std::logic_error   : A value besides std::ios::beg, std::ios::cur, or set::ios::end was given for origin
          */
-        void seek(size_t offset, std::ios::seekdir seekOrigin = std::ios::beg);
+        void seek(size_t offset, std::ios::seekdir origin = std::ios::cur);
 
         /**
-         * Opens a file to begin reading.
-         * \n Exception - std::runtime_error :  The specified file couldn't be opened
-         * @param [in] filePath The path to the file to open
+         * Opens a file for reading.
+         * @param [in] filePath The path of the binary file to open for reading
+         * \n Exception - std::runtime_error : File couldn't be opened
          */
         void open(const std::string& filePath);
 
         /**
-         * Closes the file.
+         * Closes the file being read.
          */
         void close();
 
         /**
-         * Extacts an object of a specfied type from this BinaryReader's file without advancing the position in the file.
-         * \n Exception - std::runtime_error : Attempted to read past the end of the file
-         * @param <T> The type of object to extract
-         * @return The extracted object
+         * Reads a given number of elements of a given type into a preallocated buffer.
+         * @param <T>        The type of elements to read
+         * @param [in] data  The address of the buffer to write the read elements into
+         * @param [in] count The number of elements to read
          */
         template <typename T>
-        T peek()
+        void read(T* data, size_t count)
         {
-            T value { };
-            return extract(false, 1, &value);
+            if (mFileStream.is_open() && data && count) {
+                size_t dataSize = sizeof(T) * count;
+                if (position() + dataSize > size()) {
+                    throw std::runtime_error("Attempted to read past the end of the file");
+                }
+
+                mFileStream.read(reinterpret_cast<char*>(data), dataSize);
+            }
         }
 
         /**
-         * Extracts a specified number of objects of a specified type from this BinaryReader's file without advancing the position in the file.
-         * \n Exception - std::runtime_error : Attempted to read past the end of the file
-         * @param <T> The type of objects to extract
-         * @param count The number of objects to extract
-         * @return The extracted objects
-         */
-        template <typename T>
-        std::vector<T> peek(size_t count)
-        {
-            std::vector<T> data;
-            return peek(count, data);
-        }
-
-        /**
-         * Extracts a specified number of objects of a specified type from this BinaryReader's file without advancing the position in the file.
-         * \n Exception - std::runtime_error : Attempted to read past the end of the file
-         * @param <T> The type of objects to extract
-         * @param count The number of objects to extract
-         * @param data  The std::vector that will be populated with the extracted objects
-         */
-        template <typename T>
-        std::vector<T>& peek(size_t count, std::vector<T>& data)
-        {
-            data.resize(count);
-            extract(false, count, data.data());
-            return data;
-        }
-
-        /**
-         * Extracts an object of a specfied type from this BinaryReader's file without.
-         * \n Exception - std::runtime_error : Attempted to read past the end of the file
-         * @param <T> The type of object to extract
-         * @return The extracted object
+         * Reads a single element of a given type.
+         * @param <T> The type of element to read
+         * @return The element read
          */
         template <typename T>
         T read()
         {
             T value { };
-            return extract(true, 1, &value);
+            read(&value, 1);
+            return value;
         }
 
         /**
-         * Extracts a specified number of objects of a specified type from this BinaryReader's file.
-         * \n Exception - std::runtime_error : Attempted to read past the end of the file
-         * @param <T> The type of objects to extract
-         * @param count The number of objects to extract
-         * @return The extracted objects
+         * Peeks a given number of elements of a given type into a preallocated buffer.
+         * @param <T>        The type of elements to peek
+         * @param [in] data  The address of the buffer to write the peeked elements into
+         * @param [in] count The number of elements to peek
          */
         template <typename T>
-        std::vector<T> read(size_t count)
+        void peek(T* data, size_t count)
         {
-            std::vector<T> data;
-            return extract(true, count, data);
+            size_t currentPosition = position();
+            read(data, count);
+            position(currentPosition);
         }
 
         /**
-         * Extracts a specified number of objects of a specified type from this BinaryReader's file.
-         * \n Exception - std::runtime_error : Attempted to read past the end of the file
-         * @param <T> The type of objects to extract
-         * @param count The number of objects to extract
-         * @param data The std::vector that will be populated with the extracted objects
+         * Peeks a single element of a given type.
+         * @param <T> The type of element to peek
+         * @return The element read
          */
         template <typename T>
-        std::vector<T>& read(size_t count, std::vector<T>& data)
+        T peak()
         {
-            data.resize(count);
-            extract(true, count, data.data());
-            return data;
+            T value { };
+            peek(&value, 1);
+            return value;
         }
 
         /**
-         * Gets the contents of the file being read by this BinaryReader.
-         * @param <T> The type to recieve the file contents as
-         * \n Default : uint8_t
-         * @return The contents of the file being read by this BinaryReader
+         * Populates a std::vector with the contents of this BinaryFile's interpreted as a given type.
+         * @param <T>       The type to interpret this BinaryFile's contents as (optional = uint8_t)
+         * @param [in] data The std::vector to populate with this BinaryFile's contents
+         */
+        template <typename T = uint8_t>
+        void contents(std::vector<T>& data)
+        {
+            data.clear();
+            size_t currentPosition = position();
+            position(0);
+            read(data.data(), size() / sizeof(T));
+            position(currentPosition);
+        }
+
+        /**
+         * Gets a std::vector populated with the contents of this BinaryFile's interpreted as a given type.
+         * @param <T> The type to interpret this BinaryFile's contents as (optional = uint8_t)
+         * @return The std::vector populated with this BinaryFile's contents
          */
         template <typename T = uint8_t>
         std::vector<T> contents()
         {
             std::vector<T> data;
-            size_t current_position = position();
-            position(0);
-            read(mSize / sizeof(T), data);
-            position(current_position);
+            contents(data);
             return data;
-        }
-
-    private:
-        template <typename T>
-        void extract(bool advanceFilePosition, size_t count, T* data)
-        {
-            if (count && mFileStream.is_open()) {
-                size_t size = sizeof(T) * count;
-                if (position() + size > mSize) {
-                    throw std::runtime_error("Attempted to read past the end of the file");
-                }
-
-                size_t currentPosition = position();
-                mFileStream.read(reinterpret_cast<char*>(data), size);
-                if (!advanceFilePosition) {
-                    position(currentPosition);
-                }
-            }
         }
     };
 } // namespace Dynamic_Static

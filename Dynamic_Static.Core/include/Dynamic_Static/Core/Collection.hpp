@@ -1,30 +1,30 @@
 
 /*
-=====================================================================================
+================================================================================
 
-    The MIT License(MIT)
+  MIT License
 
-    Copyright(c) 2016 to this->moment()->next() Dynamic_Static
+  Copyright (c) 2016 Dynamic_Static
 
-    Permission is hereby granted, free of charge, to any person obtaining a copy
-    of this software and associated documentation files(the "Software"), to deal
-    in the Software without restriction, including without limitation the rights
-    to use, copy, modify, merge, publish, distribute, sublicense, and / or sell
-    copies of the Software, and to permit persons to whom the Software is
-    furnished to do so, subject to the following conditions :
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to deal
+  in the Software without restriction, including without limitation the rights
+  to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+  copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
 
-    The above copyright notice and this permission notice shall be included in
-    all copies or substantial portions of the Software.
+  The above copyright notice and this permission notice shall be included in all
+  copies or substantial portions of the Software.
 
-    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.IN NO EVENT SHALL THE
-    AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-    LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-    OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-    THE SOFTWARE.
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+  SOFTWARE.
 
-=====================================================================================
+================================================================================
 */
 
 #pragma once
@@ -33,18 +33,21 @@
 
 #include <array>
 #include <vector>
-#include <cassert>
 #include <initializer_list>
 
-namespace Dynamic_Static {
+namespace Dynamic_Static
+{
     /**
-     * Provides a common interface for passing contiguous collections as function arguments.
-     * @param <T> The type of element in this Collection.
+     * Provides a common interface for contiguous collections.
+     * @param <T> This Collection's type
      */
     template <typename T>
-    class Collection final {
-        // FROM : vk::ArrayProxy defined in vulkan.hpp (with slight modifications)...
+    class Collection final
+    {
+        // FROM : vk::ArrayProxy defined in vulkan.hpp (with some modification)...
         //        https://github.com/KhronosGroup/Vulkan-Hpp/blob/master/vulkan/vulkan.hpp
+        // NOTE : This type's purpose is similar to gsl::span
+        //        https://github.com/Microsoft/GSL
 
     private:
         const T* mData { nullptr };
@@ -59,7 +62,7 @@ namespace Dynamic_Static {
         /**
          * Constructs an instance of Collection.
          */
-        Collection(std::nullptr_t)
+        Collection(nullptr_t)
         {
         }
 
@@ -75,10 +78,10 @@ namespace Dynamic_Static {
 
         /**
          * Constructs an instance of Collection.
-         * @param [in] data The address of this Collection's data
+         * @param [in] data  The address of this Collection's data
          * @param [in] count The number of elements in this Collection
          */
-        Collection(const T* data, size_t count)
+        Collection(T* data, size_t count)
             : mData { data }
             , mCount { count }
         {
@@ -86,7 +89,7 @@ namespace Dynamic_Static {
 
         /**
          * Constructs an instance of Collection.
-         * @param <N> The number of elements in this Collection
+         * @param <N>       The number of elements in this Collection
          * @param [in] data This Collection's data
          */
         template <size_t N>
@@ -98,7 +101,7 @@ namespace Dynamic_Static {
 
         /**
          * Constructs an instance of Collection.
-         * @param <N> The number of elements in this Collection
+         * @param <N>       The number of elements in this Collection
          * @param [in] data This Collection's data
          */
         template <size_t N>
@@ -112,7 +115,7 @@ namespace Dynamic_Static {
          * Constructs an instance of Collection.
          * @param [in] data This Collection's data
          */
-        template <class Allocator = std::allocator<typename std::remove_const<T>::type>>
+        template <typename Allocator = std::allocator<typename std::remove_const<T>::type>>
         Collection(std::vector<typename std::remove_const<T>::type, Allocator>& data)
             : mData { data.data() }
             , mCount { data.size() }
@@ -123,7 +126,7 @@ namespace Dynamic_Static {
          * Constructs an instance of Collection.
          * @param [in] data This Collection's data
          */
-        template <class Allocator = std::allocator<typename std::remove_const<T>::type>>
+        template <typename Allocator = std::allocator<typename std::remove_const<T>::type>>
         Collection(const std::vector<typename std::remove_const<T>::type, Allocator>& data)
             : mData { data.data() }
             , mCount { data.size() }
@@ -134,27 +137,27 @@ namespace Dynamic_Static {
          * Constructs an instance of Collection.
          * @param [in] data This Collection's data
          */
-        Collection(std::initializer_list<T> data)
+        Collection(const std::initializer_list<T>& data)
             : mData { data.begin() }
             , mCount { static_cast<size_t>(data.end() - data.begin()) }
         {
         }
 
         /**
-         * Gets a reference to the element at a specified index.
-         * @param [in] index The index of the element to get a reference to
-         * @return A reference to the element at the specified index
+         * Gets a reference to the element at a given index.
+         * @param [in] index The index of the element to get
+         * @return A reference to the element at the given index
          */
         T& operator[](size_t index)
         {
             return mData[index];
         }
 
-        /**
-         * Gets a reference to the element at a specified index.
-         * @param [in] index The index of the element to get a reference to
-         * @return A reference to the element at the specified index
-         */
+         /**
+          * Gets a reference to the element at a given index.
+          * @param [in] index The index of the element to get
+          * @return A reference to the element at the given index
+          */
         const T& operator[](size_t index) const
         {
             return mData[index];
@@ -165,27 +168,9 @@ namespace Dynamic_Static {
          * Gets a pointer to the beginning of this Collection.
          * @return A pointer to the beginning of this Collection
          */
-        T* begin()
-        {
-            return mData;
-        }
-
-        /**
-         * Gets a pointer to the beginning of this Collection.
-         * @return A pointer to the beginning of this Collection
-         */
         const T* begin() const
         {
             return mData;
-        }
-
-        /**
-         * Gets a pointer to the end of this Collection.
-         * @return A pointer to the end of this Collection
-         */
-        T* end()
-        {
-            return mData + mCount;
         }
 
         /**
@@ -201,30 +186,10 @@ namespace Dynamic_Static {
          * Gets a reference to the first element of this Collection.
          * @return A reference to the first element of this Collection
          */
-        T& front()
-        {
-            assert(mData && mCount);
-            return *begin();
-        }
-
-        /**
-         * Gets a reference to the first element of this Collection.
-         * @return A reference to the first element of this Collection
-         */
         const T& front() const
         {
             assert(mData && mCount);
-            return *begin();
-        }
-
-        /**
-         * Gets a reference to the last element of this Collection.
-         * @return A reference to the last element of this Collection
-         */
-        T& back()
-        {
-            assert(mData && mCount);
-            return *(end() - 1);
+            return *mData;
         }
 
         /**
@@ -238,21 +203,12 @@ namespace Dynamic_Static {
         }
 
         /**
-         * Gets a pointer to the underlying array serving as this Collection's storage.
-         * @return A pointer to the underlying array serving as this Collection's storage
+         * Gets a value indicating whether or not this Collection is empty
+         * @return Whether or not this Collection is empty
          */
-        T* data()
+        bool empty() const
         {
-            return mData;
-        }
-
-        /**
-         * Gets a pointer to the underlying array serving as this Collection's storage.
-         * @return A pointer to the underlying array serving as this Collection's storage
-         */
-        const T* data() const
-        {
-            return mData;
+            return mCount == 0;
         }
 
         /**
@@ -270,28 +226,16 @@ namespace Dynamic_Static {
          */
         size_t byte_size() const
         {
-            return mCount * sizeof(T);
+            return sizeof(T) * mCount;
         }
 
         /**
-         * Gets a value indicating whether or not this Collection is empty
-         * @return Whether or not this Collection is empty
-         */
-        bool empty() const
+        * Gets a pointer to the underlying array serving as this Collection's storage.
+        * @return A pointer to the underlying array serving as this Collection's storage
+        */
+        T* data() const
         {
-            return mCount == 0;
+            return mData;
         }
     };
-
-    /**
-     * Gets the size in bytes of a specified Collection.
-     * @param <T> The type of the Collection
-     * @param collection The Collection to get the byte size of
-     * @return The size of the specified Collection
-     */
-    template <typename T>
-    inline size_t byte_size(const Collection<T> collection)
-    {
-        return collection.byte_size();
-    }
 } // namespace Dynamic_Static
