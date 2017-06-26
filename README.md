@@ -1,7 +1,7 @@
 
 # Dynamic_Static.Core
 
-Description...
+Provides light weight, easy to use functions and classes for performing common tasks in C++.
 
 ___
 ___
