@@ -40,6 +40,6 @@ int main(/* int argc, char** argv */)
         dst::VersionPatch
     );
 
-    std::cout << "Dynamic_Static " << version.to_string() << std::endl;
+    std::cout << "Dynamic_Static.Core " << version.to_string() << std::endl;
     return 0;
 }
