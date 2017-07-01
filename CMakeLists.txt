@@ -43,6 +43,6 @@ add_subdirectory(${PROJECT_NAME}.Application/)
 add_subdirectory(${PROJECT_NAME}.Tests/)
 
 # NOTE : This configuration will generate directories in the project's root directory for
-#        ALL_BUILD and/or ZERO_CHECK in VS2017 projects...this is a known issue in VS2017.
+#        ALL_BUILD and / or ZERO_CHECK in VS2017 projects...this is a known issue in VS2017.
 #        https://gitlab.kitware.com/cmake/cmake/issues/16458
 #        https://developercommunity.visualstudio.com/content/problem/25240/inconsistent-behaviour-with-output-directory-and-i.html
