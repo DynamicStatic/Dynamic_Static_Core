@@ -1,8 +1,7 @@
 
-# CMake configuration for Dynamic_Static.Core
+# CMake configuration for Dynamic_Static.Core/source
 
-set(INCLUDE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/)
-set(INCLUDE_PATH ${INCLUDE_DIRECTORY}/Dynamic_Static/Core/)
+set(INCLUDE_PATH ${DST_CORE_INCLUDE}/Dynamic_Static/Core/)
 set(INCLUDE_FILES
     ${INCLUDE_PATH}/Action.hpp
     ${INCLUDE_PATH}/Algorithm.hpp
@@ -40,8 +39,7 @@ set(INCLUDE_FILES
     ${INCLUDE_PATH}/Win32LeanAndMean.hpp
 )
 
-set(SOURCE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/source/)
-set(SOURCE_PATH ${SOURCE_DIRECTORY}/Dynamic_Static/Core/)
+set(SOURCE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/Dynamic_Static/Core/)
 set(SOURCE_FILES
     ${SOURCE_PATH}/BinaryReader.cpp
     ${SOURCE_PATH}/FileSystem/Directory.cpp
@@ -58,29 +56,19 @@ set(SOURCE_FILES
     ${SOURCE_PATH}/Win32LeanAndMean.cpp
 )
 
-include_directories(
-    ${INCLUDE_DIRECTORY}
-)
-
-add_library(
-    Dynamic_Static.Core
-    ${INCLUDE_FILES}
-    ${SOURCE_FILES}
-)
-
 if (MSVC)
-    set(DYNAMIC_STATIC_CORE_DEPENDENCIES
+    set(DST_CORE_DEPENDENCIES
         PARENT_SCOPE
     )
 else()
-    set(DYNAMIC_STATIC_CORE_DEPENDENCIES
+    set(DST_CORE_DEPENDENCIES
         stdc++fs
         pthread
         PARENT_SCOPE
     )
 endif()
 
-set(DYNAMIC_STATIC_CORE_INCLUDE_DIRECTORY ${INCLUDE_DIRECTORY} PARENT_SCOPE)
+add_library(Dynamic_Static.Core ${INCLUDE_FILES} ${SOURCE_FILES})
 set_target_properties(Dynamic_Static.Core PROPERTIES PREFIX "")
 create_file_group("${INCLUDE_FILES}")
 create_file_group("${SOURCE_FILES}")

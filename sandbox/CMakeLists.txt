@@ -1,5 +1,5 @@
 
-# CMake configuration for Dynamic_Static.Core/Application
+# CMake configuration for Dynamic_Static.Core/sandbox
 
 set(INCLUDE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/)
 set(INCLUDE_FILES
@@ -12,19 +12,19 @@ set(SOURCE_FILES
 
 include_directories(
     ${INCLUDE_DIRECTORY}
-    ${DYNAMIC_STATIC_CORE_INCLUDE_DIRECTORY}
+    ${DST_CORE_INCLUDE}
 )
 
 add_executable(
-    Dynamic_Static.Core.Application
+    Dynamic_Static.Core.Sandbox
     ${INCLUDE_FILES}
     ${SOURCE_FILES}
 )
 
 target_link_libraries(
-    Dynamic_Static.Core.Application
+    Dynamic_Static.Core.Sandbox
     Dynamic_Static.Core
-    ${DYNAMIC_STATIC_CORE_DEPENDENCIES}
+    ${DST_CORE_DEPENDENCIES}
 )
 
 create_file_group("${INCLUDE_FILES}")

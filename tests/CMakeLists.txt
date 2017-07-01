@@ -1,5 +1,5 @@
 
-# CMake configuration for Dynamic_Static.Core/Tests
+# CMake configuration for Dynamic_Static.Core/tests
 
 set(SOURCE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/source/)
 set(SOURCE_PATH ${SOURCE_DIRECTORY}Dynamic_Static/Core/)
@@ -19,7 +19,7 @@ set(SOURCE_FILES
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${DYNAMIC_STATIC_CORE_INCLUDE_DIRECTORY}
+    ${DST_CORE_INCLUDE}
 )
 
 add_executable(
@@ -30,7 +30,7 @@ add_executable(
 target_link_libraries(
     Dynamic_Static.Core.Tests
     Dynamic_Static.Core
-    ${DYNAMIC_STATIC_CORE_DEPENDENCIES}
+    ${DST_CORE_DEPENDENCIES}
 )
 
 create_file_group("${INCLUDE_FILES}")
