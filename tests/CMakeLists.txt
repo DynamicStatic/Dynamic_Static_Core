@@ -1,5 +1,5 @@
 
-# CMake configuration for Dynamic_Static.Core/tests
+# CMake configuration for Dynamic_Static.Core.Tests
 
 set(SOURCE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/source/)
 set(SOURCE_PATH ${SOURCE_DIRECTORY}Dynamic_Static/Core/)

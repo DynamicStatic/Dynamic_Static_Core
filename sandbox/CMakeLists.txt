@@ -1,5 +1,5 @@
 
-# CMake configuration for Dynamic_Static.Core/sandbox
+# CMake configuration for Dynamic_Static.Core.Sandbox
 
 set(INCLUDE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/)
 set(INCLUDE_FILES
