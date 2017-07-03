@@ -36,6 +36,10 @@ namespace Dynamic_Static
         *this = std::move(other);
     }
 
+    Object::~Object()
+    {
+    }
+
     Object& Object::operator=(Object&& other)
     {
         if (this != &other) {
