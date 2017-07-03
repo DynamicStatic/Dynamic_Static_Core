@@ -37,7 +37,7 @@
 namespace Dynamic_Static
 {
     /**
-     * Common base for Dynamic_Static Objects.
+     * Common base for Dynamic_Static objects.
      */
     class Object
         : NonCopyable
