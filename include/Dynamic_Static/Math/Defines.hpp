@@ -4,7 +4,7 @@
 
   MIT License
 
-  Copyright (c) 2016 Dynamic_Static
+  Copyright (c) 2017 Dynamic_Static
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -30,6 +30,14 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Defines.hpp"
+
+#include <cmath>
+#define _USE_MATH_DEFINES
+#include <math.h>
+
+#define GLM_FORCE_RADIANS
+#define GLM_ENABLE_EXPERIMENTAL
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
 
 namespace Dynamic_Static
 {

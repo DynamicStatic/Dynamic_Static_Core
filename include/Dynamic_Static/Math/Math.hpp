@@ -29,12 +29,12 @@
 
 #pragma once
 
+#include "Dynamic_Static/Math/Color.hpp"
 #include "Dynamic_Static/Math/Defines.hpp"
-
-namespace Dynamic_Static
-{
-    namespace Math
-    {
-
-    } // namespace Math
-} // namespace Dynamic_Static
+#include "Dynamic_Static/Math/Matrix4x4.hpp"
+#include "Dynamic_Static/Math/Quaternion.hpp"
+#include "Dynamic_Static/Math/Transform.hpp"
+#include "Dynamic_Static/Math/Utilities.hpp"
+#include "Dynamic_Static/Math/Vector2.hpp"
+#include "Dynamic_Static/Math/Vector3.hpp"
+#include "Dynamic_Static/Math/Vector4.hpp"
