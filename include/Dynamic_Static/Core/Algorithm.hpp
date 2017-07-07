@@ -30,8 +30,6 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Defines.hpp"
-#include "Dynamic_Static/Core/Collection.hpp"
-#include "Dynamic_Static/Core/TypeUtilities.hpp"
 
 #include <cmath>
 
