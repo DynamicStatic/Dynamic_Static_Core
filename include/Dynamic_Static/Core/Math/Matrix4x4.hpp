@@ -31,7 +31,7 @@
 
 #include "Dynamic_Static/Core/Math/Defines.hpp"
 #include "Dynamic_Static/Core/Math/Vector3.hpp"
-#include "Dynamic_Static/Core/Math/Vector2.hpp"S
+#include "Dynamic_Static/Core/Math/Vector2.hpp"
 
 #if defined(DYNAMIC_STATIC_MSVC)
     #pragma warning(push, 0)
