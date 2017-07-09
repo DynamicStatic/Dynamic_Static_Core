@@ -38,11 +38,9 @@ namespace Dynamic_Static
 {
     class Transform final
     {
-    private:
-        Vector3 mTranslation { Vector3::Zero };
-        Quaternion mRotation { Quaternion::Identity };
-        Vector3 mScale { Vector3::One };
-
     public:
+        Vector3 translation { Vector3::Zero };
+        Quaternion rotation { Quaternion::Identity };
+        Vector3 scale { Vector3::One };
     };
 } // namespace Dynamic_Static
