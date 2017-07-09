@@ -45,7 +45,7 @@ namespace Dynamic_Static
     struct Matrix4x4;
     struct Quaternion;
     struct Rectangle;
-    struct Transform;
+    class Transform;
     struct Vector2;
     struct Vector3;
     struct Vector4;
