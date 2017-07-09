@@ -30,6 +30,8 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Math/Defines.hpp"
+#include "Dynamic_Static/Core/Math/Vector3.hpp"
+#include "Dynamic_Static/Core/Math/Vector2.hpp"S
 
 #if defined(DYNAMIC_STATIC_MSVC)
     #pragma warning(push, 0)
@@ -63,6 +65,52 @@ namespace Dynamic_Static
         inline std::string to_string() const
         {
             return glm::to_string(*this);
+        }
+
+        /**
+         * Creates a view Matrix4x4.
+         * @param [in] position The position to create the view from
+         * @param [in] target   The target point of the view
+         * @param [in] up       The view's up vector
+         * @return The view Matrix4x4
+         */
+        static inline Matrix4x4 create_view(
+            const Vector3& position, const Vector3& target, const Vector3& up
+        )
+        {
+            return glm::lookAt(position, target, up);
+        }
+
+        /**
+         * Creates a perspective projection Matrix4x4.
+         * @param [in] fieldOfView The projection's field of view
+         * @param [in] aspectRatio The projection's aspect ratio
+         * @param [in] nearPlane   The projection's near plane
+         * @param [in] farPlane    The projection's far plane
+         * @return The perspective projection Matrix4x4
+         */
+        static inline Matrix4x4 create_perspective(
+            float fieldOfView, float aspectRatio, float nearPlane, float farPlane
+        )
+        {
+            return glm::perspective(fieldOfView, aspectRatio, nearPlane, farPlane);
+        }
+
+        /**
+         * Creates an orthographic projection Matrix4x4.
+         * @param [in] left      The projection's left edge
+         * @param [in] right     The projection's right edge
+         * @param [in] top       The projection's top edge
+         * @param [in] bottom    The projection's bottom edge
+         * @param [in] nearPlane The projection's near plane
+         * @param [in] farPlane  The projection's far plane
+         * @return The orhtographic projection Matrix4x4
+         */
+        static inline Matrix4x4 create_orhtographic(
+            float left, float right, float top, float bottom, float nearPlane, float farPlane
+        )
+        {
+            return glm::ortho(left, right, bottom, top, nearPlane, farPlane);
         }
     };
 
