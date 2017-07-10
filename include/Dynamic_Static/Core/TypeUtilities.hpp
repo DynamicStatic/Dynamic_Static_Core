@@ -58,7 +58,7 @@ namespace Dynamic_Static
 namespace Dynamic_Static
 {
     /**
-     * Gets the index of a given type in a template parameter pack.
+     * Gets the index of a the first occurence of a given type in a template parameter pack.
      * @param <Type>  The type to get the index of
      * @param <Types> The parameter pack containing the type to get the index of
      * @return The index of the type in the template parameter pack

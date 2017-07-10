@@ -33,6 +33,7 @@
 #include "Dynamic_Static/Core/TypeUtilities.hpp"
 
 #include <cmath>
+#include <algorithm>
 
 namespace Dynamic_Static
 {
