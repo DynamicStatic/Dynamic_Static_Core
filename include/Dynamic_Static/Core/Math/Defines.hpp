@@ -4,7 +4,7 @@
 
   MIT License
 
-  Copyright (c) 2017 Dynamic_Static
+  Copyright (c) 2016 Dynamic_Static
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -30,14 +30,28 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Defines.hpp"
+#include "Dynamic_Static/Core/ToString.hpp"
+#include "Dynamic_Static/Core/TypeUtilities.hpp"
 
 #include <cmath>
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include <ostream>
 
 #define GLM_FORCE_RADIANS
+#define GLM_FORCE_SIZE_T_LENGTH
 #define GLM_ENABLE_EXPERIMENTAL
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
+
+#if defined(DYNAMIC_STATIC_MSVC)
+    #pragma warning(push, 0)
+#endif
+#include "glm/glm.hpp"
+#include "glm/gtx/norm.hpp"
+#include "glm/gtx/string_cast.hpp"
+#if defined(DYNAMIC_STATIC_MSVC)
+    #pragma warning(pop)
+#endif
 
 namespace Dynamic_Static
 {
@@ -49,4 +63,213 @@ namespace Dynamic_Static
     struct Vector2;
     struct Vector3;
     struct Vector4;
+} // namespace Dynamic_Static
+
+namespace Dynamic_Static
+{
+    namespace detail
+    {
+        template <typename DSTType, typename GLMType>
+        struct VectorBase
+            : public GLMType
+        {
+        public:
+            static constexpr size_t Count { sizeof(GLMType) / sizeof(float) };
+            using GLMBase = GLMType;
+
+        protected:
+            using DSTBase = VectorBase<DSTType, GLMType>;
+            using GLMBase::GLMBase;
+
+            /**
+             * TODO : Documentation.
+             */
+            DSTBase& operator+=(const DSTType& rhs)
+            {
+                *this = static_cast<GLMBase>(*this) + static_cast<GLMBase>(rhs);
+                return *this;
+            }
+
+            /**
+             * TODO : Documentation.
+             */
+            DSTBase& operator-=(const DSTType& rhs)
+            {
+                *this = static_cast<GLMBase>(*this) - static_cast<GLMBase>(rhs);
+                return *this;
+            }
+
+            /**
+             * TODO : Documentation.
+             */
+            template <typename ScalarType>
+            DSTBase& operator*=(const ScalarType& rhs)
+            {
+                *this = static_cast<GLMBase>(*this) * rhs;
+                return *this;
+            }
+
+            /**
+             * TODO : Documentation.
+             */
+            DSTBase& operator*=(const DSTType& rhs)
+            {
+                *this = static_cast<GLMBase>(*this) * static_cast<GLMBase>(rhs);
+                return *this;
+            }
+
+            /**
+             * TODO : Documentation.
+             */
+            template <typename ScalarType>
+            DSTBase& operator/=(const ScalarType& rhs)
+            {
+                *this = static_cast<GLMBase>(*this) / rhs;
+                return *this;
+            }
+
+            /**
+             * TODO : Documentation.
+             */
+            DSTBase& operator/=(const DSTType& rhs)
+            {
+                *this = static_cast<GLMBase>(*this) / static_cast<GLMBase>(rhs);
+                return *this;
+            }
+
+            /**
+             * TODO : Documentation.
+             */
+            operator GLMType&()
+            {
+                return *this;
+            }
+
+            /**
+             * TODO : Documentation.
+             */
+            operator const GLMType&() const
+            {
+                return *this;
+            }
+
+        public:
+            /**
+             * Gets the std::string representation of this Vector.
+             * @return The std::string representation of this Vector
+             */
+            inline std::string to_string() const
+            {
+                std::string str = "(";
+                for (size_t i = 0; i < Count; ++i) {
+                    str += dst::to_string(operator[](i));
+                    if (i < Count - 1) {
+                        str += ", ";
+                    }
+                }
+
+                return str + ")";
+            }
+
+            /**
+             * TODO : Documentation.
+             */
+            inline void normalize()
+            {
+                *this = glm::normalize(*this);
+            }
+
+            /**
+             * TODO : Documentation.
+             */
+            inline DSTType normalized() const
+            {
+                return glm::normalize(*this);
+            }
+        };
+    } // namespace detail
+} // namespace Dynamic_Static
+
+namespace Dynamic_Static
+{
+    namespace detail
+    {
+        /**
+         * TODO : Documentation.
+         */
+        template <typename VectorType>
+        inline VectorType operator+(const VectorType& lhs, const VectorType& rhs)
+        {
+            return VectorType(
+                static_cast<VectorType::GLMBase>(lhs) +
+                static_cast<VectorType::GLMBase>(rhs)
+            );
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        template <typename VectorType>
+        inline VectorType operator-(const VectorType& lhs, const VectorType& rhs)
+        {
+            return VectorType(
+                static_cast<VectorType::GLMBase>(lhs) -
+                static_cast<VectorType::GLMBase>(rhs)
+            );
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        template <typename VectorType, typename ScalarType>
+        inline VectorType operator*(const VectorType& lhs, const ScalarType& rhs)
+        {
+            // NOTE : This cast and construct is lame, but MSVC ADL is having trouble with it otherwise.
+            return lhs * VectorType(static_cast<float>(rhs));
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        template <typename VectorType>
+        inline VectorType operator*(const VectorType& lhs, const VectorType& rhs)
+        {
+            return VectorType(
+                static_cast<VectorType::GLMBase>(lhs) *
+                static_cast<VectorType::GLMBase>(rhs)
+            );
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        template <typename VectorType, typename ScalarType>
+        inline VectorType operator/(const VectorType& lhs, const ScalarType& rhs)
+        {
+            // NOTE : This cast and construct is lame, but MSVC ADL is having trouble with it otherwise.
+            return lhs / VectorType(static_cast<float>(rhs));
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        template <typename VectorType>
+        inline VectorType operator/(const VectorType& lhs, const VectorType& rhs)
+        {
+            return VectorType(
+                static_cast<VectorType::GLMBase>(lhs) /
+                static_cast<VectorType::GLMBase>(rhs)
+            );
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        template <typename DSTType, typename GLMType>
+        inline std::ostream& operator<<(std::ostream& stream, const VectorBase<DSTType, GLMType>& vector)
+        {
+            stream << vector.to_string();
+            return stream;
+        }
+    } // namespace detail
 } // namespace Dynamic_Static

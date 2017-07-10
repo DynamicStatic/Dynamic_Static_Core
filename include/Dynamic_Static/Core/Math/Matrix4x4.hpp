@@ -4,7 +4,7 @@
 
   MIT License
 
-  Copyright (c) 2017 Dynamic_Static
+  Copyright (c) 2016 Dynamic_Static
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -32,6 +32,7 @@
 #include "Dynamic_Static/Core/Math/Defines.hpp"
 #include "Dynamic_Static/Core/Math/Vector3.hpp"
 #include "Dynamic_Static/Core/Math/Vector2.hpp"
+#include "Dynamic_Static/Core/Math/Quaternion.hpp"
 
 #if defined(DYNAMIC_STATIC_MSVC)
     #pragma warning(push, 0)
@@ -57,6 +58,26 @@ namespace Dynamic_Static
     public:
         using glm::mat4::tmat4x4;
 
+        /**
+         * Constructs an instance of Matrix4x4.
+         * @param [in] translation This Matrix4x4's translation
+         * @param [in] rotation    This Matrix4x4's rotation
+         * @param [in] scale       This Matrix4x4's scale
+         */
+        Matrix4x4(const Vector3& translation, const Quaternion& rotation, const Vector3& scale)
+        {
+            *this = create_translation(translation) * create_rotation(rotation) * create_scale(scale);
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        Matrix4x4& operator*=(const Matrix4x4& other)
+        {
+            *this *= other;
+            return *this;
+        }
+
     public:
         /**
          * Gets the std::string representation of this Matrix4x4.
@@ -68,11 +89,68 @@ namespace Dynamic_Static
         }
 
         /**
-         * Creates a view Matrix4x4.
+         * Translates this Matrix4x4.
+         * @param [in] translation The translation to apply to this Matrix4x4
+         */
+        inline void translate(const Vector3& translation)
+        {
+            *this = glm::translate(*this, translation);
+        }
+
+        /**
+         * Rotates this Matrix4x4.
+         * @param [in] rotation The rotation to apply to this Matrix4x4
+         */
+        inline void rotate(const Quaternion& rotation)
+        {
+            *this *= create_rotation(rotation);
+        }
+
+        /**
+         * Scales this Matrix4x4.
+         * @param [in] scale The scale to apply to this Matrix4x4
+         */
+        inline void scale(const Vector3& scale)
+        {
+            *this = glm::scale(scale);
+        }
+
+        /**
+         * Creates a translation.
+         * @param [in] translation The translation
+         * @param [in] The Matrix4x4 representation of the given translation
+         */
+        static inline Matrix4x4 create_translation(const Vector3& translation)
+        {
+            return glm::translate(Identity, translation);
+        }
+
+        /**
+         * Creates a rotation.
+         * @param [in] rotation The rotation
+         * @param [in] The Matrix4x4 representation of the given rotation
+         */
+        static inline Matrix4x4 create_rotation(const Quaternion& rotation)
+        {
+            return glm::toMat4(rotation);
+        }
+
+        /**
+         * Creates a scale.
+         * @param [in] scale The scale
+         * @param [in] The Matrix4x4 representation of the given scale
+         */
+        static inline Matrix4x4 create_scale(const Vector3& scale)
+        {
+            return glm::scale(Identity, scale);
+        }
+
+        /**
+         * Creates a view.
          * @param [in] position The position to create the view from
          * @param [in] target   The target point of the view
          * @param [in] up       The view's up vector
-         * @return The view Matrix4x4
+         * @return The view
          */
         static inline Matrix4x4 create_view(
             const Vector3& position, const Vector3& target, const Vector3& up
@@ -82,12 +160,12 @@ namespace Dynamic_Static
         }
 
         /**
-         * Creates a perspective projection Matrix4x4.
+         * Creates a perspective projection.
          * @param [in] fieldOfView The projection's field of view
          * @param [in] aspectRatio The projection's aspect ratio
          * @param [in] nearPlane   The projection's near plane
          * @param [in] farPlane    The projection's far plane
-         * @return The perspective projection Matrix4x4
+         * @return The perspective projection
          */
         static inline Matrix4x4 create_perspective(
             float fieldOfView, float aspectRatio, float nearPlane, float farPlane
@@ -97,14 +175,14 @@ namespace Dynamic_Static
         }
 
         /**
-         * Creates an orthographic projection Matrix4x4.
+         * Creates an orthographic projection.
          * @param [in] left      The projection's left edge
          * @param [in] right     The projection's right edge
          * @param [in] top       The projection's top edge
          * @param [in] bottom    The projection's bottom edge
          * @param [in] nearPlane The projection's near plane
          * @param [in] farPlane  The projection's far plane
-         * @return The orhtographic projection Matrix4x4
+         * @return The orhtographic projection
          */
         static inline Matrix4x4 create_orhtographic(
             float left, float right, float top, float bottom, float nearPlane, float farPlane
@@ -120,6 +198,38 @@ namespace Dynamic_Static
         0, 0, 1, 0,
         0, 0, 0, 1,
     };
+
+    /**
+     * TODO : Documentation.
+     */
+    Matrix4x4 operator*(const Matrix4x4& lhs, const Matrix4x4& rhs)
+    {
+        return lhs * rhs;
+    }
+
+    /**
+     * TODO : Documentation.
+     */
+    Vector2 operator*(const Matrix4x4& lhs, const Vector2& rhs)
+    {
+        return lhs * rhs;
+    }
+
+    /**
+     * TODO : Documentation.
+     */
+    Vector3 operator*(const Matrix4x4& lhs, const Vector3& rhs)
+    {
+        return lhs * rhs;
+    }
+
+    /**
+     * TODO : Documentation.
+     */
+    Vector4 operator*(const Matrix4x4& lhs, const Vector4& rhs)
+    {
+        return lhs * rhs;
+    }
 
     static_assert(
         sizeof(Matrix4x4) == sizeof(glm::mat4),

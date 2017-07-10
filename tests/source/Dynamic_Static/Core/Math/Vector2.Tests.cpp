@@ -27,41 +27,40 @@
 ================================================================================
 */
 
-#pragma once
+// NOTE : Since Dynamic_Static implements very little mathematical functionality
+//        itself, the purpose of these tests is to ensure that the results given
+//        by Dynamic_Static are consistent regardless of the underlying library.
+//        To this end, the reference library is glm.
 
-#include "Dynamic_Static/Core/Math/Defines.hpp"
+#include "Dynamic_Static/Core/Math/Vector2.hpp"
+#include "Vector.Tests.inl"
 
-#if defined(DYNAMIC_STATIC_MSVC)
-    #pragma warning(push, 0)
-#endif
-#include "glm/glm.hpp"
-#if defined(DYNAMIC_STATIC_MSVC)
-    #pragma warning(pop)
-#endif
+#include "catch.hpp"
 
 namespace Dynamic_Static
 {
-    /**
-     * Converts degrees to radians.
-     * @param <T>     The type of the value to convert to radians
-     * @param degrees The value to convert to radians
-     * @return The value converted to radians
-     */
-    template <typename T>
-    T to_radians(const T& degrees)
+    namespace Tests
     {
-        return glm::radians(degrees);
-    }
+        TEST_CASE("Vector2 addition", "[Vector2]")
+        {
+            DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, +);
+        }
 
-    /**
-     * Converts radians to degrees.
-     * @param <T>     The type of the value to convert to degrees
-     * @param radians The value to convert to degrees
-     * @return The value converted to degrees
-     */
-    template <typename T>
-    T to_degrees(const T& radians)
-    {
-        return glm::degrees(radians);
-    }
+        TEST_CASE("Vector2 subtraction", "[Vector2]")
+        {
+            DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, -);
+        }
+
+        TEST_CASE("Vector2 multiplication", "[Vector2]")
+        {
+            DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, *);
+            DST_VECTOR_SCALAR_OPERATOR_TEST(Vector2, *);
+        }
+
+        TEST_CASE("Vector2 division", "[Vector2]")
+        {
+            DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, /);
+            DST_VECTOR_SCALAR_OPERATOR_TEST(Vector2, /);
+        }
+    } // namespace Tests
 } // namespace Dynamic_Static

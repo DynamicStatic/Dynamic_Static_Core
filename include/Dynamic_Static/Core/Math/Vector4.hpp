@@ -4,7 +4,7 @@
 
   MIT License
 
-  Copyright (c) 2017 Dynamic_Static
+  Copyright (c) 2016 Dynamic_Static
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -36,8 +36,6 @@
     #pragma warning(push, 0)
 #endif
 #include "glm/glm.hpp"
-#include "glm/gtx/norm.hpp"
-#include "glm/gtx/string_cast.hpp"
 #if defined(DYNAMIC_STATIC_MSVC)
     #pragma warning(pop)
 #endif
@@ -48,7 +46,7 @@ namespace Dynamic_Static
      * Represents a 4D vector or point.
      */
     struct Vector4
-        : public glm::vec4
+        : public detail::VectorBase<Vector4, glm::vec4>
     {
     public:
         static const Vector4 Zero;
@@ -65,17 +63,11 @@ namespace Dynamic_Static
         static const Vector4 UnitW;
 
     public:
-        using glm::vec4::tvec4;
-
-    public:
-        /**
-         * Gets the std::string representation of this Vector4.
-         * @return The std::string representation of this Vector4
-         */
-        inline std::string to_string() const
-        {
-            return glm::to_string(*this);
-        }
+        using DSTBase::DSTBase;
+        using DSTBase::operator+=;
+        using DSTBase::operator-=;
+        using DSTBase::operator*=;
+        using DSTBase::operator/=;
     };
 
     const Vector4 Vector4::Zero     { 0, 0, 0, 0 };

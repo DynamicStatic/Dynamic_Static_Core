@@ -4,7 +4,7 @@
 
   MIT License
 
-  Copyright (c) 2017 Dynamic_Static
+  Copyright (c) 2016 Dynamic_Static
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -42,5 +42,41 @@ namespace Dynamic_Static
         Vector3 translation { Vector3::Zero };
         Quaternion rotation { Quaternion::Identity };
         Vector3 scale { Vector3::One };
+
+    public:
+        inline Matrix4x4 world() const
+        {
+            return Matrix4x4(translation, rotation, scale);
+        }
+
+        inline Vector3 up() const
+        {
+            return Vector4(world() * Vector4::Up).normalized();
+        }
+
+        inline Vector3 down() const
+        {
+            return Vector4(world() * Vector4::Down).normalized();
+        }
+
+        inline Vector3 left() const
+        {
+            return Vector4(world() * Vector4::Left).normalized();
+        }
+
+        inline Vector3 right() const
+        {
+            return Vector4(world() * Vector4::Right).normalized();
+        }
+
+        inline Vector3 forward() const
+        {
+            return Vector4(world() * Vector4::Forward).normalized();
+        }
+
+        inline Vector3 backward() const
+        {
+            return Vector4(world() * Vector4::Backward).normalized();
+        }
     };
 } // namespace Dynamic_Static
