@@ -30,8 +30,9 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Math/Defines.hpp"
-#include "Dynamic_Static/Core/Math/Vector3.hpp"
 #include "Dynamic_Static/Core/Math/Vector2.hpp"
+#include "Dynamic_Static/Core/Math/Vector3.hpp"
+#include "Dynamic_Static/Core/Math/Vector4.hpp"
 #include "Dynamic_Static/Core/Math/Quaternion.hpp"
 
 #if defined(DYNAMIC_STATIC_MSVC)
@@ -192,19 +193,12 @@ namespace Dynamic_Static
         }
     };
 
-    const Matrix4x4 Matrix4x4::Identity {
-        1, 0, 0, 0,
-        0, 1, 0, 0,
-        0, 0, 1, 0,
-        0, 0, 0, 1,
-    };
-
     /**
      * TODO : Documentation.
      */
     Matrix4x4 operator*(const Matrix4x4& lhs, const Matrix4x4& rhs)
     {
-        return lhs * rhs;
+        return Matrix4x4::Identity; // lhs * rhs;
     }
 
     /**
@@ -212,7 +206,7 @@ namespace Dynamic_Static
      */
     Vector2 operator*(const Matrix4x4& lhs, const Vector2& rhs)
     {
-        return lhs * rhs;
+        return Vector2::Zero; // lhs * rhs;
     }
 
     /**
@@ -220,7 +214,7 @@ namespace Dynamic_Static
      */
     Vector3 operator*(const Matrix4x4& lhs, const Vector3& rhs)
     {
-        return lhs * rhs;
+        return Vector3::Zero; // lhs * rhs;
     }
 
     /**
@@ -228,7 +222,7 @@ namespace Dynamic_Static
      */
     Vector4 operator*(const Matrix4x4& lhs, const Vector4& rhs)
     {
-        return lhs * rhs;
+        return Vector4::Zero; // lhs * rhs;
     }
 
     static_assert(

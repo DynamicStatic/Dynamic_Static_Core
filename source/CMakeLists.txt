@@ -14,6 +14,11 @@ set(INCLUDE_FILES
     ${INCLUDE_PATH}/FileSystem/Path.hpp
     ${INCLUDE_PATH}/FileSystem/StdFileSystemInclude.hpp
 
+    ${INCLUDE_PATH}/Input.hpp
+    ${INCLUDE_PATH}/Input/Input.Manager.hpp
+    ${INCLUDE_PATH}/Input/Keyboard.hpp
+    ${INCLUDE_PATH}/Input/Mouse.hpp
+
     ${INCLUDE_PATH}/Math.hpp
     ${INCLUDE_PATH}/Math/Color.hpp
     ${INCLUDE_PATH}/Math/Defines.hpp
@@ -59,7 +64,19 @@ set(SOURCE_FILES
     ${SOURCE_PATH}/FileSystem/Directory.cpp
     ${SOURCE_PATH}/FileSystem/File.cpp
     ${SOURCE_PATH}/FileSystem/Path.cpp
-    
+
+    ${SOURCE_PATH}/Input/Input.cpp
+    ${SOURCE_PATH}/Input/Input.Manager.cpp
+    ${SOURCE_PATH}/Input/Keyboard.cpp
+    ${SOURCE_PATH}/Input/Mouse.cpp
+
+    ${SOURCE_PATH}/Math/Color.cpp
+    ${SOURCE_PATH}/Math/Matrix4x4.cpp
+    ${SOURCE_PATH}/Math/Quaternion.cpp
+    ${SOURCE_PATH}/Math/Vector2.cpp
+    ${SOURCE_PATH}/Math/Vector3.cpp
+    ${SOURCE_PATH}/Math/Vector4.cpp
+
     ${SOURCE_PATH}/Threads/Semaphore.cpp
     ${SOURCE_PATH}/Threads/ThreadPool.cpp
     ${SOURCE_PATH}/Threads/Worker.cpp

@@ -4,7 +4,7 @@
 
   MIT License
 
-  Copyright (c) 2016 Dynamic_Static
+  Copyright (c) 2017 Dynamic_Static
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -29,48 +29,64 @@
 
 #pragma once
 
-#include "Dynamic_Static/Core/ToString.hpp"
-#include "Dynamic_Static/Core/Math/Defines.hpp"
-
-#if defined(DYNAMIC_STATIC_MSVC)
-    #pragma warning(push, 0)
-#endif
-#include "glm/glm.hpp"
-#if defined(DYNAMIC_STATIC_MSVC)
-    #pragma warning(pop)
-#endif
+#include "Dynamic_Static/Core/Defines.hpp"
+#include "Dynamic_Static/Core/Input/Mouse.hpp"
+#include "Dynamic_Static/Core/Input/Keyboard.hpp"
 
 namespace Dynamic_Static
 {
     /**
-     * Represents a 3D vector or point.
+     * Provides methods for input device queries.
      */
-    struct Vector3
-        : public detail::VectorBase<Vector3, glm::vec3>
+    class Input final
     {
     public:
-        static const Vector3 Zero;
-        static const Vector3 One;
-        static const Vector3 Up;
-        static const Vector3 Down;
-        static const Vector3 Left;
-        static const Vector3 Right;
-        static const Vector3 Forward;
-        static const Vector3 Backward;
-        static const Vector3 UnitX;
-        static const Vector3 UnitY;
-        static const Vector3 UnitZ;
+        class Manager;
+
+    private:
+        Mouse mMouse;
+        Keyboard mKeyboard;
+
+    private:
+        Input() = default;
 
     public:
-        using DSTBase::DSTBase;
-        using DSTBase::operator+=;
-        using DSTBase::operator-=;
-        using DSTBase::operator*=;
-        using DSTBase::operator/=;
-    };
+        /**
+         * Gets this Input's Mouse.
+         * @return This Input's Mouse
+         */
+        Mouse& mouse();
 
-    static_assert(
-        sizeof(Vector3) == sizeof(glm::vec3),
-        "sizeof(Vector3) must equal sizeof(glm::vec3)"
-    );
+        /**
+         * Gets this Input's Mouse.
+         * @return This Input's Mouse
+         */
+        const Mouse& mouse() const;
+
+        /**
+         * Gets this Input's Keyboard.
+         * @return This Input's Keyboard
+         */
+        Keyboard& keyboard();
+
+        /**
+         * Gets this Input's Keyboard.
+         * @return This Input's Keyboard
+         */
+        const Keyboard& keyboard() const;
+
+        /**
+         * Resets this Input.
+         */
+        void reset();
+
+    private:
+        void update(
+            const Mouse::State& mouseState,
+            const Keyboard::State& keyboardState
+        );
+
+    private:
+        friend Manager;
+    };
 } // namespace Dynamic_Static

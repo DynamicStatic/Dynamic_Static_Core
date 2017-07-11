@@ -4,7 +4,7 @@
 
   MIT License
 
-  Copyright (c) 2016 Dynamic_Static
+  Copyright (c) 2017 Dynamic_Static
 
   Permission is hereby granted, free of charge, to any person obtaining a copy
   of this software and associated documentation files (the "Software"), to deal
@@ -27,50 +27,49 @@
 ================================================================================
 */
 
-#pragma once
-
-#include "Dynamic_Static/Core/ToString.hpp"
-#include "Dynamic_Static/Core/Math/Defines.hpp"
-
-#if defined(DYNAMIC_STATIC_MSVC)
-    #pragma warning(push, 0)
-#endif
-#include "glm/glm.hpp"
-#if defined(DYNAMIC_STATIC_MSVC)
-    #pragma warning(pop)
-#endif
+#include "Dynamic_Static/Core/Input/Input.Manager.hpp"
 
 namespace Dynamic_Static
 {
-    /**
-     * Represents a 3D vector or point.
-     */
-    struct Vector3
-        : public detail::VectorBase<Vector3, glm::vec3>
+    const Input& Input::Manager::input() const
     {
-    public:
-        static const Vector3 Zero;
-        static const Vector3 One;
-        static const Vector3 Up;
-        static const Vector3 Down;
-        static const Vector3 Left;
-        static const Vector3 Right;
-        static const Vector3 Forward;
-        static const Vector3 Backward;
-        static const Vector3 UnitX;
-        static const Vector3 UnitY;
-        static const Vector3 UnitZ;
+        return mInput;
+    }
 
-    public:
-        using DSTBase::DSTBase;
-        using DSTBase::operator+=;
-        using DSTBase::operator-=;
-        using DSTBase::operator*=;
-        using DSTBase::operator/=;
-    };
+    Input& Input::Manager::input()
+    {
+        return mInput;
+    }
 
-    static_assert(
-        sizeof(Vector3) == sizeof(glm::vec3),
-        "sizeof(Vector3) must equal sizeof(glm::vec3)"
-    );
+    const Mouse::State& Input::Manager::mouse_state() const
+    {
+        return mMouseState;
+    }
+
+    Mouse::State& Input::Manager::mouse_state()
+    {
+        return mMouseState;
+    }
+
+    const Keyboard::State& Input::Manager::keyboard_state() const
+    {
+        return mKeyboardState;
+    }
+
+    Keyboard::State& Input::Manager::keyboard_state()
+    {
+        return mKeyboardState;
+    }
+
+    void Input::Manager::update()
+    {
+        mInput.update(mMouseState, mKeyboardState);
+    }
+
+    void Input::Manager::reset()
+    {
+        mInput.reset();
+        mMouseState.reset();
+        mKeyboardState.reset();
+    }
 } // namespace Dynamic_Static

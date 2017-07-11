@@ -67,8 +67,6 @@ namespace Dynamic_Static
         }
     };
 
-    const Quaternion Quaternion::Identity { 0, 0, 0, 1 };
-
     static_assert(
         sizeof(Quaternion) == sizeof(glm::quat),
         "sizeof(Quaternion) must equal sizeof(glm::quat)"
