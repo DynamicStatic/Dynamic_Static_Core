@@ -27,8 +27,6 @@
 ================================================================================
 */
 
-#pragma once
-
 #include "Dynamic_Static/Core/Math/Vector3.hpp"
 
 namespace Dynamic_Static

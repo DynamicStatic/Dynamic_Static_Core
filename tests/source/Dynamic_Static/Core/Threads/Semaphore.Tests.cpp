@@ -36,8 +36,6 @@
 #include <thread>
 #include <atomic>
 
-#include <iostream>
-
 namespace Dynamic_Static
 {
     namespace Tests
@@ -75,7 +73,7 @@ namespace Dynamic_Static
         TEST_CASE("Semaphore can wait() and notify() a single thread", "[Threads.Semaphore]")
         {
             Semaphore semaphore;
-            std::atomic<size_t> counter = 0;
+            std::atomic<size_t> counter { 0 };
             auto thread = create_threads(
                 1,
                 [&]()
@@ -100,7 +98,7 @@ namespace Dynamic_Static
         TEST_CASE("Semaphore can wait() and notify() multiple threads", "[Threads.Semaphore]")
         {
             Semaphore semaphore;
-            std::atomic<size_t> counter = 0;
+            std::atomic<size_t> counter { 0 };
             auto threads = create_threads(
                 ThreadCount,
                 [&]()
@@ -123,7 +121,7 @@ namespace Dynamic_Static
         TEST_CASE("Semaphore can time out wait()", "[Threads.Semaphore]")
         {
             Semaphore semaphore;
-            std::atomic<size_t> counter = 0;
+            std::atomic<size_t> counter { 0 };
             auto threads = create_threads(
                 ThreadCount,
                 [&]()
@@ -140,7 +138,7 @@ namespace Dynamic_Static
         TEST_CASE("Semaphore can notify_all()", "[Threads.Semaphore]")
         {
             Semaphore semaphore;
-            std::atomic<size_t> counter = 0;
+            std::atomic<size_t> counter { 0 };
             auto threads = create_threads(
                 ThreadCount,
                 [&]()
@@ -165,7 +163,7 @@ namespace Dynamic_Static
             REQUIRE(semaphore.value() == NotifyCount * 2);
             size_t value = semaphore.value();
 
-            std::atomic<size_t> counter = 0;
+            std::atomic<size_t> counter { 0 };
             auto threads = create_threads(
                 ThreadCount,
                 [&]()
@@ -186,7 +184,7 @@ namespace Dynamic_Static
         TEST_CASE("Notify waiting threads when Semaphore is destroyed", "[Threads.Semaphore]")
         {
             auto semaphore = std::make_unique<Semaphore>();
-            std::atomic<size_t> counter = 0;
+            std::atomic<size_t> counter { 0 };
             auto threads = create_threads(
                 ThreadCount,
                 [&]()

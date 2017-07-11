@@ -27,8 +27,6 @@
 ================================================================================
 */
 
-#pragma once
-
 #include "Dynamic_Static/Core/Math/Color.hpp"
 
 namespace Dynamic_Static

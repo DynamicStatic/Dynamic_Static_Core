@@ -36,8 +36,6 @@
     #pragma warning(push, 0)
 #endif
 #include "glm/glm.hpp"
-#include "glm/gtx/norm.hpp"
-#include "glm/gtx/string_cast.hpp"
 #if defined(DYNAMIC_STATIC_MSVC)
     #pragma warning(pop)
 #endif
@@ -48,7 +46,7 @@ namespace Dynamic_Static
      * Represents a 4 channel color.
      */
     struct Color
-        : public glm::vec4
+        : public detail::VectorBase<Vector4, glm::vec4>
     {
     public:
         static const Color White;
@@ -194,17 +192,11 @@ namespace Dynamic_Static
         static const Color YellowGreen;
 
     public:
-        using glm::vec4::tvec4;
-
-    public:
-        /**
-         * Gets the std::string representation of this Vector4.
-         * @return The std::string representation of this Vector4
-         */
-        inline std::string to_string() const
-        {
-            return glm::to_string(*this);
-        }
+        using DSTBase::DSTBase;
+        using DSTBase::operator+=;
+        using DSTBase::operator-=;
+        using DSTBase::operator*=;
+        using DSTBase::operator/=;
     };
 
     static_assert(

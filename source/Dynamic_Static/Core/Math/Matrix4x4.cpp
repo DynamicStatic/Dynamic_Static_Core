@@ -27,8 +27,6 @@
 ================================================================================
 */
 
-#pragma once
-
 #include "Dynamic_Static/Core/Math/Matrix4x4.hpp"
 
 namespace Dynamic_Static

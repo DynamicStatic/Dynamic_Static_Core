@@ -162,7 +162,7 @@ namespace Dynamic_Static
             {
                 std::string str = "(";
                 for (size_t i = 0; i < Count; ++i) {
-                    str += dst::to_string(operator[](i));
+                    str += dst::to_string((*this)[i]);
                     if (i < Count - 1) {
                         str += ", ";
                     }
@@ -201,8 +201,8 @@ namespace Dynamic_Static
         inline VectorType operator+(const VectorType& lhs, const VectorType& rhs)
         {
             return VectorType(
-                static_cast<VectorType::GLMBase>(lhs) +
-                static_cast<VectorType::GLMBase>(rhs)
+                static_cast<typename VectorType::GLMBase>(lhs) +
+                static_cast<typename VectorType::GLMBase>(rhs)
             );
         }
 
@@ -213,8 +213,8 @@ namespace Dynamic_Static
         inline VectorType operator-(const VectorType& lhs, const VectorType& rhs)
         {
             return VectorType(
-                static_cast<VectorType::GLMBase>(lhs) -
-                static_cast<VectorType::GLMBase>(rhs)
+                static_cast<typename VectorType::GLMBase>(lhs) -
+                static_cast<typename VectorType::GLMBase>(rhs)
             );
         }
 
@@ -235,8 +235,8 @@ namespace Dynamic_Static
         inline VectorType operator*(const VectorType& lhs, const VectorType& rhs)
         {
             return VectorType(
-                static_cast<VectorType::GLMBase>(lhs) *
-                static_cast<VectorType::GLMBase>(rhs)
+                static_cast<typename VectorType::GLMBase>(lhs) *
+                static_cast<typename VectorType::GLMBase>(rhs)
             );
         }
 
@@ -257,8 +257,8 @@ namespace Dynamic_Static
         inline VectorType operator/(const VectorType& lhs, const VectorType& rhs)
         {
             return VectorType(
-                static_cast<VectorType::GLMBase>(lhs) /
-                static_cast<VectorType::GLMBase>(rhs)
+                static_cast<typename VectorType::GLMBase>(lhs) /
+                static_cast<typename VectorType::GLMBase>(rhs)
             );
         }
 
