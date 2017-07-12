@@ -85,17 +85,11 @@ namespace Dynamic_Static
             const Mouse::State& mouseState,
             const Keyboard::State& keyboardState
         );
-
-    private:
-        friend Manager;
     };
 } // namespace Dynamic_Static
 
 namespace Dynamic_Static
 {
-    /**
-     * TODO : Documentation.
-     */
     class Input::Manager final
     {
     private:

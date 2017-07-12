@@ -27,7 +27,7 @@
 ================================================================================
 */
 
-#include "Dynamic_Static/Core/Input/Input.Manager.hpp"
+#include "Dynamic_Static/Core/Input.hpp"
 
 namespace Dynamic_Static
 {
