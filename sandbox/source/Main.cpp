@@ -30,6 +30,8 @@
 #include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/Version.hpp"
 
+#include "Dynamic_Static/Core/Input.hpp"
+
 #include <iostream>
 
 int main(/* int argc, char** argv */)
@@ -39,6 +41,9 @@ int main(/* int argc, char** argv */)
         dst::VersionMinor,
         dst::VersionPatch
     );
+
+    dst::Input::Manager inputManager;
+
 
     std::cout << "Dynamic_Static.Core " << version.to_string() << std::endl;
     return 0;
