@@ -176,7 +176,7 @@ namespace Dynamic_Static
              */
             inline void normalize()
             {
-                *this = glm::normalize(*this);
+                *this = glm::normalize(static_cast<GLMBase>(*this));
             }
 
             /**
@@ -184,7 +184,7 @@ namespace Dynamic_Static
              */
             inline DSTType normalized() const
             {
-                return glm::normalize(*this);
+                return glm::normalize(static_cast<GLMBase>(*this));
             }
         };
     } // namespace detail

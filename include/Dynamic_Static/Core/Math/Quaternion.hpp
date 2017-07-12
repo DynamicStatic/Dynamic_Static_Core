@@ -63,7 +63,7 @@ namespace Dynamic_Static
          */
         inline std::string to_string() const
         {
-			return std::string("TODO : Quaternion::to_string()");
+            return std::string("TODO : Quaternion::to_string()");
             // return glm::to_string(*this);
         }
     };

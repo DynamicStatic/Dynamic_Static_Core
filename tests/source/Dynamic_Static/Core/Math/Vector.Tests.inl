@@ -40,10 +40,13 @@
 
 #include <utility>
 
-#define DST_CREATE_VECTOR_PAIRS(VECTOR_TYPE)                            \
+#define DST_CREATE_VECTOR_PAIR(VECTOR_TYPE)                             \
 auto vectors = random_vector_pair<VECTOR_TYPE, VECTOR_TYPE::GLMBase>(); \
 auto dst0 = std::get<VECTOR_TYPE>(vectors);                             \
 auto glm0 = std::get<VECTOR_TYPE::GLMBase>(vectors);                    \
+
+#define DST_CREATE_VECTOR_PAIRS(VECTOR_TYPE)                            \
+DST_CREATE_VECTOR_PAIR(VECTOR_TYPE);                                    \
 vectors = random_vector_pair<VECTOR_TYPE, VECTOR_TYPE::GLMBase>();      \
 auto dst1 = std::get<VECTOR_TYPE>(vectors);                             \
 auto glm1 = std::get<VECTOR_TYPE::GLMBase>(vectors);
@@ -86,6 +89,24 @@ auto glm1 = std::get<VECTOR_TYPE::GLMBase>(vectors);
         glm0 OPERATOR##= scalar;                                                  \
         dst0 OPERATOR##= scalar;                                                  \
         REQUIRE(dst0 == glm0);                                                    \
+    }                                                                             \
+}
+
+#define DST_VECTOR_NORMALIZE_TEST(VECTOR_TYPE)                                    \
+{                                                                                 \
+    DST_CREATE_VECTOR_PAIR(VECTOR_TYPE);                                          \
+    SECTION(#VECTOR_TYPE ".normalize()")                                          \
+    {                                                                             \
+        dst0.normalize();                                                         \
+        REQUIRE(dst0 == glm::normalize(glm0));                                    \
+    }                                                                             \
+                                                                                  \
+    SECTION(#VECTOR_TYPE ".normalized()")                                         \
+    {                                                                             \
+        auto dstVector = dst0.normalized();                                       \
+        auto correctType = std::is_same<decltype(dstVector), VECTOR_TYPE>::value; \
+        REQUIRE(dstVector == glm::normalize(glm0));                               \
+        REQUIRE(correctType);                                                     \
     }                                                                             \
 }
 

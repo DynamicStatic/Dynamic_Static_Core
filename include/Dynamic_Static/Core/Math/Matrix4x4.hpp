@@ -61,6 +61,14 @@ namespace Dynamic_Static
 
         /**
          * Constructs an instance of Matrix4x4.
+         */
+        Matrix4x4()
+        {
+            *this = Identity;
+        }
+
+        /**
+         * Constructs an instance of Matrix4x4.
          * @param [in] translation This Matrix4x4's translation
          * @param [in] rotation    This Matrix4x4's rotation
          * @param [in] scale       This Matrix4x4's scale
@@ -86,7 +94,7 @@ namespace Dynamic_Static
          */
         inline std::string to_string() const
         {
-			return std::string("TODO : Matrix4x4::to_string()");
+            return std::string("TODO : Matrix4x4::to_string()");
             // return glm::to_string(*this);
         }
 

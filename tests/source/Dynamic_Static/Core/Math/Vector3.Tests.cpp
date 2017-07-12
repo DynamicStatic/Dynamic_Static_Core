@@ -62,5 +62,10 @@ namespace Dynamic_Static
             DST_VECTOR_VECTOR_OPERATOR_TEST(Vector3, /);
             DST_VECTOR_SCALAR_OPERATOR_TEST(Vector3, /);
         }
+
+        TEST_CASE("Vector3 normalize", "[Vector3]")
+        {
+            DST_VECTOR_NORMALIZE_TEST(Vector3);
+        }
     } // namespace Tests
 } // namespace Dynamic_Static
