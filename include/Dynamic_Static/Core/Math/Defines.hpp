@@ -44,6 +44,8 @@
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 
 #if defined(DYNAMIC_STATIC_MSVC)
+// NOTE : GLM generates a bunch of warnings on MSVC, we're not going to edit
+//        GLM to clear them so we don't want them adding noise to the build.
     #pragma warning(push, 0)
 #endif
 #include "glm/glm.hpp"
