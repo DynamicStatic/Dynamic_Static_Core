@@ -38,10 +38,9 @@ namespace Dynamic_Static
     {
     }
 
-    std::string Version::to_string()
+    std::string Version::to_string() const
     {
         return
-            "v" +
             dst::to_string(major) + "." +
             dst::to_string(minor) + "." +
             dst::to_string(patch);

@@ -64,6 +64,6 @@ namespace Dynamic_Static
          * Gets the std::string representation of this Version.
          * @return The std::string representation of this Version
          */
-        std::string to_string();
+        std::string to_string() const;
     };
 } // namespace Dynamic_Static
