@@ -116,7 +116,7 @@ namespace Dynamic_Static
         {
             // TODO : Why isn't std::get<>() by type working?
             //        http://en.cppreference.com/w/cpp/utility/tuple/get
-            constexpr size_t index = dst::type_index<T, Ts...>();
+            constexpr size_t index = dst::type_index<T, ObjectTypes...>();
             auto& objects = std::get<index>(mSharedObjects);
             objects.erase(
                 std::remove_if(
