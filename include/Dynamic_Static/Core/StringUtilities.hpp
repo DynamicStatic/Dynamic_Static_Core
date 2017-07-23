@@ -34,8 +34,8 @@
 
 #include <string>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Removes all occurences of a given character sequence from a given std::string.
      * @param [in] str  The std::string to remove the given character sequence from
@@ -74,4 +74,5 @@ namespace Dynamic_Static
      * @return An std::string with the completed case conversion
      */
     std::string to_lower(const std::string& str);
+
 } // namespace Dynamic_Static

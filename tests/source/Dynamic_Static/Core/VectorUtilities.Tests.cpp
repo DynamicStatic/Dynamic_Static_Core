@@ -35,89 +35,89 @@
 #include <set>
 #include <string>
 
-namespace Dynamic_Static
-{
-    namespace Tests
+namespace Dynamic_Static {
+namespace Tests {
+
+    static constexpr size_t TestCount = 128;
+
+    class Animal
     {
-        static constexpr size_t TestCount = 128;
+    private:
+        std::string mName;
 
-        class Animal
-        {
-        private:
-            std::string mName;
+    public:
+        Animal(const std::string& name) : mName { name } { }
+        const std::string& name() const { return mName; }
+    };
 
-        public:
-            Animal(const std::string& name) : mName { name } { }
-            const std::string& name() const { return mName; }
-        };
+    class Dog final : public Animal { public: using Animal::Animal; };
+    class Cat final : public Animal { public: using Animal::Animal; };
 
-        class Dog final : public Animal { public: using Animal::Animal; };
-        class Cat final : public Animal { public: using Animal::Animal; };
-
-        std::string create_random_name()
-        {
-            std::string name = "name";
-            for (size_t i = 0; i < name.size(); ++i) {
-                name[i] = static_cast<char>(dst::Random.range(32, 126));
-            }
-
-            return name;
+    std::string create_random_name()
+    {
+        std::string name = "name";
+        for (size_t i = 0; i < name.size(); ++i) {
+            name[i] = static_cast<char>(dst::Random.range(32, 126));
         }
 
-        TEST_CASE("transform()", "[VectorUtilitites]")
-        {
-            std::vector<Dog> dogs;
-            for (size_t i = 0; i < TestCount; ++i) {
-                dogs.push_back(Dog(create_random_name()));
-            }
+        return name;
+    }
 
-            auto cats = convert<Dog, Cat>(
-                dogs,
-                [](const Dog& dog)
-                {
-                    return Cat(dog.name());
-                }
-            );
-
-            bool success = true;
-            for (size_t i = 0; i < dogs.size(); ++i) {
-                if (dogs[i].name() != cats[i].name()) {
-                    success = false;
-                    break;
-                }
-            }
-
-            REQUIRE(success);
+    TEST_CASE("transform()", "[VectorUtilitites]")
+    {
+        std::vector<Dog> dogs;
+        for (size_t i = 0; i < TestCount; ++i) {
+            dogs.push_back(Dog(create_random_name()));
         }
 
-        TEST_CASE("remove_duplicates()", "[VectorUtilities]")
-        {
-            std::vector<int> integers;
-            integers.reserve(TestCount);
-            for (size_t i = 0; i < TestCount; ++i) {
-                integers.push_back(dst::Random.value<int>());
+        auto cats = convert<Dog, Cat>(
+            dogs,
+            [](const Dog& dog)
+            {
+                return Cat(dog.name());
             }
+        );
 
-            for (auto& i : integers) {
-                if (dst::Random.probability(0.5f)) {
-                    i = integers[dst::Random.index(integers.size())];
-                }
+        bool success = true;
+        for (size_t i = 0; i < dogs.size(); ++i) {
+            if (dogs[i].name() != cats[i].name()) {
+                success = false;
+                break;
             }
-
-            remove_duplicates(integers);
-
-            bool success = true;
-            std::set<int> integerSet;
-            for (const auto& i : integers) {
-                if (integerSet.find(i) != integerSet.end()) {
-                    success = false;
-                    break;
-                }
-
-                integerSet.insert(i);
-            }
-
-            REQUIRE(success);
         }
-    } // namespace Tests
+
+        REQUIRE(success);
+    }
+
+    TEST_CASE("remove_duplicates()", "[VectorUtilities]")
+    {
+        std::vector<int> integers;
+        integers.reserve(TestCount);
+        for (size_t i = 0; i < TestCount; ++i) {
+            integers.push_back(dst::Random.value<int>());
+        }
+
+        for (auto& i : integers) {
+            if (dst::Random.probability(0.5f)) {
+                i = integers[dst::Random.index(integers.size())];
+            }
+        }
+
+        remove_duplicates(integers);
+
+        bool success = true;
+        std::set<int> integerSet;
+        for (const auto& i : integers) {
+            if (integerSet.find(i) != integerSet.end()) {
+                success = false;
+                break;
+            }
+
+            integerSet.insert(i);
+        }
+
+        REQUIRE(success);
+    }
+
+} // namespace Tests
 } // namespace Dynamic_Static

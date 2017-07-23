@@ -37,30 +37,30 @@
 
 #include "catch.hpp"
 
-namespace Dynamic_Static
-{
-    namespace Tests
+namespace Dynamic_Static {
+namespace Tests {
+
+    TEST_CASE("Vector2 addition", "[Vector2]")
     {
-        TEST_CASE("Vector2 addition", "[Vector2]")
-        {
-            DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, +);
-        }
+        DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, +);
+    }
 
-        TEST_CASE("Vector2 subtraction", "[Vector2]")
-        {
-            DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, -);
-        }
+    TEST_CASE("Vector2 subtraction", "[Vector2]")
+    {
+        DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, -);
+    }
 
-        TEST_CASE("Vector2 multiplication", "[Vector2]")
-        {
-            DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, *);
-            DST_VECTOR_SCALAR_OPERATOR_TEST(Vector2, *);
-        }
+    TEST_CASE("Vector2 multiplication", "[Vector2]")
+    {
+        DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, *);
+        DST_VECTOR_SCALAR_OPERATOR_TEST(Vector2, *);
+    }
 
-        TEST_CASE("Vector2 division", "[Vector2]")
-        {
-            DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, /);
-            DST_VECTOR_SCALAR_OPERATOR_TEST(Vector2, /);
-        }
-    } // namespace Tests
+    TEST_CASE("Vector2 division", "[Vector2]")
+    {
+        DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, /);
+        DST_VECTOR_SCALAR_OPERATOR_TEST(Vector2, /);
+    }
+
+} // namespace Tests
 } // namespace Dynamic_Static

@@ -31,11 +31,11 @@
 
 #include "Dynamic_Static/Core/Defines.hpp"
 
-#include <string>
 #include <stdexcept>
+#include <string>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Exception throw when a requested function or operation is not implemented.
      */
@@ -49,4 +49,5 @@ namespace Dynamic_Static
          */
         NotImplementedError(const std::string& message = std::string());
     };
+
 } // namespace Dynamic_Static

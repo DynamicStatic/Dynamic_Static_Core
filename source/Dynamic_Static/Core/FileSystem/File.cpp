@@ -31,8 +31,8 @@
 #include "Dynamic_Static/Core/BinaryReader.hpp"
 #include "Dynamic_Static/Core/FileSystem/StdFileSystemInclude.hpp"
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     void File::remove(const std::string& /* filePath */)
     {
         // TODO : Clang compile.
@@ -73,4 +73,5 @@ namespace Dynamic_Static
         contents.insert(0, begin, bytes.size());
         contents.append("\0");
     }
+
 } // namespace Dynamic_Static

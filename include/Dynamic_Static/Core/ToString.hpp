@@ -31,11 +31,11 @@
 
 #include "Dynamic_Static/Core/Defines.hpp"
 
-#include <string>
 #include <sstream>
+#include <string>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Gets the std::string representation of a given int.
      * @return The std::string representation of the given int
@@ -145,4 +145,5 @@ namespace Dynamic_Static
         strStr << "0x" << std::hex << value;
         return strStr.str();
     }
+
 } // namespace Dynamic_Static

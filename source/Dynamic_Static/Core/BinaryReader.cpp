@@ -30,8 +30,8 @@
 #include "Dynamic_Static/Core/BinaryReader.hpp"
 #include "Dynamic_Static/Core/ToString.hpp"
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     BinaryReader::BinaryReader(const std::string& filePath)
     {
         // TODO : BinaryReader should accept a file interface.
@@ -111,4 +111,5 @@ namespace Dynamic_Static
         mFileStream.close();
         mSize = 0;
     }
+
 } // namespace Dynamic_Static

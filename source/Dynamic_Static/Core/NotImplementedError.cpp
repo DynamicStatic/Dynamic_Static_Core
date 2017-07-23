@@ -29,10 +29,11 @@
 
 #include "Dynamic_Static/Core/NotImplementedError.hpp"
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     NotImplementedError::NotImplementedError(const std::string& message)
         : std::logic_error("Not implemented" + (!message.empty() ? " : " + message : message))
     {
     }
+
 } // namespace Dynamic_Static

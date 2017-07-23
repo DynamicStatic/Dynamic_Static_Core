@@ -32,11 +32,11 @@
 #include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/TypeUtilities.hpp"
 
-#include <cmath>
 #include <algorithm>
+#include <cmath>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Rounds a given floating point value to the nearest whole number then casts the result to a given type.
      * @param <RT> The type to cast the rounded result to
@@ -112,4 +112,5 @@ namespace Dynamic_Static
 
         return std::fma(t, v1, std::fma(-t, v0, v0));
     }
+
 } // namespace Dynamic_Static

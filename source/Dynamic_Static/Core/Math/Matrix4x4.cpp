@@ -29,12 +29,13 @@
 
 #include "Dynamic_Static/Core/Math/Matrix4x4.hpp"
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     const Matrix4x4 Matrix4x4::Identity {
         1, 0, 0, 0,
         0, 1, 0, 0,
         0, 0, 1, 0,
         0, 0, 0, 1,
     };
+
 } // namespace Dynamic_Static

@@ -30,23 +30,23 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Math/Defines.hpp"
+#include "Dynamic_Static/Core/Math/Quaternion.hpp"
 #include "Dynamic_Static/Core/Math/Vector2.hpp"
 #include "Dynamic_Static/Core/Math/Vector3.hpp"
 #include "Dynamic_Static/Core/Math/Vector4.hpp"
-#include "Dynamic_Static/Core/Math/Quaternion.hpp"
 
 #if defined(DYNAMIC_STATIC_MSVC)
     #pragma warning(push, 0)
 #endif
 #include "glm/glm.hpp"
-#include "glm/gtx/transform.hpp"
 #include "glm/gtx/string_cast.hpp"
+#include "glm/gtx/transform.hpp"
 #if defined(DYNAMIC_STATIC_MSVC)
     #pragma warning(pop)
 #endif
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Represents a 4 x 4 matrix.
      */
@@ -238,4 +238,5 @@ namespace Dynamic_Static
         sizeof(Matrix4x4) == sizeof(glm::mat4),
         "sizeof(Matrix4x4) must equal sizeof(glm::mat4)"
     );
+
 } // namespace Dynamic_Static

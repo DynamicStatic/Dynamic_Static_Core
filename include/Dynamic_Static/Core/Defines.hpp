@@ -29,12 +29,11 @@
 
 #pragma once
 
-#include <string>
-#include <cstdlib>
-#include <cstddef>
-#include <cstdint>
-#include <cstring>
 #include <cassert>
+#include <cstddef>
+#include <cstring>
+#include <cstdint>
+#include <cstdlib>
 
 #if defined(__X86_64__) || defined(_WIN64)
     #ifndef DYNAMIC_STATIC_64_BIT
@@ -74,8 +73,8 @@
 #define DYNAMIC_STATIC_CORE_VERSION_MINOR (0)
 #define DYNAMIC_STATIC_CORE_VERSION_PATCH (0)
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     static constexpr uint32_t VersionMajor { DYNAMIC_STATIC_CORE_VERSION_MAJOR };
     static constexpr uint32_t VersionMinor { DYNAMIC_STATIC_CORE_VERSION_MINOR };
     static constexpr uint32_t VersionPatch { DYNAMIC_STATIC_CORE_VERSION_PATCH };
@@ -89,6 +88,7 @@ namespace Dynamic_Static
     {
         return static_cast<size_t>(value);
     }
+
 } // namespace Dynamic_Static
 
 namespace dst = Dynamic_Static;

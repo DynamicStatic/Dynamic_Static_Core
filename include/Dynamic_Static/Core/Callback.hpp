@@ -29,13 +29,13 @@
 
 #pragma once
 
-#include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/Action.hpp"
+#include "Dynamic_Static/Core/Defines.hpp"
 
 #include <utility>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Encapsulates a subscribable Action callable by a given type.
      * @param <CallerType> The type of object that can execute this Callback
@@ -70,7 +70,7 @@ namespace Dynamic_Static
 
     private:
         /**
-         * Executes this Callback<>.
+         * Executes this Callback.
          * \n NOTE : This method can only be called by an object of type CallerType
          * @param [in] args The arguments to execute this Callback with
          */
@@ -82,7 +82,7 @@ namespace Dynamic_Static
         }
 
         /**
-         * Executes this Callback<>.
+         * Executes this Callback.
          * \n NOTE : This method can only be called by an object of type CallerType
          * @param [in] args The arguments to execute this Callback with
          */
@@ -93,4 +93,5 @@ namespace Dynamic_Static
             }
         }
     };
+
 } // namespace Dynamic_Static

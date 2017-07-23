@@ -29,8 +29,8 @@
 
 #include "Dynamic_Static/Core/String.hpp"
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     String::String(char c)
         : mStr { c }
     {
@@ -55,4 +55,5 @@ namespace Dynamic_Static
     {
         return mStr;
     }
+
 } // namespace Dynamic_Static

@@ -42,8 +42,8 @@
     #pragma warning(pop)
 #endif
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Represents a 3D rotation.
      */
@@ -72,4 +72,5 @@ namespace Dynamic_Static
         sizeof(Quaternion) == sizeof(glm::quat),
         "sizeof(Quaternion) must equal sizeof(glm::quat)"
     );
+
 } // namespace Dynamic_Static

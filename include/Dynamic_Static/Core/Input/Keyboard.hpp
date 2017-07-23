@@ -33,8 +33,8 @@
 
 #include <bitset>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Provides methods for Keyboard queries.
      */
@@ -338,14 +338,16 @@ namespace Dynamic_Static
     private:
         friend class Input;
     };
+
 } // namespace Dynamic_Static
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Converts a GLFW key to a Keyboard::Key.
      * @param [in] glfwJKey The GLFW key to convert to a Keyboard::Key
      * @return The converted Keyboard::Key
      */
     Keyboard::Key glfw_to_dst_key(int glfwKey);
+
 }

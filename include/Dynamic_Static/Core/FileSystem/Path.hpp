@@ -29,78 +29,78 @@
 
 #pragma once
 
-#include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/Collection.hpp"
+#include "Dynamic_Static/Core/Defines.hpp"
 
 #include <string>
 
-namespace Dynamic_Static
-{
-    namespace Path
-    {
-        /**
-         * Scrubs a given path.
-         * @param [in] path The path to scrub
-         * @reutrn The scrubbed path
-         */
-        std::string scrub(const std::string& path);
+namespace Dynamic_Static {
+namespace Path {
 
-        /**
-         * Gets the absolute path from a path relative to the current working directory.
-         * @param [in] path The relative path to get the absolute path for
-         * @return The absolute path
-         */
-        std::string absolute(const std::string& path);
+    /**
+     * Scrubs a given path.
+     * @param [in] path The path to scrub
+     * @reutrn The scrubbed path
+     */
+    std::string scrub(const std::string& path);
 
-        /**
-         * Combines two paths.
-         * @param [in] path0 The first path
-         * @param [in] path1 The second path
-         * @return The combined path
-         */
-        std::string combine(const std::string& path0, const std::string& path1);
+    /**
+     * Gets the absolute path from a path relative to the current working directory.
+     * @param [in] path The relative path to get the absolute path for
+     * @return The absolute path
+     */
+    std::string absolute(const std::string& path);
 
-        /**
-         * Combines multiple paths.
-         * @param [in] paths The paths to combine
-         * @return The combined path
-         */
-        std::string combine(const Collection<std::string>& paths);
+    /**
+     * Combines two paths.
+     * @param [in] path0 The first path
+     * @param [in] path1 The second path
+     * @return The combined path
+     */
+    std::string combine(const std::string& path0, const std::string& path1);
 
-        /**
-         * Gets a value indicating whether or not a given path has a file extension.
-         * @param [in] path The path to check for a file extension
-         * @return Whether or not the given path has a file extension
-         */
-        bool has_extension(const std::string& path);
+    /**
+     * Combines multiple paths.
+     * @param [in] paths The paths to combine
+     * @return The combined path
+     */
+    std::string combine(const Collection<std::string>& paths);
 
-        /**
-         * Gets the file extension of a given path.
-         * @param [in] path The path to get the file extension from
-         * @return The file extension of the given path
-         */
-        std::string extension(const std::string& path);
+    /**
+     * Gets a value indicating whether or not a given path has a file extension.
+     * @param [in] path The path to check for a file extension
+     * @return Whether or not the given path has a file extension
+     */
+    bool has_extension(const std::string& path);
 
-        /**
-         * Removes the file extension from a given path.
-         * @param [in]           path      The path to remove the file extension from
-         * @param [in, optional] recursive Whether or not to remove all '.' separated file extensions (default = false)
-         * @return The path the file extension removed
-         */
-        std::string remove_extension(const std::string& path, bool recursive = false);
+    /**
+     * Gets the file extension of a given path.
+     * @param [in] path The path to get the file extension from
+     * @return The file extension of the given path
+     */
+    std::string extension(const std::string& path);
 
-        /**
-         * Gets the file name and extension of a given path.
-         * @param [in] path The path to get the file name and extension from
-         * @return The file name and extension of the given path
-         */
-        std::string file_name(const std::string& path);
+    /**
+     * Removes the file extension from a given path.
+     * @param [in]           path      The path to remove the file extension from
+     * @param [in, optional] recursive Whether or not to remove all '.' separated file extensions (default = false)
+     * @return The path the file extension removed
+     */
+    std::string remove_extension(const std::string& path, bool recursive = false);
 
-        /**
-         * Gets the directory name of the given path.
-         * @param [in] path The path to get the directory name from
-         * @return The directory name of the given path
-         */
-        std::string directory_name(const std::string& path);
-    } // namespace Path
+    /**
+     * Gets the file name and extension of a given path.
+     * @param [in] path The path to get the file name and extension from
+     * @return The file name and extension of the given path
+     */
+    std::string file_name(const std::string& path);
+
+    /**
+     * Gets the directory name of the given path.
+     * @param [in] path The path to get the directory name from
+     * @return The directory name of the given path
+     */
+    std::string directory_name(const std::string& path);
+
+} // namespace Path
 } // namespace Dynamic_Static

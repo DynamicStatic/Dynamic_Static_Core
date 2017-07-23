@@ -29,18 +29,18 @@
 
 #pragma once
 
-#include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/Collection.hpp"
+#include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/NonCopyable.hpp"
 #include "Dynamic_Static/Core/TypeUtilities.hpp"
 
+#include <algorithm>
+#include <memory>
 #include <tuple>
 #include <vector>
-#include <memory>
-#include <algorithm>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Encapsulates std::weak_ptr access to groups of objects managed by std::shared_ptrs.
      * @param <ObjectTypes> The types of shared objects to maintain std:weak_ptrs to
@@ -135,4 +135,5 @@ namespace Dynamic_Static
             return objects;
         }
     };
+
 } // namespace dynamic_static

@@ -29,7 +29,8 @@
 
 #include "Dynamic_Static/Core/Math/Quaternion.hpp"
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     const Quaternion Quaternion::Identity { 0, 0, 0, 1 };
+
 } // namespace Dynamic_Static

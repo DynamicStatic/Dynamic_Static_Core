@@ -110,29 +110,29 @@ auto glm1 = std::get<VECTOR_TYPE::GLMBase>(vectors);
     }                                                                             \
 }
 
-namespace Dynamic_Static
-{
-    namespace Tests
+namespace Dynamic_Static {
+namespace Tests {
+
+    static constexpr size_t TestCount { 64 };
+
+    static inline float random_float()
     {
-        static constexpr size_t TestCount { 64 };
+        return dst::Random.range(-1024.0f, 1024.0f);
+    }
 
-        static inline float random_float()
-        {
-            return dst::Random.range(-1024.0f, 1024.0f);
+    template <typename DSTVectorType, typename GLMVectorType>
+    static inline std::pair<DSTVectorType, GLMVectorType> random_vector_pair()
+    {
+        DSTVectorType dstVector;
+        GLMVectorType glmVector;
+        for (size_t i = 0; i < DSTVectorType::Count; ++i) {
+            auto value = random_float();
+            dstVector[i] = value;
+            glmVector[i] = value;
         }
 
-        template <typename DSTVectorType, typename GLMVectorType>
-        static inline std::pair<DSTVectorType, GLMVectorType> random_vector_pair()
-        {
-            DSTVectorType dstVector;
-            GLMVectorType glmVector;
-            for (size_t i = 0; i < DSTVectorType::Count; ++i) {
-                auto value = random_float();
-                dstVector[i] = value;
-                glmVector[i] = value;
-            }
+        return std::make_pair(dstVector, glmVector);
+    }
 
-            return std::make_pair(dstVector, glmVector);
-        }
-    } // namespace Tests
+} // namespace Tests
 } // namespace Dynamic_Static

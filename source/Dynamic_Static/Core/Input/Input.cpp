@@ -29,8 +29,8 @@
 
 #include "Dynamic_Static/Core/Input.hpp"
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     Mouse& Input::mouse()
     {
         return mMouse;
@@ -65,4 +65,5 @@ namespace Dynamic_Static
         mMouse.update(mouseState);
         mKeyboard.update(keyboardState);
     }
+
 } // namespace Dynamic_Static

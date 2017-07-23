@@ -40,8 +40,8 @@
     #pragma warning(pop)
 #endif
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Represents a 3D vector or point.
      */
@@ -73,4 +73,5 @@ namespace Dynamic_Static
         sizeof(Vector3) == sizeof(glm::vec3),
         "sizeof(Vector3) must equal sizeof(glm::vec3)"
     );
+
 } // namespace Dynamic_Static

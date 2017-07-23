@@ -35,8 +35,8 @@
 
 #include <vector>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Represents a pool of one or more Workers.
      */
@@ -80,4 +80,5 @@ namespace Dynamic_Static
          */
         void wait();
     };
+
 } // namespace Dynamic_Static

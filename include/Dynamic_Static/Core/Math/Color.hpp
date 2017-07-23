@@ -40,8 +40,8 @@
     #pragma warning(pop)
 #endif
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Represents a 4 channel color.
      */
@@ -203,4 +203,5 @@ namespace Dynamic_Static
         sizeof(Color) == sizeof(glm::vec4),
         "sizeof(Color) must equal sizeof(glm::vec4)"
     );
+
 } // namespace Dynamic_Static

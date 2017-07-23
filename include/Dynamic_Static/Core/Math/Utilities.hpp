@@ -39,8 +39,8 @@
     #pragma warning(pop)
 #endif
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Converts degrees to radians.
      * @param <T>     The type of the value to convert to radians
@@ -64,4 +64,5 @@ namespace Dynamic_Static
     {
         return glm::degrees(radians);
     }
+
 } // namespace Dynamic_Static

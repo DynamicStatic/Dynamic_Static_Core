@@ -31,8 +31,8 @@
 #include "Dynamic_Static/Core/StringUtilities.hpp"
 #include "Dynamic_Static/Core/FileSystem/StdFileSystemInclude.hpp"
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     std::string Path::scrub(const std::string& path)
     {
         return dst::reduce_sequence(dst::replace(path, '\\', '/'),'/');
@@ -91,4 +91,5 @@ namespace Dynamic_Static
     {
         return dst::Path::scrub(dst::filesystem::path(path).parent_path().string());
     }
+
 } // namespace Dynamic_Static

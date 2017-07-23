@@ -31,8 +31,8 @@
 
 #if defined(DYNAMIC_STATIC_WINDOWS)
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     Win32Exception::Win32Exception()
         : Win32Exception(GetLastError())
     {
@@ -48,10 +48,11 @@ namespace Dynamic_Static
     {
         return mResult;
     }
+
 } // namespace Dynamic_Static
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     std::string DWORD_to_string(DWORD dword)
     {
         // TODO : This function doesn't work for all cases...
@@ -113,6 +114,7 @@ namespace Dynamic_Static
     {
         return dst::to_string(static_cast<DWORD>(HRESULT_CODE(hresult)));
     }
+
 } // namespace Dynamic_Static
 
 #endif

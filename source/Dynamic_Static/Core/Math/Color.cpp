@@ -29,8 +29,8 @@
 
 #include "Dynamic_Static/Core/Math/Color.hpp"
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     const Color Color::White                { 1.0f,       1.0f,       1.0f,       1.0f };
     const Color Color::Black                { 0.0f,       0.0f,       0.0f,       1.0f };
     const Color Color::Transparent          { 0.0f,       0.0f,       0.0f,       0.0f };
@@ -172,4 +172,5 @@ namespace Dynamic_Static
     const Color Color::WhiteSmoke           { 0.960784f,  0.960784f,  0.960784f,  1.0f };
     const Color Color::Yellow               { 1.0f,       1.0f,       0.0f,       1.0f };
     const Color Color::YellowGreen          { 0.603922f,  0.803922f,  0.196078f,  1.0f };
+
 } // namespace Dynamic_Static

@@ -30,13 +30,12 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Defines.hpp"
-// #include "Dynamic_Static/Core/Input/Point.hpp"
 #include "Dynamic_Static/Core/Math/Vector2.hpp"
 
 #include <bitset>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Provides methods for mouse queries.
      */
@@ -197,14 +196,16 @@ namespace Dynamic_Static
     private:
         friend class Input;
     };
+
 } // namespace Dynamic_Static
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Converts a GLFW mouse button to a Mouse::Button.
      * @param [in] glfwMouseButton The GLFW mouse button to convert to a Mouse::Button
      * @return The converted Mouse::Button
      */
     Mouse::Button glfw_to_dst_mouse_button(int glfwMouseButton);
+
 } // namespace Dynamic_Static

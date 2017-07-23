@@ -33,30 +33,30 @@
 
 #include <type_traits>
 
-namespace Dynamic_Static
-{
-    namespace detail
+namespace Dynamic_Static {
+namespace detail {
+
+    template <typename TypeBegin, typename ...Types>
+    struct Index;
+
+    template <typename TypeBegin, typename ...Types>
+    struct Index<TypeBegin, TypeBegin, Types...>
+        : std::integral_constant<size_t, 0>
     {
-        template <typename TypeBegin, typename ...Types>
-        struct Index;
+    };
 
-        template <typename TypeBegin, typename ...Types>
-        struct Index<TypeBegin, TypeBegin, Types...>
-            : std::integral_constant<size_t, 0>
-        {
-        };
+    template <typename TypeItr, typename TypeItrIncr, typename ...Types>
+    struct Index<TypeItr, TypeItrIncr, Types...>
+        : std::integral_constant<size_t, Index<TypeItr, Types...>::value + 1>
+    {
+        // FROM : http://stackoverflow.com/a/30736376/3453616
+    };
 
-        template <typename TypeItr, typename TypeItrIncr, typename ...Types>
-        struct Index<TypeItr, TypeItrIncr, Types...>
-            : std::integral_constant<size_t, Index<TypeItr, Types...>::value + 1>
-        {
-            // FROM : http://stackoverflow.com/a/30736376/3453616
-        };
-    } // namespace detail
+} // namespace detail
 } // namespace Dynamic_Static
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Gets the index of a the first occurence of a given type in a template parameter pack.
      * @param <Type>  The type to get the index of
@@ -68,4 +68,5 @@ namespace Dynamic_Static
     {
         return dst::detail::Index<Type, Types...>::value;
     }
+
 } // namespace Dynamic_Static

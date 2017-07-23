@@ -30,12 +30,12 @@
 #include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/NonCopyable.hpp"
 
+#include <fstream>
 #include <string>
 #include <vector>
-#include <fstream>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Provides high level control over read operations on binary files.
      */
@@ -200,4 +200,5 @@ namespace Dynamic_Static
             return data;
         }
     };
+
 } // namespace Dynamic_Static

@@ -30,8 +30,8 @@
 #include "Dynamic_Static/Core/Threads/ThreadPool.hpp"
 #include "Dynamic_Static/Core/Algorithm.hpp"
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     ThreadPool::ThreadPool(size_t workerCount)
     {
         size_t maxWorkerCount = std::thread::hardware_concurrency();
@@ -75,4 +75,5 @@ namespace Dynamic_Static
             worker.wait();
         }
     }
+
 } // namespace Dynamic_Static

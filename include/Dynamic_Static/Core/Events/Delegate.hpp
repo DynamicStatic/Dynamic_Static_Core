@@ -29,14 +29,14 @@
 
 #pragma once
 
-#include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/Action.hpp"
+#include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/Events/Subscribable.hpp"
 
 #include <utility>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Function objet used for Event subscription.
      * @param <Args> The parameter types for this Delegate's Action type
@@ -102,4 +102,5 @@ namespace Dynamic_Static
             detail::Subscribable<Args...>::clear();
         }
     };
+
 } // namespace Dynamic_Static

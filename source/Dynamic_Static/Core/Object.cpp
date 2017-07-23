@@ -29,8 +29,8 @@
 
 #include "Dynamic_Static/Core/Object.hpp"
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     Object::Object(Object&& other)
     {
         *this = std::move(other);
@@ -67,4 +67,5 @@ namespace Dynamic_Static
     {
         mName = name;
     }
+
 } // namespace Dynamic_Static

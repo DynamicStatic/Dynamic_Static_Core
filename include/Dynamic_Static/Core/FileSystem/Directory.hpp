@@ -34,20 +34,20 @@
 
 #include <string>
 
-namespace Dynamic_Static
-{
-    namespace Directory
-    {
-        /**
-         * Gets the current working directory.
-         * @return The current working directory
-         */
-        std::string current();
+namespace Dynamic_Static {
+namespace Directory {
 
-        /**
-         * Gets the executable directory.
-         * @return The executable directory
-         */
-        std::string executable();
-    } // namespace Directory
+    /**
+     * Gets the current working directory.
+     * @return The current working directory
+     */
+    std::string current();
+
+    /**
+     * Gets the executable directory.
+     * @return The executable directory
+     */
+    std::string executable();
+
+} // namespace Directory
 } // namespace Dynamic_Static

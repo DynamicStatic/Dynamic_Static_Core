@@ -29,15 +29,15 @@
 
 #pragma once
 
-#include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/Algorithm.hpp"
+#include "Dynamic_Static/Core/Defines.hpp"
 
-#include <random>
-#include <limits>
 #include <algorithm>
+#include <limits>
+#include <random>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Provides high level control over random number generation.
      */
@@ -199,12 +199,14 @@ namespace Dynamic_Static
             return D >= 1 ? range<uint32_t>(1, D) : 0;
         }
     };
+
 } // namespace Dynamic_Static
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Provides high level control over random number generation.
      */
     static RandomNumberGenerator Random;
+
 } // namespace Dynamic_Static

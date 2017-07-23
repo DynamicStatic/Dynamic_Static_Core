@@ -29,8 +29,8 @@
 
 #include "Dynamic_Static/Core/Version.hpp"
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     Version::Version(uint32_t major, uint32_t minor, uint32_t patch)
         : major { major }
         , minor { minor }
@@ -45,4 +45,5 @@ namespace Dynamic_Static
             dst::to_string(minor) + "." +
             dst::to_string(patch);
     }
+
 } // namespace Dynamic_Static

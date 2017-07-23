@@ -43,11 +43,11 @@
 #endif
 #include <Windows.h>
 
-#include <string>
 #include <stdexcept>
+#include <string>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Exception thrown for Win32 errors.
      */
@@ -76,10 +76,11 @@ namespace Dynamic_Static
          */
         HRESULT result() const;
     };
+
 } // namespace Dynamic_Static
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Gets the std::string representation of a given DWORD.
      * @param [in] The DWORD to get the std::string representation of
@@ -93,6 +94,7 @@ namespace Dynamic_Static
      * @return The std::string representation of the given HRESULT
      */
     std::string HRESULT_to_string(HRESULT hresult);
+
 } // namespace Dynamic_Static
 
 #endif

@@ -35,7 +35,8 @@
 
 // NOTE : This file can be removed once std::filesystem is fully supported.
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     namespace filesystem = std::experimental::filesystem;
+
 } // namespace Dynamic_Static

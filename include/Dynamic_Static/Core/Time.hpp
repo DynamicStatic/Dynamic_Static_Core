@@ -31,11 +31,11 @@
 
 #include "Dynamic_Static/Core/Defines.hpp"
 
-#include <ratio>
 #include <chrono>
+#include <ratio>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Represents the system wide real time wall clock.
      */
@@ -122,10 +122,11 @@ namespace Dynamic_Static
      */
     template <typename ClockType = HighResolutionClock, typename DurationType = Nanosecond<>>
     using TimePoint = std::chrono::time_point<HighResolutionClock, DurationType>;
+
 } // namespace Dynamic_Static
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Represents a running time keeper.
      */
@@ -154,10 +155,11 @@ namespace Dynamic_Static
             mBegin = HighResolutionClock::now();
         }
     };
+
 } // namespace Dynamic_Static
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Represents a periodic time keeper.
      */
@@ -209,4 +211,5 @@ namespace Dynamic_Static
             mCurrent = HighResolutionClock::now();
         }
     };
+
 } // namespace Dynamic_Static

@@ -31,12 +31,12 @@
 
 #include "Dynamic_Static/Core/Defines.hpp"
 
-#include <vector>
-#include <memory>
 #include <algorithm>
+#include <memory>
+#include <vector>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Populates a given std::vector with objects converted from another std::vector using a given conversion function.
      * @param <T>              The type of the source std::vector
@@ -93,4 +93,5 @@ namespace Dynamic_Static
         std::sort(vctr.begin(), vctr.end());
         vctr.erase(std::unique(vctr.begin(), vctr.end()), vctr.end());
     }
+
 } // namespace Dynamic_Static

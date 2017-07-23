@@ -33,8 +33,8 @@
 
 // NOTE : This file can be removed once std::string_view is fully supported.
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Provides a common interface for passing std::string, char*, char[], and char as function arguments.
      */
@@ -80,4 +80,5 @@ namespace Dynamic_Static
          */
         operator const std::string&() const;
     };
+
 } // namespace Dynamic_Static

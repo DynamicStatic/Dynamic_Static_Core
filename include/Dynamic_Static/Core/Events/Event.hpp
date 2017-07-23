@@ -35,38 +35,38 @@
 
 #include <utility>
 
-namespace Dynamic_Static
-{
-    namespace detail
+namespace Dynamic_Static {
+namespace detail {
+
+    template <typename ...Args>
+    class Event
+        : public Subscribable<Args...>
     {
-        template <typename ...Args>
-        class Event
-            : public Subscribable<Args...>
+        // TODO : This can be refactored out by making Delegate multicast
+        //        then using it as the base for Event...ie Event would only
+        //        provide the CallerType / Callback functionality.  This
+        //        would also remove the need to have an abstract operator()
+        //        and friend Event<Args...> in Subscribable which would be
+        //        a good separation of concerns and allow Subscribable to
+        //        come out of the detail namespace.
+    protected:
+        void operator()(Args... args) override
         {
-            // TODO : This can be refactored out by making Delegate multicast
-            //        then using it as the base for Event...ie Event would only
-            //        provide the CallerType / Callback functionality.  This
-            //        would also remove the need to have an abstract operator()
-            //        and friend Event<Args...> in Subscribable which would be
-            //        a good separation of concerns and allow Subscribable to
-            //        come out of the detail namespace.
-        protected:
-            void operator()(Args... args) override
-            {
-                Subscribable<Args...>::lock();
+            Subscribable<Args...>::lock();
 
-                for (const auto& subscription : Subscribable<Args...>::mSubscriptions) {
-                    subscription->operator()(std::forward<Args>(args)...);
-                }
-
-                Subscribable<Args...>::unlock();
+            for (const auto& subscription : Subscribable<Args...>::mSubscriptions) {
+                subscription->operator()(std::forward<Args>(args)...);
             }
-        };
-    } // namespace detail
+
+            Subscribable<Args...>::unlock();
+        }
+    };
+
+} // namespace detail
 } // namespace Dynamic_Static
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Enables an object of a given type to execute subscribed Delegates.
      * @param <CallerType> The type that is capable of raising this Event
@@ -133,4 +133,5 @@ namespace Dynamic_Static
             detail::Subscribable<Args...>::clear();
         }
     };
+
 } // namespace Dynamic_Static

@@ -34,8 +34,8 @@
 
 #include <string>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Common base for Dynamic_Static objects.
      */
@@ -95,4 +95,5 @@ namespace Dynamic_Static
          */
         virtual void name(const std::string& name);
     };
+
 } // namespace Dynamic_Static

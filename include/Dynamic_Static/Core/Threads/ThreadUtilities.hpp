@@ -31,11 +31,11 @@
 
 #include "Dynamic_Static/Core/Defines.hpp"
 
-#include <mutex>
 #include <condition_variable>
+#include <mutex>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Suspends the calling thread until a given std::condition variable is notified or a time out is reached.
      * @param <PredicateType> The type of the predicate
@@ -61,4 +61,5 @@ namespace Dynamic_Static
 
         return predicatePassed;
     }
+
 } // Dynamic_Static

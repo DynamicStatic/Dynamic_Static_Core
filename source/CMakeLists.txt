@@ -15,7 +15,6 @@ set(INCLUDE_FILES
     ${INCLUDE_PATH}/FileSystem/StdFileSystemInclude.hpp
 
     ${INCLUDE_PATH}/Input.hpp
-    ${INCLUDE_PATH}/Input/Input.Manager.hpp
     ${INCLUDE_PATH}/Input/Keyboard.hpp
     ${INCLUDE_PATH}/Input/Mouse.hpp
 

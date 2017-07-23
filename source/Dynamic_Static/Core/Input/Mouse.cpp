@@ -29,8 +29,8 @@
 
 #include "Dynamic_Static/Core/Input/Mouse.hpp"
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     bool Mouse::State::operator[](Button button) const
     {
         return mButtons[static_cast<size_t>(button)];
@@ -66,10 +66,11 @@ namespace Dynamic_Static
 
         mButtons.reset();
     }
+
 } // namespace Dynamic_Static
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     double Mouse::scroll() const
     {
         return mCurrent.scroll() - mPrevious.scroll();
@@ -129,10 +130,11 @@ namespace Dynamic_Static
         mPrevious = mCurrent;
         mCurrent = state;
     }
+
 } // namespace Dynamic_Static
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     Mouse::Button glfw_to_dst_mouse_button(int glfwMouseButton)
     {
         auto button = Mouse::Button::Unknown;
@@ -150,4 +152,5 @@ namespace Dynamic_Static
 
         return button;
     }
+
 } // namespace Dynamic_Static

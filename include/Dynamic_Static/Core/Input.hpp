@@ -30,11 +30,11 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Defines.hpp"
-#include "Dynamic_Static/Core/Input/Mouse.hpp"
 #include "Dynamic_Static/Core/Input/Keyboard.hpp"
+#include "Dynamic_Static/Core/Input/Mouse.hpp"
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Provides methods for input device queries.
      */
@@ -86,10 +86,11 @@ namespace Dynamic_Static
             const Keyboard::State& keyboardState
         );
     };
+
 } // namespace Dynamic_Static
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     class Input::Manager final
     {
     private:
@@ -145,4 +146,5 @@ namespace Dynamic_Static
          */
         void reset();
     };
+
 } // namespace Dynamic_Static

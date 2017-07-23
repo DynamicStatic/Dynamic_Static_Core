@@ -29,8 +29,8 @@
 
 #include "Dynamic_Static/Core/Input.hpp"
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     const Input& Input::Manager::input() const
     {
         return mInput;
@@ -72,4 +72,5 @@ namespace Dynamic_Static
         mMouseState.reset();
         mKeyboardState.reset();
     }
+
 } // namespace Dynamic_Static

@@ -34,10 +34,10 @@
 
 #include "catch.hpp"
 
-namespace Dynamic_Static
-{
-    namespace Tests
-    {
+namespace Dynamic_Static {
+namespace Tests {
 
-    } // namespace Tests
+
+
+} // namespace Tests
 } // namespace Dynamic_Static

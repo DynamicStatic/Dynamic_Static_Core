@@ -32,11 +32,11 @@
 #include "Dynamic_Static/Core/Defines.hpp"
 
 #include <array>
-#include <vector>
 #include <initializer_list>
+#include <vector>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Provides a common interface for contiguous collections.
      * @param <T> This Collection's type
@@ -238,4 +238,5 @@ namespace Dynamic_Static
             return mData;
         }
     };
+
 } // namespace Dynamic_Static

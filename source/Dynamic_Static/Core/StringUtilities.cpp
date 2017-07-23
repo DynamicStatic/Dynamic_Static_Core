@@ -29,11 +29,11 @@
 
 #include "Dynamic_Static/Core/StringUtilities.hpp"
 
-#include <cctype>
 #include <algorithm>
+#include <cctype>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     static std::string replace(
         const std::string& str,
         const std::string& find,
@@ -53,10 +53,11 @@ namespace Dynamic_Static
 
         return replacedStr;
     }
+
 } // namespace Dynamic_Static
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     std::string remove(const std::string& str, const String& find)
     {
         return dst::replace(str, find, std::string(), false);
@@ -91,4 +92,5 @@ namespace Dynamic_Static
 
         return result;
     }
+
 } // namespace Dynamic_Static

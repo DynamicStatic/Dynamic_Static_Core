@@ -29,8 +29,8 @@
 
 #include "Dynamic_Static/Core/Threads/Worker.hpp"
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     Worker::Worker()
     {
         mThread = std::thread(
@@ -83,4 +83,5 @@ namespace Dynamic_Static
         mTaskReceived.notify_one();
         mTasks.push(task);
     }
+
 } // namespace Dynamic_Static

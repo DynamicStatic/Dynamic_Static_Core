@@ -31,8 +31,8 @@
 
 #include <thread>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     Semaphore::Semaphore(size_t count)
         : mValue { count }
     {
@@ -64,4 +64,5 @@ namespace Dynamic_Static
     {
         notify(mWaiting);
     }
+
 } // namespace Dynamic_Static

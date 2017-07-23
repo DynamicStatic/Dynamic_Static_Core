@@ -29,8 +29,8 @@
 
 #include "Dynamic_Static/Core/Input/Keyboard.hpp"
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     bool Keyboard::State::operator[](Key key) const
     {
         return mKeys[static_cast<size_t>(key)];
@@ -45,10 +45,11 @@ namespace Dynamic_Static
     {
         mKeys.reset();
     }
+
 } // namespace Dynamic_Static
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     bool Keyboard::up(Key key) const
     {
         return mCurrent[key] == Keyboard::State::Up;
@@ -91,10 +92,11 @@ namespace Dynamic_Static
         mPrevious = mCurrent;
         mCurrent = state;
     }
+
 } // namespace Dynamic_Static
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     Keyboard::Key glfw_to_dst_key(int glfwKey)
     {
         auto key = Keyboard::Key::Unknown;
@@ -224,4 +226,5 @@ namespace Dynamic_Static
 
         return key;
     }
+
 } // namespace Dynamic_Static

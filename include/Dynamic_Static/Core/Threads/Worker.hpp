@@ -29,19 +29,19 @@
 
 #pragma once
 
-#include "Dynamic_Static/Core/Defines.hpp"
-#include "Dynamic_Static/Core/Time.hpp"
 #include "Dynamic_Static/Core/Action.hpp"
+#include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/NonCopyable.hpp"
 #include "Dynamic_Static/Core/NonMoveable.hpp"
+#include "Dynamic_Static/Core/Time.hpp"
 #include "Dynamic_Static/Core/Threads/ThreadUtilities.hpp"
 
+#include <condition_variable>
 #include <queue>
 #include <thread>
-#include <condition_variable>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Represents a persistent std::thread.
      */
@@ -101,4 +101,5 @@ namespace Dynamic_Static
             dst::wait(lock, mTasksComplete, timeOut, predicate);
         }
     };
+
 } // namespace Dynamic_Static

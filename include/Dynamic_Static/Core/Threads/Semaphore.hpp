@@ -30,16 +30,16 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Defines.hpp"
-#include "Dynamic_Static/Core/Time.hpp"
 #include "Dynamic_Static/Core/NonCopyable.hpp"
 #include "Dynamic_Static/Core/NonMoveable.hpp"
+#include "Dynamic_Static/Core/Time.hpp"
 #include "Dynamic_Static/Core/Threads/ThreadUtilities.hpp"
 
-#include <mutex>
 #include <condition_variable>
+#include <mutex>
 
-namespace Dynamic_Static
-{
+namespace Dynamic_Static {
+
     /**
      * Provides signaling and synchronization between threads.
      */
@@ -104,4 +104,5 @@ namespace Dynamic_Static
             --mWaiting;
         }
     };
+
 } // namespace Dynamic_Static
