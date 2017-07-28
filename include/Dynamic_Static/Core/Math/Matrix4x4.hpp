@@ -205,7 +205,7 @@ namespace Dynamic_Static {
     /**
      * TODO : Documentation.
      */
-    Matrix4x4 operator*(const Matrix4x4& lhs, const Matrix4x4& rhs)
+    inline Matrix4x4 operator*(const Matrix4x4& lhs, const Matrix4x4& rhs)
     {
         return Matrix4x4::Identity; // lhs * rhs;
     }
@@ -213,7 +213,7 @@ namespace Dynamic_Static {
     /**
      * TODO : Documentation.
      */
-    Vector2 operator*(const Matrix4x4& lhs, const Vector2& rhs)
+    inline Vector2 operator*(const Matrix4x4& lhs, const Vector2& rhs)
     {
         return Vector2::Zero; // lhs * rhs;
     }
@@ -221,7 +221,7 @@ namespace Dynamic_Static {
     /**
      * TODO : Documentation.
      */
-    Vector3 operator*(const Matrix4x4& lhs, const Vector3& rhs)
+    inline Vector3 operator*(const Matrix4x4& lhs, const Vector3& rhs)
     {
         return Vector3::Zero; // lhs * rhs;
     }
@@ -229,7 +229,7 @@ namespace Dynamic_Static {
     /**
      * TODO : Documentation.
      */
-    Vector4 operator*(const Matrix4x4& lhs, const Vector4& rhs)
+    inline Vector4 operator*(const Matrix4x4& lhs, const Vector4& rhs)
     {
         return Vector4::Zero; // lhs * rhs;
     }
