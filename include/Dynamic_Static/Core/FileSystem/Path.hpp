@@ -32,7 +32,7 @@
 //#include "Dynamic_Static/Core/Collection.hpp"
 #include "Dynamic_Static/Core/Defines.hpp"
 
-#include <gsl/span>
+#include <gsl/gsl>
 #include <string>
 
 namespace Dynamic_Static {

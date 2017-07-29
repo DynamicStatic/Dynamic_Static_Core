@@ -31,9 +31,9 @@
 
 #include <cassert>
 #include <cstddef>
-#include <cstring>
 #include <cstdint>
 #include <cstdlib>
+#include <cstring>
 
 #if defined(__X86_64__) || defined(_WIN64)
     #ifndef DYNAMIC_STATIC_64_BIT
