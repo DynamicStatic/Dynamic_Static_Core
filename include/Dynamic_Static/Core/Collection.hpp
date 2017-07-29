@@ -230,10 +230,19 @@ namespace Dynamic_Static {
         }
 
         /**
-        * Gets a pointer to the underlying array serving as this Collection's storage.
-        * @return A pointer to the underlying array serving as this Collection's storage
-        */
-        T* data() const
+         * Gets a pointer to the underlying array serving as this Collection's storage.
+         * @return A pointer to the underlying array serving as this Collection's storage
+         */
+        T* data()
+        {
+            return mData;
+        }
+
+        /**
+         * Gets a pointer to the underlying array serving as this Collection's storage.
+         * @return A pointer to the underlying array serving as this Collection's storage
+         */
+        const T* data() const
         {
             return mData;
         }
