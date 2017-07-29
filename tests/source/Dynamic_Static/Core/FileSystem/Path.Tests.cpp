@@ -61,12 +61,14 @@ namespace Tests {
 
         SECTION("Combine several paths")
         {
-            auto path = dst::Path::combine({
-                "some//file",
-                "/\\path/with",
-                "various\\sources",
-                "and\\conventions.txt",
-            });
+            auto path = dst::Path::combine(
+                std::array<std::string, 4> {
+                    "some//file",
+                    "/\\path/with",
+                    "various\\sources",
+                    "and\\conventions.txt"
+                }
+            );
 
             REQUIRE(
                 path ==

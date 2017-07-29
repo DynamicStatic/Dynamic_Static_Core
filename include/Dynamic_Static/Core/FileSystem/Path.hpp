@@ -29,9 +29,10 @@
 
 #pragma once
 
-#include "Dynamic_Static/Core/Collection.hpp"
+//#include "Dynamic_Static/Core/Collection.hpp"
 #include "Dynamic_Static/Core/Defines.hpp"
 
+#include <gsl/span>
 #include <string>
 
 namespace Dynamic_Static {
@@ -64,7 +65,7 @@ namespace Path {
      * @param [in] paths The paths to combine
      * @return The combined path
      */
-    std::string combine(const Collection<std::string>& paths);
+    std::string combine(gsl::span<const std::string> paths);
 
     /**
      * Gets a value indicating whether or not a given path has a file extension.

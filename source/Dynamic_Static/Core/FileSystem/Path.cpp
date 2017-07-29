@@ -31,6 +31,8 @@
 #include "Dynamic_Static/Core/StringUtilities.hpp"
 #include "Dynamic_Static/Core/FileSystem/StdFileSystemInclude.hpp"
 
+#include <array>
+
 namespace Dynamic_Static {
 
     std::string Path::scrub(const std::string& path)
@@ -45,10 +47,12 @@ namespace Dynamic_Static {
 
     std::string Path::combine(const std::string& path0, const std::string& path1)
     {
-        return dst::Path::combine({ path0, path1 });
+        return dst::Path::combine(
+            std::array<std::string, 2> { path0, path1 }
+        );
     }
 
-    std::string Path::combine(const Collection<std::string>& paths)
+    std::string Path::combine(gsl::span<const std::string> paths)
     {
         dst::filesystem::path combinedPath;
         for (const auto& path : paths) {

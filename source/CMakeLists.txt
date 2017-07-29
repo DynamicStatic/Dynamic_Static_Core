@@ -40,7 +40,6 @@ set(INCLUDE_FILES
     ${INCLUDE_PATH}/Algorithm.hpp
     ${INCLUDE_PATH}/BinaryReader.hpp
     ${INCLUDE_PATH}/Callback.hpp
-    ${INCLUDE_PATH}/Collection.hpp
     ${INCLUDE_PATH}/Defines.hpp
     ${INCLUDE_PATH}/NonCopyable.hpp
     ${INCLUDE_PATH}/NonMoveable.hpp
