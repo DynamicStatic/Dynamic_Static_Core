@@ -29,10 +29,10 @@
 
 #pragma once
 
-//#include "Dynamic_Static/Core/Collection.hpp"
 #include "Dynamic_Static/Core/Defines.hpp"
 
-#include <gsl/gsl>
+#include "gsl/span"
+
 #include <string>
 
 namespace Dynamic_Static {

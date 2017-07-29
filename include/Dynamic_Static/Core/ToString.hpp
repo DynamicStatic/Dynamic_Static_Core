@@ -31,6 +31,8 @@
 
 #include "Dynamic_Static/Core/Defines.hpp"
 
+#include "gsl/string_span"
+
 #include <sstream>
 #include <string>
 
@@ -115,6 +117,15 @@ namespace Dynamic_Static {
     inline std::string to_string(long double value)
     {
         return std::to_string(value);
+    }
+
+    /**
+     * Gets the std::string representation of a given gsl::string_span.
+     * @return The std::string representation of the given gsl::string_span
+     */
+    inline std::string to_string(gsl::string_span<> strSpan)
+    {
+        return gsl::to_string(strSpan);
     }
 
     /**
