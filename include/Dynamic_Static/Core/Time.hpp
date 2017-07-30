@@ -142,7 +142,7 @@ namespace Dynamic_Static {
          * @return This Clock's total run time
          */
         template <typename DurationType>
-        auto total() const -> decltype(&DurationType::count())
+        auto total() const
         {
             return duration_cast<DurationType>(HighResolutionClock::now() - mBegin).count();
         }
@@ -186,7 +186,7 @@ namespace Dynamic_Static {
          * @return This Clock's total run time
          */
         template <typename DurationType>
-        auto total() const -> decltype(&DurationType::count())
+        auto total() const
         {
             return duration_cast<DurationType>(mCurrent - mBegin).count();
         }
@@ -197,9 +197,9 @@ namespace Dynamic_Static {
          * @return This Clock's elapsed time
          */
         template <typename DurationType>
-        auto elapsed() const -> decltype(&DurationType::count())
+        auto elapsed() const
         {
-            return dynamic_cast<DurationType>(mCurrent - mPrevious).count();
+            return duration_cast<DurationType>(mCurrent - mPrevious).count();
         }
 
         /**
