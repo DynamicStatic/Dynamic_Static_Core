@@ -29,10 +29,11 @@
 
 #pragma once
 
-#include "Dynamic_Static/Core/Collection.hpp"
 #include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/NonCopyable.hpp"
 #include "Dynamic_Static/Core/TypeUtilities.hpp"
+
+#include "gsl/span"
 
 #include <algorithm>
 #include <memory>
@@ -78,7 +79,7 @@ namespace Dynamic_Static {
          * @return This SharedObjectFactory's shared objects of the given type
          */
         template <typename T>
-        const dst::Collection<std::weak_ptr<T>> objects() const
+        const gsl::span<std::weak_ptr<T>> objects() const
         {
             return validated_objects<T>();
         }
