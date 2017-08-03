@@ -109,6 +109,16 @@ namespace Dynamic_Static {
 
         /**
          * Rotates this Matrix4x4.
+         * @param [in] angle The angle to rotate this Matrix4x4 by
+         * @param [in] axis  The axis to rotate this Matrix4x4 along
+         */
+        inline void rotate(float angle, const Vector3 axis)
+        {
+            *this = glm::rotate(*this, angle, axis);
+        }
+
+        /**
+         * Rotates this Matrix4x4.
          * @param [in] rotation The rotation to apply to this Matrix4x4
          */
         inline void rotate(const Quaternion& rotation)
@@ -133,6 +143,16 @@ namespace Dynamic_Static {
         static inline Matrix4x4 create_translation(const Vector3& translation)
         {
             return glm::translate(Identity, translation);
+        }
+
+        /**
+         * Creates a rotation.
+         * @param [in] angle The angle of the rotation
+         * @param [in] axis  The axis of the rotation
+         */
+        static inline Matrix4x4 create_rotation(float angle, const Vector3 axis)
+        {
+            return glm::rotate(Identity, angle, axis);
         }
 
         /**
