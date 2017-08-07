@@ -227,7 +227,7 @@ namespace Dynamic_Static {
      */
     inline Matrix4x4 operator*(const Matrix4x4& lhs, const Matrix4x4& rhs)
     {
-        return Matrix4x4::Identity; // lhs * rhs;
+        return glm::operator*(lhs, rhs);
     }
 
     /**
