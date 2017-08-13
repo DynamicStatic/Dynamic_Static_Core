@@ -35,6 +35,9 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Random.hpp"
+#include "Dynamic_Static/Core/Math/Vector2.hpp"
+#include "Dynamic_Static/Core/Math/Vector3.hpp"
+#include "Dynamic_Static/Core/Math/Vector4.hpp"
 
 #include "catch.hpp"
 
@@ -110,6 +113,53 @@ auto glm1 = std::get<VECTOR_TYPE::GLMBase>(vectors);
     }                                                                             \
 }
 
+#define DST_VECTOR_LENGTH_TEST(VECTOR_TYPE)                   \
+{                                                             \
+    DST_CREATE_VECTOR_PAIR(VECTOR_TYPE);                      \
+    SECTION(#VECTOR_TYPE ".length()")                         \
+    {                                                         \
+        REQUIRE(dst0.length() == glm::length(glm0));          \
+    }                                                         \
+                                                              \
+    SECTION(#VECTOR_TYPE ".length_squared()")                 \
+    {                                                         \
+        REQUIRE(dst0.length_squared() == glm::length2(glm0)); \
+    }                                                         \
+}
+
+#define DST_VECTOR_DISTANCE_TEST(VECTOR_TYPE)                           \
+{                                                                       \
+    DST_CREATE_VECTOR_PAIRS(VECTOR_TYPE);                               \
+    SECTION(#VECTOR_TYPE "::distance()")                                \
+    {                                                                   \
+        REQUIRE(dst0.distance(dst1) == glm::distance(glm0, glm1));      \
+    }                                                                   \
+                                                                        \
+    SECTION(#VECTOR_TYPE "::distance_squared()")                        \
+    {                                                                   \
+        REQUIRE(dst0.distance_squared() == glm::distance2(glm0, glm1)); \
+    }                                                                   \
+}
+
+#define DST_VECTOR_CONSTRUCTION_TEST(TO_VECTOR_TYPE, FROM_VECTOR_TYPE) \
+{                                                                      \
+    SECTION(#TO_VECTOR_TYPE " from " #FROM_VECTOR_TYPE)                \
+    {                                                                  \
+        auto sourceVector = random_vector<FROM_VECTOR_TYPE>();         \
+        TO_VECTOR_TYPE targetVector0 = sourceVector;                   \
+        TO_VECTOR_TYPE targetVector1(sourceVector);                    \
+        for (size_t i = 0; i < TO_VECTOR_TYPE::Count; ++i) {           \
+            if (i < FROM_VECTOR_TYPE::Count) {                         \
+                REQUIRE(targetVector0[i] == sourceVector[i]);          \
+                REQUIRE(targetVector1[i] == sourceVector[i]);          \
+            } else {                                                   \
+                REQUIRE(targetVector0[i] == 0);                        \
+                REQUIRE(targetVector1[i] == 0);                        \
+            }                                                          \
+        }                                                              \
+    }                                                                  \
+}
+
 namespace Dynamic_Static {
 namespace Tests {
 
@@ -118,6 +168,18 @@ namespace Tests {
     static inline float random_float()
     {
         return dst::Random.range(-1024.0f, 1024.0f);
+    }
+
+    template <typename DSTVectorType>
+    static inline DSTVectorType random_vector()
+    {
+        DSTVectorType dstVector;
+        for (size_t i = 0; i < DSTVectorType::Count; ++i) {
+            auto value = random_float();
+            dstVector[i] = value;
+        }
+
+        return dstVector;
     }
 
     template <typename DSTVectorType, typename GLMVectorType>

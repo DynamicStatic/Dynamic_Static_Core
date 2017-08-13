@@ -32,7 +32,6 @@
 //        by Dynamic_Static are consistent regardless of the underlying library.
 //        To this end, the reference library is glm.
 
-#include "Dynamic_Static/Core/Math/Vector3.hpp"
 #include "Vector.Tests.inl"
 
 #include "catch.hpp"
@@ -65,6 +64,13 @@ namespace Tests {
     TEST_CASE("Vector3 normalize", "[Vector3]")
     {
         DST_VECTOR_NORMALIZE_TEST(Vector3);
+    }
+
+    TEST_CASE("Vector3 construction", "[Vector3]")
+    {
+        DST_VECTOR_CONSTRUCTION_TEST(Vector3, Vector2);
+        DST_VECTOR_CONSTRUCTION_TEST(Vector3, Vector3);
+        DST_VECTOR_CONSTRUCTION_TEST(Vector3, Vector4);
     }
 
 } // namespace Tests

@@ -50,6 +50,7 @@
     #pragma warning(pop)
 #endif
 
+#include <algorithm>
 #include <cmath>
 #define _USE_MATH_DEFINES
 #include <math.h>
@@ -83,10 +84,45 @@ namespace detail {
         using DSTBase = VectorBase<DSTType, GLMType>;
         using GLMBase::GLMBase;
 
+    public:
         /**
          * TODO : Documentation.
          */
-        DSTBase& operator+=(const DSTType& rhs)
+        inline VectorBase()
+        {
+            *this = DSTType::Zero;
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        template <typename DSTTypeOther, typename GLMTypeOther>
+        inline VectorBase(const VectorBase<DSTTypeOther, GLMTypeOther>& other)
+        {
+            *this = other;
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        template <typename DSTTypeOther, typename GLMTypeOther>
+        inline DSTBase& operator=(const VectorBase<DSTTypeOther, GLMTypeOther>& other)
+        {
+            for (size_t i = 0; i < Count; ++i) {
+                if (i < other.Count) {
+                    (*this)[i] = other[i];
+                } else {
+                    (*this)[i] = 0;
+                }
+            }
+
+            return *this;
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        inline DSTBase& operator+=(const DSTType& rhs)
         {
             *this = static_cast<GLMBase>(*this) + static_cast<GLMBase>(rhs);
             return *this;
@@ -95,7 +131,7 @@ namespace detail {
         /**
          * TODO : Documentation.
          */
-        DSTBase& operator-=(const DSTType& rhs)
+        inline DSTBase& operator-=(const DSTType& rhs)
         {
             *this = static_cast<GLMBase>(*this) - static_cast<GLMBase>(rhs);
             return *this;
@@ -105,7 +141,7 @@ namespace detail {
          * TODO : Documentation.
          */
         template <typename ScalarType>
-        DSTBase& operator*=(const ScalarType& rhs)
+        inline DSTBase& operator*=(const ScalarType& rhs)
         {
             *this = static_cast<GLMBase>(*this) * rhs;
             return *this;
@@ -114,7 +150,7 @@ namespace detail {
         /**
          * TODO : Documentation.
          */
-        DSTBase& operator*=(const DSTType& rhs)
+        inline DSTBase& operator*=(const DSTType& rhs)
         {
             *this = static_cast<GLMBase>(*this) * static_cast<GLMBase>(rhs);
             return *this;
@@ -124,7 +160,7 @@ namespace detail {
          * TODO : Documentation.
          */
         template <typename ScalarType>
-        DSTBase& operator/=(const ScalarType& rhs)
+        inline DSTBase& operator/=(const ScalarType& rhs)
         {
             *this = static_cast<GLMBase>(*this) / rhs;
             return *this;
@@ -133,7 +169,7 @@ namespace detail {
         /**
          * TODO : Documentation.
          */
-        DSTBase& operator/=(const DSTType& rhs)
+        inline DSTBase& operator/=(const DSTType& rhs)
         {
             *this = static_cast<GLMBase>(*this) / static_cast<GLMBase>(rhs);
             return *this;
@@ -142,7 +178,7 @@ namespace detail {
         /**
          * TODO : Documentation.
          */
-        operator GLMType&()
+        inline operator GLMType&()
         {
             return *this;
         }
@@ -150,27 +186,34 @@ namespace detail {
         /**
          * TODO : Documentation.
          */
-        operator const GLMType&() const
+        inline operator const GLMType&() const
         {
             return *this;
         }
 
     public:
         /**
-         * Gets the std::string representation of this Vector.
-         * @return The std::string representation of this Vector
+         * TODO : Documentation.
          */
-        inline std::string to_string() const
+        static inline size_t count()
         {
-            std::string str = "(";
-            for (size_t i = 0; i < Count; ++i) {
-                str += dst::to_string((*this)[i]);
-                if (i < Count - 1) {
-                    str += ", ";
-                }
-            }
+            return Count;
+        }
 
-            return str + ")";
+        /**
+         * TODO : Documentation.
+         */
+        inline float length() const
+        {
+            return glm::length(static_cast<GLMBase>(*this));
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        inline float length_squared() const
+        {
+            return glm::length2(static_cast<GLMBase>(*this));
         }
 
         /**
@@ -187,6 +230,61 @@ namespace detail {
         inline DSTType normalized() const
         {
             return glm::normalize(static_cast<GLMBase>(*this));
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        inline float distance(const DSTType& other) const
+        {
+            return distance(*this, other);
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        inline float distance_squared(const DSTType& other) const
+        {
+            return distance_squared(*this, other);
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        static inline float distance(const DSTType& lhs, const DSTType& rhs)
+        {
+            return glm::distance(
+                static_cast<typename GLMBase>(lhs),
+                static_cast<typename GLMBase>(rhs)
+            );
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        static inline float distance_squared(const DSTType& lhs, const DSTType& rhs)
+        {
+            return glm::distance2(
+                static_cast<typename GLMBase>(lhs),
+                static_cast<typename GLMBase>(rhs)
+            );
+        }
+
+        /**
+         * Gets the std::string representation of this Vector.
+         * @return The std::string representation of this Vector
+         */
+        inline std::string to_string() const
+        {
+            std::string str = "(";
+            for (size_t i = 0; i < Count; ++i) {
+                str += dst::to_string((*this)[i]);
+                if (i < Count - 1) {
+                    str += ", ";
+                }
+            }
+
+            return str + ")";
         }
     };
 
@@ -226,7 +324,7 @@ namespace detail {
     template <typename VectorType, typename ScalarType>
     inline VectorType operator*(const VectorType& lhs, const ScalarType& rhs)
     {
-        // NOTE : This cast and construct is lame, but MSVC ADL is having trouble with it otherwise.
+        // NOTE : This cast and construct is lame, but MSVC ADL is having trouble without it.
         return lhs * VectorType(static_cast<float>(rhs));
     }
 
@@ -248,7 +346,7 @@ namespace detail {
     template <typename VectorType, typename ScalarType>
     inline VectorType operator/(const VectorType& lhs, const ScalarType& rhs)
     {
-        // NOTE : This cast and construct is lame, but MSVC ADL is having trouble with it otherwise.
+        // NOTE : This cast and construct is lame, but MSVC ADL is having trouble without it.
         return lhs / VectorType(static_cast<float>(rhs));
     }
 

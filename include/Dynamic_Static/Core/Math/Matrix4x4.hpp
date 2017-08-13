@@ -235,7 +235,7 @@ namespace Dynamic_Static {
      */
     inline Vector2 operator*(const Matrix4x4& lhs, const Vector2& rhs)
     {
-        return Vector2::Zero; // lhs * rhs;
+        return glm::operator*(lhs, Vector4(rhs));
     }
 
     /**
@@ -243,7 +243,7 @@ namespace Dynamic_Static {
      */
     inline Vector3 operator*(const Matrix4x4& lhs, const Vector3& rhs)
     {
-        return Vector3::Zero; // lhs * rhs;
+        return glm::operator*(lhs, Vector4(rhs));
     }
 
     /**
@@ -251,7 +251,7 @@ namespace Dynamic_Static {
      */
     inline Vector4 operator*(const Matrix4x4& lhs, const Vector4& rhs)
     {
-        return Vector4::Zero; // lhs * rhs;
+        return glm::operator*(lhs, rhs);
     }
 
     static_assert(

@@ -60,6 +60,7 @@ namespace Dynamic_Static {
 
     public:
         using DSTBase::DSTBase;
+        using DSTBase::operator=;
         using DSTBase::operator+=;
         using DSTBase::operator-=;
         using DSTBase::operator*=;
