@@ -45,6 +45,15 @@ namespace Dynamic_Static {
         using DSTBase::operator-=;
         using DSTBase::operator*=;
         using DSTBase::operator/=;
+
+    public:
+        /**
+         * TODO : Documentation.
+         */
+        inline float to_angle() const
+        {
+            return std::atan2f(x, y);
+        }
     };
 
     static_assert(

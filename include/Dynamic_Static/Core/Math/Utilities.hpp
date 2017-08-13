@@ -28,7 +28,7 @@ namespace Dynamic_Static {
      * @return The value converted to radians
      */
     template <typename T>
-    T to_radians(const T& degrees)
+    inline T to_radians(const T& degrees)
     {
         return glm::radians(degrees);
     }
@@ -40,9 +40,19 @@ namespace Dynamic_Static {
      * @return The value converted to degrees
      */
     template <typename T>
-    T to_degrees(const T& radians)
+    inline T to_degrees(const T& radians)
     {
         return glm::degrees(radians);
+    }
+
+    /**
+     * TODO : Documentation.
+     */
+    inline float wrap_radians(float angle)
+    {
+        auto twoPi = M_PI * 2;
+        angle = std::fmod(angle, twoPi);
+        return angle < 0 ? angle : angle + twoPi;
     }
 
 } // namespace Dynamic_Static
