@@ -11,6 +11,7 @@
 
 #include "Dynamic_Static/Core/Algorithm.hpp"
 #include "Dynamic_Static/Core/Defines.hpp"
+#include "Dynamic_Static/Core/TypeUtilities.hpp"
 
 #include <algorithm>
 #include <limits>
@@ -123,8 +124,10 @@ namespace Dynamic_Static {
          * @return Whether or not the value passed
          */
         template <typename T>
-        inline typename std::enable_if<std::is_integral<T>::value, T>::type
-            probability(T value)
+        inline bool probability(
+            T value,
+            typename std::enable_if<std::is_integral<T>::value>::type* = 0
+        )
         {
             return value >= range<T>(0, 100);
         }
@@ -135,8 +138,10 @@ namespace Dynamic_Static {
          * @return Whether or not the value passed
          */
         template <typename T>
-        inline typename std::enable_if<std::is_floating_point<T>::value, T>::type
-            probability(T value)
+        inline bool probability(
+            T value,
+            typename std::enable_if<std::is_floating_point<T>::value>::type* = 0
+        )
         {
             return value >= range<T>(0, 1);
         }
