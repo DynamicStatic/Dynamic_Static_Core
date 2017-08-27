@@ -48,9 +48,10 @@ namespace Dynamic_Static {
     /**
      * TODO : Documentation.
      */
-    inline float wrap_radians(float angle)
+    template <typename T>
+    inline T wrap_radians(const T& angle)
     {
-        auto twoPi = M_PI * 2;
+        auto twoPi = static_cast<T>(M_PI * 2);
         angle = std::fmod(angle, twoPi);
         return angle < 0 ? angle : angle + twoPi;
     }
