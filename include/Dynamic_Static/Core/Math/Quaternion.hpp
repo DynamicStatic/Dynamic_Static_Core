@@ -42,7 +42,10 @@ namespace Dynamic_Static {
          */
         inline Quaternion()
         {
-            *this = Identity;
+            this->x = Identity.x;
+            this->y = Identity.y;
+            this->z = Identity.z;
+            this->w = Identity.w;
         }
 
         /**
