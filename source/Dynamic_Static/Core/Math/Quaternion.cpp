@@ -11,6 +11,6 @@
 
 namespace Dynamic_Static {
 
-    const Quaternion Quaternion::Identity { 0, 0, 0, 1 };
+    const Quaternion Quaternion::Identity { 1, 0, 0, 0 };
 
 } // namespace Dynamic_Static
