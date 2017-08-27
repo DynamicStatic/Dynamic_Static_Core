@@ -63,7 +63,7 @@ namespace Dynamic_Static {
          */
         Matrix4x4& operator*=(const Matrix4x4& other)
         {
-            *this *= other;
+            *this = glm::operator*(*this, other);
             return *this;
         }
 
@@ -112,7 +112,16 @@ namespace Dynamic_Static {
          */
         inline void scale(const Vector3& scale)
         {
-            *this = glm::scale(scale);
+            *this = glm::scale(*this, scale);
+        }
+
+        /**
+         * Gets this Matrix4x4's inverse.
+         * @return This Matrix4x4's inverse
+         */
+        inline Matrix4x4 inverse() const
+        {
+            return glm::inverse(*this);
         }
 
         /**
