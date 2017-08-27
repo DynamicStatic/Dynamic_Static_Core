@@ -36,6 +36,24 @@ namespace Dynamic_Static {
     public:
         using glm::quat::tquat;
 
+        /**
+         * Constructs an instance of Quaternion.
+         */
+        inline Quaternion()
+        {
+            *this = Identity;
+        }
+
+        /**
+         * Constructs an instance of Quaternion.
+         * @param [in] angle The angle to rotate this Quaternion by
+         * @param [in] axis  The axis to rotate this Quaternion along
+         */
+        inline Quaternion(float angle, const Vector3& axis)
+        {
+            *this = glm::angleAxis(angle, axis);
+        }
+
     public:
         /**
          * Gets the std::string representation of this Quaternion.

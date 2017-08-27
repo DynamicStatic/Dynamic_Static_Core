@@ -42,7 +42,7 @@ namespace Dynamic_Static {
         /**
          * Constructs an instance of Matrix4x4.
          */
-        Matrix4x4()
+        inline Matrix4x4()
         {
             *this = Identity;
         }
@@ -53,7 +53,7 @@ namespace Dynamic_Static {
          * @param [in] rotation    This Matrix4x4's rotation
          * @param [in] scale       This Matrix4x4's scale
          */
-        Matrix4x4(const Vector3& translation, const Quaternion& rotation, const Vector3& scale)
+        inline Matrix4x4(const Vector3& translation, const Quaternion& rotation, const Vector3& scale)
         {
             *this = create_translation(translation) * create_rotation(rotation) * create_scale(scale);
         }
@@ -61,7 +61,7 @@ namespace Dynamic_Static {
         /**
          * TODO : Documentation.
          */
-        Matrix4x4& operator*=(const Matrix4x4& other)
+        inline Matrix4x4& operator*=(const Matrix4x4& other)
         {
             *this = glm::operator*(*this, other);
             return *this;
@@ -139,7 +139,7 @@ namespace Dynamic_Static {
          * @param [in] angle The angle of the rotation
          * @param [in] axis  The axis of the rotation
          */
-        static inline Matrix4x4 create_rotation(float angle, const Vector3 axis)
+        static inline Matrix4x4 create_rotation(float angle, const Vector3& axis)
         {
             return glm::rotate(Identity, angle, axis);
         }
