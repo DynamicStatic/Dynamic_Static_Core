@@ -11,6 +11,7 @@
 
 #include "Dynamic_Static/Core/ToString.hpp"
 #include "Dynamic_Static/Core/Math/Defines.hpp"
+#include "Dynamic_Static/Core/Math/Vector3.hpp"
 
 #if defined(DYNAMIC_STATIC_MSVC)
     #pragma warning(push, 0)
