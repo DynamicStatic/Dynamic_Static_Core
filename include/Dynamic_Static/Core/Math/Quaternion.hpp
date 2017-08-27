@@ -50,12 +50,37 @@ namespace Dynamic_Static {
 
         /**
          * Constructs an instance of Quaternion.
+         * @param [in] other TODO : Documentation.
+         */
+        inline Quaternion(const Quaternion& other)
+        {
+            this->x = other.x;
+            this->y = other.y;
+            this->z = other.z;
+            this->w = other.w;
+        }
+
+        /**
+         * Constructs an instance of Quaternion.
          * @param [in] angle The angle to rotate this Quaternion by
          * @param [in] axis  The axis to rotate this Quaternion along
          */
         inline Quaternion(float angle, const Vector3& axis)
         {
             *this = glm::angleAxis(angle, axis);
+        }
+
+        /**
+         * Constructs an instance of Quaternion.
+         * @param [in] other TODO : Documentation.
+         */
+        inline Quaternion& operator=(const Quaternion& other)
+        {
+            this->x = other.x;
+            this->y = other.y;
+            this->z = other.z;
+            this->w = other.w;
+            return *this;
         }
 
         /**
