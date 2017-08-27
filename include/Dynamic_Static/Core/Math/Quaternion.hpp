@@ -55,7 +55,39 @@ namespace Dynamic_Static {
             *this = glm::angleAxis(angle, axis);
         }
 
+        /**
+         * TODO : Documentation.
+         */
+        inline operator glm::quat&()
+        {
+            return *this;
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        inline operator const glm::quat&() const
+        {
+            return *this;
+        }
+
     public:
+        /**
+         * TODO : Documentation.
+         */
+        inline void normalize()
+        {
+            *this = glm::normalize(static_cast<glm::quat>(*this));
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        inline Quaternion normalized() const
+        {
+            return glm::normalize(static_cast<glm::quat>(*this));
+        }
+
         /**
          * Gets the std::string representation of this Quaternion.
          * @return The std::string representation of this Quaternion
