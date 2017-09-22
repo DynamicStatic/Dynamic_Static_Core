@@ -74,8 +74,14 @@ namespace Dynamic_Static {
          */
         inline std::string to_string() const
         {
-            return std::string("TODO : Matrix4x4::to_string()");
-            // return glm::to_string(*this);
+            // TODO : Hide operator[]().
+            return
+                "{" +
+                    Vector4(this->operator[](0)).to_string() + ", " +
+                    Vector4(this->operator[](1)).to_string() + ", " +
+                    Vector4(this->operator[](2)).to_string() + ", " +
+                    Vector4(this->operator[](3)).to_string() +
+                "}";
         }
 
         /**
