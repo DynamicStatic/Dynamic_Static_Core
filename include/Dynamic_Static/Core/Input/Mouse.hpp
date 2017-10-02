@@ -77,6 +77,20 @@ namespace Dynamic_Static {
              */
             ButtonSet::reference operator[](Button button);
 
+            /**
+             * Gets a value indicating whether or not a given Button is down.
+             * @param [in] button The Button to check
+             * @return Whether or not the given Button is down
+             */
+            bool operator[](size_t button) const;
+
+            /**
+             * Sets a value indicating whether or not a given Button is down.
+             * @param [in] button The Button to set
+             * @return Whether or not the given Button is down
+             */
+            ButtonSet::reference operator[](size_t button);
+
         public:
             /**
              * Gets this Mouse::State's scroll value.

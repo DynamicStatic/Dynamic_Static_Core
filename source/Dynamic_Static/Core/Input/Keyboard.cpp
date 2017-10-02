@@ -21,6 +21,16 @@ namespace Dynamic_Static {
         return mKeys[static_cast<size_t>(key)];
     }
 
+    bool Keyboard::State::operator[](size_t key) const
+    {
+        return mKeys[key];
+    }
+
+    Keyboard::State::KeySet::reference Keyboard::State::operator[](size_t key)
+    {
+        return mKeys[key];
+    }
+
     void Keyboard::State::reset()
     {
         mKeys.reset();

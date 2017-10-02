@@ -10,6 +10,9 @@ set(SOURCE_FILES
 
     ${SOURCE_PATH}/FileSystem/Path.Tests.cpp
 
+    ${SOURCE_PATH}/Input/Keyboard.Tests.cpp
+    ${SOURCE_PATH}/Input/Mouse.Tests.cpp
+
     ${SOURCE_PATH}/Math/Matrix4x4.Tests.cpp
     ${SOURCE_PATH}/Math/Quaternion.Tests.cpp
     ${SOURCE_PATH}/Math/Vector.Tests.inl

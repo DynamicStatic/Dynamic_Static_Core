@@ -21,6 +21,16 @@ namespace Dynamic_Static {
         return mButtons[static_cast<size_t>(button)];
     }
 
+    bool Mouse::State::operator[](size_t button) const
+    {
+        return mButtons[button];
+    }
+
+    Mouse::State::ButtonSet::reference Mouse::State::operator[](size_t button)
+    {
+        return mButtons[button];
+    }
+
     double Mouse::State::scroll() const
     {
         return mScroll;

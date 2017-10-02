@@ -261,6 +261,20 @@ namespace Dynamic_Static {
              */
             KeySet::reference operator[](Key key);
 
+            /**
+             * Gets a value indicating whether or not a given Key is down.
+             * @param [in] key The Key to check
+             * @return Whether or not the given Key is down
+             */
+            bool operator[](size_t key) const;
+
+            /**
+             * Sets a value indicating whether or not a given Key is down.
+             * @param [in] key The Key to set
+             * @return Whether or not the given Key is down
+             */
+            KeySet::reference operator[](size_t key);
+
         public:
             /**
              * Resets this Keyboard::State.
