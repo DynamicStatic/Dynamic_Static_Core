@@ -41,6 +41,7 @@ set(INCLUDE_FILES
     ${INCLUDE_PATH}/BinaryReader.hpp
     ${INCLUDE_PATH}/Callback.hpp
     ${INCLUDE_PATH}/Defines.hpp
+    ${INCLUDE_PATH}/Memory.hpp
     ${INCLUDE_PATH}/NonCopyable.hpp
     ${INCLUDE_PATH}/NonMoveable.hpp
     ${INCLUDE_PATH}/NotImplementedError.hpp
@@ -80,6 +81,7 @@ set(SOURCE_FILES
     ${SOURCE_PATH}/Threads/Worker.cpp
     
     ${SOURCE_PATH}/BinaryReader.cpp
+    ${SOURCE_PATH}/Memory.cpp
     ${SOURCE_PATH}/NotImplementedError.cpp
     ${SOURCE_PATH}/Object.cpp
     ${SOURCE_PATH}/String.cpp
