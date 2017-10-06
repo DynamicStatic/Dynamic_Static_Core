@@ -14,6 +14,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <utility>
 
 namespace Dynamic_Static {
 
@@ -25,7 +26,7 @@ namespace Dynamic_Static {
      * @return The value after rounding and casting
      */
     template <typename RT, typename T>
-    inline RT round_cast(T value)
+    inline RT round_cast(const T& value)
     {
         return static_cast<RT>(std::round(value));
     }
@@ -36,12 +37,13 @@ namespace Dynamic_Static {
      * @param [in] value The value to clamp
      * @param [in] min   The minimum value
      * @param [in] max   The maximum value
+     * @assert This function asserts that min <= max
      * @return The value clamped into the range [minimum, maximum]
      */
     template <typename T>
-    inline typename std::enable_if<std::is_integral<T>::value, T>::type
-        clamp(T value, T min, T max)
+    inline const T& clamp(const T& value, const T& min, const T& max)
     {
+        assert(min <= max && "min must less than or equal to max");
         return std::min(std::max(min, value), max);
     }
 
@@ -51,13 +53,30 @@ namespace Dynamic_Static {
      * @param [in] value The value to clamp
      * @param [in] min   The minimum value
      * @param [in] max   The maximum value
+     * @assert This function asserts that min <= max
      * @return The value clamped into the range [minimum, maximum]
      */
     template <typename T>
     inline typename std::enable_if<std::is_floating_point<T>::value, T>::type
         clamp(T value, T min, T max)
     {
+        assert(min <= max && "min must less than or equal to max");
         return std::fmin(std::fmax(min, value), max);
+    }
+
+    /**
+     * Gets a value clamped to a given range.
+     * @param <T>  The type of the value to clamp
+     * @param [in] value The value to clamp
+     * @param [in] range The range to clamp the given value into
+     * @assert This function asserts that range.first <= range.second
+     * @return The value clamped into the given range [range.first, range.second]
+     */
+    template <typename T>
+    inline const T& clamp(const T& value, const std::pair<const T&, const T&>& range)
+    {
+        assert(range.first <= range.second && "range.first must less than or equal to range.second");
+        return dst::clamp(value, range.first, range.second);
     }
 
     /**

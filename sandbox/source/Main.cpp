@@ -12,7 +12,7 @@
 
 #include <iostream>
 
-int main(/* int argc, char** argv */)
+int main()
 {
     dst::Version version(
         dst::VersionMajor,
