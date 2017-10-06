@@ -41,7 +41,8 @@ namespace Dynamic_Static {
      * @return The value clamped into the range [minimum, maximum]
      */
     template <typename T>
-    inline const T& clamp(const T& value, const T& min, const T& max)
+    inline typename std::enable_if<std::is_integral<T>::value, T>::type
+        clamp(T value, T min, T max)
     {
         assert(min <= max && "min must less than or equal to max");
         return std::min(std::max(min, value), max);
