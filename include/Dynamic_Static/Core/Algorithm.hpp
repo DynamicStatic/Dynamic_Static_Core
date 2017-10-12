@@ -84,7 +84,8 @@ namespace Dynamic_Static {
      * TODO : Documentation.
      */
     template <typename T>
-    inline T wrap(const T& value, const T& min, const T& max)
+    inline typename std::enable_if<std::is_integral<T>::value, T>::type
+        wrap(T value, T min, T max)
     {
         assert(min <= max && "min must less than or equal to max");
         // TODO : Implement.
@@ -101,6 +102,16 @@ namespace Dynamic_Static {
         assert(min <= max && "min must less than or equal to max");
         // TODO : Implement.
         return value;
+    }
+
+    /**
+     * TODO : Documentation.
+     */
+    template <typename T>
+    inline const T& wrap(const T& value, const std::pair<const T&, const T&>& range)
+    {
+        assert(range.first <= range.second && "range.first must less than or equal to range.second");
+        return dst::wrap(value, range.first, range.second);
     }
 
     /**
