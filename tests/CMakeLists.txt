@@ -24,6 +24,7 @@ set(SOURCE_FILES
     ${SOURCE_PATH}/Threads/ThreadPool.Tests.cpp
     ${SOURCE_PATH}/Threads/Worker.Tests.cpp
 
+    ${SOURCE_PATH}/Algorithm.Tests.cpp
     ${SOURCE_PATH}/Random.Tests.cpp
     ${SOURCE_PATH}/StringUtilities.Tests.cpp
     ${SOURCE_PATH}/ToString.Tests.cpp

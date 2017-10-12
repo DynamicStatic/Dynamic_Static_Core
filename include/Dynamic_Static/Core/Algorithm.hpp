@@ -80,6 +80,29 @@ namespace Dynamic_Static {
     }
 
     /**
+     * TODO : Documentation.
+     */
+    template <typename T>
+    inline T wrap(const T& value, const T& min, const T& max)
+    {
+        assert(min <= max && "min must less than or equal to max");
+        // TODO : Implement.
+        return value;
+    }
+
+    /**
+     * TODO : Documentation.
+     */
+    template <typename T>
+    inline typename std::enable_if<std::is_floating_point<T>::value, T>::type
+        wrap(T value, T min, T max)
+    {
+        assert(min <= max && "min must less than or equal to max");
+        // TODO : Implement.
+        return value;
+    }
+
+    /**
      * Gets a linear interpolation from one given floating point value to another using a 0 - 1 weighting.
      * @param <T>     The type of the value to interpolate
      * @param [in] v0 The value to interpolate from
