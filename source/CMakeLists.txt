@@ -52,6 +52,7 @@ set(INCLUDE_FILES
     ${INCLUDE_PATH}/StringUtilities.hpp
     ${INCLUDE_PATH}/Time.hpp
     ${INCLUDE_PATH}/ToString.hpp
+    ${INCLUDE_PATH}/TupleUtilities.hpp
     ${INCLUDE_PATH}/TypeUtilities.hpp
     ${INCLUDE_PATH}/VectorUtilities.hpp
     ${INCLUDE_PATH}/Version.hpp
