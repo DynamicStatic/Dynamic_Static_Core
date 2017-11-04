@@ -118,3 +118,8 @@ target_link_libraries(
 
 create_file_group("${INCLUDE_FILES}")
 create_file_group("${SOURCE_FILES}")
+
+export(
+    TARGETS ${TARGET}
+    FILE ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.package.cmake
+)

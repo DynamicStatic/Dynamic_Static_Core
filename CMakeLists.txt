@@ -3,8 +3,8 @@
 
 cmake_minimum_required(VERSION 3.2)
 project(Dynamic_Static.Core CXX)
-option(DST_CORE_BUILD_SANDBOX "Build Dynamic_Static.Core.Sandbox" ON)
-option(DST_CORE_BUILD_TESTS "Build Dynamic_Static.Core.Tests" ON)
+option(BUILD_SANDBOX "Build Dynamic_Static.Core.Sandbox" ON)
+option(BUILD_TESTS "Build Dynamic_Static.Core.Tests" ON)
 
 include(CheckCXXCompilerFlag)
 function(set_cxx_flag CXX_FLAG)
@@ -40,13 +40,9 @@ function(create_file_group FILE_GROUP)
 endfunction()
 
 add_subdirectory("source/")
-if (DST_CORE_BUILD_SANDBOX)
+if (BUILD_SANDBOX)
     add_subdirectory("sandbox/")
 endif()
-if (DST_CORE_BUILD_TESTS)
+if (BUILD_TESTS)
     add_subdirectory("tests/")
 endif()
-
-# NOTE : This configuration will generate some files in the project's root directory...this is a known issue in VS2017.
-#        https://gitlab.kitware.com/cmake/cmake/issues/16458
-#        https://developercommunity.visualstudio.com/content/problem/25240/inconsistent-behaviour-with-output-directory-and-i.html
