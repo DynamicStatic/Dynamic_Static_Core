@@ -107,13 +107,13 @@ add_library(${TARGET} ${INCLUDE_FILES} ${SOURCE_FILES})
 set_target_properties(${TARGET} PROPERTIES PREFIX "")
 
 target_include_directories(
-    ${TARGET} PUBLIC
-    ${PROJECT_SOURCE_DIR}/include/
+    ${TARGET}
+    PUBLIC ${PROJECT_SOURCE_DIR}/include/
 )
 
 target_link_libraries(
-    ${TARGET} PUBLIC
-    ${SYSTEM_INSTALL_DEPENDENCIES}
+    ${TARGET}
+    PUBLIC ${SYSTEM_INSTALL_DEPENDENCIES}
 )
 
 create_file_group("${INCLUDE_FILES}")
