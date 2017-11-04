@@ -41,15 +41,12 @@ function(create_file_group FILE_GROUP)
     endforeach()
 endfunction()
 
-# set(DST_CORE_INCLUDE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/")
-# message("CMAKE_CURRENT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}")
-add_subdirectory(source/)
-
+add_subdirectory("source/")
 if (DST_CORE_BUILD_SANDBOX)
-    add_subdirectory(sandbox/)
+    add_subdirectory("sandbox/")
 endif()
 if (DST_CORE_BUILD_TESTS)
-    add_subdirectory(tests/)
+    add_subdirectory("tests/")
 endif()
 
 # NOTE : This configuration will generate directories in the project's root directory for
