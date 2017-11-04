@@ -10,11 +10,6 @@ set(SOURCE_FILES
     ${SOURCE_DIRECTORY}/Main.cpp
 )
 
-include_directories(
-    ${INCLUDE_DIRECTORY}
-    ${DST_CORE_INCLUDE}
-)
-
 add_executable(
     Dynamic_Static.Core.Sandbox
     ${INCLUDE_FILES}
@@ -24,7 +19,6 @@ add_executable(
 target_link_libraries(
     Dynamic_Static.Core.Sandbox
     Dynamic_Static.Core
-    ${DST_CORE_DEPENDENCIES}
 )
 
 create_file_group("${INCLUDE_FILES}")

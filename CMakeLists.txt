@@ -41,9 +41,10 @@ function(create_file_group FILE_GROUP)
     endforeach()
 endfunction()
 
-set(DST_CORE_INCLUDE "${CMAKE_SOURCE_DIR}/include/")
-include_directories("${DST_CORE_INCLUDE}")
+# set(DST_CORE_INCLUDE_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/include/")
+# message("CMAKE_CURRENT_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}")
 add_subdirectory(source/)
+
 if (DST_CORE_BUILD_SANDBOX)
     add_subdirectory(sandbox/)
 endif()

@@ -1,7 +1,7 @@
 
 # CMake configuration for Dynamic_Static.Core/source
 
-set(INCLUDE_PATH ${DST_CORE_INCLUDE}/Dynamic_Static/Core/)
+set(INCLUDE_PATH ${PROJECT_SOURCE_DIR}/include/Dynamic_Static/Core/)
 set(INCLUDE_FILES
     ${INCLUDE_PATH}/Events.hpp
     ${INCLUDE_PATH}/Events/Delegate.hpp
@@ -92,18 +92,28 @@ set(SOURCE_FILES
 )
 
 if (MSVC)
-    set(DST_CORE_DEPENDENCIES
-        PARENT_SCOPE
+    set(LIBRARY_DEPENDENCIES
     )
 else()
-    set(DST_CORE_DEPENDENCIES
+    set(LIBRARY_DEPENDENCIES
         stdc++fs
         pthread
-        PARENT_SCOPE
     )
 endif()
 
-add_library(Dynamic_Static.Core ${INCLUDE_FILES} ${SOURCE_FILES})
-set_target_properties(Dynamic_Static.Core PROPERTIES PREFIX "")
+set(TARGET Dynamic_Static.Core)
+add_library(${TARGET} ${INCLUDE_FILES} ${SOURCE_FILES})
+set_target_properties(${TARGET} PROPERTIES PREFIX "")
+
+target_include_directories(
+    ${TARGET} PUBLIC
+    ${PROJECT_SOURCE_DIR}/include/
+)
+
+target_link_libraries(
+    ${TARGET} PUBLIC
+    ${LIBRARY_DEPENDENCIES}
+)
+
 create_file_group("${INCLUDE_FILES}")
 create_file_group("${SOURCE_FILES}")

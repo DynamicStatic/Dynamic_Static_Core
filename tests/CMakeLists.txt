@@ -33,7 +33,6 @@ set(SOURCE_FILES
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
-    ${DST_CORE_INCLUDE}
 )
 
 add_executable(
@@ -44,7 +43,6 @@ add_executable(
 target_link_libraries(
     Dynamic_Static.Core.Tests
     Dynamic_Static.Core
-    ${DST_CORE_DEPENDENCIES}
 )
 
 create_file_group("${INCLUDE_FILES}")
