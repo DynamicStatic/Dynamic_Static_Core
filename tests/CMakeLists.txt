@@ -35,13 +35,11 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-add_executable(
-    Dynamic_Static.Core.Tests
-    ${SOURCE_FILES}
-)
+set(TARGET Dynamic_Static.Core.Tests)
+add_executable(${TARGET} ${SOURCE_FILES})
 
 target_link_libraries(
-    Dynamic_Static.Core.Tests
+    ${TARGET}
     Dynamic_Static.Core
 )
 

@@ -1,5 +1,5 @@
 
-# CMake configuration for Dynamic_Static.Core/source
+# CMake configuration for Dynamic_Static.Core
 
 set(INCLUDE_PATH ${PROJECT_SOURCE_DIR}/include/Dynamic_Static/Core/)
 set(INCLUDE_FILES
@@ -92,12 +92,13 @@ set(SOURCE_FILES
 )
 
 if (MSVC)
-    set(LIBRARY_DEPENDENCIES
+    set(SYSTEM_INSTALL_DEPENDENCIES
     )
 else()
-    set(LIBRARY_DEPENDENCIES
-        stdc++fs
+    set(SYSTEM_INSTALL_DEPENDENCIES
+        dl
         pthread
+        stdc++fs
     )
 endif()
 
@@ -112,7 +113,7 @@ target_include_directories(
 
 target_link_libraries(
     ${TARGET} PUBLIC
-    ${LIBRARY_DEPENDENCIES}
+    ${SYSTEM_INSTALL_DEPENDENCIES}
 )
 
 create_file_group("${INCLUDE_FILES}")

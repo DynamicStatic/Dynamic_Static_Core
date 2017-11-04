@@ -10,14 +10,11 @@ set(SOURCE_FILES
     ${SOURCE_DIRECTORY}/Main.cpp
 )
 
-add_executable(
-    Dynamic_Static.Core.Sandbox
-    ${INCLUDE_FILES}
-    ${SOURCE_FILES}
-)
+set(TARGET Dynamic_Static.Core.Sandbox)
+add_executable(${TARGET} ${INCLUDE_FILES} ${SOURCE_FILES})
 
 target_link_libraries(
-    Dynamic_Static.Core.Sandbox
+    ${TARGET}
     Dynamic_Static.Core
 )
 
