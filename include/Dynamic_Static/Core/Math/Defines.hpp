@@ -234,8 +234,8 @@ namespace detail {
         static inline float distance(const DSTType& lhs, const DSTType& rhs)
         {
             return glm::distance(
-                static_cast<typename GLMBase>(lhs),
-                static_cast<typename GLMBase>(rhs)
+                static_cast<GLMBase>(lhs),
+                static_cast<GLMBase>(rhs)
             );
         }
 
@@ -245,8 +245,8 @@ namespace detail {
         static inline float distance_squared(const DSTType& lhs, const DSTType& rhs)
         {
             return glm::distance2(
-                static_cast<typename GLMBase>(lhs),
-                static_cast<typename GLMBase>(rhs)
+                static_cast<GLMBase>(lhs),
+                static_cast<GLMBase>(rhs)
             );
         }
 
