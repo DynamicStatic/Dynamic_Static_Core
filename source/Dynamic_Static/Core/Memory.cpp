@@ -7,8 +7,6 @@
 ==========================================
 */
 
-#pragma once
-
 #include "Dynamic_Static/Core/Memory.hpp"
 
 #if defined(DYNAMIC_STATIC_WINDOWS)

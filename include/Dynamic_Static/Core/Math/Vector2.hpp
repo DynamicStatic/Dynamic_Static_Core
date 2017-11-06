@@ -52,7 +52,11 @@ namespace Dynamic_Static {
          */
         inline float to_angle() const
         {
+            #if DYNAMIC_STATIC_MSVC
             return std::atan2f(y, x);
+            #else
+            return std::atan2(y, x);
+            #endif
         }
     };
 

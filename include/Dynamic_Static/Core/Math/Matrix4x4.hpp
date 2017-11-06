@@ -127,7 +127,7 @@ namespace Dynamic_Static {
          */
         inline Matrix4x4 inverse() const
         {
-            return glm::inverse(*this);
+            return glm::inverse(*static_cast<const glm::mat4*>(this));
         }
 
         /**
