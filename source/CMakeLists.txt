@@ -1,5 +1,5 @@
 
-set(INCLUDE_PATH ${PROJECT_SOURCE_DIR}/include/Dynamic_Static/Core/)
+set(INCLUDE_PATH "${PROJECT_SOURCE_DIR}/include/Dynamic_Static/Core/")
 set(INCLUDE_FILES
     ${INCLUDE_PATH}/Events.hpp
     ${INCLUDE_PATH}/Events/Delegate.hpp
@@ -53,7 +53,7 @@ set(INCLUDE_FILES
     ${INCLUDE_PATH}/Win32LeanAndMean.hpp
 )
 
-set(SOURCE_PATH ${PROJECT_SOURCE_DIR}/source/Dynamic_Static/Core/)
+set(SOURCE_PATH "${PROJECT_SOURCE_DIR}/source/Dynamic_Static/Core/")
 set(SOURCE_FILES
     ${SOURCE_PATH}/FileSystem/Directory.cpp
     ${SOURCE_PATH}/FileSystem/File.cpp

@@ -1,8 +1,8 @@
 
 # CMake configuration for Dynamic_Static.Core.Tests
 
-set(SOURCE_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/source/)
-set(SOURCE_PATH ${SOURCE_DIRECTORY}Dynamic_Static/Core/)
+set(SOURCE_DIRECTORY "${PROJECT_SOURCE_DIR}/tests/source/")
+set(SOURCE_PATH "${SOURCE_DIRECTORY}Dynamic_Static/Core/")
 set(SOURCE_FILES
     ${SOURCE_DIRECTORY}/Main.cpp
     ${SOURCE_PATH}/Events/Events.Tests.cpp
@@ -28,11 +28,11 @@ set(SOURCE_FILES
     ${SOURCE_PATH}/VectorUtilities.Tests.cpp
 )
 
-create_file_group("${INCLUDE_FILES}")
-create_file_group("${SOURCE_FILES}")
+dst_create_file_group("${INCLUDE_FILES}")
+dst_create_file_group("${SOURCE_FILES}")
 
 set(TARGET Dynamic_Static.Core.Tests)
-add_executable(${TARGET} ${SOURCE_FILES})
-target_include_directories(${TARGET} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+add_executable(${TARGET} "${SOURCE_FILES}")
+target_include_directories(${TARGET} PUBLIC "${PROJECT_SOURCE_DIR}/tests/")
 target_link_libraries(${TARGET} Dynamic_Static.Core)
 add_dependencies(${TARGET} Dynamic_Static.Core)

@@ -8,6 +8,21 @@ function(dst_set_cxx_flag CXX_FLAG)
     endif()
 endfunction()
 #######################################################################################################
+function(dst_create_project PROJECT_NAME)
+    project(${PROJECT_NAME} CXX)
+    set(CMAKE_CXX_STANDARD 14)
+    dst_set_cxx_flag(-W4)
+    dst_set_cxx_flag(-Wall)
+    dst_set_cxx_flag(-Wextra)
+    dst_set_cxx_flag(-Wuninitialized)
+    dst_set_cxx_flag(-Wwrite-strings)
+    dst_set_cxx_flag(-Wpointer-arith)
+    dst_set_cxx_flag(-Wunreachable-code)
+    dst_set_cxx_flag(-Wstrict_prototypes)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
+    add_definitions(-DUNICODE -D_UNICODE)
+endfunction()
+#######################################################################################################
 function(dst_create_file_group FILE_GROUP)
     foreach(FILE ${FILE_GROUP})
         get_filename_component(PARENT_DIR "${FILE}" DIRECTORY)
@@ -17,21 +32,6 @@ function(dst_create_file_group FILE_GROUP)
         endif()
         source_group("${GROUP}" FILES "${FILE}")
     endforeach()
-endfunction()
-#######################################################################################################
-function(dst_create_project PROJECT_NAME)
-    project(${PROJECT_NAME} CXX)
-    set(CMAKE_CXX_STANDARD 14)
-    set_cxx_flag(-W4)
-    set_cxx_flag(-Wall)
-    set_cxx_flag(-Wextra)
-    set_cxx_flag(-Wuninitialized)
-    set_cxx_flag(-Wwrite-strings)
-    set_cxx_flag(-Wpointer-arith)
-    set_cxx_flag(-Wunreachable-code)
-    set_cxx_flag(-Wstrict_prototypes)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++14")
-    add_definitions(-DUNICODE -D_UNICODE)
 endfunction()
 #######################################################################################################
 function(dst_create_static_library INCLUDE_FILES SOURCE_FILES)
@@ -44,8 +44,8 @@ function(dst_create_static_library INCLUDE_FILES SOURCE_FILES)
             PUBLIC_HEADER "${INCLUDE_FILES}"
     )
 
-    create_file_group("${INCLUDE_FILES}")
-    create_file_group("${SOURCE_FILES}")
+    dst_create_file_group("${INCLUDE_FILES}")
+    dst_create_file_group("${SOURCE_FILES}")
 
     target_include_directories(
         ${CMAKE_PROJECT_NAME}
@@ -69,6 +69,7 @@ endfunction()
 #######################################################################################################
 function(dst_create_shared_library INCLUDE_FILES SOURCE_FILES)
     add_library(${CMAKE_PROJECT_NAME} SHARED ${INCLUDE_FILES} ${SOURCE_FILES})
+    set(CMAKE_VS_INCLUDE_INSTALL_TO_DEFAULT_BUILD 1)
     set_target_properties(
         ${CMAKE_PROJECT_NAME}
         PROPERTIES
@@ -79,8 +80,8 @@ function(dst_create_shared_library INCLUDE_FILES SOURCE_FILES)
             # BUILD_SHARED_LIBS TRUE
     )
 
-    create_file_group("${INCLUDE_FILES}")
-    create_file_group("${SOURCE_FILES}")
+    dst_create_file_group("${INCLUDE_FILES}")
+    dst_create_file_group("${SOURCE_FILES}")
 
     target_include_directories(
         ${CMAKE_PROJECT_NAME}
