@@ -23,7 +23,7 @@ namespace Dynamic_Static {
         : NonCopyable
     {
     private:
-        std::string mName { "Dynamic_Static::Object" };
+        std::string mName { "Object" };
 
     public:
         /**
@@ -67,13 +67,13 @@ namespace Dynamic_Static {
          * Gets this Object's name.
          * @return This Object's name
          */
-        virtual const std::string& name() const;
+        virtual const std::string& get_name() const;
 
         /**
          * Sets this Object's name.
          * @param [in] name This Object's name
          */
-        virtual void name(const std::string& name);
+        virtual void set_name(const std::string& name);
     };
 
 } // namespace Dynamic_Static

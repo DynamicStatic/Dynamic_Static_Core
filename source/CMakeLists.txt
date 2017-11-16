@@ -1,6 +1,4 @@
 
-# CMake configuration for Dynamic_Static.Core
-
 set(INCLUDE_PATH ${PROJECT_SOURCE_DIR}/include/Dynamic_Static/Core/)
 set(INCLUDE_FILES
     ${INCLUDE_PATH}/Events.hpp
@@ -55,7 +53,7 @@ set(INCLUDE_FILES
     ${INCLUDE_PATH}/Win32LeanAndMean.hpp
 )
 
-set(SOURCE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/Dynamic_Static/Core/)
+set(SOURCE_PATH ${PROJECT_SOURCE_DIR}/source/Dynamic_Static/Core/)
 set(SOURCE_FILES
     ${SOURCE_PATH}/FileSystem/Directory.cpp
     ${SOURCE_PATH}/FileSystem/File.cpp
@@ -82,35 +80,4 @@ set(SOURCE_FILES
     ${SOURCE_PATH}/Win32LeanAndMean.cpp
 )
 
-if (MSVC)
-    set(SYSTEM_INSTALL_DEPENDENCIES
-    )
-else()
-    set(SYSTEM_INSTALL_DEPENDENCIES
-        dl
-        pthread
-        stdc++fs
-    )
-endif()
-
-set(TARGET Dynamic_Static.Core)
-add_library(${TARGET} ${INCLUDE_FILES} ${SOURCE_FILES})
-set_target_properties(${TARGET} PROPERTIES PREFIX "")
-
-target_include_directories(
-    ${TARGET}
-    PUBLIC ${PROJECT_SOURCE_DIR}/include/
-)
-
-target_link_libraries(
-    ${TARGET}
-    PUBLIC ${SYSTEM_INSTALL_DEPENDENCIES}
-)
-
-create_file_group("${INCLUDE_FILES}")
-create_file_group("${SOURCE_FILES}")
-
-export(
-    TARGETS ${TARGET}
-    FILE ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.package.cmake
-)
+dst_create_static_library("${INCLUDE_FILES}" "${SOURCE_FILES}")

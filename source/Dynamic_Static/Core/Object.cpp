@@ -38,12 +38,13 @@ namespace Dynamic_Static {
     {
         return !operator==(other);
     }
-    const std::string& Object::name() const
+
+    const std::string& Object::get_name() const
     {
         return mName;
     }
 
-    void Object::name(const std::string& name)
+    void Object::set_name(const std::string& name)
     {
         mName = name;
     }
