@@ -1,0 +1,3 @@
+
+# Dynamic_Static.Core Documentation
+TODO : More README...
