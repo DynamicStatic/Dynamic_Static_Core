@@ -90,8 +90,8 @@ dst_setup_library("${includeFiles}" "${sourceFiles}")
 
 target_include_directories(
     ${CMAKE_PROJECT_NAME}
-    PUBLIC ${glm.include}
-    PUBLIC ${gsl.include}
+    PUBLIC INTERFACE ${glm.include}
+    PUBLIC INTERFACE ${gsl.include}
 )
 
 dst_export_library()
