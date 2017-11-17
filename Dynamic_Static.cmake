@@ -10,7 +10,6 @@ endfunction()
 ################################################################################
 function(dst_create_project projectName)
     project(${projectName} CXX)
-    set(CMAKE_CXX_STANDARD 14)
     dst_set_cxx_flag(-W4)
     dst_set_cxx_flag(-Wall)
     dst_set_cxx_flag(-Wextra)
