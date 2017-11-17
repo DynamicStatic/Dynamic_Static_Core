@@ -89,8 +89,8 @@ dst_create_static_library("${includeFiles}" "${sourceFiles}")
 
 target_include_directories(
     ${CMAKE_PROJECT_NAME}
-    PUBLIC INTERFACE ${glm.include}
-    PUBLIC INTERFACE ${gsl.include}
+    PUBLIC ${glm.include}
+    PUBLIC ${gsl.include}
 )
 
 # if (EXISTS glm AND
