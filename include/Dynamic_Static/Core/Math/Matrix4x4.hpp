@@ -37,7 +37,7 @@ namespace Dynamic_Static {
         static const Matrix4x4 Identity;
 
     public:
-        using glm::mat4::tmat4x4;
+        using glm::mat4::mat;
 
         /**
          * Constructs an instance of Matrix4x4.
