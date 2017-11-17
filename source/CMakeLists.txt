@@ -85,7 +85,7 @@ include("${CMAKE_SOURCE_DIR}/external/glm.cmake")
 include("${CMAKE_SOURCE_DIR}/external/gsl.cmake")
 add_dependencies(${CMAKE_PROJECT_NAME} glm)
 add_dependencies(${CMAKE_PROJECT_NAME} gsl)
-dst_create_static_library("${includeFiles}" "${sourceFiles}")
+dst_setup_library("${includeFiles}" "${sourceFiles}")
 
 target_include_directories(
     ${CMAKE_PROJECT_NAME}
@@ -94,9 +94,3 @@ target_include_directories(
 )
 
 dst_export_library()
-
-# if (EXISTS glm AND
-#     EXISTS gsl)
-#    add_dependencies(${CMAKE_PROJECT_NAME} glm)
-#    add_dependencies(${CMAKE_PROJECT_NAME} gsl)
-# endif()
