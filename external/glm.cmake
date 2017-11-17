@@ -10,8 +10,8 @@ ExternalProject_Add(
 )
 
 ExternalProject_Get_Property(glm SOURCE_DIR)
-file(REMOVE_RECURSE "${SOURCE_DIR}/cmake/")
-file(REMOVE_RECURSE "${SOURCE_DIR}/doc/")
-file(REMOVE_RECURSE "${SOURCE_DIR}/test/")
-file(REMOVE_RECURSE "${SOURCE_DIR}/util/")
+file(REMOVE_RECURSE "${SOURCE_DIR}/cmake")
+file(REMOVE_RECURSE "${SOURCE_DIR}/doc")
+file(REMOVE_RECURSE "${SOURCE_DIR}/test")
+file(REMOVE_RECURSE "${SOURCE_DIR}/util")
 set(glm.include "${SOURCE_DIR}/")
