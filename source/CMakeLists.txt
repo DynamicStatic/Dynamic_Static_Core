@@ -83,14 +83,12 @@ set(sourceFiles
 add_library(${CMAKE_PROJECT_NAME} STATIC ${includeFiles} ${sourceFiles})
 include("${CMAKE_SOURCE_DIR}/external/glm.cmake")
 include("${CMAKE_SOURCE_DIR}/external/gsl.cmake")
-add_dependencies(${CMAKE_PROJECT_NAME} glm)
-add_dependencies(${CMAKE_PROJECT_NAME} gsl)
 dst_create_static_library("${includeFiles}" "${sourceFiles}")
 
 target_include_directories(
     ${CMAKE_PROJECT_NAME}
-    PUBLIC ${glm.include}
-    PUBLIC ${gsl.include}
+    PUBLIC INTERFACE ${glm.include}
+    PUBLIC INTERFACE ${gsl.include}
 )
 
 # if (EXISTS glm AND
