@@ -87,3 +87,6 @@ target_include_directories(
     PUBLIC ${glm.include}
     PUBLIC ${gsl.include}
 )
+
+add_dependencies(${CMAKE_PROJECT_NAME} glm)
+add_dependencies(${CMAKE_PROJECT_NAME} gsl)
