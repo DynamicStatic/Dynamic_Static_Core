@@ -93,6 +93,8 @@ target_include_directories(
     PUBLIC ${gsl.include}
 )
 
+dst_export_library()
+
 # if (EXISTS glm AND
 #     EXISTS gsl)
 #    add_dependencies(${CMAKE_PROJECT_NAME} glm)

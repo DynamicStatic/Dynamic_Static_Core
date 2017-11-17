@@ -61,11 +61,6 @@ function(dst_create_static_library includeFiles sourceFiles)
             PUBLIC stdc++fs
         )
     endif()
-
-    export(
-        TARGETS ${CMAKE_PROJECT_NAME}
-        FILE ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.package.cmake
-    )
 endfunction()
 ################################################################################
 function(dst_create_shared_library includeFiles sourceFiles)
@@ -97,14 +92,16 @@ function(dst_create_shared_library includeFiles sourceFiles)
             PUBLIC stdc++fs
         )
     endif()
-
+endfunction()
+################################################################################
+macro(dst_export_library)
     # include(GenerateExportHeader)
     # generate_export_header(${CMAKE_PROJECT_NAME})
     export(
         TARGETS ${CMAKE_PROJECT_NAME}
         FILE ${CMAKE_BINARY_DIR}/${CMAKE_PROJECT_NAME}.package.cmake
     )
-endfunction()
+endmacro()
 ################################################################################
 macro(dst_list_include_directories)
     get_property(
@@ -120,7 +117,7 @@ macro(dst_list_include_directories)
 endmacro()
 ################################################################################
 macro(dst_install_library includeDirectories)
-    set(packageDirectory "${PROJECT_SOURCE_DIR}/packages/")
+    set(packageDirectory "${PROJECT_SOURCE_DIR}/../packages/${CMAKE_PROJECT_NAME}/")
     foreach(includeDirectory ${includeDirectories})
         install(
             DIRECTORY "${includeDirectory}"
