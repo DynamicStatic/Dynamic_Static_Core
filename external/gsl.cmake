@@ -5,6 +5,8 @@ ExternalProject_Add(
     PREFIX external
     DOWNLOAD_DIR external/gsl
     URL https://github.com/Microsoft/GSL/archive/master.zip
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND ""
     INSTALL_COMMAND ""
 )
 
