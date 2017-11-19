@@ -83,10 +83,10 @@ set(sourceFiles
     ${sourcePath}/Win32LeanAndMean.cpp
 )
 
-add_library(${CMAKE_PROJECT_NAME} STATIC ${includeFiles} ${sourceFiles})
+add_library(${CMAKE_PROJECT_NAME} STATIC "${includeFiles}" "${sourceFiles}")
 add_dependencies(${CMAKE_PROJECT_NAME} glm)
 add_dependencies(${CMAKE_PROJECT_NAME} gsl)
-dst_setup_library("${includeFiles}" "${sourceFiles}")
+dst_setup_target(${CMAKE_PROJECT_NAME} "${includeFiles}" "${sourceFiles}")
 
 target_include_directories(
     ${CMAKE_PROJECT_NAME}
@@ -94,4 +94,4 @@ target_include_directories(
     PUBLIC ${gsl.include}
 )
 
-dst_export_library()
+dst_export_target(${CMAKE_PROJECT_NAME})
