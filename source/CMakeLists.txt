@@ -1,6 +1,6 @@
 
-include("${CMAKE_SOURCE_DIR}/external/glm.cmake")
-include("${CMAKE_SOURCE_DIR}/external/gsl.cmake")
+include("${PROJECT_SOURCE_DIR}/external/glm.cmake")
+include("${PROJECT_SOURCE_DIR}/external/gsl.cmake")
 
 set(includePath "${PROJECT_SOURCE_DIR}/include/Dynamic_Static/Core/")
 set(includeFiles
