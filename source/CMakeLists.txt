@@ -83,15 +83,10 @@ set(sourceFiles
     ${sourcePath}/Win32LeanAndMean.cpp
 )
 
-add_library(${CMAKE_PROJECT_NAME} STATIC "${includeFiles}" "${sourceFiles}")
+add_library(${CMAKE_PROJECT_NAME} OBJECT "${includeFiles}" "${sourceFiles}")
 add_dependencies(${CMAKE_PROJECT_NAME} glm)
 add_dependencies(${CMAKE_PROJECT_NAME} gsl)
 dst_setup_target(${CMAKE_PROJECT_NAME} "${includeFiles}" "${sourceFiles}")
-set_target_properties(
-    ${CMAKE_PROJECT_NAME}
-    PROPERTIES
-        LINK_FLAGS "-fPic"
-)
 
 target_include_directories(
     ${CMAKE_PROJECT_NAME}
