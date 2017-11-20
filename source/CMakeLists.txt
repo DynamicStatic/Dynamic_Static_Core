@@ -59,7 +59,7 @@ set(includeFiles
 set(sourcePath "${PROJECT_SOURCE_DIR}/source/Dynamic_Static/Core/")
 set(sourceFiles
     ${sourcePath}/FileSystem/Directory.cpp
-    # ${sourcePath}/FileSystem/File.cpp
+    ${sourcePath}/FileSystem/File.cpp
     ${sourcePath}/FileSystem/Path.cpp
 
     ${sourcePath}/Math/Color.cpp
