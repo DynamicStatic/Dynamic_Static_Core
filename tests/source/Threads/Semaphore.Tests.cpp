@@ -137,10 +137,10 @@ namespace Tests {
     TEST_CASE("Semaphore can pass through wait() on positive value() then notify_all()", "[Threads.Semaphore]")
     {
         Semaphore semaphore(NotifyCount);
-        REQUIRE(semaphore.value() == NotifyCount);
+        REQUIRE(semaphore.get_value() == NotifyCount);
         semaphore.notify(NotifyCount);
-        REQUIRE(semaphore.value() == NotifyCount * 2);
-        size_t value = semaphore.value();
+        REQUIRE(semaphore.get_value() == NotifyCount * 2);
+        size_t value = semaphore.get_value();
 
         std::atomic<size_t> counter { 0 };
         auto threads = create_threads(
@@ -153,7 +153,7 @@ namespace Tests {
         );
 
         std::this_thread::sleep_for(Millisecond<>(0.1f));
-        REQUIRE(semaphore.value() == 0);
+        REQUIRE(semaphore.get_value() == 0);
         REQUIRE(counter == value);
         semaphore.notify_all();
         join_threads(threads);

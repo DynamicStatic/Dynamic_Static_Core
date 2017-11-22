@@ -42,13 +42,13 @@ namespace Dynamic_Static {
         ~ThreadPool();
 
     public:
-        size_t worker_count() const;
+        size_t get_worker_count() const;
 
         /**
          * Gets this ThreadPool's pending Worker::Task count.
          * \n NOTE : This ThreadPool's Worker::Task count may have changed by the time this method returns
          */
-        size_t task_count() const;
+        size_t get_task_count() const;
 
         /**
          * Pushes a Task for this ThreadPool to process on a child thread.

@@ -52,7 +52,7 @@ namespace Dynamic_Static {
         }
     }
 
-    size_t Worker::task_count() const
+    size_t Worker::get_task_count() const
     {
         return mTasks.size();
     }

@@ -26,7 +26,7 @@ namespace Dynamic_Static {
         }
     }
 
-    size_t Semaphore::value() const
+    size_t Semaphore::get_value() const
     {
         return mValue;
     }

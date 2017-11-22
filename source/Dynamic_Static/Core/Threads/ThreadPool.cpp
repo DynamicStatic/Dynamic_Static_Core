@@ -25,16 +25,16 @@ namespace Dynamic_Static {
         wait();
     }
 
-    size_t ThreadPool::worker_count() const
+    size_t ThreadPool::get_worker_count() const
     {
         return mWorkers.size();
     }
 
-    size_t ThreadPool::task_count() const
+    size_t ThreadPool::get_task_count() const
     {
         size_t taskCount = 0;
         for (const auto& worker : mWorkers) {
-            taskCount += worker.task_count();
+            taskCount += worker.get_task_count();
         }
 
         return taskCount;

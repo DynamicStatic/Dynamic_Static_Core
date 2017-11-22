@@ -60,7 +60,7 @@ namespace Dynamic_Static {
          * Gets this Worker's pending Task count
          * \n NOTE : This Workers's Task count may have changed by the time this method returns
          */
-        size_t task_count() const;
+        size_t get_task_count() const;
 
         /**
          * Pushes a Task for this Worker to process on a child thread.

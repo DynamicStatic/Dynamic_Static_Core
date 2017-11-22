@@ -52,7 +52,7 @@ namespace Dynamic_Static {
          * \n NOTE : This Semaphore's value may have changed by the time this method returns
          * @return This Semaphore's current value
          */
-        size_t value() const;
+        size_t get_value() const;
 
         /**
          * Notifies on thread wiating on this Semaphore and increments this Semaphore's value by one.
