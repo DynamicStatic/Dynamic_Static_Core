@@ -46,7 +46,7 @@ namespace Dynamic_Static {
          */
         inline RandomNumberGenerator(uint32_t seed)
         {
-            this->seed(seed);
+            set_seed(seed);
         }
 
     public:
@@ -54,7 +54,7 @@ namespace Dynamic_Static {
          * Gets this RandomNumberGenerator's seed.
          * @return This RandomNumberGenerator's seed
          */
-        inline uint32_t seed() const
+        inline uint32_t get_seed() const
         {
             return mSeed;
         }
@@ -64,7 +64,7 @@ namespace Dynamic_Static {
          * \n NOTE : Calling this method will reset this RandomNumberGenerator.
          * @param [in] seed This RandomNumberGenerator's seed 
          */
-        inline void seed(uint32_t seed)
+        inline void set_seed(uint32_t seed)
         {
             mSeed = seed;
             reset();

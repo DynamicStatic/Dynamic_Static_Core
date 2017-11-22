@@ -11,6 +11,7 @@
 
 #include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/String.hpp"
+#include "Dynamic_Static/Core/ToString.hpp"
 
 #include <string>
 

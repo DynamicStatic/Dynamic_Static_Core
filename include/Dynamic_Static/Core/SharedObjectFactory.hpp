@@ -59,7 +59,7 @@ namespace Dynamic_Static {
          * @return This SharedObjectFactory's shared objects of the given type
          */
         template <typename T>
-        const gsl::span<std::weak_ptr<T>> objects() const
+        gsl::span<const std::weak_ptr<T>> get_objects() const
         {
             return validated_objects<T>();
         }

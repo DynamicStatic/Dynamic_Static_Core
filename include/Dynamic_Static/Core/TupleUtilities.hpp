@@ -15,10 +15,6 @@
 
 namespace Dynamic_Static {
 
-    template <typename TupleType>
-    void for_each_tuple()
-    {
 
-    }
 
 } // namespace Dynamic_Static
