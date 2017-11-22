@@ -1,5 +1,4 @@
 
-================================================================================
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ultrices, neque
 eu tincidunt placerat, nisl odio placerat massa, et tristique urna nisl vel dui.
 Suspendisse facilisis augue sit amet felis laoreet, vel congue sapien facilisis.
@@ -52,4 +51,3 @@ condimentum velit. Aliquam erat volutpat. Proin quis lacus cursus quam accumsan
 pulvinar. Pellentesque ac aliquet sem, eget iaculis dui. Morbi porta nunc sit
 amet consectetur bibendum. Donec id laoreet massa. Donec auctor cursus ex, id
 efficitur elit finibus ut.
-================================================================================

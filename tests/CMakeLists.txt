@@ -4,6 +4,7 @@ set(sourceFiles
     ${sourcePath}/Events/Events.Tests.cpp
     ${sourcePath}/Events/Events.Tests.inl
 
+    ${sourcePath}/FileSystem/File.Tests.cpp
     ${sourcePath}/FileSystem/Path.Tests.cpp
 
     ${sourcePath}/Math/Matrix4x4.Tests.cpp
@@ -18,6 +19,10 @@ set(sourceFiles
     ${sourcePath}/Threads/Worker.Tests.cpp
 
     ${sourcePath}/Algorithm.Tests.cpp
+    ${sourcePath}/BinaryReader.Tests.cpp
+    ${sourcePath}/Callback.Tests.cpp
+    ${sourcePath}/LoremIpsum.hpp
+    ${sourcePath}/LoremIpsum.txt
     ${sourcePath}/Main.cpp
     ${sourcePath}/Random.Tests.cpp
     ${sourcePath}/StringUtilities.Tests.cpp
@@ -32,10 +37,10 @@ file(
     ${catch.include}/catch.hpp
 )
 
-set(TARGET Dynamic_Static.Core.Tests)
-add_executable(${TARGET} "${sourceFiles}")
-add_dependencies(${TARGET} Dynamic_Static.Core)
-dst_setup_target(${TARGET} "" "${sourceFiles}")
-target_include_directories(${TARGET} PUBLIC ${catch.include})
-target_link_libraries(${TARGET} PUBLIC Dynamic_Static.Core)
-file(COPY "${PROJECT_SOURCE_DIR}/tests/LoremIpsum.txt" DESTINATION "${CMAKE_BINARY_DIR}")
+set(target Dynamic_Static.Core.Tests)
+add_executable(${target} "${sourceFiles}")
+add_dependencies(${target} Dynamic_Static.Core)
+dst_setup_target(${target} "" "${sourceFiles}")
+target_include_directories(${target} PUBLIC ${catch.include})
+target_link_libraries(${target} PUBLIC Dynamic_Static.Core)
+file(COPY "${sourcePath}/LoremIpsum.txt" DESTINATION "${CMAKE_CURRENT_BINARY_DIR}")

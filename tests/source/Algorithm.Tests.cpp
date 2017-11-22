@@ -17,10 +17,7 @@
 namespace Dynamic_Static {
 namespace Tests {
 
-    TEST_CASE("wrap()", "[Algorithm]")
-    {
-        // REQUIRE(dst::wrap(0, 0, 0) != 0);
-    }
+
 
 } // namespace Tests
 } // namespace Dynamic_Static

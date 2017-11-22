@@ -14,17 +14,17 @@ namespace Dynamic_Static {
 
     BinaryReader::BinaryReader(const std::string& filePath)
     {
-        // TODO : BinaryReader should accept a file interface.
+        // TODO : BinaryReader ctor() should take std::fstream argument.
         open(filePath);
     }
 
-    size_t BinaryReader::size() const
+    size_t BinaryReader::get_size() const
     {
         // TODO : Size doesn't handle file changes.
         return mSize;
     }
 
-    size_t BinaryReader::position() const
+    size_t BinaryReader::get_position() const
     {
         size_t position = 0;
         if (mFileStream.is_open()) {
@@ -38,7 +38,7 @@ namespace Dynamic_Static {
         return position;
     }
 
-    void BinaryReader::position(size_t position)
+    void BinaryReader::set_position(size_t position)
     {
         seek(position, std::ios::beg);
     }
@@ -48,26 +48,25 @@ namespace Dynamic_Static {
         if (mFileStream.is_open()) {
             switch (origin) {
                 case std::ios::beg:
-                case std::ios::end:
-                {
+                case std::ios::end: {
                     if (offset > mSize) {
                         throw std::runtime_error(
-                            "offset (" + dst::to_string(offset) + ") exceeds file size (" + dst::to_string(size()) + ")"
+                            "offset (" + dst::to_string(offset) + ") exceeds file size (" + dst::to_string(get_size()) + ")"
                         );
                     }
                 } break;
 
-                case std::ios::cur:
-                {
-                    if (position() + offset > size()) {
+                case std::ios::cur: {
+                    if (get_position() + offset > get_size()) {
                         throw std::runtime_error(
-                            "offset (" + dst::to_string(offset) + ") from current position (" + dst::to_string(position()) + ") exceeds file size (" + dst::to_string(size()) + ")"
+                            "offset (" + dst::to_string(offset) + ") from current position (" + dst::to_string(get_position()) + ") exceeds file size (" + dst::to_string(get_size()) + ")"
                         );
                     }
                 } break;
 
-                default:
+                default: {
                     throw std::logic_error("A value besides std::ios::beg, std::ios::cur, or set::ios::end was given for origin");
+                }
             }
 
             mFileStream.seekg(offset, origin);
@@ -79,8 +78,8 @@ namespace Dynamic_Static {
         close();
         mFileStream.open(filePath, std::ios::binary | std::ios::ate);
         if (mFileStream.is_open()) {
-            mSize = position();
-            position(0);
+            mSize = get_position();
+            set_position(0);
         } else {
             throw std::runtime_error("File @\"" + filePath + "\" couldn't be opened");
         }

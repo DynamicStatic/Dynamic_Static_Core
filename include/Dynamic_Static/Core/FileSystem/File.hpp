@@ -49,7 +49,7 @@ namespace File {
      * @param [in]      filePath The path of the file to read
      * @param [in, out] contents The std::string to populate with the file's contents
      */
-    void read_string(const std::string& filePath, std::string& contents);
+    void read_string(const std::string& filePath, std::string& str);
 
 } // namespace File
 } // namespace Dynamic_Static

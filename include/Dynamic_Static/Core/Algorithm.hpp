@@ -10,6 +10,7 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Defines.hpp"
+#include "Dynamic_Static/Core/NotImplementedError.hpp"
 #include "Dynamic_Static/Core/TypeUtilities.hpp"
 
 #include <algorithm>
@@ -88,7 +89,7 @@ namespace Dynamic_Static {
         wrap(T value, T min, T max)
     {
         assert(min <= max && "min must less than or equal to max");
-        // TODO : Implement.
+        throw dst::NotImplementedError("wrap()");
         return value;
     }
 
@@ -100,7 +101,7 @@ namespace Dynamic_Static {
         wrap(T value, T min, T max)
     {
         assert(min <= max && "min must less than or equal to max");
-        // TODO : Implement.
+        throw dst::NotImplementedError("wrap()");
         return value;
     }
 

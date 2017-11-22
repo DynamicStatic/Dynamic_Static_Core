@@ -56,20 +56,20 @@ namespace Dynamic_Static {
          * Gets the size in bytes of the file being read by this BinaryReader.
          * @return The size in bytes of the file being read by this BinaryReader
          */
-        size_t size() const;
+        size_t get_size() const;
 
         /**
          * Gets this BinaryReader's position in the file being read.
          * @return This BinaryReader's position in the file being read
          */
-        size_t position() const;
+        size_t get_position() const;
 
         /**
          * Sets this BinaryReader's position in the file being read.
          * @param [in] position This BinaryReader's position in the file being read
          * \n Exception - std::runtime_error : offset exceeds file size
          */
-        void position(size_t position);
+        void set_position(size_t position);
 
         /**
          * Sets this BinaryReader's position to a given offset from a given origin.
@@ -104,7 +104,7 @@ namespace Dynamic_Static {
         {
             if (mFileStream.is_open() && data && count) {
                 size_t dataSize = sizeof(T) * count;
-                if (position() + dataSize > size()) {
+                if (get_position() + dataSize > get_size()) {
                     throw std::runtime_error("Attempted to read past the end of the file");
                 }
 
@@ -134,9 +134,9 @@ namespace Dynamic_Static {
         template <typename T>
         void peek(T* data, size_t count)
         {
-            size_t currentPosition = position();
+            size_t currentPosition = get_position();
             read(data, count);
-            position(currentPosition);
+            set_position(currentPosition);
         }
 
         /**
@@ -145,7 +145,7 @@ namespace Dynamic_Static {
          * @return The element read
          */
         template <typename T>
-        T peak()
+        T peek()
         {
             T value { };
             peek(&value, 1);
@@ -158,13 +158,14 @@ namespace Dynamic_Static {
          * @param [in] data The std::vector to populate with this BinaryFile's contents
          */
         template <typename T = uint8_t>
-        void contents(std::vector<T>& data)
+        void get_data(std::vector<T>& data)
         {
             data.clear();
-            size_t currentPosition = position();
-            position(0);
-            read(data.data(), size() / sizeof(T));
-            position(currentPosition);
+            data.resize(get_size());
+            size_t currentPosition = get_position();
+            set_position(0);
+            read(data.data(), get_size() / sizeof(T));
+            set_position(currentPosition);
         }
 
         /**
@@ -173,10 +174,10 @@ namespace Dynamic_Static {
          * @return The std::vector populated with this BinaryFile's contents
          */
         template <typename T = uint8_t>
-        std::vector<T> contents()
+        std::vector<T> get_data()
         {
             std::vector<T> data;
-            contents(data);
+            get_data(data);
             return data;
         }
     };

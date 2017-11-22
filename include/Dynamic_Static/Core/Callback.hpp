@@ -45,7 +45,7 @@ namespace Dynamic_Static {
          */
         operator bool() const
         {
-            return mAction;
+            return mAction != nullptr;
         }
 
     private:
