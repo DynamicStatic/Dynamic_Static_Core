@@ -173,7 +173,7 @@ namespace Tests {
 
         size_t subscription_count() const
         {
-            return mOnPublisherEvent.subscriptions().size();
+            return mOnPublisherEvent.get_subscriptions().size();
         }
 
         size_t invocation_count() const

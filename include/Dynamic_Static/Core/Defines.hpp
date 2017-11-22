@@ -70,5 +70,4 @@ namespace Dynamic_Static {
     }
 
 } // namespace Dynamic_Static
-
 namespace dst = Dynamic_Static;

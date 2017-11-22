@@ -49,9 +49,9 @@ namespace Tests {
             subscribable.subscribe(subscription);
         }
 
-        REQUIRE(subscribable.subscriptions().size() == subscribables.size());
+        REQUIRE(subscribable.get_subscriptions().size() == subscribables.size());
         subscribables.clear();
-        REQUIRE(subscribable.subscriptions().size() == 0);
+        REQUIRE(subscribable.get_subscriptions().size() == 0);
     }
 
     TEST_CASE("Subscribable objects are moveable", "[Events]")
@@ -77,7 +77,7 @@ namespace Tests {
 
         bool moveFromUnsubscribed = true;
         for (const auto& subscribable : moveFrom) {
-            if (subscribable.subscriptions().size() != 0) {
+            if (subscribable.get_subscriptions().size() != 0) {
                 moveFromUnsubscribed = false;
                 break;
             }

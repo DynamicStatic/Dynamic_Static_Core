@@ -112,7 +112,7 @@ namespace detail {
          * Gets this Subscribable's subscriptions.
          * @return This Subscribable's subscriptions
          */
-        const std::vector<Subscribable<Args...>*>& subscriptions() const
+        const std::vector<Subscribable<Args...>*>& get_subscriptions() const
         {
             return mSubscriptions;
         }
