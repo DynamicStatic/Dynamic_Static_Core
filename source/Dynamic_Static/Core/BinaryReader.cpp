@@ -20,7 +20,7 @@ namespace Dynamic_Static {
 
     size_t BinaryReader::get_size() const
     {
-        // TODO : Size doesn't handle file changes.
+        // TODO : Size doesn't react to file alterations.
         return mSize;
     }
 

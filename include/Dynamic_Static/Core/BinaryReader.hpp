@@ -10,6 +10,9 @@
 #include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/NonCopyable.hpp"
 
+#include "gsl/span"
+
+#include <algorithm>
 #include <fstream>
 #include <string>
 #include <vector>
@@ -161,10 +164,19 @@ namespace Dynamic_Static {
         void get_data(std::vector<T>& data)
         {
             data.clear();
-            data.resize(get_size());
-            size_t currentPosition = get_position();
+            data.resize(get_size() / sizeof(T));
+            get_data(gsl::make_span(data));
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        template <typename T = uint8_t>
+        void get_data(gsl::span<T> data)
+        {
+            auto currentPosition = get_position();
             set_position(0);
-            read(data.data(), get_size() / sizeof(T));
+            read(data.data(), std::min<size_t>(data.size_bytes(), get_size()));
             set_position(currentPosition);
         }
 

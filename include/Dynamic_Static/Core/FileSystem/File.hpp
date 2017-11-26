@@ -11,6 +11,8 @@
 
 #include "Dynamic_Static/Core/Defines.hpp"
 
+#include "gsl/span"
+
 #include <string>
 #include <vector>
 

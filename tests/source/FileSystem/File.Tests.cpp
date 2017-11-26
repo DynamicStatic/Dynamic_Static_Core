@@ -11,6 +11,7 @@
 #include "../LoremIpsum.hpp"
 
 #include "catch.hpp"
+#include "gsl/span"
 
 #include <string>
 #include <vector>
@@ -20,8 +21,11 @@ namespace Tests {
 
     TEST_CASE("read_bytes()", "[File]")
     {
-        auto bytes = File::read_bytes(LoremIpsumFilePath);
-        REQUIRE(memcmp(LoremIpsumLiteral, bytes.data(), bytes.size()) == 0);
+        SECTION("std::vector")
+        {
+            auto bytes = File::read_bytes(LoremIpsumFilePath);
+            REQUIRE(memcmp(LoremIpsumLiteral, bytes.data(), bytes.size()) == 0);
+        }
     }
 
     TEST_CASE("read_string()", "[File]")

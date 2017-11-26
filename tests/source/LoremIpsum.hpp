@@ -76,6 +76,7 @@ efficitur elit finibus ut.
     #if DYNAMIC_STATIC_WINDOWS
     static constexpr char LoremIpsumFilePath[] { "LoremIpsum.txt" };
     #else
+    static constexpr char LoremIpsumFilePath[] { "LoremIpsum.txt" };
     #endif
 
 } // namespace Tests
