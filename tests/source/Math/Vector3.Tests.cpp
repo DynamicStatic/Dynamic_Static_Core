@@ -19,39 +19,39 @@
 namespace Dynamic_Static {
 namespace Tests {
 
-    TEST_CASE("Vector3 addition", "[Vector3]")
-    {
-        DST_VECTOR_VECTOR_OPERATOR_TEST(Vector3, +);
-    }
-
-    TEST_CASE("Vector3 subtraction", "[Vector3]")
-    {
-        DST_VECTOR_VECTOR_OPERATOR_TEST(Vector3, -);
-    }
-
-    TEST_CASE("Vector3 multiplication", "[Vector3]")
-    {
-        DST_VECTOR_VECTOR_OPERATOR_TEST(Vector3, *);
-        DST_VECTOR_SCALAR_OPERATOR_TEST(Vector3, *);
-    }
-
-    TEST_CASE("Vector3 division", "[Vector3]")
-    {
-        DST_VECTOR_VECTOR_OPERATOR_TEST(Vector3, /);
-        DST_VECTOR_SCALAR_OPERATOR_TEST(Vector3, /);
-    }
-
-    TEST_CASE("Vector3 normalize", "[Vector3]")
-    {
-        DST_VECTOR_NORMALIZE_TEST(Vector3);
-    }
-
-    TEST_CASE("Vector3 construction", "[Vector3]")
-    {
-        DST_VECTOR_CONSTRUCTION_TEST(Vector3, Vector2);
-        DST_VECTOR_CONSTRUCTION_TEST(Vector3, Vector3);
-        DST_VECTOR_CONSTRUCTION_TEST(Vector3, Vector4);
-    }
+    // TEST_CASE("Vector3 addition", "[Vector3]")
+    // {
+    //     DST_VECTOR_VECTOR_OPERATOR_TEST(Vector3, +);
+    // }
+    // 
+    // TEST_CASE("Vector3 subtraction", "[Vector3]")
+    // {
+    //     DST_VECTOR_VECTOR_OPERATOR_TEST(Vector3, -);
+    // }
+    // 
+    // TEST_CASE("Vector3 multiplication", "[Vector3]")
+    // {
+    //     DST_VECTOR_VECTOR_OPERATOR_TEST(Vector3, *);
+    //     DST_VECTOR_SCALAR_OPERATOR_TEST(Vector3, *);
+    // }
+    // 
+    // TEST_CASE("Vector3 division", "[Vector3]")
+    // {
+    //     DST_VECTOR_VECTOR_OPERATOR_TEST(Vector3, /);
+    //     DST_VECTOR_SCALAR_OPERATOR_TEST(Vector3, /);
+    // }
+    // 
+    // TEST_CASE("Vector3 normalize", "[Vector3]")
+    // {
+    //     DST_VECTOR_NORMALIZE_TEST(Vector3);
+    // }
+    // 
+    // TEST_CASE("Vector3 construction", "[Vector3]")
+    // {
+    //     DST_VECTOR_CONSTRUCTION_TEST(Vector3, Vector2);
+    //     DST_VECTOR_CONSTRUCTION_TEST(Vector3, Vector3);
+    //     DST_VECTOR_CONSTRUCTION_TEST(Vector3, Vector4);
+    // }
 
 } // namespace Tests
 } // namespace Dynamic_Static

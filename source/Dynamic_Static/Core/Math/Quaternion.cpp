@@ -7,6 +7,9 @@
 ==========================================
 */
 
+#include "Dynamic_Static/Core/Math/Defines.hpp"
+#if !defined(DYNAMIC_STATIC_DISABLE_MATH_BUILD)
+
 #include "Dynamic_Static/Core/Math/Quaternion.hpp"
 
 namespace Dynamic_Static {
@@ -14,3 +17,5 @@ namespace Dynamic_Static {
     const Quaternion Quaternion::Identity { 1, 0, 0, 0 };
 
 } // namespace Dynamic_Static
+
+#endif

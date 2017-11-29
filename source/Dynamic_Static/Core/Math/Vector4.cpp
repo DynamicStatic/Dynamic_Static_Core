@@ -7,6 +7,9 @@
 ==========================================
 */
 
+#include "Dynamic_Static/Core/Math/Defines.hpp"
+#if !defined(DYNAMIC_STATIC_DISABLE_MATH_BUILD)
+
 #include "Dynamic_Static/Core/Math/Vector4.hpp"
 
 namespace Dynamic_Static {
@@ -25,3 +28,5 @@ namespace Dynamic_Static {
     const Vector4 Vector4::UnitW    {  0,  0,  0,  1 };
 
 } // namespace Dynamic_Static
+
+#endif

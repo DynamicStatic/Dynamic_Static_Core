@@ -9,6 +9,9 @@
 
 #pragma once
 
+#include "Dynamic_Static/Core/Math/Defines.hpp"
+#if !defined(DYNAMIC_STATIC_DISABLE_MATH_BUILD)
+
 #include "Dynamic_Static/Core/ToString.hpp"
 #include "Dynamic_Static/Core/Math/Defines.hpp"
 
@@ -66,3 +69,5 @@ namespace Dynamic_Static {
     );
 
 } // namespace Dynamic_Static
+
+#endif

@@ -7,6 +7,9 @@
 ==========================================
 */
 
+#include "Dynamic_Static/Core/Math/Defines.hpp"
+#if !defined(DYNAMIC_STATIC_DISABLE_MATH_BUILD)
+
 #include "Dynamic_Static/Core/Math/Matrix4x4.hpp"
 
 namespace Dynamic_Static {
@@ -19,3 +22,5 @@ namespace Dynamic_Static {
     };
 
 } // namespace Dynamic_Static
+
+#endif

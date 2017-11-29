@@ -17,10 +17,10 @@ set(includeFiles
 
     ${includePath}/Math.hpp
     ${includePath}/Math/Color.hpp
+    ${includePath}/Math/Colors.hpp
     ${includePath}/Math/Defines.hpp
     ${includePath}/Math/Matrix4x4.hpp
     ${includePath}/Math/Quaternion.hpp
-    ${includePath}/Math/Rectangle.hpp
     ${includePath}/Math/Transform.hpp
     ${includePath}/Math/Utilities.hpp
     ${includePath}/Math/Vector2.hpp
@@ -74,6 +74,7 @@ set(sourceFiles
     ${sourcePath}/Threads/Worker.cpp
 
     ${sourcePath}/BinaryReader.cpp
+    ${sourcePath}/Colors.cpp
     ${sourcePath}/Memory.cpp
     ${sourcePath}/NotImplementedError.cpp
     ${sourcePath}/Object.cpp

@@ -19,34 +19,34 @@
 namespace Dynamic_Static {
 namespace Tests {
 
-    TEST_CASE("Vector2 addition", "[Vector2]")
-    {
-        DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, +);
-    }
-
-    TEST_CASE("Vector2 subtraction", "[Vector2]")
-    {
-        DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, -);
-    }
-
-    TEST_CASE("Vector2 multiplication", "[Vector2]")
-    {
-        DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, *);
-        DST_VECTOR_SCALAR_OPERATOR_TEST(Vector2, *);
-    }
-
-    TEST_CASE("Vector2 division", "[Vector2]")
-    {
-        DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, /);
-        DST_VECTOR_SCALAR_OPERATOR_TEST(Vector2, /);
-    }
-
-    TEST_CASE("Vector2 construction", "[Vector2]")
-    {
-        DST_VECTOR_CONSTRUCTION_TEST(Vector2, Vector2);
-        DST_VECTOR_CONSTRUCTION_TEST(Vector2, Vector3);
-        DST_VECTOR_CONSTRUCTION_TEST(Vector2, Vector4);
-    }
+    // TEST_CASE("Vector2 addition", "[Vector2]")
+    // {
+    //     DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, +);
+    // }
+    // 
+    // TEST_CASE("Vector2 subtraction", "[Vector2]")
+    // {
+    //     DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, -);
+    // }
+    // 
+    // TEST_CASE("Vector2 multiplication", "[Vector2]")
+    // {
+    //     DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, *);
+    //     DST_VECTOR_SCALAR_OPERATOR_TEST(Vector2, *);
+    // }
+    // 
+    // TEST_CASE("Vector2 division", "[Vector2]")
+    // {
+    //     DST_VECTOR_VECTOR_OPERATOR_TEST(Vector2, /);
+    //     DST_VECTOR_SCALAR_OPERATOR_TEST(Vector2, /);
+    // }
+    // 
+    // TEST_CASE("Vector2 construction", "[Vector2]")
+    // {
+    //     DST_VECTOR_CONSTRUCTION_TEST(Vector2, Vector2);
+    //     DST_VECTOR_CONSTRUCTION_TEST(Vector2, Vector3);
+    //     DST_VECTOR_CONSTRUCTION_TEST(Vector2, Vector4);
+    // }
 
 } // namespace Tests
 } // namespace Dynamic_Static
