@@ -7,9 +7,6 @@
 ==========================================
 */
 
-#include "Dynamic_Static/Core/Math/Defines.hpp"
-#if defined(DYNAMIC_STATIC_DISABLE_MATH_BUILD)
-
 #include "Dynamic_Static/Core/Math/Colors.hpp"
 
 namespace Dynamic_Static {
@@ -157,5 +154,3 @@ namespace Dynamic_Static {
     const glm::vec4 Color::YellowGreen          { 0.603922f,  0.803922f,  0.196078f,  1.0f };
 
 } // namespace Dynamic_Static
-
-#endif

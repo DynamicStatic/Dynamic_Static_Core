@@ -7,13 +7,6 @@ set(sourceFiles
     ${sourcePath}/FileSystem/File.Tests.cpp
     ${sourcePath}/FileSystem/Path.Tests.cpp
 
-    ${sourcePath}/Math/Matrix4x4.Tests.cpp
-    ${sourcePath}/Math/Quaternion.Tests.cpp
-    ${sourcePath}/Math/Vector.Tests.inl
-    ${sourcePath}/Math/Vector2.Tests.cpp
-    ${sourcePath}/Math/Vector3.Tests.cpp
-    ${sourcePath}/Math/Vector4.Tests.cpp
-
     ${sourcePath}/Threads/Semaphore.Tests.cpp
     ${sourcePath}/Threads/ThreadPool.Tests.cpp
     ${sourcePath}/Threads/Worker.Tests.cpp

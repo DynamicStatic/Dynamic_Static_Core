@@ -9,9 +9,6 @@
 
 #pragma once
 
-#include "Dynamic_Static/Core/Math/Defines.hpp"
-#if defined(DYNAMIC_STATIC_DISABLE_MATH_BUILD)
-
 #include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/Math/Defines.hpp"
 #include "Dynamic_Static/Core/Math/Utilities.hpp"
@@ -25,7 +22,7 @@ namespace Dynamic_Static {
     {
         glm::vec3 translation { };
         glm::quat rotation { 1, 0, 0, 0 };
-        glm::vec3 scale { };
+        glm::vec3 scale { 1 };
 
         /**
          * TODO : Documentation.
@@ -36,6 +33,14 @@ namespace Dynamic_Static {
                 glm::translate(translation) *
                 glm::toMat4(rotation) *
                 glm::scale(scale);
+        }
+
+        /**
+         * TODO : Documentation.
+         */
+        inline glm::mat4 local_from_world() const
+        {
+            return glm::transpose(world_from_local());
         }
 
         /**
@@ -88,91 +93,3 @@ namespace Dynamic_Static {
     };
 
 } // namespace Dynamic_Static
-
-#endif
-
-
-
-
-
-#include "Dynamic_Static/Core/Math/Defines.hpp"
-#if !defined(DYNAMIC_STATIC_DISABLE_MATH_BUILD)
-
-#include "Dynamic_Static/Core/Math/Defines.hpp"
-#include "Dynamic_Static/Core/Math/Matrix4x4.hpp"
-#include "Dynamic_Static/Core/Math/Quaternion.hpp"
-#include "Dynamic_Static/Core/Math/Vector3.hpp"
-
-namespace Dynamic_Static {
-
-    /**
-     * TODO : Documentation.
-     */
-    class Transform final
-    {
-    public:
-        Vector3 translation { Vector3::Zero };
-        Quaternion rotation { Quaternion::Identity };
-        Vector3 scale { Vector3::One };
-
-    public:
-        /**
-         * TODO : Documentation.
-         */
-        inline Matrix4x4 world() const
-        {
-            return Matrix4x4(translation, rotation, scale);
-        }
-
-        /**
-         * TODO : Documentation.
-         */
-        inline Vector3 up() const
-        {
-            return Vector4(world() * Vector4::Up).normalized();
-        }
-
-        /**
-         * TODO : Documentation.
-         */
-        inline Vector3 down() const
-        {
-            return Vector4(world() * Vector4::Down).normalized();
-        }
-
-        /**
-         * TODO : Documentation.
-         */
-        inline Vector3 left() const
-        {
-            return Vector4(world() * Vector4::Left).normalized();
-        }
-
-        /**
-         * TODO : Documentation.
-         */
-        inline Vector3 right() const
-        {
-            return Vector4(world() * Vector4::Right).normalized();
-        }
-
-        /**
-         * TODO : Documentation.
-         */
-        inline Vector3 forward() const
-        {
-            return Vector4(world() * Vector4::Forward).normalized();
-        }
-
-        /**
-         * TODO : Documentation.
-         */
-        inline Vector3 backward() const
-        {
-            return Vector4(world() * Vector4::Backward).normalized();
-        }
-    };
-
-} // namespace Dynamic_Static
-
-#endif

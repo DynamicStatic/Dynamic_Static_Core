@@ -4,30 +4,20 @@ include("${PROJECT_SOURCE_DIR}/external/gsl.cmake")
 
 set(includePath "${PROJECT_SOURCE_DIR}/include/Dynamic_Static/Core/")
 set(includeFiles
-    ${includePath}/Events.hpp
     ${includePath}/Events/Delegate.hpp
     ${includePath}/Events/Event.hpp
     ${includePath}/Events/Subscribable.hpp
 
-    ${includePath}/FileSystem.hpp
     ${includePath}/FileSystem/Directory.hpp
     ${includePath}/FileSystem/File.hpp
     ${includePath}/FileSystem/Path.hpp
     ${includePath}/FileSystem/StdFileSystemInclude.hpp
 
-    ${includePath}/Math.hpp
-    ${includePath}/Math/Color.hpp
     ${includePath}/Math/Colors.hpp
     ${includePath}/Math/Defines.hpp
-    ${includePath}/Math/Matrix4x4.hpp
-    ${includePath}/Math/Quaternion.hpp
     ${includePath}/Math/Transform.hpp
     ${includePath}/Math/Utilities.hpp
-    ${includePath}/Math/Vector2.hpp
-    ${includePath}/Math/Vector3.hpp
-    ${includePath}/Math/Vector4.hpp
 
-    ${includePath}/Threads.hpp
     ${includePath}/Threads/Semaphore.hpp
     ${includePath}/Threads/ThreadPool.hpp
     ${includePath}/Threads/ThreadUtilities.hpp
@@ -38,6 +28,9 @@ set(includeFiles
     ${includePath}/BinaryReader.hpp
     ${includePath}/Callback.hpp
     ${includePath}/Defines.hpp
+    ${includePath}/Events.hpp
+    ${includePath}/FileSystem.hpp
+    ${includePath}/Math.hpp
     ${includePath}/Memory.hpp
     ${includePath}/NonCopyable.hpp
     ${includePath}/NonMoveable.hpp
@@ -47,6 +40,7 @@ set(includeFiles
     ${includePath}/SharedObjectFactory.hpp
     ${includePath}/String.hpp
     ${includePath}/StringUtilities.hpp
+    ${includePath}/Threads.hpp
     ${includePath}/Time.hpp
     ${includePath}/ToString.hpp
     ${includePath}/TupleUtilities.hpp
@@ -61,13 +55,6 @@ set(sourceFiles
     ${sourcePath}/FileSystem/Directory.cpp
     ${sourcePath}/FileSystem/File.cpp
     ${sourcePath}/FileSystem/Path.cpp
-
-    ${sourcePath}/Math/Color.cpp
-    ${sourcePath}/Math/Matrix4x4.cpp
-    ${sourcePath}/Math/Quaternion.cpp
-    ${sourcePath}/Math/Vector2.cpp
-    ${sourcePath}/Math/Vector3.cpp
-    ${sourcePath}/Math/Vector4.cpp
 
     ${sourcePath}/Threads/Semaphore.cpp
     ${sourcePath}/Threads/ThreadPool.cpp
