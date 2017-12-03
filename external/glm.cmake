@@ -1,19 +1,18 @@
 
-include(ExternalProject)
-ExternalProject_Add(
-    glm
-    PREFIX external
-    DOWNLOAD_DIR external/glm
-    URL https://github.com/g-truc/glm/archive/master.zip
-    # URL https://github.com/g-truc/glm/releases/download/0.9.8.5/glm-0.9.8.5.zip
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND ""
-    INSTALL_COMMAND ""
+file(
+    DOWNLOAD
+    https://github.com/g-truc/glm/archive/master.zip
+    # https://github.com/g-truc/glm/releases/download/0.9.8.5/glm-0.9.8.5.zip
+    "${CMAKE_BINARY_DIR}/external/downloads/glm-master.zip"
 )
 
-ExternalProject_Get_Property(glm SOURCE_DIR)
-file(REMOVE_RECURSE "${SOURCE_DIR}/cmake")
-file(REMOVE_RECURSE "${SOURCE_DIR}/doc")
-file(REMOVE_RECURSE "${SOURCE_DIR}/test")
-file(REMOVE_RECURSE "${SOURCE_DIR}/util")
-set(glm.include "${SOURCE_DIR}/")
+execute_process(
+    COMMAND ${CMAKE_COMMAND} -E tar xzf "${CMAKE_BINARY_DIR}/external/downloads/glm-master.zip"
+    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/external/"
+)
+
+file(REMOVE_RECURSE "${CMAKE_BINARY_DIR}/external/glm-master/cmake")
+file(REMOVE_RECURSE "${CMAKE_BINARY_DIR}/external/glm-master/doc")
+file(REMOVE_RECURSE "${CMAKE_BINARY_DIR}/external/glm-master/test")
+file(REMOVE_RECURSE "${CMAKE_BINARY_DIR}/external/glm-master/util")
+set(glm.includeDirectories "${CMAKE_BINARY_DIR}/external/glm-master/")

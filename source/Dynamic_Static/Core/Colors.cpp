@@ -61,11 +61,15 @@ namespace Dynamic_Static {
     const glm::vec4 Color::Fuchsia              { 1.0f,       0.0f,       1.0f,       1.0f };
     const glm::vec4 Color::Gainsboro            { 0.862745f,  0.862745f,  0.862745f,  1.0f };
     const glm::vec4 Color::GhostWhite           { 0.972549f,  0.972549f,  1.0f,       1.0f };
+    const glm::vec4 Color::GearsBlue            { 0.2f,       0.2f,       1.0f,       1.0f };
+    const glm::vec4 Color::GearsGreen           { 0.0f,       0.8f,       0.2f,       1.0f };
+    const glm::vec4 Color::GearsRed             { 0.8f,       0.1f,       0.0f,       1.0f };
     const glm::vec4 Color::Gold                 { 1.0f,       0.843137f,  0.0f,       1.0f };
     const glm::vec4 Color::Goldenrod            { 0.854902f,  0.647059f,  0.12549f,   1.0f };
     const glm::vec4 Color::Gray                 { 0.501961f,  0.501961f,  0.501961f,  1.0f };
     const glm::vec4 Color::Green                { 0.0f,       1.0f,       0.0f,       1.0f };
     const glm::vec4 Color::GreenYellow          { 0.678431f,  1.0f,       0.184314f,  1.0f };
+    const glm::vec4 Color::HalfGray             { 0.5f,       0.5f,       0.5f,       1.0f };
     const glm::vec4 Color::Honeydew             { 0.941177f,  1.0f,       0.941177f,  1.0f };
     const glm::vec4 Color::HotPink              { 1.0f,       0.411765f,  0.705882f,  1.0f };
     const glm::vec4 Color::IndianRed            { 0.803922f,  0.360784f,  0.360784f,  1.0f };
@@ -126,6 +130,7 @@ namespace Dynamic_Static {
     const glm::vec4 Color::Plum                 { 0.866667f,  0.627451f,  0.866667f,  1.0f };
     const glm::vec4 Color::PowderBlue           { 0.690196f,  0.878431f,  0.901961f,  1.0f };
     const glm::vec4 Color::Purple               { 0.501961f,  0.0f,       0.501961f,  1.0f };
+    const glm::vec4 Color::QuarterGray          { 0.25f,      0.25f,      0.25f,      1.0f };
     const glm::vec4 Color::Red                  { 1.0f,       0.0f,       0.0f,       1.0f };
     const glm::vec4 Color::RosyBrown            { 0.737255f,  0.560784f,  0.560784f,  1.0f };
     const glm::vec4 Color::RoyalBlue            { 0.254902f,  0.411765f,  0.882353f,  1.0f };
@@ -144,6 +149,7 @@ namespace Dynamic_Static {
     const glm::vec4 Color::SteelBlue            { 0.27451f,   0.509804f,  0.705882f,  1.0f };
     const glm::vec4 Color::Tan                  { 0.823529f,  0.705882f,  0.54902f,   1.0f };
     const glm::vec4 Color::Teal                 { 0.0f,       0.501961f,  0.501961f,  1.0f };
+    const glm::vec4 Color::ThirdGray            { 0.3f,       0.3f,       0.3f,       1.0f };
     const glm::vec4 Color::Thistle              { 0.847059f,  0.74902f,   0.847059f,  1.0f };
     const glm::vec4 Color::Tomato               { 1.0f,       0.388235f,  0.278431f,  1.0f };
     const glm::vec4 Color::Turquoise            { 0.25098f,   0.878431f,  0.815686f,  1.0f };
