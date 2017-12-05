@@ -11,6 +11,7 @@ file(
 include(${Dynamic_Static.cmake})
 include("D:/Dynamic_Static/Dynamic_Static.CMake/Dynamic_Static_ex.cmake")
 dst_create_project_ex(Dynamic_Static.Core)
+################################################################################
 include("${CMAKE_CURRENT_SOURCE_DIR}/external/glm.cmake")
 include("${CMAKE_CURRENT_SOURCE_DIR}/external/gsl.cmake")
 set(includePath "${CMAKE_CURRENT_SOURCE_DIR}/include/Dynamic_Static/Core/")
