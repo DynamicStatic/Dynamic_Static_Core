@@ -101,7 +101,6 @@ if (BUILD_TESTS)
             ${testsPath}/Callback.Tests.cpp
             ${testsPath}/LoremIpsum.hpp
             ${testsPath}/LoremIpsum.txt
-            ${testsPath}/Main.cpp
             ${testsPath}/Random.Tests.cpp
             ${testsPath}/StringUtilities.Tests.cpp
             ${testsPath}/ToString.Tests.cpp
