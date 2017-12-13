@@ -4,8 +4,8 @@ ExternalProject_Add(
     glm
     PREFIX external
     DOWNLOAD_DIR external/glm
-    URL https://github.com/g-truc/glm/archive/master.zip
-    # URL https://github.com/g-truc/glm/releases/download/0.9.8.5/glm-0.9.8.5.zip
+    # URL https://github.com/g-truc/glm/archive/master.zip
+    URL https://github.com/g-truc/glm/releases/download/0.9.8.5/glm-0.9.8.5.zip
     CONFIGURE_COMMAND ""
     BUILD_COMMAND ""
     INSTALL_COMMAND ""
