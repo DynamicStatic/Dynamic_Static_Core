@@ -8,7 +8,6 @@ file(
     https://raw.githubusercontent.com/DynamicStatic/Dynamic_Static.CMake/refactor/build-system/Dynamic_Static.cmake
     ${Dynamic_Static.cmake}
 )
-
 include(${Dynamic_Static.cmake})
 ################################################################################
 dst_create_project(Dynamic_Static.Core)
