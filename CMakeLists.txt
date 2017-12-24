@@ -1,7 +1,7 @@
 
 # CMake configuration for Dynamic_Static.Core
-################################################################################
 cmake_minimum_required(VERSION 3.3)
+################################################################################
 set(Dynamic_Static.cmake "${CMAKE_BINARY_DIR}/Dynamic_Static.cmake")
 file(
     DOWNLOAD
