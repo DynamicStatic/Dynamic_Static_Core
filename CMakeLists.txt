@@ -1,22 +1,22 @@
 
 # CMake configuration for Dynamic_Static.Core
+################################################################################
 cmake_minimum_required(VERSION 3.3)
 set(Dynamic_Static.cmake "${CMAKE_BINARY_DIR}/Dynamic_Static.cmake")
 file(
     DOWNLOAD
-    https://raw.githubusercontent.com/DynamicStatic/Dynamic_Static.CMake/master/Dynamic_Static.cmake
+    https://raw.githubusercontent.com/DynamicStatic/Dynamic_Static.CMake/refactor/build-system/Dynamic_Static.cmake
     ${Dynamic_Static.cmake}
 )
 
 include(${Dynamic_Static.cmake})
-include("D:/Dynamic_Static/Dynamic_Static.CMake/Dynamic_Static_ex.cmake")
-dst_create_project_ex(Dynamic_Static.Core)
 ################################################################################
+dst_create_project(Dynamic_Static.Core)
 include("${CMAKE_CURRENT_SOURCE_DIR}/external/glm.cmake")
 include("${CMAKE_CURRENT_SOURCE_DIR}/external/gsl.cmake")
 set(includePath "${CMAKE_CURRENT_SOURCE_DIR}/include/Dynamic_Static/Core/")
 set(sourcePath "${CMAKE_CURRENT_SOURCE_DIR}/source/Dynamic_Static/Core/")
-dst_add_static_library_ex(
+dst_add_static_library(
     target Dynamic_Static.Core
     includeDirectories
         "${CMAKE_CURRENT_SOURCE_DIR}/include/"
@@ -86,7 +86,7 @@ dst_add_static_library_ex(
 option(BUILD_TESTS "Build Dynamic_Static.Core tests" ON)
 if (BUILD_TESTS)
     set(testsPath "${CMAKE_CURRENT_SOURCE_DIR}/tests/")
-    dst_add_tests_ex(
+    dst_add_tests(
         target Dynamic_Static.Core
         sourceFiles
             ${testsPath}/Events/Events.Tests.cpp
