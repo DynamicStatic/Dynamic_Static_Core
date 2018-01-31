@@ -2,12 +2,12 @@
 file(
     DOWNLOAD
     https://github.com/Microsoft/GSL/archive/master.zip
-    "${CMAKE_BINARY_DIR}/external/downloads/GSL-master.zip"
+    "${DownloadsDirectory}/GSL-master.zip"
 )
 
 execute_process(
-    COMMAND ${CMAKE_COMMAND} -E tar xzf "${CMAKE_BINARY_DIR}/external/downloads/GSL-master.zip"
-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/external/"
+    COMMAND ${CMAKE_COMMAND} -E tar xzf "${DownloadsDirectory}/GSL-master.zip"
+    WORKING_DIRECTORY "${ExternalDirectory}/"
 )
 
-set(gsl.includeDirectories "${CMAKE_BINARY_DIR}/external/GSL-master/include/")
+set(gsl.includeDirectories "${ExternalDirectory}/GSL-master/include/")

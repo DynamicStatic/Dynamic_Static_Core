@@ -3,16 +3,15 @@ file(
     DOWNLOAD
     https://github.com/g-truc/glm/archive/master.zip
     # https://github.com/g-truc/glm/releases/download/0.9.8.5/glm-0.9.8.5.zip
-    "${CMAKE_BINARY_DIR}/external/downloads/glm-master.zip"
+    "${DownloadsDirectory}/glm-master.zip"
 )
 
 execute_process(
-    COMMAND ${CMAKE_COMMAND} -E tar xzf "${CMAKE_BINARY_DIR}/external/downloads/glm-master.zip"
-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/external/"
+    COMMAND ${CMAKE_COMMAND} -E tar xzf "${DownloadsDirectory}/glm-master.zip"
+    WORKING_DIRECTORY "${ExternalDirectory}/"
 )
 
-file(REMOVE_RECURSE "${CMAKE_BINARY_DIR}/external/glm-master/cmake")
-file(REMOVE_RECURSE "${CMAKE_BINARY_DIR}/external/glm-master/doc")
-file(REMOVE_RECURSE "${CMAKE_BINARY_DIR}/external/glm-master/test")
-file(REMOVE_RECURSE "${CMAKE_BINARY_DIR}/external/glm-master/util")
-set(glm.includeDirectories "${CMAKE_BINARY_DIR}/external/glm-master/")
+set(glm.includeDirectories "${ExternalDirectory}/glm-master/")
+file(GLOB glm.clutter "${glm.includeDirectories}/*")
+list(REMOVE_ITEM glm.clutter "${glm.includeDirectories}/glm")
+file(REMOVE_RECURSE ${glm.clutter})

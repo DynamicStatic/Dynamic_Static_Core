@@ -94,8 +94,13 @@ dst_add_static_library(
         ${sourcePath}/Win32LeanAndMean.cpp
 )
 
+option(CREATE_PACKAGE "Create Dynamic_Static.Core package" ON)
+if(CREATE_PACKAGE)
+    dst_create_package(target Dynamic_Static.Core)
+endif()
+
 option(BUILD_TESTS "Build Dynamic_Static.Core tests" ON)
-if (BUILD_TESTS)
+if(BUILD_TESTS)
     set(testsPath "${CMAKE_CURRENT_SOURCE_DIR}/tests/")
     dst_add_tests(
         target Dynamic_Static.Core
