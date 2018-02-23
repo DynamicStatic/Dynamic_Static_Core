@@ -25,6 +25,7 @@ include("${Dynamic_Static.cmake}")
 dst_create_project(Dynamic_Static.Core)
 include("${CMAKE_CURRENT_SOURCE_DIR}/external/glm.cmake")
 include("${CMAKE_CURRENT_SOURCE_DIR}/external/gsl.cmake")
+include("${CMAKE_CURRENT_SOURCE_DIR}/external/tclap.cmake")
 set(includePath "${CMAKE_CURRENT_SOURCE_DIR}/include/Dynamic_Static/Core/")
 set(sourcePath "${CMAKE_CURRENT_SOURCE_DIR}/source/Dynamic_Static/Core/")
 dst_add_static_library(
@@ -33,6 +34,7 @@ dst_add_static_library(
         "${CMAKE_CURRENT_SOURCE_DIR}/include/"
         ${glm.includeDirectories}
         ${gsl.includeDirectories}
+        ${tclap.includeDirectories}
 
     includeFiles
         ${includePath}/Events/Delegate.hpp
