@@ -13,7 +13,7 @@ if(NOT Dynamic_Static.cmake)
     set(Dynamic_Static.cmake "${CMAKE_BINARY_DIR}/Dynamic_Static.cmake")
     file(
         DOWNLOAD
-        https://raw.githubusercontent.com/DynamicStatic/Dynamic_Static.CMake/master/Dynamic_Static.cmake
+        https://github.com/DynamicStatic/Dynamic_Static.CMake/blob/aa6c86feda682f694785a44675392a938c19b7a2/Dynamic_Static.cmake
         "${Dynamic_Static.cmake}"
         # COPY
         # D:/Dynamic_Static/Dynamic_Static.CMake/Dynamic_Static.cmake
