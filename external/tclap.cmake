@@ -1,7 +1,6 @@
 
 file(
-    DOWNLOAD
-    https://github.com/mirror/tclap/archive/v1.2.2.zip
+    DOWNLOAD https://github.com/mirror/tclap/archive/v1.2.2.zip
     "${DownloadsDirectory}/tclap.zip"
 )
 
