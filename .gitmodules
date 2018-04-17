@@ -1,0 +1,6 @@
+[submodule "external/Dynamic_Static.CMake"]
+	path = external/Dynamic_Static.CMake
+	url = https://github.com/DynamicStatic/Dynamic_Static.CMake.git
+[submodule "external/GSL"]
+	path = external/GSL
+	url = https://github.com/Microsoft/GSL.git
