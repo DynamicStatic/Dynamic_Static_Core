@@ -8,8 +8,6 @@
 ==========================================
 */
 
-#include "Dynamic_Static/Core/BinaryWriter.hpp"
-
 #include "catch.hpp"
 
 namespace Dynamic_Static {

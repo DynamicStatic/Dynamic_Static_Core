@@ -8,13 +8,7 @@
 ==========================================
 */
 
-#include "Dynamic_Static/Core/BinaryWriter.hpp"
+#pragma once
 
-namespace Dynamic_Static {
-
-    BinaryWriter::~BinaryWriter()
-    {
-
-    }
-
-} // namespace Dynamic_Static
+#include "Dynamic_Static/Core/Math/Colors.hpp"
+#include "Dynamic_Static/Core/Math/Defines.hpp"

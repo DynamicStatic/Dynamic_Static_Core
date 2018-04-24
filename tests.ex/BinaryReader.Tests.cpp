@@ -8,8 +8,6 @@
 ==========================================
 */
 
-#include "Dynamic_Static/Core/BinaryReader.hpp"
-
 #include "catch.hpp"
 
 namespace Dynamic_Static {

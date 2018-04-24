@@ -24,22 +24,25 @@ set(includePath "${CMAKE_CURRENT_LIST_DIR}/include.ex/Dynamic_Static/Core/")
 set(sourcePath "${CMAKE_CURRENT_LIST_DIR}/source.ex/Dynamic_Static/Core/")
 DstCreateStaticLibrary(
     target Dynamic_Static.Core
+    folder Dynamic_Static.Core/
     includeDirectories
         "${CMAKE_CURRENT_LIST_DIR}/include.ex/"
         ${glm.includeDirectories}
-        ${gsl.includeDirectories}
+        ${GSL.includeDirectories}
         ${tclap.includeDirectories}
 
     includeFiles
-        ${includePath}/BinaryReader.hpp
-        ${includePath}/BinaryWriter.hpp
+        ${includePath}/Math/Colors.hpp
+        ${includePath}/Math/Defines.hpp
         ${includePath}/Defines.hpp
+        ${includePath}/Math.hpp
         ${includePath}/NonCopyable.hpp
+        ${includePath}/Version.hpp
         ${includePath}/Win32LeanAndMean.hpp
 
     sourceFiles
-        ${sourcePath}/BinaryReader.cpp
-        ${sourcePath}/BinaryWriter.cpp
+        ${sourcePath}/Colors.cpp
+        ${sourcePath}/Version.cpp
 )
 
 option(BUILD_TESTS "Build Dynamic_Static.Core.Tests" ON)
@@ -47,6 +50,7 @@ if(BUILD_TESTS)
     set(testsPath "${CMAKE_CURRENT_LIST_DIR}/tests.ex/")
     DstCreateTests(
         target Dynamic_Static.Core
+        folder Dynamic_Static.Core/
         sourceFiles
             ${testsPath}/BinaryWriter.Tests.cpp
             ${testsPath}/BinaryReader.Tests.cpp
