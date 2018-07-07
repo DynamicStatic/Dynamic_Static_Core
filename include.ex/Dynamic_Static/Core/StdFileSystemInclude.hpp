@@ -1,7 +1,7 @@
 
 /*
 ==========================================
-  Copyright (c) 2015-2018 Dynamic_Static
+  Copyright (c) 2017-2018 Dynamic_Static
     Patrick Purcell
       Licensed under the MIT license
     http://opensource.org/licenses/MIT
@@ -11,14 +11,13 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Defines.hpp"
-#include "Dynamic_Static/Core/NonCopyable.hpp"
-#include "Dynamic_Static/Core/Threads/ThreadUtilities.hpp"
 
-#include <condition_variable>
-#include <mutex>
+#include <experimental/filesystem>
+
+// NOTE : This file can be removed once std::filesystem is fully supported.
 
 namespace Dynamic_Static {
 
-
+    namespace filesystem = std::experimental::filesystem;
 
 } // namespace Dynamic_Static

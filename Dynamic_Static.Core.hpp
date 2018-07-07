@@ -2,7 +2,7 @@
 /*
 ==========================================
   Copyright (c) 2011-2018 Dynamic_Static
-    Patrick Purcell
+      - Patrick Purcell
       Licensed under the MIT license
     http://opensource.org/licenses/MIT
 ==========================================
@@ -10,13 +10,310 @@
 
 #pragma once
 
-#include "Dynamic_Static/Core/Math/Defines.hpp"
+/*
+==========================================
+    Copyright (c) 2016 Dynamic_Static
+    Licensed under the MIT license
+    http://opensource.org/licenses/MIT
+==========================================
+*/
+
+#pragma once
+
+
+#if defined(DYNAMIC_STATIC_WINDOWS)
+#endif
 
 namespace Dynamic_Static {
-namespace detail {
 
-    template <typename Void>
-    struct ColorConstants
+    /*
+    * Allocates memory on a specified alignment boundary.
+    * @param [in] size The size of the requested allocation
+    * @param [in] The alignment value, which must be a multiple of sizeof(void*) and an integer power of 2
+    * @return A pointer to the memory block that was allocated or nullptr if the operation failed
+    */
+    void* aligned_malloc(size_t size, size_t alignment)
+    {
+        // FROM : https://github.com/SaschaWillems/Vulkan/tree/master/dynamicuniformbuffer
+        void* ptr = nullptr;
+        #if defined(DYNAMIC_STATIC_WINDOWS)
+        ptr = _aligned_malloc(size, alignment);
+        #else
+        int result = posix_memalign(&ptr, alignment, size);
+        if (!result) {
+            ptr = nullptr;
+        }
+        #endif
+        return ptr;
+    }
+
+    /*
+    * Frees a block of memory that was allocated with dst::aligned_malloc().
+    * @param [in] ptr A pointer to the memory block to free
+    */
+    void aligned_free(void* ptr)
+    {
+        // FROM : https://github.com/SaschaWillems/Vulkan/tree/master/dynamicuniformbuffer
+        #if defined(DYNAMIC_STATIC_WINDOWS)
+        _aligned_free(ptr);
+        #else
+        free(ptr);
+        #endif
+    }
+
+} // namespace Dynamic_Static
+
+/*
+==========================================
+    Copyright 2011-2018 Dynamic_Static
+        Patrick Purcell
+    Licensed under the MIT license
+    http://opensource.org/licenses/MIT
+==========================================
+*/
+
+#pragma once
+
+
+
+namespace Dynamic_Static {
+
+} // namespace Dynamic_Static
+
+/*
+==========================================
+    Copyright (c) 2017 Dynamic_Static
+    Licensed under the MIT license
+    http://opensource.org/licenses/MIT
+==========================================
+*/
+
+#pragma once
+
+/*
+==========================================
+    Copyright (c) 2017 Dynamic_Static
+    Licensed under the MIT license
+    http://opensource.org/licenses/MIT
+==========================================
+*/
+
+#pragma once
+
+
+
+// NOTE : This file can be removed once std::filesystem is fully supported.
+
+namespace Dynamic_Static {
+
+    namespace filesystem = std::experimental::filesystem;
+
+} // namespace Dynamic_Static
+
+/*
+==========================================
+    Copyright (c) 2017 Dynamic_Static
+    Licensed under the MIT license
+    http://opensource.org/licenses/MIT
+==========================================
+*/
+
+#pragma once
+
+
+
+namespace Dynamic_Static {
+namespace File {
+
+    /*
+    * TODO : Documentation.
+    */
+    void read_lines(
+        const dst::filesystem::path& filePath,
+        std::vector<std::string>& lines
+    )
+    {
+        lines.clear();
+        std::ifstream file(filePath);
+        if (file.is_open()) {
+            std::string line;
+            while (std::getline(file, line)) {
+                lines.push_back(line);
+            }
+        }
+    }
+
+    /*
+    * TODO : Documentation.
+    */
+    std::vector<std::string> read_lines(const dst::filesystem::path& filePath)
+    {
+        std::vector<std::string> result;
+        read_lines(filePath, result);
+        return result;
+    }
+
+} // namespace File
+} // namespace Dynamic_Static
+
+/*
+==========================================
+    Copyright (c) 2016 Dynamic_Static
+    Licensed under the MIT license
+    http://opensource.org/licenses/MIT
+==========================================
+*/
+
+#pragma once
+
+
+
+namespace Dynamic_Static {
+
+    /*
+    * Encapsulates an std::function<void(Args...)> that is callable by a given type.
+    * @param <CallerType> The type of object that can execute this Callback
+    * @param <Args> This Callback's argument types
+    */
+    template <
+        typename CallerType,
+        typename ...Args
+    >
+    class Callback
+    {
+        friend CallerType;
+
+    private:
+        std::function<void(Args...)> mAction;
+
+    public:
+        /*
+        * Assigns this Callback's std::function<void(Args...)>.
+        * @return This Callback
+        */
+        inline Callback<CallerType, Args...>& operator=(const std::function<void(Args...)>& action)
+        {
+            mAction = action;
+            return *this;
+        }
+
+        /**
+        * Gets a value indicating whether or not this Callback has a valid std::function<void(Args...)>.
+        * @return Whether or not this Callback has a valid std::function<void(Args...)>
+        */
+        inline operator bool() const
+        {
+            return mAction != nullptr;
+        }
+
+    private:
+        /**
+        * Executes this Callback.
+        * \n NOTE : This method can only be called by an object of type CallerType
+        * @param [in] args The arguments to execute this Callback with
+        */
+        inline void operator()(Args...&& args)
+        {
+            if (mAction) {
+                mAction(std::forward<Args>(args)...);
+            }
+        }
+
+        /**
+        * Executes this Callback.
+        * \n NOTE : This method can only be called by an object of type CallerType
+        * @param [in] args The arguments to execute this Callback with
+        */
+        inline void operator()(Args...&& args) const
+        {
+            if (mAction) {
+                mAction(std::forward<Args>(args)...);
+            }
+        }
+    };
+
+} // namespace Dynamic_Static
+
+/*
+==========================================
+    Copyright (c) 2011 Dynamic_Static
+        Patrick Purcell
+    Licensed under the MIT license
+    http://opensource.org/licenses/MIT
+==========================================
+*/
+
+#pragma once
+
+
+#if defined(__X86_64__) || defined(_WIN64)
+    #ifndef DYNAMIC_STATIC_64_BIT
+    #define DYNAMIC_STATIC_64_BIT
+    #endif
+#else
+    #ifndef DYNAMIC_STATIC_32_BIT
+    #define DYNAMIC_STATIC_32_BIT
+    #endif
+#endif
+
+#if defined(_WIN32) || defined(_WIN64)
+    #ifndef DYNAMIC_STATIC_WINDOWS
+    #define DYNAMIC_STATIC_WINDOWS
+    #endif
+#elif defined(__linux__)
+    #ifndef DYNAMIC_STATIC_LINUX
+    #define DYNAMIC_STATIC_LINUX
+    #endif
+#endif
+
+#if defined(__clang__)
+    #ifndef DYNAMIC_STATIC_CLANG
+    #define DYNAMIC_STATIC_CLANG
+    #endif
+#elif defined(__GNUG__)
+    #ifndef DYNAMIC_STATIC_GCC
+    #define DYNAMIC_STATIC_GCC
+    #endif
+#elif defined(_MSC_BUILD )
+    #ifndef DYNAMIC_STATIC_MSVC
+    #define DYNAMIC_STATIC_MSVC
+    #endif
+#endif
+
+#define DYNAMIC_STATIC_CORE_VERSION_MAJOR 1
+#define DYNAMIC_STATIC_CORE_VERSION_MINOR 0
+#define DYNAMIC_STATIC_CORE_VERSION_PATCH 0
+
+#define dst_stringify(STR) #STR
+#define dst_expand(STR) dst_stringify(STR)
+#define dst_file_line (__FILE__ " @ " dst_expand(__LINE__))
+
+namespace Dynamic_Static {
+
+    static constexpr int VersionMajor { DYNAMIC_STATIC_CORE_VERSION_MAJOR }; /*!< Dynamic_Static Core major version */
+    static constexpr int VersionMinor { DYNAMIC_STATIC_CORE_VERSION_MINOR }; /*!< Dynamic_Static Core minor version */
+    static constexpr int VersionPatch { DYNAMIC_STATIC_CORE_VERSION_PATCH }; /*!< Dynamic_Static Core patch version */
+
+} // namespace Dynamic_Static
+namespace dst = Dynamic_Static;
+
+/*
+==========================================
+    Copyright (c) 2011 Dynamic_Static
+        Patrick Purcell
+    Licensed under the MIT license
+    http://opensource.org/licenses/MIT
+==========================================
+*/
+
+
+namespace Dynamic_Static {
+
+    /**
+    * TODO : Documentation.
+    */
+    struct Color
+        : public glm::vec4
     {
         static const glm::vec4 White;                /*!< Constant color { 1.0f,       1.0f,       1.0f,       1.0f } */
         static const glm::vec4 Black;                /*!< Constant color { 0.0f,       0.0f,       0.0f,       1.0f } */
@@ -167,166 +464,351 @@ namespace detail {
         static const glm::vec4 YellowGreen;          /*!< Constant color { 0.603922f,  0.803922f,  0.196078f,  1.0f } */
     };
 
-    const glm::vec4 ColorConstants<void>::White                { 1.0f,       1.0f,       1.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::Black                { 0.0f,       0.0f,       0.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::Transparent          { 0.0f,       0.0f,       0.0f,       0.0f };
-    const glm::vec4 ColorConstants<void>::AliceBlue            { 0.941177f,  0.972549f,  1.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::AntiqueWhite         { 0.980392f,  0.921569f,  0.843137f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Aqua                 { 0.0f,       1.0f,       1.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::Aquamarine           { 0.498039f,  1.0f,       0.831373f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Azure                { 0.941177f,  1.0f,       1.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::Beige                { 0.960784f,  0.960784f,  0.862745f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Bisque               { 1.0f,       0.894118f,  0.768628f,  1.0f };
-    const glm::vec4 ColorConstants<void>::BlanchedAlmond       { 1.0f,       0.921569f,  0.803922f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Blue                 { 0.0f,       0.0f,       1.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::BlueViolet           { 0.541176f,  0.168627f,  0.886275f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Brown                { 0.647059f,  0.164706f,  0.164706f,  1.0f };
-    const glm::vec4 ColorConstants<void>::BurlyWood            { 0.870588f,  0.721569f,  0.529412f,  1.0f };
-    const glm::vec4 ColorConstants<void>::CadetBlue            { 0.372549f,  0.619608f,  0.627451f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Chartreuse           { 0.498039f,  1.0f,       0.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::Chocolate            { 0.823529f,  0.411765f,  0.117647f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Coral                { 1.0f,       0.498039f,  0.313726f,  1.0f };
-    const glm::vec4 ColorConstants<void>::CornflowerBlue       { 0.392157f,  0.584314f,  0.929412f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Cornsilk             { 1.0f,       0.972549f,  0.862745f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Crimson              { 0.862745f,  0.0784314f, 0.235294f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Cyan                 { 0.0f,       1.0f,       1.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::DarkBlue             { 0.0f,       0.0f,       0.545098f,  1.0f };
-    const glm::vec4 ColorConstants<void>::DarkCyan             { 0.0f,       0.545098f,  0.545098f,  1.0f };
-    const glm::vec4 ColorConstants<void>::DarkGoldenrod        { 0.721569f,  0.52549f,   0.0431373f, 1.0f };
-    const glm::vec4 ColorConstants<void>::DarkGray             { 0.662745f,  0.662745f,  0.662745f,  1.0f };
-    const glm::vec4 ColorConstants<void>::DarkGreen            { 0.0f,       0.392157f,  0.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::DarkKhaki            { 0.741176f,  0.717647f,  0.419608f,  1.0f };
-    const glm::vec4 ColorConstants<void>::DarkMagenta          { 0.545098f,  0.0f,       0.545098f,  1.0f };
-    const glm::vec4 ColorConstants<void>::DarkOliveGreen       { 0.333333f,  0.419608f,  0.184314f,  1.0f };
-    const glm::vec4 ColorConstants<void>::DarkOrange           { 1.0f,       0.54902f,   0.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::DarkOrchid           { 0.6f,       0.196078f,  0.8f,       1.0f };
-    const glm::vec4 ColorConstants<void>::DarkRed              { 0.545098f,  0.0f,       0.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::DarkSalmon           { 0.913726f,  0.588235f,  0.478431f,  1.0f };
-    const glm::vec4 ColorConstants<void>::DarkSeaGreen         { 0.560784f,  0.737255f,  0.545098f,  1.0f };
-    const glm::vec4 ColorConstants<void>::DarkSlateBlue        { 0.282353f,  0.239216f,  0.545098f,  1.0f };
-    const glm::vec4 ColorConstants<void>::DarkSlateGray        { 0.184314f,  0.309804f,  0.309804f,  1.0f };
-    const glm::vec4 ColorConstants<void>::DarkTurquoise        { 0.0f,       0.807843f,  0.819608f,  1.0f };
-    const glm::vec4 ColorConstants<void>::DarkViolet           { 0.580392f,  0.0f,       0.827451f,  1.0f };
-    const glm::vec4 ColorConstants<void>::DeepPink             { 1.0f,       0.0784314f, 0.576471f,  1.0f };
-    const glm::vec4 ColorConstants<void>::DeepSkyBlue          { 0.0f,       0.74902f,   1.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::DimGray              { 0.411765f,  0.411765f,  0.411765f,  1.0f };
-    const glm::vec4 ColorConstants<void>::DodgerBlue           { 0.117647f,  0.564706f,  1.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::Firebrick            { 0.698039f,  0.133333f,  0.133333f,  1.0f };
-    const glm::vec4 ColorConstants<void>::FloralWhite          { 1.0f,       0.980392f,  0.941177f,  1.0f };
-    const glm::vec4 ColorConstants<void>::ForestGreen          { 0.133333f,  0.545098f,  0.133333f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Fuchsia              { 1.0f,       0.0f,       1.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::Gainsboro            { 0.862745f,  0.862745f,  0.862745f,  1.0f };
-    const glm::vec4 ColorConstants<void>::GhostWhite           { 0.972549f,  0.972549f,  1.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::GearsBlue            { 0.2f,       0.2f,       1.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::GearsGreen           { 0.0f,       0.8f,       0.2f,       1.0f };
-    const glm::vec4 ColorConstants<void>::GearsRed             { 0.8f,       0.1f,       0.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::Gold                 { 1.0f,       0.843137f,  0.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::Goldenrod            { 0.854902f,  0.647059f,  0.12549f,   1.0f };
-    const glm::vec4 ColorConstants<void>::Gray                 { 0.501961f,  0.501961f,  0.501961f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Green                { 0.0f,       1.0f,       0.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::GreenYellow          { 0.678431f,  1.0f,       0.184314f,  1.0f };
-    const glm::vec4 ColorConstants<void>::HalfGray             { 0.5f,       0.5f,       0.5f,       1.0f };
-    const glm::vec4 ColorConstants<void>::Honeydew             { 0.941177f,  1.0f,       0.941177f,  1.0f };
-    const glm::vec4 ColorConstants<void>::HotPink              { 1.0f,       0.411765f,  0.705882f,  1.0f };
-    const glm::vec4 ColorConstants<void>::IndianRed            { 0.803922f,  0.360784f,  0.360784f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Indigo               { 0.294118f,  0.0f,       0.509804f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Ivory                { 1.0f,       1.0f,       0.941177f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Khaki                { 0.941177f,  0.901961f,  0.54902f,   1.0f };
-    const glm::vec4 ColorConstants<void>::Lavender             { 0.901961f,  0.901961f,  0.980392f,  1.0f };
-    const glm::vec4 ColorConstants<void>::LavenderBlush        { 1.0f,       0.941177f,  0.960784f,  1.0f };
-    const glm::vec4 ColorConstants<void>::LawnGreen            { 0.486275f,  0.988235f,  0.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::LemonChiffon         { 1.0f,       0.980392f,  0.803922f,  1.0f };
-    const glm::vec4 ColorConstants<void>::LightBlue            { 0.678431f,  0.847059f,  0.901961f,  1.0f };
-    const glm::vec4 ColorConstants<void>::LightCoral           { 0.941177f,  0.501961f,  0.501961f,  1.0f };
-    const glm::vec4 ColorConstants<void>::LightCyan            { 0.878431f,  1.0f,       1.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::LightGoldenrodYellow { 0.980392f,  0.980392f,  0.823529f,  1.0f };
-    const glm::vec4 ColorConstants<void>::LightGray            { 0.827451f,  0.827451f,  0.827451f,  1.0f };
-    const glm::vec4 ColorConstants<void>::LightGreen           { 0.564706f,  0.933333f,  0.564706f,  1.0f };
-    const glm::vec4 ColorConstants<void>::LightPink            { 1.0f,       0.713726f,  0.756863f,  1.0f };
-    const glm::vec4 ColorConstants<void>::LightSalmon          { 1.0f,       0.627451f,  0.478431f,  1.0f };
-    const glm::vec4 ColorConstants<void>::LightSeaGreen        { 0.12549f,   0.698039f,  0.666667f,  1.0f };
-    const glm::vec4 ColorConstants<void>::LightSkyBlue         { 0.529412f,  0.807843f,  0.980392f,  1.0f };
-    const glm::vec4 ColorConstants<void>::LightSlateGray       { 0.466667f,  0.533333f,  0.6f,       1.0f };
-    const glm::vec4 ColorConstants<void>::LightSteelBlue       { 0.690196f,  0.768628f,  0.870588f,  1.0f };
-    const glm::vec4 ColorConstants<void>::LightYellow          { 1.0f,       1.0f,       0.878431f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Lime                 { 0.0f,       1.0f,       0.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::LimeGreen            { 0.196078f,  0.803922f,  0.196078f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Linen                { 0.980392f,  0.941177f,  0.901961f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Magenta              { 1.0f,       0.0f,       1.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::Maroon               { 0.501961f,  0.0f,       0.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::MediumAquamarine     { 0.4f,       0.803922f,  0.666667f,  1.0f };
-    const glm::vec4 ColorConstants<void>::MediumBlue           { 0.0f,       0.0f,       0.803922f,  1.0f };
-    const glm::vec4 ColorConstants<void>::MediumOrchid         { 0.729412f,  0.333333f,  0.827451f,  1.0f };
-    const glm::vec4 ColorConstants<void>::MediumPurple         { 0.576471f,  0.439216f,  0.858824f,  1.0f };
-    const glm::vec4 ColorConstants<void>::MediumSeaGreen       { 0.235294f,  0.701961f,  0.443137f,  1.0f };
-    const glm::vec4 ColorConstants<void>::MediumSlateBlue      { 0.482353f,  0.407843f,  0.933333f,  1.0f };
-    const glm::vec4 ColorConstants<void>::MediumSpringGreen    { 0.0f,       0.980392f,  0.603922f,  1.0f };
-    const glm::vec4 ColorConstants<void>::MediumTurquoise      { 0.282353f,  0.819608f,  0.8f,       1.0f };
-    const glm::vec4 ColorConstants<void>::MediumVioletRed      { 0.780392f,  0.0823529f, 0.521569f,  1.0f };
-    const glm::vec4 ColorConstants<void>::MidnightBlue         { 0.0980392f, 0.0980392f, 0.439216f,  1.0f };
-    const glm::vec4 ColorConstants<void>::MintCream            { 0.960784f,  1.0f,       0.980392f,  1.0f };
-    const glm::vec4 ColorConstants<void>::MistyRose            { 1.0f,       0.894118f,  0.882353f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Moccasin             { 1.0f,       0.894118f,  0.709804f,  1.0f };
-    const glm::vec4 ColorConstants<void>::NavajoWhite          { 1.0f,       0.870588f,  0.678431f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Navy                 { 0.0f,       0.0f,       0.501961f,  1.0f };
-    const glm::vec4 ColorConstants<void>::OldLace              { 0.992157f,  0.960784f,  0.901961f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Olive                { 0.501961f,  0.501961f,  0.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::OliveDrab            { 0.419608f,  0.556863f,  0.137255f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Orange               { 1.0f,       0.647059f,  0.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::OrangeRed            { 1.0f,       0.270588f,  0.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::Orchid               { 0.854902f,  0.439216f,  0.839216f,  1.0f };
-    const glm::vec4 ColorConstants<void>::PaleGoldenrod        { 0.933333f,  0.909804f,  0.666667f,  1.0f };
-    const glm::vec4 ColorConstants<void>::PaleGreen            { 0.596078f,  0.984314f,  0.596078f,  1.0f };
-    const glm::vec4 ColorConstants<void>::PaleTurquoise        { 0.686275f,  0.933333f,  0.933333f,  1.0f };
-    const glm::vec4 ColorConstants<void>::PaleVioletRed        { 0.858824f,  0.439216f,  0.576471f,  1.0f };
-    const glm::vec4 ColorConstants<void>::PapayaWhip           { 1.0f,       0.937255f,  0.835294f,  1.0f };
-    const glm::vec4 ColorConstants<void>::PeachPuff            { 1.0f,       0.854902f,  0.72549f,   1.0f };
-    const glm::vec4 ColorConstants<void>::Peru                 { 0.803922f,  0.521569f,  0.247059f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Pink                 { 1.0f,       0.752941f,  0.796079f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Plum                 { 0.866667f,  0.627451f,  0.866667f,  1.0f };
-    const glm::vec4 ColorConstants<void>::PowderBlue           { 0.690196f,  0.878431f,  0.901961f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Purple               { 0.501961f,  0.0f,       0.501961f,  1.0f };
-    const glm::vec4 ColorConstants<void>::QuarterGray          { 0.25f,      0.25f,      0.25f,      1.0f };
-    const glm::vec4 ColorConstants<void>::Red                  { 1.0f,       0.0f,       0.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::RosyBrown            { 0.737255f,  0.560784f,  0.560784f,  1.0f };
-    const glm::vec4 ColorConstants<void>::RoyalBlue            { 0.254902f,  0.411765f,  0.882353f,  1.0f };
-    const glm::vec4 ColorConstants<void>::SaddleBrown          { 0.545098f,  0.270588f,  0.0745098f, 1.0f };
-    const glm::vec4 ColorConstants<void>::Salmon               { 0.980392f,  0.501961f,  0.447059f,  1.0f };
-    const glm::vec4 ColorConstants<void>::SandyBrown           { 0.956863f,  0.643137f,  0.376471f,  1.0f };
-    const glm::vec4 ColorConstants<void>::SeaGreen             { 0.180392f,  0.545098f,  0.341176f,  1.0f };
-    const glm::vec4 ColorConstants<void>::SeaShell             { 1.0f,       0.960784f,  0.933333f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Sienna               { 0.627451f,  0.321569f,  0.176471f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Silver               { 0.752941f,  0.752941f,  0.752941f,  1.0f };
-    const glm::vec4 ColorConstants<void>::SkyBlue              { 0.529412f,  0.807843f,  0.921569f,  1.0f };
-    const glm::vec4 ColorConstants<void>::SlateBlue            { 0.415686f,  0.352941f,  0.803922f,  1.0f };
-    const glm::vec4 ColorConstants<void>::SlateGray            { 0.439216f,  0.501961f,  0.564706f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Snow                 { 1.0f,       0.980392f,  0.980392f,  1.0f };
-    const glm::vec4 ColorConstants<void>::SpringGreen          { 0.0f,       1.0f,       0.498039f,  1.0f };
-    const glm::vec4 ColorConstants<void>::SteelBlue            { 0.27451f,   0.509804f,  0.705882f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Tan                  { 0.823529f,  0.705882f,  0.54902f,   1.0f };
-    const glm::vec4 ColorConstants<void>::Teal                 { 0.0f,       0.501961f,  0.501961f,  1.0f };
-    const glm::vec4 ColorConstants<void>::ThirdGray            { 0.3f,       0.3f,       0.3f,       1.0f };
-    const glm::vec4 ColorConstants<void>::Thistle              { 0.847059f,  0.74902f,   0.847059f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Tomato               { 1.0f,       0.388235f,  0.278431f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Turquoise            { 0.25098f,   0.878431f,  0.815686f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Violet               { 0.933333f,  0.509804f,  0.933333f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Wheat                { 0.960784f,  0.870588f,  0.701961f,  1.0f };
-    const glm::vec4 ColorConstants<void>::WhiteSmoke           { 0.960784f,  0.960784f,  0.960784f,  1.0f };
-    const glm::vec4 ColorConstants<void>::Yellow               { 1.0f,       1.0f,       0.0f,       1.0f };
-    const glm::vec4 ColorConstants<void>::YellowGreen          { 0.603922f,  0.803922f,  0.196078f,  1.0f };
-
-} // namespace detail
 } // namespace Dynamic_Static
+
+/*
+==========================================
+    Copyright 2011-2018 Dynamic_Static
+        Patrick Purcell
+    Licensed under the MIT license
+    http://opensource.org/licenses/MIT
+==========================================
+*/
+
+#pragma once
+
+/*
+==========================================
+    Copyright (c) 2011 Dynamic_Static
+        Patrick Purcell
+    Licensed under the MIT license
+    http://opensource.org/licenses/MIT
+==========================================
+*/
+
+#pragma once
+
+
+#define GLM_FORCE_RADIANS
+#define GLM_FORCE_SIZE_T_LENGTH
+#define GLM_ENABLE_EXPERIMENTAL
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+
+#if defined(DYNAMIC_STATIC_MSVC)
+    #pragma warning(push, 0)
+#endif
+
+
+#if defined(DYNAMIC_STATIC_MSVC)
+    #pragma warning(pop)
+#endif
+
+#define _USE_MATH_DEFINES
+
+/*
+==========================================
+    Copyright (c) 2011 Dynamic_Static
+        Patrick Purcell
+    Licensed under the MIT license
+    http://opensource.org/licenses/MIT
+==========================================
+*/
+
+#pragma once
+
 
 namespace Dynamic_Static {
 
     /**
     * TODO : Documentation.
     */
-    struct Color
-        : public glm::vec4
-        , public detail::ColorConstants<void>
+    class NonCopyable
     {
+    protected:
+        NonCopyable() = default;
+        ~NonCopyable() = default;
+
+    private:
+        NonCopyable(const NonCopyable&) = delete;
+        NonCopyable& operator=(const NonCopyable&) = delete;
     };
 
 } // namespace Dynamic_Static
+
+/*
+==========================================
+    Copyright (c) 2016 Dynamic_Static
+        Patrick Purcell
+    Licensed under the MIT license
+    http://opensource.org/licenses/MIT
+==========================================
+*/
+
+#pragma once
+
+
+
+namespace Dynamic_Static {
+
+    class string_view
+        : public std::string_view
+    {
+    public:
+        string_view(const std::string_view& strView)
+            : std::string_view(strView)
+        {
+        }
+
+        string_view(const std::string& str)
+            : std::string_view(str)
+        {
+        }
+
+        string_view(const char* cStr)
+            : std::string_view(cStr, cStr ? strlen(cStr) : 0)
+        {
+        }
+
+        string_view(const char& c)
+            : std::string_view(&c, 1)
+        {
+        }
+    };
+
+    /*
+    * Replaces all occurences of a given substring from a given string.
+    * @param [in] str The source string
+    * @param [in] find The string to find and replace in the source string
+    * @param [in] replacement The string to replace found occurences with
+    * @param [in] recursive (default = false) Whether or not to recursively replace occurences of the find string
+    * @return The resulting string
+    */
+    inline std::string replace(
+        const dst::string_view& str,
+        const dst::string_view& find,
+        const dst::string_view& replacement,
+        bool recursive = false
+    )
+    {
+        std::string result(str.begin(), str.end());
+        if (!find.empty() && find != replacement) {
+            auto index = result.find(find);
+            while (index != std::string::npos) {
+                result.replace(index, find.size(), replacement);
+                index += recursive ? 0 : replacement.size();
+                index = result.find(find, index);
+            }
+        }
+        return result;
+    }
+
+    /*
+    * Removes all occurences of a given substring from a given string.
+    * @param [in] str The source string
+    * @param [in] find The string to find and remove from the source string
+    * @param [in] recursive (default = false) Whether or not to recursively remove occurences of the find string
+    * @return The resulting string
+    */
+    inline std::string remove(
+        const dst::string_view& str,
+        const dst::string_view& find,
+        bool recursive = false
+    )
+    {
+        return dst::replace(str, find, nullptr, recursive);
+    }
+
+    /**
+    * Reduces repetitive occurences of a given substring to single occurences.
+    * @param [in] str The source string
+    * @param [in] find The string to find and reduce
+    * @return The resulting string
+    */
+    inline std::string reduce_sequence(
+        const dst::string_view& str,
+        const dst::string_view& find
+    )
+    {
+        std::string sequence(find.begin(), find.end());
+        return dst::replace(str, sequence + sequence, find, true);
+    }
+
+    /**
+    * Converts a char to upper case.
+    * @param [in] c The char to convert to upper case
+    * @return The resulting char
+    */
+    inline char to_upper(char c)
+    {
+        return static_cast<char>(std::toupper(static_cast<int>(c)));
+    }
+
+    /**
+    * Converts a string to upper case.
+    * @param [in] str The string to convert to upper case
+    * @return The resulting string
+    */
+    inline std::string to_upper(const dst::string_view& str)
+    {
+        std::string result(str.begin(), str.end());
+        for (auto& c : result) {
+            c = dst::to_upper(c);
+        }
+        return result;
+    }
+
+    /**
+    * Converts a char to lower case.
+    * @param [in] c The char to convert to lower case
+    * @return The resulting char
+    */
+    inline char to_lower(char c)
+    {
+        return static_cast<char>(std::tolower(static_cast<int>(c)));
+    }
+
+    /**
+    * Converts a string to lower case.
+    * @param [in] str The string to convert to lower case
+    * @return The resulting string
+    */
+    inline std::string to_lower(const std::string_view& str)
+    {
+        std::string result(str.begin(), str.end());
+        for (auto& c : result) {
+            c = dst::to_lower(c);
+        }
+        return result;
+    }
+
+    /**
+    * Gets the string representation of the hex value of a given integral value.
+    * @param <T> The type of the given value
+    * @return The string representation of the hex value of the given integral value
+    */
+    template <typename T>
+    inline std::string to_hex_string(const T& value)
+    {
+        static_assert(
+            std::is_integral<T>::value,
+            "dst::to_hex_string() can only be used with built in integral types"
+        );
+        std::stringstream strStr;
+        strStr << "0x" << std::hex << value;
+        return strStr.str();
+    }
+
+} // namespace Dynamic_Static
+
+/*
+==========================================
+    Copyright (c) 2015 Dynamic_Static
+    Licensed under the MIT license
+    http://opensource.org/licenses/MIT
+==========================================
+*/
+
+#pragma once
+
+
+
+namespace Dynamic_Static {
+
+
+
+} // namespace Dynamic_Static
+
+/*
+==========================================
+    Copyright (c) 2015 Dynamic_Static
+        Patrick Purcell
+    Licensed under the MIT license
+    http://opensource.org/licenses/MIT
+==========================================
+*/
+
+#pragma once
+
+/*
+==========================================
+    Copyright 2011-2018 Dynamic_Static
+        Patrick Purcell
+    Licensed under the MIT license
+    http://opensource.org/licenses/MIT
+==========================================
+*/
+
+#pragma once
+
+
+
+namespace Dynamic_Static {
+
+    /**
+    * TODO : Documentation.
+    */
+    struct Version
+    {
+        int major { 0 }; /*!< This Version's major value */
+        int minor { 0 }; /*!< This Version's minor value */
+        int patch { 0 }; /*!< This Version's patch value */
+
+        /**
+        * TODO : Documentation.
+        */
+        inline Version(
+            int major = 0,
+            int minor = 0,
+            int patch = 0
+        )
+            : major { major }
+            , minor { minor }
+            , patch { patch }
+        {
+        }
+
+        /**
+        * TODO : Documentation.
+        */
+        inline std::string to_string() const
+        {
+            return
+                std::to_string(major) + "." +
+                std::to_string(minor) + "." +
+                std::to_string(patch);
+        }
+
+        /**
+        * TODO : Documentation.
+        */
+        inline std::wstring to_wstring() const
+        {
+            return
+                std::to_wstring(major) + L"." +
+                std::to_wstring(minor) + L"." +
+                std::to_wstring(patch);
+        }
+    };
+
+} // namespace Dynamic_Static
+
+/*
+==========================================
+    Copyright (c) 2011 Dynamic_Static
+        Patrick Purcell
+    Licensed under the MIT license
+    http://opensource.org/licenses/MIT
+==========================================
+*/
+
+#pragma once
+
+
+#if defined(DYNAMIC_STATIC_WINDOWS)
+    #ifndef WIN32_LEAN_AND_MEAN
+    #define WIN32_LEAN_AND_MEAN
+    #endif
+    #ifndef NOMINMAX
+    #define NOMINMAX
+    #endif
+#endif

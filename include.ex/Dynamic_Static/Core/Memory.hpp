@@ -1,8 +1,9 @@
 
 /*
 ==========================================
-    Copyright (c) 2016 Dynamic_Static
-    Licensed under the MIT license
+  Copyright (c) 2017-2018 Dynamic_Static
+    Patrick Purcell
+      Licensed under the MIT license
     http://opensource.org/licenses/MIT
 ==========================================
 */
@@ -13,9 +14,8 @@
 
 #if defined(DYNAMIC_STATIC_WINDOWS)
 #include "Dynamic_Static/Core/Win32LeanAndMean.hpp"
-#endif
-
 #include <malloc.h>
+#endif
 
 namespace Dynamic_Static {
 

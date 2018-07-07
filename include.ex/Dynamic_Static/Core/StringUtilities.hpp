@@ -1,9 +1,9 @@
 
 /*
 ==========================================
-    Copyright (c) 2016 Dynamic_Static
-        Patrick Purcell
-    Licensed under the MIT license
+  Copyright (c) 2016-2018 Dynamic_Static
+    Patrick Purcell
+      Licensed under the MIT license
     http://opensource.org/licenses/MIT
 ==========================================
 */
@@ -101,6 +101,16 @@ namespace Dynamic_Static {
     {
         std::string sequence(find.begin(), find.end());
         return dst::replace(str, sequence + sequence, find, true);
+    }
+
+    /**
+    * Scrubs a given path.
+    * @param [in] path The path to scrub
+    * @reutrn The scrubbed path
+    */
+    inline std::string scrub_path(const std::string_view& path)
+    {
+        return dst::reduce_sequence(dst::replace(path, '\\', '/'), '/');
     }
 
     /**

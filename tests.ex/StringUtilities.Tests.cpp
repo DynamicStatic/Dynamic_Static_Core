@@ -1,8 +1,9 @@
 
 /*
 ==========================================
-    Copyright (c) 2016 Dynamic_Static
-    Licensed under the MIT license
+  Copyright (c) 2016-2018 Dynamic_Static
+    Patrick Purcell
+      Licensed under the MIT license
     http://opensource.org/licenses/MIT
 ==========================================
 */
@@ -59,6 +60,14 @@ namespace Tests {
         str = dst::replace(str, "ugly", "nice");
         str = dst::replace(str, "broken", "decent");
         REQUIRE(str == "some/nice/path/with/a/decent/extension.ext");
+    }
+
+    TEST_CASE("scrub_path()", "[StringUtilities]")
+    {
+        auto path = dst::scrub_path(
+            "some//file/\\path/with\\various\\combines/and\\conventions.txt"
+        );
+        REQUIRE(path == "some/file/path/with/various/combines/and/conventions.txt");
     }
 
     TEST_CASE("Case conversion works correctly", "[StringUtilities]")
