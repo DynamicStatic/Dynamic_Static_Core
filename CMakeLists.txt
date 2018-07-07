@@ -37,6 +37,7 @@ DstCreateStaticLibrary(
         ${includePath}/Defines.hpp
         ${includePath}/Math.hpp
         ${includePath}/NonCopyable.hpp
+        ${includePath}/StringUtilities.hpp
         ${includePath}/Version.hpp
         ${includePath}/Win32LeanAndMean.hpp
 
@@ -54,5 +55,6 @@ if(BUILD_TESTS)
         sourceFiles
             ${testsPath}/BinaryWriter.Tests.cpp
             ${testsPath}/BinaryReader.Tests.cpp
+            ${testsPath}/StringUtilities.Tests.cpp
     )
 endif()

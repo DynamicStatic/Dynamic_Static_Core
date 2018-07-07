@@ -13,10 +13,5 @@
 namespace Dynamic_Static {
 namespace Tests {
 
-    TEST_CASE("Throws on bad file path", "[BinaryWriter]")
-    {
-        REQUIRE(false);
-    }
-
 } // namespace Tests
 } // namespace Dynamic_Static
