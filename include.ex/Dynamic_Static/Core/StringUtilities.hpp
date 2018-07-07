@@ -14,6 +14,7 @@
 
 #include <cctype>
 #include <cstring>
+#include <sstream>
 #include <string>
 #include <string_view>
 
@@ -148,6 +149,23 @@ namespace Dynamic_Static {
             c = dst::to_lower(c);
         }
         return result;
+    }
+
+    /**
+    * Gets the string representation of the hex value of a given integral value.
+    * @param <T> The type of the given value
+    * @return The string representation of the hex value of the given integral value
+    */
+    template <typename T>
+    inline std::string to_hex_string(const T& value)
+    {
+        static_assert(
+            std::is_integral<T>::value,
+            "dst::to_hex_string() can only be used with built in integral types"
+        );
+        std::stringstream strStr;
+        strStr << "0x" << std::hex << value;
+        return strStr.str();
     }
 
 } // namespace Dynamic_Static
