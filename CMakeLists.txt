@@ -34,6 +34,7 @@ DstCreateStaticLibrary(
     includeFiles
         ${includePath}/Math/Colors.hpp
         ${includePath}/Math/Defines.hpp
+        ${includePath}/Callback.hpp
         ${includePath}/Defines.hpp
         ${includePath}/Math.hpp
         ${includePath}/NonCopyable.hpp
