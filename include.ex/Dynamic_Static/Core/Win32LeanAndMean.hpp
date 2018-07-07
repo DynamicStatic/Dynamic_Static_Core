@@ -1,7 +1,7 @@
 
 /*
 ==========================================
-    Copyright 2011-2018 Dynamic_Static
+    Copyright (c) 2011 Dynamic_Static
         Patrick Purcell
     Licensed under the MIT license
     http://opensource.org/licenses/MIT
@@ -14,10 +14,10 @@
 
 #if defined(DYNAMIC_STATIC_WINDOWS)
     #ifndef WIN32_LEAN_AND_MEAN
-    #define WIN32_LEAN_AND_MEAN 1
+    #define WIN32_LEAN_AND_MEAN
     #endif
     #ifndef NOMINMAX
-    #define NOMINMAX 1
+    #define NOMINMAX
     #endif
     #include <Windows.h>
 #endif

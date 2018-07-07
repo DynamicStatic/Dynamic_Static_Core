@@ -1,7 +1,7 @@
 
 /*
 ==========================================
-    Copyright 2011-2018 Dynamic_Static
+    Copyright (c) 2011 Dynamic_Static
         Patrick Purcell
     Licensed under the MIT license
     http://opensource.org/licenses/MIT
@@ -14,6 +14,9 @@
 
 namespace Dynamic_Static {
 
+    /**
+    * TODO : Documentation.
+    */
     class NonCopyable
     {
     protected:

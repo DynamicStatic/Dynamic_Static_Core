@@ -43,7 +43,6 @@ DstCreateStaticLibrary(
 
     sourceFiles
         ${sourcePath}/Colors.cpp
-        ${sourcePath}/Version.cpp
 )
 
 option(BUILD_TESTS "Build Dynamic_Static.Core.Tests" ON)

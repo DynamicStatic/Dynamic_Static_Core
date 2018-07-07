@@ -1,14 +1,12 @@
 
 /*
 ==========================================
-    Copyright 2011-2018 Dynamic_Static
+    Copyright (c) 2011 Dynamic_Static
         Patrick Purcell
     Licensed under the MIT license
     http://opensource.org/licenses/MIT
 ==========================================
 */
-
-#include "Dynamic_Static/Core/Defines.hpp"
 
 #pragma once
 
@@ -19,7 +17,7 @@
 #define GLM_ENABLE_EXPERIMENTAL
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 
-#if DYNAMIC_STATIC_MSVC
+#if defined(DYNAMIC_STATIC_MSVC)
     #pragma warning(push, 0)
 #endif
 
@@ -30,7 +28,7 @@
 #include "glm/gtx/string_cast.hpp"
 #include "glm/gtx/transform.hpp"
 
-#if DYNAMIC_STATIC_MSVC
+#if defined(DYNAMIC_STATIC_MSVC)
     #pragma warning(pop)
 #endif
 
