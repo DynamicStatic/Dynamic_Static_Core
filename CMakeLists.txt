@@ -34,9 +34,14 @@ DstCreateStaticLibrary(
     includeFiles
         ${includePath}/Math/Colors.hpp
         ${includePath}/Math/Defines.hpp
+        ${includePath}/Threads/Semaphore.hpp
+        ${includePath}/Threads/ThreadPool.hpp
+        ${includePath}/Threads/ThreadUtilities.hpp
+        ${includePath}/Threads/Worker.hpp
         ${includePath}/Callback.hpp
         ${includePath}/Defines.hpp
         ${includePath}/Math.hpp
+        ${includePath}/Memory.hpp
         ${includePath}/NonCopyable.hpp
         ${includePath}/StringUtilities.hpp
         ${includePath}/Version.hpp
