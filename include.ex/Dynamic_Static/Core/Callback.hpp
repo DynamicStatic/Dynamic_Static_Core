@@ -22,10 +22,7 @@ namespace Dynamic_Static {
     * @param <CallerType> The type of object that can execute this Callback
     * @param <Args> This Callback's argument types
     */
-    template <
-        typename CallerType,
-        typename ...Args
-    >
+    template <typename CallerType, typename ...Args>
     class Callback
     {
         friend CallerType;

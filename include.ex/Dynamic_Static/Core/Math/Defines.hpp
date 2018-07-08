@@ -12,6 +12,11 @@
 
 #include "Dynamic_Static/Core/Defines.hpp"
 
+#if !defined(DYNAMIC_STATIC_DISABLE_MATH_BUILD)
+    #define DYNAMIC_STATIC_MATH_BUILD_ENABLED
+#endif
+#if defined(DYNAMIC_STATIC_MATH_BUILD_ENABLED)
+
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_SIZE_T_LENGTH
 #define GLM_ENABLE_EXPERIMENTAL
@@ -34,6 +39,7 @@
 
 #define _USE_MATH_DEFINES
 #include <math.h>
-#include <algorithm>
 #include <cmath>
 #include <ostream>
+
+#endif // defined(DYNAMIC_STATIC_MATH_BUILD_ENABLED)
