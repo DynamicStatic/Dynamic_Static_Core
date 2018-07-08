@@ -39,8 +39,10 @@ namespace Tests {
         SECTION("Floating point values")
         {
             bool inRange = true;
+            float min = static_cast<float>(MinValue);
+            float max = static_cast<float>(MaxValue);
             for (int i = 0; i < TestCount; ++i) {
-                auto value = rng.range(static_cast<float>(MinValue), static_cast<float>(MaxValue));
+                auto value = rng.range(min, max);
                 if (value < MinValue || MaxValue <= value) {
                     inRange = false;
                     break;
@@ -165,6 +167,29 @@ namespace Tests {
         REQUIRE(d0Rolls0);
         REQUIRE(d1Rolls1);
         REQUIRE(d6RollsInRange);
+    }
+
+    TEST_CASE("Resetting produces deterministic sequences", "[Random]")
+    {
+        RandomNumberGenerator rng;
+
+        float min = static_cast<float>(MinValue);
+        float max = static_cast<float>(MaxValue);
+        std::vector<float> sequence(TestCount);
+        for (size_t i = 0; i < TestCount; ++i) {
+            sequence[i] = rng.range(min, max);
+        }
+
+        rng.reset();
+        bool deterministic = true;
+        for (size_t i = 0; i < TestCount; ++i) {
+            if (rng.range(min, max) != sequence[i]) {
+                deterministic = false;
+                break;
+            }
+        }
+
+        REQUIRE(deterministic);
     }
 
 } // namespace Tests
