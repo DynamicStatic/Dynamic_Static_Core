@@ -103,7 +103,6 @@ namespace Tests {
     TEST_CASE("index()", "[Random]")
     {
         RandomNumberGenerator rng;
-
         bool count0GetsIndex0 = true;
         for (int i = 0; i < TestCount; ++i) {
             if (rng.index(0) != 0) {
@@ -111,7 +110,6 @@ namespace Tests {
                 break;
             }
         }
-
         bool count1GetsIndex0 = true;
         for (int i = 0; i < TestCount; ++i) {
             if (rng.index(1) != 0) {
@@ -119,7 +117,6 @@ namespace Tests {
                 break;
             }
         }
-
         int count = 8;
         bool count8InRange = true;
         for (int i = 0; i < TestCount; ++i) {
@@ -128,7 +125,6 @@ namespace Tests {
                 break;
             }
         }
-
         REQUIRE(count0GetsIndex0);
         REQUIRE(count1GetsIndex0);
         REQUIRE(count8InRange);
@@ -137,7 +133,6 @@ namespace Tests {
     TEST_CASE("die_roll()", "[Random]")
     {
         RandomNumberGenerator rng;
-
         bool d0Rolls0 = true;
         for (int i = 0; i < TestCount; ++i) {
             if (rng.die_roll(0) != 0) {
@@ -145,7 +140,6 @@ namespace Tests {
                 break;
             }
         }
-
         bool d1Rolls1 = true;
         for (int i = 0; i < TestCount; ++i) {
             if (rng.die_roll(1) != 1) {
@@ -153,7 +147,6 @@ namespace Tests {
                 break;
             }
         }
-
         int dieSize = 6;
         bool d6RollsInRange = true;
         for (int i = 0; i < TestCount; ++i) {
@@ -163,7 +156,6 @@ namespace Tests {
                 break;
             }
         }
-
         REQUIRE(d0Rolls0);
         REQUIRE(d1Rolls1);
         REQUIRE(d6RollsInRange);
@@ -172,14 +164,12 @@ namespace Tests {
     TEST_CASE("Resetting produces deterministic sequences", "[Random]")
     {
         RandomNumberGenerator rng;
-
         float min = static_cast<float>(MinValue);
         float max = static_cast<float>(MaxValue);
         std::vector<float> sequence(TestCount);
         for (size_t i = 0; i < TestCount; ++i) {
             sequence[i] = rng.range(min, max);
         }
-
         rng.reset();
         bool deterministic = true;
         for (size_t i = 0; i < TestCount; ++i) {
@@ -188,7 +178,6 @@ namespace Tests {
                 break;
             }
         }
-
         REQUIRE(deterministic);
     }
 
