@@ -1,8 +1,9 @@
 
 /*
 ==========================================
-    Copyright (c) 2016 Dynamic_Static
-    Licensed under the MIT license
+  Copyright (c) 2016-2018 Dynamic_Static
+    Patrick Purcell
+      Licensed under the MIT license
     http://opensource.org/licenses/MIT
 ==========================================
 */
@@ -12,25 +13,29 @@
 #include "Dynamic_Static/Core/Defines.hpp"
 
 #include <algorithm>
-#include <memory>
 #include <vector>
 
 namespace Dynamic_Static {
 
-    /**
-     * Populates a given std::vector with objects converted from another std::vector using a given conversion function.
-     * @param <T>              The type of the source std::vector
-     * @param <U>              The type of the destination std::vector
-     * @param <Conversion>     The type of the conversion function
-     * @param [in] source      The source std::vector
-     * @param [in] destination The destination std::vector
-     * @param [in] conversion  The conversion function
-     */
-    template <typename T, typename U, typename Conversion>
+    /*
+    * Populates a given std::vector<> with objects converted from another std::vector<> using a given conversion function.
+    * @param <SourceType> The type of the source std::vector<>
+    * @param <DestinationType> The type of the destination std::vector<>
+    * @param <ConversionFunctionType> The type of the conversion function
+    * @param [in] source The source std::vector<>
+    * @param [in] destination The destination std::vector<>
+    * @param [in] conversion The conversion function
+    */
+    template <
+        typename SourceType,
+        typename DestinationType,
+        typename ConversionFunctionType
+    >
     void convert(
-        const std::vector<T>& source,
-        std::vector<U>& destination,
-        Conversion conversion)
+        const std::vector<SourceType>& source,
+        std::vector<DestinationType>& destination,
+        ConversionFunctionType conversion
+    )
     {
         destination.clear();
         destination.reserve(source.size());
@@ -39,34 +44,39 @@ namespace Dynamic_Static {
         }
     }
 
-    /**
-     * Gets a std::vector populated with objects converted from another std::vector using a given conversion function.
-     * @param <T>             The type of the source std::vector
-     * @param <U>             The type of the destination std::vector
-     * @param <Conversion>    The type of the conversion function
-     * @param [in] source     The source std::vector
-     * @param [in] conversion The conversion function
-     * @return A std::vector containing the converted objects
-     */
-    template <typename T, typename U, typename Conversion>
-    std::vector<U> convert(
-        const std::vector<T>& source,
-        Conversion conversion)
+    /*
+    * Gets a std::vector<> populated with objects converted from another std::vector<> using a given conversion function.
+    * @param <SourceType> The type of the source std::vector
+    * @param <DestinationType> The type of the destination std::vector
+    * @param <ConversionFunctionType> The type of the conversion function
+    * @param [in] source The source std::vector<>
+    * @param [in] conversion The conversion function
+    * @return A std::vector<> containing the converted objects
+    */
+    template <
+        typename SourceType,
+        typename DestinationType,
+        typename ConversionFunctionType
+    >
+    std::vector<DestinationType> convert(
+        const std::vector<SourceType>& source,
+        ConversionFunctionType conversion
+    )
     {
-        std::vector<U> destination;
+        std::vector<DestinationType> destination;
         convert(source, destination, conversion);
         return destination;
     }
 
-    /**
-     * Removes duplicate elements from a given std::vector
-     * \n NOTE : This operation will sort the given std::vector
-     * \n NOTE : The type of the given std::vector must provide operator< and operator==
-     * \n        The type of the given std::vector must fulfill the Compare concept
-     * \n        (http://en.cppreference.com/w/cpp/concept/Compare)
-     * @param <T>  T    The type of the std::vector to remove duplicates from
-     * @param [in] vctr The std::vector to remove duplicates from
-     */
+    /*
+    * Removes duplicate elements from a given std::vector<>
+    * \n NOTE : This operation will sort the given std::vector
+    * \n NOTE : The type of the given std::vector<> must provide operator< and operator==
+    * \n        The type of the given std::vector<> must fulfill the Compare concept
+    * \n        (http://en.cppreference.com/w/cpp/concept/Compare)
+    * @param <T> T The type of the std::vector to remove duplicates from
+    * @param [in] vctr The std::vector to remove duplicates from
+    */
     template <typename T>
     void remove_duplicates(std::vector<T>& vctr)
     {

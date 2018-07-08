@@ -1,11 +1,14 @@
 
 /*
 ==========================================
-    Copyright (c) 2016 Dynamic_Static
-    Licensed under the MIT license
+  Copyright (c) 2016-2018 Dynamic_Static
+    Patrick Purcell
+      Licensed under the MIT license
     http://opensource.org/licenses/MIT
 ==========================================
 */
+
+#pragma once
 
 #include "Dynamic_Static/Core/VectorUtilities.hpp"
 #include "Dynamic_Static/Core/Random.hpp"
@@ -19,6 +22,7 @@ namespace Dynamic_Static {
 namespace Tests {
 
     static constexpr size_t TestCount = 128;
+    static dst::RandomNumberGenerator sgRng;
 
     class Animal
     {
@@ -37,20 +41,19 @@ namespace Tests {
     {
         std::string name = "name";
         for (size_t i = 0; i < name.size(); ++i) {
-            name[i] = static_cast<char>(dst::Random.range(32, 126));
+            name[i] = static_cast<char>(sgRng.range(32, 126));
         }
-
         return name;
     }
 
-    TEST_CASE("transform()", "[VectorUtilitites]")
+    TEST_CASE("convert()", "[VectorUtilitites]")
     {
         std::vector<Dog> dogs;
         for (size_t i = 0; i < TestCount; ++i) {
             dogs.push_back(Dog(create_random_name()));
         }
 
-        auto cats = convert<Dog, Cat>(
+        auto cats = dst::convert<Dog, Cat>(
             dogs,
             [](const Dog& dog)
             {
@@ -74,16 +77,16 @@ namespace Tests {
         std::vector<int> integers;
         integers.reserve(TestCount);
         for (size_t i = 0; i < TestCount; ++i) {
-            integers.push_back(dst::Random.value<int>());
+            integers.push_back(sgRng.value<int>());
         }
 
         for (auto& i : integers) {
-            if (dst::Random.probability(0.5f)) {
-                i = integers[dst::Random.index(integers.size())];
+            if (sgRng.probability(0.5f)) {
+                i = integers[sgRng.index(integers.size())];
             }
         }
 
-        remove_duplicates(integers);
+        dst::remove_duplicates(integers);
 
         bool success = true;
         std::set<int> integerSet;

@@ -1,78 +1,76 @@
 
 /*
 ==========================================
-    Copyright (c) 2016 Dynamic_Static
-    Licensed under the MIT license
+  Copyright (c) 2011-2018 Dynamic_Static
+    Patrick Purcell
+      Licensed under the MIT license
     http://opensource.org/licenses/MIT
 ==========================================
 */
 
 #pragma once
 
-#include "Dynamic_Static/Core/Algorithm.hpp"
 #include "Dynamic_Static/Core/Defines.hpp"
-#include "Dynamic_Static/Core/TypeUtilities.hpp"
 
-#include <algorithm>
 #include <limits>
 #include <random>
+#include <type_traits>
 
 namespace Dynamic_Static {
 
-    /**
-     * Provides high level control over random number generation.
-     */
+    /*
+    * Provides high level control over random number generation.
+    */
     class RandomNumberGenerator final
     {
     private:
-        // TODO : Provide support for std::seed_seq.
-        uint32_t mSeed;
+        uint32_t mSeed { 0 };
         std::mt19937_64 mEngine;
-        std::uniform_real_distribution<double> mRealDistribution { 0, 1 };
-        std::uniform_int_distribution<uint64_t> mIntDistribution { 0 , std::numeric_limits<uint64_t>::max() };
+        std::uniform_real_distribution<double> mRealDistribution { 0., 1. };
+        std::uniform_int_distribution<uint64_t> mIntDistribution { 0, std::numeric_limits<uint64_t>::max() };
 
     public:
-        /**
-         * Constructs an instance of RandomNumberGenerator.
-         */
+        /*
+        * Constructs a new instance of RandomNumberGenerator.
+        */
         inline RandomNumberGenerator()
             : RandomNumberGenerator(std::random_device()())
         {
         }
 
-        /**
-         * Constructs an instance of RandomNumberGenerator with a given seed.
-         * @param [in] seed This RandomNumberGenerator's seed
-         */
+        /*
+        * Constructs a new instance of RandomNumberGenerator with a given seed.
+        * @param [in] seed This RandomNumberGenerator's seed
+        */
         inline RandomNumberGenerator(uint32_t seed)
         {
             set_seed(seed);
         }
 
     public:
-        /**
-         * Gets this RandomNumberGenerator's seed.
-         * @return This RandomNumberGenerator's seed
-         */
+        /*
+        * Gets this RandomNumberGenerator's seed.
+        * @return This RandomNumberGenerator's seed
+        */
         inline uint32_t get_seed() const
         {
             return mSeed;
         }
 
-        /**
-         * Sets this RandomNumberGenerator's seed.
-         * \n NOTE : Calling this method will reset this RandomNumberGenerator.
-         * @param [in] seed This RandomNumberGenerator's seed 
-         */
+        /*
+        * Sets this RandomNumberGenerator's seed.
+        * \n NOTE : Calling this method will reset this RandomNumberGenerator
+        * @param [in] This RandomNumberGenerator's seed
+        */
         inline void set_seed(uint32_t seed)
         {
             mSeed = seed;
             reset();
         }
 
-        /**
-         * Resets this RandomNumberGenerator.
-         */
+        /*
+        * Resets this RandomNumberGenerator.
+        */
         inline void reset()
         {
             mEngine.seed(mSeed);
@@ -80,118 +78,102 @@ namespace Dynamic_Static {
             mIntDistribution.reset();
         }
 
-        /**
-         * Gets a random integral value in the range of two specified values.
-         * @param <T>         The integral type of the value
-         * @param [in] value0 The first value [inclusive]
-         * @param [in] value1 The second value [inclusive]
-         * @return The random integral value generated
-         */
-        template <typename T>
-        inline typename std::enable_if<std::is_integral<T>::value, T>::type
-            range(T value0, T value1)
+        /*
+        * Generates a random in the range of two specified values.
+        * @param <IntegerType> The type of the value
+        * @param [in] min The lower bound of the range [inclusive]
+        * @param [in] max The upper bound of the range (exclusive)
+        * @return The generated value
+        */
+        template <typename IntegerType>
+        inline typename std::enable_if<std::is_integral<IntegerType>::value, IntegerType>::type
+            range(IntegerType min, IntegerType max)
         {
-            auto values = std::minmax(value0, value1);
-            T min = values.first;
-            T max = values.second + 1;
-            return static_cast<T>(
-                mIntDistribution(mEngine) % (max - min) + min
-            );
+            return static_cast<IntegerType>(mIntDistribution(mEngine) % (max - min) + min);
         }
 
-        /**
-         * Gets a random floating point value in the range of two specified values.
-         * @param <T>         The floating point type of the value
-         * @param [in] value0 The first value [inclusive]
-         * @param [in] value1 The second value [inclusive]
-         * @return The random floating point value generated
-         */
-        template <typename T>
-        inline typename std::enable_if<std::is_floating_point<T>::value, T>::type
-            range(T value0, T value1)
+        /*
+        * Generates a random value in the range of two specified values.
+        * @param <IntegerType> The type of the value
+        * @param [in] min The lower bound of the range [inclusive]
+        * @param [in] max The upper bound of the range (exclusive)
+        * @return The generated value
+        */
+        template <typename FloatingPointType>
+        inline typename std::enable_if<std::is_floating_point<FloatingPointType>::value, FloatingPointType>::type
+            range(FloatingPointType min, FloatingPointType max)
         {
-            auto values = std::minmax(value0, value1);
-            T min = values.first;
-            T max = values.second;
-            return static_cast<T>(
-                mRealDistribution(mEngine) * (max - min) + min
-            );
+            return static_cast<FloatingPointType>(mRealDistribution(mEngine) * (max - min) + min);
         }
 
-        /**
-         * Has a chance of returning true based on a given value.
-         * @param [in] value The integral value [0-100] to test
-         * @return Whether or not the value passed
-         */
-        template <typename T>
-        inline bool probability(
-            T value,
-            typename std::enable_if<std::is_integral<T>::value>::type* = 0
-        )
-        {
-            return value >= range<T>(0, 100);
-        }
-
-        /**
-         * Has a chance of returning true based on a given value.
-         * @param [in] value The floating point value [0 - 1] to test
-         * @return Whether or not the value passed
-         */
-        template <typename T>
-        inline bool probability(
-            T value,
-            typename std::enable_if<std::is_floating_point<T>::value>::type* = 0
-        )
-        {
-            return value >= range<T>(0, 1);
-        }
-
-        /**
-         * Gets a random value in a specified type's range.
-         * @param <T> The type of the value
-         * @return The random value generated
-         */
+        /*
+        * Generates a random value in a specified type's range.
+        * @param <T> The type of the value
+        * @return The generated value
+        */
         template <typename T>
         inline T value()
         {
-            // HACK : We subtract 1 from max because our integral version of range()
-            //        adds 1 to the max and we don't want to overflow.  We need to
-            //        have a uniform distribution for each type and select the proper
-            //        distribution based on the template parameter.
-            return range<T>(
-                std::numeric_limits<T>::min(),
-                std::numeric_limits<T>::max() - 1
+            return range<T>(std::numeric_limits<T>::min(), std::numeric_limits<T>::max());
+        }
+
+        /*
+        * Has a chance of returning true based on a given value.
+        * @param [in] value The value (0 - 100] to test
+        * @return Whether or not the value passed
+        */
+        template <typename IntegerType>
+        inline bool probability(
+            IntegerType value,
+            typename std::enable_if<std::is_integral<IntegerType>::value, IntegerType>::type* = nullptr
+        )
+        {
+            return value >= range<IntegerType>(1, 101);
+        }
+
+        /*
+        * Has a chance of returning true based on a given value.
+        * @param [in] value The floating point value (0 - 1] to test
+        * @return Whether or not the value passed
+        */
+        template <typename FloatingPointType>
+        inline bool probability(
+            FloatingPointType value,
+            typename std::enable_if<std::is_floating_point<FloatingPointType>::value, FloatingPointType>::type* = nullptr
+        )
+        {
+            return value >= range<FloatingPointType>(std::numeric_limits<FloatingPointType>::epsilon(), 1.);
+        }
+
+        /*
+        * Generates a random index for a collection with a given count.
+        * @param [in] count The number of elements in the collection
+        * @return The generated index
+        */
+        template <typename IntegerType>
+        inline IntegerType index(IntegerType count)
+        {
+            static_assert(
+                std::is_integral<IntegerType>::value,
+                "dst::RandomNumberGenerator::index() can only be used with integer types"
             );
+            return count ? range<IntegerType>(0, count) : 0;
         }
 
-        /**
-         * Gets a random index for a collection with a given count.
-         * @param [in] count The number of elements in the collection
-         * @return The index generated
-         */
-        inline size_t index(size_t count)
+        /*
+        * Generates a roll from a die with a given number of sides.
+        * @param [in] D The number of sides on the die
+        * @return The result of the die roll
+        */
+        template <typename IntegerType>
+        inline IntegerType die_roll(IntegerType D)
         {
-            return count ? range<size_t>(0, count - 1) : 0;
-        }
-
-        /**
-         * Gets a roll from a die with a given number of sides.
-         * @param [in] D The number of sides on the die
-         * @return The result of the die roll
-         */
-        inline uint32_t die_roll(uint32_t D)
-        {
-            return D >= 1 ? range<uint32_t>(1, D) : 0;
+            static_assert(
+                std::is_integral<IntegerType>::value,
+                "dst::RandomNumberGenerator::die_roll() can only be used with integer types"
+            );
+            return D >= 1 ? range<IntegerType>(1, D + 1) : 0;
         }
     };
-
-} // namespace Dynamic_Static
-
-namespace Dynamic_Static {
-
-    /**
-     * Provides high level control over random number generation.
-     */
-    static RandomNumberGenerator Random;
 
 } // namespace Dynamic_Static

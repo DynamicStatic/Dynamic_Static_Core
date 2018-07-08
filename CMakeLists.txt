@@ -20,13 +20,12 @@ include("external/glm.cmake")
 include("external/GSL.cmake")
 include("external/tclap.cmake")
 
-set(includePath "${CMAKE_CURRENT_LIST_DIR}/include.ex/Dynamic_Static/Core/")
-set(sourcePath "${CMAKE_CURRENT_LIST_DIR}/source.ex/Dynamic_Static/Core/")
+set(includePath "${CMAKE_CURRENT_LIST_DIR}/include/Dynamic_Static/Core/")
 DstCreateStaticLibrary(
     target Dynamic_Static.Core
     folder Dynamic_Static.Core/
     includeDirectories
-        "${CMAKE_CURRENT_LIST_DIR}/include.ex/"
+        "${CMAKE_CURRENT_LIST_DIR}/include/"
         ${glm.includeDirectories}
         ${GSL.includeDirectories}
         ${tclap.includeDirectories}
@@ -43,7 +42,6 @@ DstCreateStaticLibrary(
         ${includePath}/Algorithm.hpp
         ${includePath}/Callback.hpp
         ${includePath}/Defines.hpp
-        ${includePath}/Events.hpp
         ${includePath}/File.hpp
         ${includePath}/Math.hpp
         ${includePath}/Memory.hpp
@@ -62,7 +60,7 @@ DstCreateStaticLibrary(
 
 option(BUILD_TESTS "Build Dynamic_Static.Core.Tests" ON)
 if(BUILD_TESTS)
-    set(testsPath "${CMAKE_CURRENT_LIST_DIR}/tests.ex/")
+    set(testsPath "${CMAKE_CURRENT_LIST_DIR}/tests/")
     DstCreateTests(
         target Dynamic_Static.Core
         folder Dynamic_Static.Core/

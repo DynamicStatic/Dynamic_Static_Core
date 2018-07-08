@@ -1,8 +1,9 @@
 
 /*
 ==========================================
-    Copyright (c) 2017 Dynamic_Static
-    Licensed under the MIT license
+  Copyright (c) 2016-2018 Dynamic_Static
+    Patrick Purcell
+      Licensed under the MIT license
     http://opensource.org/licenses/MIT
 ==========================================
 */
@@ -25,22 +26,17 @@ namespace Tests {
         std::this_thread::sleep_for(Millisecond<>(16));
     }
 
-    TEST_CASE("ThreadPool ctor() and dtor()", "[Threads.ThreadPool]")
-    {
-        REQUIRE_NOTHROW(ThreadPool());
-    }
-
-    TEST_CASE("ThreadPool push() and wait()", "[Threads.ThreadPool]")
+    TEST_CASE("ThreadPool push() and wait()", "[ThreadPool]")
     {
         int i = 0;
         char c = 0;
         float f = 0;
         bool b = false;
         ThreadPool threadPool;
-        threadPool.push([&]() { sleep(); i = 1; });
-        threadPool.push([&]() { sleep(); c = 1; });
-        threadPool.push([&]() { sleep(); f = 1; });
-        threadPool.push([&]() { sleep(); b = true; });
+        threadPool.push([&]{ sleep(); i = 1; });
+        threadPool.push([&]{ sleep(); c = 1; });
+        threadPool.push([&]{ sleep(); f = 1; });
+        threadPool.push([&]{ sleep(); b = true; });
         REQUIRE(i == 0);
         REQUIRE(c == 0);
         REQUIRE(f == 0);
@@ -52,7 +48,7 @@ namespace Tests {
         REQUIRE(b == true);
     }
 
-    TEST_CASE("ThreadPool passes through wait() if no tasks are pending", "[Threads.ThreadPool]")
+    TEST_CASE("ThreadPool passes through wait() if no tasks are pending", "[ThreadPool]")
     {
         ThreadPool threadPool;
         bool passed = false;
@@ -61,17 +57,17 @@ namespace Tests {
         REQUIRE(passed);
     }
 
-    TEST_CASE("ThreadPool completes pending tasks before destruction", "[Threads.ThreadPool]")
+    TEST_CASE("ThreadPool completes pending tasks before destruction", "[ThreadPool]")
     {
         int i = 0;
         char c = 0;
         float f = 0;
         bool b = false;
         auto threadPool = std::make_unique<ThreadPool>();
-        threadPool->push([&]() { sleep(); i = 1; });
-        threadPool->push([&]() { sleep(); c = 1; });
-        threadPool->push([&]() { sleep(); f = 1; });
-        threadPool->push([&]() { sleep(); b = true; });
+        threadPool->push([&]{ sleep(); i = 1; });
+        threadPool->push([&]{ sleep(); c = 1; });
+        threadPool->push([&]{ sleep(); f = 1; });
+        threadPool->push([&]{ sleep(); b = true; });
         REQUIRE(i == 0);
         REQUIRE(c == 0);
         REQUIRE(f == 0);

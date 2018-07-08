@@ -1,32 +1,35 @@
 
 /*
 ==========================================
-    Copyright (c) 2016 Dynamic_Static
-    Licensed under the MIT license
+  Copyright (c) 2011-2018 Dynamic_Static
+    Patrick Purcell
+      Licensed under the MIT license
     http://opensource.org/licenses/MIT
 ==========================================
 */
 
 #pragma once
 
-#include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/Math/Defines.hpp"
+#if defined(DYNAMIC_STATIC_MATH_BUILD_ENABLED)
+
 #include "Dynamic_Static/Core/Math/Utilities.hpp"
 
 namespace Dynamic_Static {
 
-    /**
-     * TODO : Documentation.
-     */
+    /*
+    * Represents a position, rotation, and scale.
+    */
     struct Transform final
     {
         glm::vec3 translation { };
         glm::quat rotation { 1, 0, 0, 0 };
         glm::vec3 scale { 1 };
 
-        /**
-         * TODO : Documentation.
-         */
+        /*
+        * Gets a glm::mat4 representing this Transform's world from local matrix.
+        * @return A glm::mat4 representing this Transform's world from local matrix
+        */
         inline glm::mat4 world_from_local() const
         {
             return
@@ -35,57 +38,64 @@ namespace Dynamic_Static {
                 glm::scale(scale);
         }
 
-        /**
-         * TODO : Documentation.
-         */
+        /*
+        * Gets a glm::mat4 representing this Transform's local from world matrix.
+        * @return A glm::mat4 representing this Transform's local from world matrix
+        */
         inline glm::mat4 local_from_world() const
         {
             return glm::transpose(world_from_local());
         }
 
-        /**
-         * TODO : Documentation.
-         */
+        /*
+        * Gets a glm::vec3 representing this Transform's up vector in world space.
+        * @return A glm::vec3 representing this Transform's up vector in world space
+        */
         inline glm::vec3 up() const
         {
             return glm::normalize(rotation * dst::world_up<glm::vec3>());
         }
 
-        /**
-         * TODO : Documentation.
-         */
+        /*
+        * Gets a glm::vec3 representing this Transform's down vector in world space.
+        * @return A glm::vec3 representing this Transform's down vector in world space
+        */
         inline glm::vec3 down() const
         {
             return glm::normalize(rotation * dst::world_down<glm::vec3>());
         }
 
-        /**
-         * TODO : Documentation.
-         */
+        /*
+        * Gets a glm::vec3 representing this Transform's left vector in world space.
+        * @return A glm::vec3 representing this Transform's left vector in world space
+        */
         inline glm::vec3 left() const
         {
             return glm::normalize(rotation * dst::world_left<glm::vec3>());
         }
 
-        /**
-         * TODO : Documentation.
-         */
+        /*
+        * Gets a glm::vec3 representing this Transform's right vector in world space.
+        * @return A glm::vec3 representing this Transform's right vector in world space
+        */
         inline glm::vec3 right() const
         {
             return glm::normalize(rotation * dst::world_right<glm::vec3>());
         }
 
-        /**
-         * TODO : Documentation.
-         */
+        /*
+        * Gets a glm::vec3 representing this Transform's forward vector in world space.
+        * @return A glm::vec3 representing this Transform's forward vector in world space
+        */
         inline glm::vec3 forward() const
         {
             return glm::normalize(rotation * dst::world_forward<glm::vec3>());
         }
 
-        /**
-         * TODO : Documentation.
-         */
+        /*
+        * Gets a glm::vec3 representing this Transform's backward vector in world space.
+        * @return A glm::vec3 representing this Transform's backward vector in world space
+        */
         inline glm::vec3 backward() const
         {
             return glm::normalize(rotation * dst::world_backward<glm::vec3>());
@@ -93,3 +103,5 @@ namespace Dynamic_Static {
     };
 
 } // namespace Dynamic_Static
+
+#endif // defined(DYNAMIC_STATIC_MATH_BUILD_ENABLED)

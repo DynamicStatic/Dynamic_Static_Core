@@ -1,8 +1,9 @@
 
 /*
 ==========================================
-    Copyright (c) 2016 Dynamic_Static
-    Licensed under the MIT license
+  Copyright (c) 2016-2018 Dynamic_Static
+    Patrick Purcell
+      Licensed under the MIT license
     http://opensource.org/licenses/MIT
 ==========================================
 */
@@ -11,130 +12,196 @@
 
 #include "catch.hpp"
 
-#include <vector>
-
 namespace Dynamic_Static {
 namespace Tests {
 
-    static constexpr int32_t MaxValue = 16;
-    static constexpr int32_t MinValue = -MaxValue;
-    static constexpr size_t TestCount = 1024;
+    static constexpr int MaxValue { 4 };
+    static constexpr int MinValue { -MaxValue };
+    static constexpr int TestCount = 1024;
 
-    TEST_CASE("Integer values stay in range", "[Random]")
+    TEST_CASE("range()", "[Random]")
     {
-        SECTION("range()")
+        RandomNumberGenerator rng;
+
+        SECTION("Integer values")
         {
             bool inRange = true;
-            for (size_t i = 0; i < TestCount; ++i) {
-                auto value = dst::Random.range(MinValue, MaxValue);
-                if (value < MinValue || MaxValue < value) {
+            for (int i = 0; i < TestCount; ++i) {
+                auto value = rng.range(MinValue, MaxValue);
+                if (value < MinValue || MaxValue <= value) {
+                    inRange = false;
+                    break;
+                }
+            }
+            REQUIRE(inRange);
+        }
+
+        SECTION("Floating point values")
+        {
+            bool inRange = true;
+            float min = static_cast<float>(MinValue);
+            float max = static_cast<float>(MaxValue);
+            for (int i = 0; i < TestCount; ++i) {
+                auto value = rng.range(min, max);
+                if (value < MinValue || MaxValue <= value) {
                     inRange = false;
                     break;
                 }
             }
         }
+    }
 
-        SECTION("index()")
+    TEST_CASE("probability()", "[Random]")
+    {
+        RandomNumberGenerator rng;
+
+        SECTION("Integer 0 always fails")
+        {
+            bool integer0AlwaysFails = true;
+            for (int i = 0; i < TestCount; ++i) {
+                if (rng.probability(0)) {
+                    integer0AlwaysFails = false;
+                }
+            }
+            REQUIRE(integer0AlwaysFails);
+        }
+
+        SECTION("Integer 100 always passes")
+        {
+            bool integer100AlwaysPasses = true;
+            for (int i = 0; i < TestCount; ++i) {
+                if (!rng.probability(100)) {
+                    integer100AlwaysPasses = false;
+                }
+            }
+            REQUIRE(integer100AlwaysPasses);
+        }
+
+        SECTION("Floating point 0 always fails")
+        {
+            bool floatingPoint0AlwaysFails = true;
+            for (int i = 0; i < TestCount; ++i) {
+                if (rng.probability(0.)) {
+                    floatingPoint0AlwaysFails = false;
+                }
+            }
+            REQUIRE(floatingPoint0AlwaysFails);
+        }
+
+        SECTION("Floating point 1 always passes")
+        {
+            bool floatingPoint1AlwaysPasses = true;
+            for (int i = 0; i < TestCount; ++i) {
+                if (!rng.probability(1.)) {
+                    floatingPoint1AlwaysPasses = false;
+                }
+            }
+            REQUIRE(floatingPoint1AlwaysPasses);
+        }
+    }
+
+    TEST_CASE("index()", "[Random]")
+    {
+        RandomNumberGenerator rng;
+
+        SECTION("Count 0 always gets index 0")
         {
             bool count0GetsIndex0 = true;
-            for (size_t i = 0; i < TestCount; ++i) {
-                if (dst::Random.index(0) != 0) {
+            for (int i = 0; i < TestCount; ++i) {
+                if (rng.index(0) != 0) {
                     count0GetsIndex0 = false;
                     break;
                 }
             }
+            REQUIRE(count0GetsIndex0);
+        }
 
+        SECTION("Count 1 always gets index 0")
+        {
             bool count1GetsIndex0 = true;
-            for (size_t i = 0; i < TestCount; ++i) {
-                if (dst::Random.index(1) != 0) {
+            for (int i = 0; i < TestCount; ++i) {
+                if (rng.index(1) != 0) {
                     count1GetsIndex0 = false;
                     break;
                 }
             }
+            REQUIRE(count1GetsIndex0);
+        }
 
-            size_t count = 8;
+        SECTION("Count 8 stays in range")
+        {
+            int count = 8;
             bool count8InRange = true;
-            for (size_t i = 0; i < TestCount; ++i) {
-                if (dst::Random.index(count) >= count) {
+            for (int i = 0; i < TestCount; ++i) {
+                if (rng.index(count) >= count) {
                     count8InRange = false;
                     break;
                 }
             }
-
-            REQUIRE(count0GetsIndex0);
-            REQUIRE(count1GetsIndex0);
             REQUIRE(count8InRange);
         }
+    }
 
-        SECTION("die_roll()")
+    TEST_CASE("die_roll()", "[Random]")
+    {
+        RandomNumberGenerator rng;
+
+        SECTION("D0 always rolls 0")
         {
             bool d0Rolls0 = true;
-            for (size_t i = 0; i < TestCount; ++i) {
-                if (dst::Random.die_roll(0) != 0) {
+            for (int i = 0; i < TestCount; ++i) {
+                if (rng.die_roll(0) != 0) {
                     d0Rolls0 = false;
                     break;
                 }
             }
+            REQUIRE(d0Rolls0);
+        }
 
+        SECTION("D1 always rolls 1")
+        {
             bool d1Rolls1 = true;
-            for (size_t i = 0; i < TestCount; ++i) {
-                if (dst::Random.die_roll(1) != 1) {
+            for (int i = 0; i < TestCount; ++i) {
+                if (rng.die_roll(1) != 1) {
                     d1Rolls1 = false;
                     break;
                 }
             }
+            REQUIRE(d1Rolls1);
+        }
 
-            uint32_t dieSize = 6;
+        SECTION("D6 rolls in range")
+        {
+            int dieSize = 6;
             bool d6RollsInRange = true;
-            for (size_t i = 0; i < TestCount; ++i) {
-                auto roll = dst::Random.die_roll(dieSize);
-                if (roll < 1u || dieSize < roll) {
+            for (int i = 0; i < TestCount; ++i) {
+                auto roll = rng.die_roll(dieSize);
+                if (roll < 1 || dieSize < roll) {
                     d6RollsInRange = false;
                     break;
                 }
             }
-
-            REQUIRE(d0Rolls0);
-            REQUIRE(d1Rolls1);
             REQUIRE(d6RollsInRange);
         }
     }
 
-    TEST_CASE("Floating point values stay in range", "[Random]")
-    {
-        bool inRange = true;
-        float min = MinValue;
-        float max = MaxValue;
-        for (size_t i = 0; i < TestCount; ++i) {
-            auto value = dst::Random.range(min, max);
-            if (value < min || max < value) {
-                inRange = false;
-                break;
-            }
-        }
-
-        REQUIRE(inRange);
-    }
-
     TEST_CASE("Resetting produces deterministic sequences", "[Random]")
     {
-        dst::Random.reset();
-        float min = MinValue;
-        float max = MaxValue;
+        RandomNumberGenerator rng;
+        float min = static_cast<float>(MinValue);
+        float max = static_cast<float>(MaxValue);
         std::vector<float> sequence(TestCount);
         for (size_t i = 0; i < TestCount; ++i) {
-            sequence[i] = dst::Random.range(min, max);
+            sequence[i] = rng.range(min, max);
         }
-
-        dst::Random.reset();
+        rng.reset();
         bool deterministic = true;
         for (size_t i = 0; i < TestCount; ++i) {
-            if (dst::Random.range(min, max) != sequence[i]) {
+            if (rng.range(min, max) != sequence[i]) {
                 deterministic = false;
                 break;
             }
         }
-
         REQUIRE(deterministic);
     }
 

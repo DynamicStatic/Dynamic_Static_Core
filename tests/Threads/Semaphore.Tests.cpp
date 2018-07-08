@@ -1,14 +1,14 @@
 
 /*
 ==========================================
-    Copyright (c) 2017 Dynamic_Static
-    Licensed under the MIT license
+  Copyright (c) 2016-2018 Dynamic_Static
+    Patrick Purcell
+      Licensed under the MIT license
     http://opensource.org/licenses/MIT
 ==========================================
 */
 
 #include "Dynamic_Static/Core/Threads/Semaphore.hpp"
-#include "Dynamic_Static/Core/Action.hpp"
 #include "Dynamic_Static/Core/Time.hpp"
 
 #include "catch.hpp"
@@ -24,14 +24,13 @@ namespace Tests {
     static constexpr size_t WaitTarget { 5 };
     static constexpr size_t CounterTarget { 10 };
 
-    template <typename ActionType>
-    std::vector<std::thread> create_threads(size_t count, ActionType action)
+    template <typename FunctionType>
+    std::vector<std::thread> create_threads(size_t count, FunctionType function)
     {
         std::vector<std::thread> threads;
         for (size_t i = 0; i < count; ++i) {
-            threads.push_back(std::thread(action));
+            threads.push_back(std::thread(function));
         }
-
         return threads;
     }
 
@@ -44,18 +43,13 @@ namespace Tests {
         }
     }
 
-    TEST_CASE("Semaphore ctor() and dtor()", "[Threads.Semaphore]")
-    {
-        REQUIRE_NOTHROW(Semaphore());
-    }
-
-    TEST_CASE("Semaphore can wait() and notify() a single thread", "[Threads.Semaphore]")
+    TEST_CASE("Semaphore can wait() and notify() a single thread", "[Semaphore]")
     {
         Semaphore semaphore;
         std::atomic<size_t> counter { 0 };
         auto thread = create_threads(
             1,
-            [&]()
+            [&]
             {
                 while (++counter < CounterTarget) {
                     if (counter == WaitTarget) {
@@ -74,13 +68,13 @@ namespace Tests {
         join_threads(thread);
     }
 
-    TEST_CASE("Semaphore can wait() and notify() multiple threads", "[Threads.Semaphore]")
+    TEST_CASE("Semaphore can wait() and notify() multiple threads", "[Semaphore]")
     {
         Semaphore semaphore;
         std::atomic<size_t> counter { 0 };
         auto threads = create_threads(
             ThreadCount,
-            [&]()
+            [&]
             {
                 semaphore.wait();
                 ++counter;
@@ -97,13 +91,13 @@ namespace Tests {
         join_threads(threads);
     }
 
-    TEST_CASE("Semaphore can time out wait()", "[Threads.Semaphore]")
+    TEST_CASE("Semaphore can time out wait()", "[Semaphore]")
     {
         Semaphore semaphore;
         std::atomic<size_t> counter { 0 };
         auto threads = create_threads(
             ThreadCount,
-            [&]()
+            [&]
             {
                 semaphore.wait(Millisecond<>(16));
                 ++counter;
@@ -114,66 +108,66 @@ namespace Tests {
         REQUIRE(counter == threads.size());
     }
 
-    TEST_CASE("Semaphore can notify_all()", "[Threads.Semaphore]")
+    TEST_CASE("notify_all()", "[Semaphore]")
     {
         Semaphore semaphore;
         std::atomic<size_t> counter { 0 };
         auto threads = create_threads(
             ThreadCount,
-            [&]()
+            [&]
             {
                 semaphore.wait();
                 ++counter;
             }
         );
 
-        std::this_thread::sleep_for(Millisecond<>(0.1f));
+        std::this_thread::sleep_for(Millisecond<>(.1f));
         REQUIRE(counter == 0);
         semaphore.notify_all();
         join_threads(threads);
         REQUIRE(counter == threads.size());
     }
 
-    TEST_CASE("Semaphore can pass through wait() on positive value() then notify_all()", "[Threads.Semaphore]")
+    TEST_CASE("Semaphore can pass through wait() on positive value(), then notify_all()", "[Semaphore]")
     {
         Semaphore semaphore(NotifyCount);
-        REQUIRE(semaphore.get_value() == NotifyCount);
+        REQUIRE(semaphore.get_signal_count() == NotifyCount);
         semaphore.notify(NotifyCount);
-        REQUIRE(semaphore.get_value() == NotifyCount * 2);
-        size_t value = semaphore.get_value();
+        REQUIRE(semaphore.get_signal_count() == NotifyCount * 2);
+        size_t value = semaphore.get_signal_count();
 
         std::atomic<size_t> counter { 0 };
         auto threads = create_threads(
             ThreadCount,
-            [&]()
+            [&]
             {
                 semaphore.wait();
                 ++counter;
             }
         );
 
-        std::this_thread::sleep_for(Millisecond<>(0.1f));
-        REQUIRE(semaphore.get_value() == 0);
+        std::this_thread::sleep_for(Millisecond<>(.1f));
+        REQUIRE(semaphore.get_signal_count() == 0);
         REQUIRE(counter == value);
         semaphore.notify_all();
         join_threads(threads);
         REQUIRE(counter == threads.size());
     }
 
-    TEST_CASE("Notify waiting threads when Semaphore is destroyed", "[Threads.Semaphore]")
+    TEST_CASE("Notify waiting threads when Semaphore is destroyed", "[Semaphore]")
     {
         auto semaphore = std::make_unique<Semaphore>();
         std::atomic<size_t> counter { 0 };
         auto threads = create_threads(
             ThreadCount,
-            [&]()
+            [&]
             {
                 semaphore->wait();
                 ++counter;
             }
         );
 
-        std::this_thread::sleep_for(Millisecond<>(0.1f));
+        std::this_thread::sleep_for(Millisecond<>(.1f));
         REQUIRE(counter == 0);
         semaphore.reset();
         join_threads(threads);

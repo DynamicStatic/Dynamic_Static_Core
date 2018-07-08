@@ -1,8 +1,9 @@
 
 /*
 ==========================================
-    Copyright (c) 2016 Dynamic_Static
-    Licensed under the MIT license
+  Copyright (c) 2011-2018 Dynamic_Static
+    Patrick Purcell
+      Licensed under the MIT license
     http://opensource.org/licenses/MIT
 ==========================================
 */
@@ -14,8 +15,8 @@
 namespace Dynamic_Static {
 
     /**
-     * Removes a derived class's copy and copy assignment constructors.
-     */
+    * Removes copy constructors from derived classes.
+    */
     class NonCopyable
     {
     protected:

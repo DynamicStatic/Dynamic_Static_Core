@@ -1,8 +1,9 @@
 
 /*
 ==========================================
-    Copyright (c) 20167 Dynamic_Static
-    Licensed under the MIT license
+  Copyright (c) 2016-2018 Dynamic_Static
+    Patrick Purcell
+      Licensed under the MIT license
     http://opensource.org/licenses/MIT
 ==========================================
 */
@@ -37,10 +38,10 @@ namespace Tests {
         float f = 0;
         bool b = false;
         Worker worker;
-        worker.push([&]() { sleep(); i = 1; });
-        worker.push([&]() { sleep(); c = 1; });
-        worker.push([&]() { sleep(); f = 1; });
-        worker.push([&]() { sleep(); b = true; });
+        worker.push([&]{ sleep(); i = 1; });
+        worker.push([&]{ sleep(); c = 1; });
+        worker.push([&]{ sleep(); f = 1; });
+        worker.push([&]{ sleep(); b = true; });
         REQUIRE(i == 0);
         REQUIRE(c == 0);
         REQUIRE(f == 0);
@@ -66,7 +67,7 @@ namespace Tests {
         size_t counter = 0;
         Worker worker;
         worker.push(
-            [&]()
+            [&]
             {
                 std::this_thread::sleep_for(Millisecond<>(100));
                 ++counter;
@@ -86,10 +87,10 @@ namespace Tests {
         float f = 0;
         bool b = false;
         auto worker = std::make_unique<Worker>();
-        worker->push([&]() { sleep(); i = 1; });
-        worker->push([&]() { sleep(); c = 1; });
-        worker->push([&]() { sleep(); f = 1; });
-        worker->push([&]() { sleep(); b = true; });
+        worker->push([&]{ sleep(); i = 1; });
+        worker->push([&]{ sleep(); c = 1; });
+        worker->push([&]{ sleep(); f = 1; });
+        worker->push([&]{ sleep(); b = true; });
         REQUIRE(i == 0);
         REQUIRE(c == 0);
         REQUIRE(f == 0);
