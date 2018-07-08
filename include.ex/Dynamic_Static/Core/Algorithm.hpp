@@ -59,7 +59,6 @@ namespace Dynamic_Static {
         //        x * y + z
         //        so our operation is...
         //        t * v1 + (-t * v0 + v0)
-
         return std::fma(t, v1, std::fma(-t, v0, v0));
     }
 

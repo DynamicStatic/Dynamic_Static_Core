@@ -79,7 +79,7 @@ namespace Dynamic_Static {
         }
 
         /*
-        * Gets a random in the range of two specified values.
+        * Generates a random in the range of two specified values.
         * @param <IntegerType> The type of the value
         * @param [in] min The lower bound of the range [inclusive]
         * @param [in] max The upper bound of the range (exclusive)
@@ -93,7 +93,7 @@ namespace Dynamic_Static {
         }
 
         /*
-        * Gets a random value in the range of two specified values.
+        * Generates a random value in the range of two specified values.
         * @param <IntegerType> The type of the value
         * @param [in] min The lower bound of the range [inclusive]
         * @param [in] max The upper bound of the range (exclusive)
@@ -104,6 +104,17 @@ namespace Dynamic_Static {
             range(FloatingPointType min, FloatingPointType max)
         {
             return static_cast<FloatingPointType>(mRealDistribution(mEngine) * (max - min) + min);
+        }
+
+        /*
+        * Generates a random value in a specified type's range.
+        * @param <T> The type of the value
+        * @return The generated value
+        */
+        template <typename T>
+        inline T value()
+        {
+            return range<T>(std::numeric_limits<T>::min(), std::numeric_limits<T>::max());
         }
 
         /*
@@ -135,7 +146,7 @@ namespace Dynamic_Static {
         }
 
         /*
-        * Gets a random index for a collection with a given count.
+        * Generates a random index for a collection with a given count.
         * @param [in] count The number of elements in the collection
         * @return The generated index
         */
@@ -150,7 +161,7 @@ namespace Dynamic_Static {
         }
 
         /*
-        * Gets a roll from a die with a given number of sides.
+        * Generates a roll from a die with a given number of sides.
         * @param [in] D The number of sides on the die
         * @return The result of the die roll
         */

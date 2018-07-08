@@ -103,62 +103,86 @@ namespace Tests {
     TEST_CASE("index()", "[Random]")
     {
         RandomNumberGenerator rng;
-        bool count0GetsIndex0 = true;
-        for (int i = 0; i < TestCount; ++i) {
-            if (rng.index(0) != 0) {
-                count0GetsIndex0 = false;
-                break;
+
+        SECTION("Count 0 always gets index 0")
+        {
+            bool count0GetsIndex0 = true;
+            for (int i = 0; i < TestCount; ++i) {
+                if (rng.index(0) != 0) {
+                    count0GetsIndex0 = false;
+                    break;
+                }
             }
+            REQUIRE(count0GetsIndex0);
         }
-        bool count1GetsIndex0 = true;
-        for (int i = 0; i < TestCount; ++i) {
-            if (rng.index(1) != 0) {
-                count1GetsIndex0 = false;
-                break;
+
+        SECTION("Count 1 always gets index 0")
+        {
+            bool count1GetsIndex0 = true;
+            for (int i = 0; i < TestCount; ++i) {
+                if (rng.index(1) != 0) {
+                    count1GetsIndex0 = false;
+                    break;
+                }
             }
+            REQUIRE(count1GetsIndex0);
         }
-        int count = 8;
-        bool count8InRange = true;
-        for (int i = 0; i < TestCount; ++i) {
-            if (rng.index(count) >= count) {
-                count8InRange = false;
-                break;
+
+        SECTION("Count 8 stays in range")
+        {
+            int count = 8;
+            bool count8InRange = true;
+            for (int i = 0; i < TestCount; ++i) {
+                if (rng.index(count) >= count) {
+                    count8InRange = false;
+                    break;
+                }
             }
+            REQUIRE(count8InRange);
         }
-        REQUIRE(count0GetsIndex0);
-        REQUIRE(count1GetsIndex0);
-        REQUIRE(count8InRange);
     }
 
     TEST_CASE("die_roll()", "[Random]")
     {
         RandomNumberGenerator rng;
-        bool d0Rolls0 = true;
-        for (int i = 0; i < TestCount; ++i) {
-            if (rng.die_roll(0) != 0) {
-                d0Rolls0 = false;
-                break;
+
+        SECTION("D0 always rolls 0")
+        {
+            bool d0Rolls0 = true;
+            for (int i = 0; i < TestCount; ++i) {
+                if (rng.die_roll(0) != 0) {
+                    d0Rolls0 = false;
+                    break;
+                }
             }
+            REQUIRE(d0Rolls0);
         }
-        bool d1Rolls1 = true;
-        for (int i = 0; i < TestCount; ++i) {
-            if (rng.die_roll(1) != 1) {
-                d1Rolls1 = false;
-                break;
+
+        SECTION("D1 always rolls 1")
+        {
+            bool d1Rolls1 = true;
+            for (int i = 0; i < TestCount; ++i) {
+                if (rng.die_roll(1) != 1) {
+                    d1Rolls1 = false;
+                    break;
+                }
             }
+            REQUIRE(d1Rolls1);
         }
-        int dieSize = 6;
-        bool d6RollsInRange = true;
-        for (int i = 0; i < TestCount; ++i) {
-            auto roll = rng.die_roll(dieSize);
-            if (roll < 1 || dieSize < roll) {
-                d6RollsInRange = false;
-                break;
+
+        SECTION("D6 rolls in range")
+        {
+            int dieSize = 6;
+            bool d6RollsInRange = true;
+            for (int i = 0; i < TestCount; ++i) {
+                auto roll = rng.die_roll(dieSize);
+                if (roll < 1 || dieSize < roll) {
+                    d6RollsInRange = false;
+                    break;
+                }
             }
+            REQUIRE(d6RollsInRange);
         }
-        REQUIRE(d0Rolls0);
-        REQUIRE(d1Rolls1);
-        REQUIRE(d6RollsInRange);
     }
 
     TEST_CASE("Resetting produces deterministic sequences", "[Random]")

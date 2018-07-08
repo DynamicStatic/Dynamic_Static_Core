@@ -7,5 +7,3 @@
     http://opensource.org/licenses/MIT
 ==========================================
 */
-
-#include "Dynamic_Static/Core/Defines.hpp"
