@@ -171,7 +171,7 @@ namespace Dynamic_Static {
     {
         static_assert(
             std::is_integral<T>::value,
-            "dst::to_hex_string() can only be used with built in integral types"
+            "dst::to_hex_string() can only be used with integer types"
         );
         std::stringstream strStr;
         strStr << "0x" << std::hex << value;
