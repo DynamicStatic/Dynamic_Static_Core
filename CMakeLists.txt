@@ -32,9 +32,6 @@ DstCreateStaticLibrary(
         ${tclap.includeDirectories}
 
     includeFiles
-        ${includePath}/Events/Delegate.hpp
-        ${includePath}/Events/Event.hpp
-        ${includePath}/Events/Subscribable.hpp
         ${includePath}/Math/Colors.hpp
         ${includePath}/Math/Defines.hpp
         ${includePath}/Math/Transform.hpp
@@ -70,8 +67,6 @@ if(BUILD_TESTS)
         target Dynamic_Static.Core
         folder Dynamic_Static.Core/
         sourceFiles
-            ${testsPath}/Events/Events.Tests.cpp
-            ${testsPath}/Events/Events.Tests.inl
             ${testsPath}/Threads/Semaphore.Tests.cpp
             ${testsPath}/Threads/ThreadPool.Tests.cpp
             ${testsPath}/Threads/Worker.Tests.cpp
