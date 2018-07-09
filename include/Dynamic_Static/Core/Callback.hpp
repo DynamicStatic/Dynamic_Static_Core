@@ -56,7 +56,7 @@ namespace Dynamic_Static {
         * \n NOTE : This method can only be called by an object of type CallerType
         * @param [in] args The arguments to execute this Callback with
         */
-        inline void operator()(Args...&& args)
+        inline void operator()(Args&&... args)
         {
             if (mAction) {
                 mAction(std::forward<Args>(args)...);
@@ -68,7 +68,7 @@ namespace Dynamic_Static {
         * \n NOTE : This method can only be called by an object of type CallerType
         * @param [in] args The arguments to execute this Callback with
         */
-        inline void operator()(Args...&& args) const
+        inline void operator()(Args&&... args) const
         {
             if (mAction) {
                 mAction(std::forward<Args>(args)...);
