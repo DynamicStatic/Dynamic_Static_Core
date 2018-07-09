@@ -43,11 +43,11 @@ DstCreateStaticLibrary(
         ${includePath}/Callback.hpp
         ${includePath}/Defines.hpp
         ${includePath}/File.hpp
+        ${includePath}/FileSystem.hpp
         ${includePath}/Math.hpp
         ${includePath}/Memory.hpp
         ${includePath}/NonCopyable.hpp
         ${includePath}/Random.hpp
-        ${includePath}/StdFileSystemInclude.hpp
         ${includePath}/StringUtilities.hpp
         ${includePath}/Threads.hpp
         ${includePath}/Time.hpp
