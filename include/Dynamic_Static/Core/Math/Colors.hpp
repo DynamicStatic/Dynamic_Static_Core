@@ -19,6 +19,8 @@ namespace detail {
     template <typename Void>
     struct ColorConstants
     {
+        // FROM : https://docs.microsoft.com/en-us/previous-versions/windows/xna/ff433752(v%3dxnagamestudio.41)
+
         static const glm::vec4 White;                /*!< Constant color { 1.0f,       1.0f,       1.0f,       1.0f } */
         static const glm::vec4 Black;                /*!< Constant color { 0.0f,       0.0f,       0.0f,       1.0f } */
         static const glm::vec4 Transparent;          /*!< Constant color { 0.0f,       0.0f,       0.0f,       0.0f } */
