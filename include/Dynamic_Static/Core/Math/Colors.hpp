@@ -11,7 +11,7 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Math/Defines.hpp"
-#if defined(DYNAMIC_STATIC_MATH_BUILD_ENABLED)
+#if defined(DYNAMIC_STATIC_MATH_ENABLED)
 
 namespace Dynamic_Static {
 namespace detail {
@@ -319,9 +319,6 @@ namespace detail {
     const glm::vec4 ColorConstants<void>::YellowGreen          { 0.603922f,  0.803922f,  0.196078f,  1.0f };
 
 } // namespace detail
-} // namespace Dynamic_Static
-
-namespace Dynamic_Static {
 
     /*
     * Represents a 4 channel color.
@@ -334,4 +331,4 @@ namespace Dynamic_Static {
 
 } // namespace Dynamic_Static
 
-#endif // defined(DYNAMIC_STATIC_MATH_BUILD_ENABLED)
+#endif // defined(DYNAMIC_STATIC_MATH_ENABLED)

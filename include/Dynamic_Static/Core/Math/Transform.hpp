@@ -11,7 +11,7 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Math/Defines.hpp"
-#if defined(DYNAMIC_STATIC_MATH_BUILD_ENABLED)
+#if defined(DYNAMIC_STATIC_MATH_ENABLED)
 
 #include "Dynamic_Static/Core/Math/Utilities.hpp"
 
@@ -104,4 +104,4 @@ namespace Dynamic_Static {
 
 } // namespace Dynamic_Static
 
-#endif // defined(DYNAMIC_STATIC_MATH_BUILD_ENABLED)
+#endif // defined(DYNAMIC_STATIC_MATH_ENABLED)

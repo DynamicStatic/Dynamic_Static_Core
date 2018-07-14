@@ -12,10 +12,8 @@
 
 #include "Dynamic_Static/Core/Defines.hpp"
 
-#if !defined(DYNAMIC_STATIC_DISABLE_MATH_BUILD)
-    #define DYNAMIC_STATIC_MATH_BUILD_ENABLED
-#endif
-#if defined(DYNAMIC_STATIC_MATH_BUILD_ENABLED)
+#define DYNAMIC_STATIC_MATH_ENABLED
+#if defined(DYNAMIC_STATIC_MATH_ENABLED)
 
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_SIZE_T_LENGTH
@@ -42,4 +40,4 @@
 #include <cmath>
 #include <ostream>
 
-#endif // defined(DYNAMIC_STATIC_MATH_BUILD_ENABLED)
+#endif // defined(DYNAMIC_STATIC_MATH_ENABLED)
