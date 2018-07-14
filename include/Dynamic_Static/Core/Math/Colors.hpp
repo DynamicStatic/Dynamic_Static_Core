@@ -323,7 +323,7 @@ namespace detail {
 
 namespace Dynamic_Static {
 
-    /**
+    /*
     * Represents a 4 channel color.
     */
     struct Color

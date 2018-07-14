@@ -38,7 +38,7 @@ namespace Dynamic_Static {
         * Constructs an instance of Semaphore.
         * @param [in] signalCount This Semaphore's initial signalCount (optional = 0)
         */
-        Semaphore(int signalCount = 0)
+        inline Semaphore(int signalCount = 0)
             : mSignalCount { signalCount }
         {
         }
@@ -47,7 +47,7 @@ namespace Dynamic_Static {
         * Destroys this instance of Semphore.
         * \n NOTE : This will cause all threads waiting on this Semaphore to resume execution.
         */
-        ~Semaphore()
+        inline ~Semaphore()
         {
             notify_all();
             while (mWaitingThreadCount) {
@@ -61,7 +61,7 @@ namespace Dynamic_Static {
         * \n NOTE : This Semaphore's signal count may have changed by the time this method returns
         * @return This Semaphore's current signal count
         */
-        int get_signal_count() const
+        inline int get_signal_count() const
         {
             return mSignalCount;
         }
@@ -70,7 +70,7 @@ namespace Dynamic_Static {
         * Notifies a given number of threads waiting on this Semaphore and increments this Semaphore's signal count once for each thread notified.
         * @param [in] count The number of threads to notify (optional = 1)
         */
-        void notify(int count = 1)
+        inline void notify(int count = 1)
         {
             std::unique_lock<std::mutex> lock(mMutex);
             for (int i = 0; i < count; ++i) {
@@ -82,7 +82,7 @@ namespace Dynamic_Static {
         /*
         * Notifies each thread waiting on this Semaphore and increments this Semaphore's signal count once for each thread notified.
         */
-        void notify_all()
+        inline void notify_all()
         {
             notify(mWaitingThreadCount);
         }
@@ -94,7 +94,7 @@ namespace Dynamic_Static {
         * \n NOTE : A Duration of 0 for timeOut results in an infinite maximum wait
         */
         template <typename DurationType = Millisecond<>>
-        void wait(const DurationType& timeOut = DurationType { 0 })
+        inline void wait(const DurationType& timeOut = DurationType { 0 })
         {
             std::unique_lock<std::mutex> lock(mMutex);
             ++mWaitingThreadCount;

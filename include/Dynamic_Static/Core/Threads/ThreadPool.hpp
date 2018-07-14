@@ -35,7 +35,7 @@ namespace Dynamic_Static {
         * @param [in] workerCount This ThreadPool's worker count (optional = 0)
         * \n NOTE : A value of 0 for workerCount results in using the value returned from std::thread::hardware_concurrency()
         */
-        ThreadPool(size_t workerCount = 0)
+        inline ThreadPool(size_t workerCount = 0)
         {
             size_t maxWorkerCount = std::thread::hardware_concurrency();
             workerCount = workerCount ? workerCount : maxWorkerCount;
@@ -46,7 +46,7 @@ namespace Dynamic_Static {
         /*
         * Destroys this instance of ThreadPool.
         */
-        ~ThreadPool()
+        inline ~ThreadPool()
         {
             wait();
         }
@@ -56,7 +56,7 @@ namespace Dynamic_Static {
         * Gets this ThreadPool' Worker count.
         * @return This ThreadPool's Worker count
         */
-        size_t get_worker_count() const
+        inline size_t get_worker_count() const
         {
             return mWorkers.size();
         }
@@ -65,7 +65,7 @@ namespace Dynamic_Static {
         * Gets this ThreadPool's pending Worker::Task count.
         * \n NOTE : This ThreadPool's pending Worker::Task count may have changed by the time this method returns
         */
-        size_t get_task_count() const
+        inline size_t get_task_count() const
         {
             size_t taskCount = 0;
             for (const auto& worker : mWorkers) {
@@ -77,7 +77,7 @@ namespace Dynamic_Static {
         /*
         * Pushes a Worker::Task for this ThreadPool to process on a child thread.
         */
-        void push(Worker::Task task)
+        inline void push(Worker::Task task)
         {
             mWorkers[mIndex++].push(task);
             if (mIndex >= mWorkers.size()) {
@@ -92,7 +92,7 @@ namespace Dynamic_Static {
         * \n NOTE : A Duration of 0 for timeOut results in an infinite maximum wait
         */
         template <typename DurationType = Millisecond<>>
-        void wait(const DurationType& timeOut = DurationType { 0 })
+        inline void wait(const DurationType& timeOut = DurationType { 0 })
         {
             for (auto& worker : mWorkers) {
                 worker.wait(timeOut);

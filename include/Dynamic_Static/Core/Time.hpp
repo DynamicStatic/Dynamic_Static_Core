@@ -91,7 +91,7 @@ namespace Dynamic_Static {
     * @return The converted Duration
     */
     template <typename ToType, typename FromType>
-    constexpr ToType duration_cast(const FromType& duration)
+    inline constexpr ToType duration_cast(const FromType& duration)
     {
         return std::chrono::duration_cast<ToType>(duration);
     }
@@ -119,7 +119,7 @@ namespace Dynamic_Static {
         * @return This Timer's total run time
         */
         template <typename DurationType>
-        auto total() const
+        inline auto total() const
         {
             return duration_cast<DurationType>(HighResolutionClock::now() - mBegin).count();
         }
@@ -127,7 +127,7 @@ namespace Dynamic_Static {
         /*
         * Resets this Timer.
         */
-        void reset()
+        inline void reset()
         {
             mBegin = HighResolutionClock::now();
         }
@@ -148,7 +148,7 @@ namespace Dynamic_Static {
         * Gets this Clock's current TimePoint.
         * @return This Clock's current TimePoint
         */
-        const TimePoint<>& current() const
+        inline const TimePoint<>& current() const
         {
             return mCurrent;
         }
@@ -159,7 +159,7 @@ namespace Dynamic_Static {
         * @return This Clock's total run time
         */
         template <typename DurationType>
-        auto total() const
+        inline auto total() const
         {
             return duration_cast<DurationType>(mCurrent - mBegin).count();
         }
@@ -170,7 +170,7 @@ namespace Dynamic_Static {
         * @return This Clock's elapsed time
         */
         template <typename DurationType>
-        auto elapsed() const
+        inline auto elapsed() const
         {
             return duration_cast<DurationType>(mCurrent - mPrevious).count();
         }
@@ -178,7 +178,7 @@ namespace Dynamic_Static {
         /*
         * Updates this Clock.
         */
-        void update()
+        inline void update()
         {
             mPrevious = mCurrent;
             mCurrent = HighResolutionClock::now();
@@ -187,7 +187,7 @@ namespace Dynamic_Static {
         /*
         * Resets this Clock.
         */
-        void reset()
+        inline void reset()
         {
             mBegin = HighResolutionClock::now();
             mCurrent = mBegin;

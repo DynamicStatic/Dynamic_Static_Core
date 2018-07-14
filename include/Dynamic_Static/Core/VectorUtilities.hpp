@@ -31,7 +31,7 @@ namespace Dynamic_Static {
         typename DestinationType,
         typename ConversionFunctionType
     >
-    void convert(
+    inline void convert(
         const std::vector<SourceType>& source,
         std::vector<DestinationType>& destination,
         ConversionFunctionType conversion
@@ -58,7 +58,7 @@ namespace Dynamic_Static {
         typename DestinationType,
         typename ConversionFunctionType
     >
-    std::vector<DestinationType> convert(
+    inline std::vector<DestinationType> convert(
         const std::vector<SourceType>& source,
         ConversionFunctionType conversion
     )
@@ -78,7 +78,7 @@ namespace Dynamic_Static {
     * @param [in] vctr The std::vector to remove duplicates from
     */
     template <typename T>
-    void remove_duplicates(std::vector<T>& vctr)
+    inline void remove_duplicates(std::vector<T>& vctr)
     {
         std::sort(vctr.begin(), vctr.end());
         vctr.erase(std::unique(vctr.begin(), vctr.end()), vctr.end());

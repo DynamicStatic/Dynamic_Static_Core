@@ -14,7 +14,7 @@
 
 namespace Dynamic_Static {
 
-    /**
+    /*
     * Removes copy constructors from derived classes.
     */
     class NonCopyable

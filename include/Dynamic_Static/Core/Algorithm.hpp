@@ -43,22 +43,22 @@ namespace Dynamic_Static {
     {
         // FROM : https://devblogs.nvidia.com/parallelforall/lerp-faster-cuda/
         // TLDR : std::fma() (fused multiply-add) is commonly implemented as a
-        // single CPU instruction which will be used if available.  In addition
-        // to a performance benefit, accuracy is improved since there is no
-        // rounding performed until std::fma() returns.
+        //        single CPU instruction which will be used if available.  In
+        //        addition to a performance benefit, accuracy is improved since
+        //        there is no rounding performed until std::fma() returns.
         //
-        // Consider...
-        // (static_cast<T>(1) - t) * v0 + t * v1
-        // and...
-        // v0 + t * (v1 - v0)
-        // The first form incurs 4 rounding errors and the second 3.  Note that
-        // the second form cannot guarantee that the value returned equals v1
-        // when t equals 1 due to rounding error.
+        //        Consider...
+        //        (static_cast<T>(1) - t) * v0 + t * v1
+        //        and...
+        //        v0 + t * (v1 - v0)
+        //        The first form incurs 4 rounding errors and the second 3.
+        //        Note that the second form cannot guarantee that the value
+        //        returned equals v1 when t equals 1 due to rounding error.
         //
-        // std::fma() computes...
-        // x * y + z
-        // so our operation is...
-        // t * v1 + (-t * v0 + v0)
+        //        std::fma() computes...
+        //        x * y + z
+        //        so our operation is...
+        //        t * v1 + (-t * v0 + v0)
         return std::fma(t, v1, std::fma(-t, v0, v0));
     }
 

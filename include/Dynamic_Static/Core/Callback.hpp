@@ -41,7 +41,7 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /**
+        /*
         * Gets a value indicating whether or not this Callback has a valid std::function<void(Args...)>.
         * @return Whether or not this Callback has a valid std::function<void(Args...)>
         */
@@ -51,7 +51,7 @@ namespace Dynamic_Static {
         }
 
     private:
-        /**
+        /*
         * Executes this Callback.
         * \n NOTE : This method can only be called by an object of type CallerType
         * @param [in] args The arguments to execute this Callback with
@@ -63,7 +63,7 @@ namespace Dynamic_Static {
             }
         }
 
-        /**
+        /*
         * Executes this Callback.
         * \n NOTE : This method can only be called by an object of type CallerType
         * @param [in] args The arguments to execute this Callback with

@@ -46,7 +46,7 @@ namespace Dynamic_Static {
         /*
         * Constructs an instance of Worker.
         */
-        Worker()
+        inline Worker()
         {
             mThread = std::thread(
                 [&]
@@ -79,7 +79,7 @@ namespace Dynamic_Static {
         /*
         * Destroys this instance of Worker.
         */
-        ~Worker()
+        inline ~Worker()
         {
             mRunning = false;
             mTaskReceived.notify_all();
@@ -94,7 +94,7 @@ namespace Dynamic_Static {
         * \n NOTE : This Workers's Task count may have changed by the time this method returns
         * @return This Worker's Task count
         */
-        size_t get_task_count() const
+        inline size_t get_task_count() const
         {
             return mTasks.size();
         }
@@ -103,7 +103,7 @@ namespace Dynamic_Static {
         * Pushes a Task for this Worker to process on a child thread.
         * @param [in] task The Task to push
         */
-        void push(Task task)
+        inline void push(Task task)
         {
             std::unique_lock<std::mutex> lock(mMutex);
             mTaskReceived.notify_one();
@@ -117,7 +117,7 @@ namespace Dynamic_Static {
         * \n NOTE : A Duration of 0 for timeOut results in an infinite maximum wait
         */
         template <typename DurationType = Millisecond<>>
-        void wait(const DurationType& timeOut = DurationType { 0 })
+        inline void wait(const DurationType& timeOut = DurationType { 0 })
         {
             std::unique_lock<std::mutex> lock(mMutex);
             auto predicate = [&]{ return mTasks.empty(); };
