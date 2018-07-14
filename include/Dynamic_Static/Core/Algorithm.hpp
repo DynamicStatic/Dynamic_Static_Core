@@ -32,10 +32,10 @@ namespace Dynamic_Static {
 
     /*
     * Gets a linear interpolation from one given floating point value to another using a 0 - 1 weighting.
-    * @param <T>     The type of the value to interpolate
+    * @param <T> The type of the value to interpolate
     * @param [in] v0 The value to interpolate from
     * @param [in] v1 The value to interpolate to
-    * @param [in] t  The weight of the interpolation
+    * @param [in] t The weight of the interpolation
     * @return The interpolated value
     */
     template <typename T>
