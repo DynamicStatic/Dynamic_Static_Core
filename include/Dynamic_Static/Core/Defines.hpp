@@ -58,7 +58,7 @@
 
 #define dst_stringify(STR) #STR
 #define dst_expand(STR) dst_stringify(STR)
-#define dst_file_line (__FILE__ " @ " dst_expand(__LINE__))
+#define dst_file_line (__FILE__ " @ line " dst_expand(__LINE__))
 
 namespace Dynamic_Static {
 
