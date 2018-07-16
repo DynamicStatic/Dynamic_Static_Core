@@ -17,6 +17,7 @@
 #include <sstream>
 #include <string>
 #include <string_view>
+#include <vector>
 
 namespace Dynamic_Static {
 
@@ -65,7 +66,7 @@ namespace Dynamic_Static {
     };
 
     /*
-    * Replaces all occurences of a given substring from a given string.
+    * Gets a copy of an std::string with all occurences of a given substring replaced with another.
     * @param [in] str The source string
     * @param [in] find The string to find and replace in the source string
     * @param [in] replacement The string to replace found occurences with
@@ -92,7 +93,7 @@ namespace Dynamic_Static {
     }
 
     /*
-    * Removes all occurences of a given substring from a given string.
+    * Gets a copy of an std::string with all occurences of a given substring removed.
     * @param [in] str The source string
     * @param [in] find The string to find and remove from the source string
     * @param [in] recursive (default = false) Whether or not to recursively remove occurences of the find string
@@ -107,8 +108,8 @@ namespace Dynamic_Static {
         return dst::replace(str, find, nullptr, recursive);
     }
 
-    /**
-    * Reduces repetitive occurences of a given substring to single occurences.
+    /*
+    * Gets a copy of an std::string with all repetitive occurences of a given substring reduced to single occurences.
     * @param [in] str The source string
     * @param [in] find The string to find and reduce
     * @return The resulting string
@@ -122,8 +123,8 @@ namespace Dynamic_Static {
         return dst::replace(str, sequence + sequence, find, true);
     }
 
-    /**
-    * Scrubs a given path.
+    /*
+    * Gets a copy of an std::string containing a path with back slashes replaced with forward slashes and slash sequences reduced.
     * @param [in] path The path to scrub
     * @reutrn The scrubbed path
     */
@@ -132,8 +133,36 @@ namespace Dynamic_Static {
         return dst::reduce_sequence(dst::replace(path, '\\', '/'), '/');
     }
 
-    /**
-    * Converts a char to upper case.
+    /*
+    * Gets an std::vector<std::string> populated with substrings of a given std::string using a given delimiter.
+    * @param [in] str The string to search for delimiters
+    * @param [in] delimiter The delimiter to search for
+    * @return An std::vector<std::string> populated with split tokens
+    */
+    inline std::vector<std::string> split(
+        const dst::string_view& str,
+        const dst::string_view& delimiter
+    )
+    {
+        std::vector<std::string> tokens;
+        if (!str.empty() && !delimiter.empty()) {
+            size_t index = 0;
+            size_t offset = 0;
+            while ((index = str.find(delimiter, offset)) != std::string::npos) {
+                if (index - offset > 0) {
+                    tokens.push_back(std::string(str.substr(offset, index - offset)));
+                }
+                offset = index + delimiter.size();
+            }
+            if (offset < str.length()) {
+                tokens.push_back(std::string(str.substr(offset, str.length() - offset)));
+            }
+        }
+        return tokens;
+    }
+
+    /*
+    * Gets the upper case version of a given char.
     * @param [in] c The char to convert to upper case
     * @return The resulting char
     */
@@ -142,8 +171,8 @@ namespace Dynamic_Static {
         return static_cast<char>(std::toupper(static_cast<int>(c)));
     }
 
-    /**
-    * Converts a string to upper case.
+    /*
+    * Gets a copy of an std::string with all characters converted to upper case.
     * @param [in] str The string to convert to upper case
     * @return The resulting string
     */
@@ -156,8 +185,8 @@ namespace Dynamic_Static {
         return result;
     }
 
-    /**
-    * Converts a char to lower case.
+    /*
+    * Gets the lower case version of a given char.
     * @param [in] c The char to convert to lower case
     * @return The resulting char
     */
@@ -166,8 +195,8 @@ namespace Dynamic_Static {
         return static_cast<char>(std::tolower(static_cast<int>(c)));
     }
 
-    /**
-    * Converts a string to lower case.
+    /*
+    * Gets a copy of an std::string with all characters converted to lower case.
     * @param [in] str The string to convert to lower case
     * @return The resulting string
     */
@@ -180,8 +209,8 @@ namespace Dynamic_Static {
         return result;
     }
 
-    /**
-    * Gets the string representation of the hex value of a given integral value.
+    /*
+    * Gets the std::string representation of the hex value of a given integral value.
     * @param <T> The type of the given value
     * @return The string representation of the hex value of the given integral value
     */

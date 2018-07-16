@@ -23,7 +23,7 @@ namespace Dynamic_Static {
     * @param <DestinationType> The type of the destination std::vector<>
     * @param <ConversionFunctionType> The type of the conversion function
     * @param [in] source The source std::vector<>
-    * @param [in] destination The destination std::vector<>
+    * @param [out] destination The destination std::vector<>
     * @param [in] conversion The conversion function
     */
     template <
@@ -75,7 +75,7 @@ namespace Dynamic_Static {
     * \n        The type of the given std::vector<> must fulfill the Compare concept
     * \n        (http://en.cppreference.com/w/cpp/concept/Compare)
     * @param <T> T The type of the std::vector to remove duplicates from
-    * @param [in] vctr The std::vector to remove duplicates from
+    * @param [in, out] vctr The std::vector to remove duplicates from
     */
     template <typename T>
     inline void remove_duplicates(std::vector<T>& vctr)

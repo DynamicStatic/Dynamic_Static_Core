@@ -21,7 +21,7 @@ namespace Tests {
 
     TEST_CASE("replace()", "[StringUtilities]")
     {
-        SECTION("Valid input")
+        SECTION("Valid find and replace")
         {
             std::string str = TestString;
             str = dst::replace(str, '!', '.');
@@ -31,7 +31,7 @@ namespace Tests {
             REQUIRE(str == "The slow brown fox trips over the sleeping dog.");
         }
 
-        SECTION("Invalid input")
+        SECTION("Invalid find and replace")
         {
             std::string str = TestString;
             str = dst::replace(str, "fox", "fox");
@@ -68,6 +68,58 @@ namespace Tests {
             "some//file/\\path/with\\various\\combines/and\\conventions.txt"
         );
         REQUIRE(path == "some/file/path/with/various/combines/and/conventions.txt");
+    }
+
+    TEST_CASE("split()", "[StringUtilities]")
+    {
+        static const std::vector<std::string> ResultTokens {
+            "The",
+            "quick",
+            "brown",
+            "fox"
+        };
+
+        SECTION("Empty input produces empty result")
+        {
+            auto tokens = dst::split(std::string(), ' ');
+            REQUIRE(tokens.empty());
+        }
+
+        SECTION("nullptr input produces empty result")
+        {
+            auto tokens = dst::split(nullptr, ' ');
+            REQUIRE(tokens.empty());
+        }
+
+        SECTION("Split on character delimiter")
+        {
+            auto str = "The;quick;brown;fox";
+            REQUIRE(dst::split(str, ';') == ResultTokens);
+        }
+
+        SECTION("Split on character delimiter (prefix)")
+        {
+            auto str = ";The;quick;brown;fox";
+            REQUIRE(dst::split(str, ';') == ResultTokens);
+        }
+
+        SECTION("Split on character delimiter (postfix)")
+        {
+            auto str = "The;quick;brown;fox;";
+            REQUIRE(dst::split(str, ';') == ResultTokens);
+        }
+
+        SECTION("Split on character delimiter (prefix and postfix)")
+        {
+            auto str = ";The;quick;brown;fox;";
+            REQUIRE(dst::split(str, ';') == ResultTokens);
+        }
+
+        SECTION("Split on string delimiter")
+        {
+            auto str = "The COW quick COW brown COW fox COW ";
+            REQUIRE(dst::split(str, " COW ") == ResultTokens);
+        }
     }
 
     TEST_CASE("Case conversion works correctly", "[StringUtilities]")
