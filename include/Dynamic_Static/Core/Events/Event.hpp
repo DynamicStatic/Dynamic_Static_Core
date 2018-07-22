@@ -12,7 +12,6 @@
 
 #include "Dynamic_Static/Core/Events/Delegate.hpp"
 #include "Dynamic_Static/Core/Defines.hpp"
-#include "Dynamic_Static/Core/NonCopyable.hpp"
 
 namespace Dynamic_Static {
 
@@ -22,16 +21,26 @@ namespace Dynamic_Static {
     * @param <Args> This Event's argument types
     */
     template <typename CallerType, typename ...Args>
-    class Event final
+    class Event
         : Delegate<Args...>
     {
     public:
+        /*
+        * Removes this Events subscribers.
+        * @return This Event
+        */
+        inline Delegate& operator=(nullptr_t)
+        {
+            clear();
+            return *this;
+        }
+
         /*
         * Subscribes a given Delegate<> to this Event.
         * @param [in] delegate The Delegate<> to subscribe to this Event
         * @return This Event
         */
-        Event<CallerType, Args...>& operator+=(Delegate<Args...>& delegate)
+        inline Event<CallerType, Args...>& operator+=(Delegate<Args...>& delegate)
         {
             Delegate<Args...>::operator+=(delegate);
             return *this;
@@ -42,7 +51,7 @@ namespace Dynamic_Static {
         * @param [in] delegate The Delegate<> to unsubscribe from this Event
         * @return This Event
         */
-        Event<CallerType, Args...>& operator-=(Delegate<Args...>& delegate)
+        inline Event<CallerType, Args...>& operator-=(Delegate<Args...>& delegate)
         {
             Delegate<Args...>::operator-=(delegate);
             return *this;
@@ -54,22 +63,32 @@ namespace Dynamic_Static {
         * \n NOTE : This method can only be called by an object of type CallerType
         * @param [in] args The arguments to execute this Event with
         */
-        void operator()(Args&&... args) const
+        inline void operator()(Args&&... args) const
         {
-            for (auto subscription : Subscribable::get_subscriptions()) {
-                const Delegate<Args...>& delegate = *reinterpret_cast<Delegate<Args...>*>(subscription);
+            for (auto subscriber : Delegate<Args...>::get_subscribers()) {
+                const Delegate<Args...>& delegate = *reinterpret_cast<Delegate<Args...>*>(subscriber);
                 delegate(std::forward<Args>(args)...);
             }
         }
 
+    public:
+        /*
+        * Gets this Event's subscribers.
+        * @return This Event's subscribers
+        */
+        inline const std::vector<dst::Subscribable*>& get_subscribers() const
+        {
+            return Delegate<Args...>::get_subscribers();
+        }
+
     private:
         /*
-        * Removes all Delegates<> from this Event.
+        * Removes all of this Events's subscribers.
         * \n NOTE : This method can only be called by an object of type CallerType
         */
-        void clear()
+        inline void clear()
         {
-            Subscribable::clear();
+            Delegate<Args...>::clear();
         }
 
     private:

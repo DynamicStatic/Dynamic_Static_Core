@@ -110,7 +110,7 @@ namespace Dynamic_Static {
 
     public:
         /*
-        * Gets all of this Subscribable's subscribers.
+        * Gets of this Subscribable's subscribers.
         * @return This Subscribable's subscribers
         */
         inline const std::vector<Subscribable*>& get_subscribers() const
@@ -119,7 +119,7 @@ namespace Dynamic_Static {
         }
 
         /*
-        * Gets all of this Subscribable's subscriptions.
+        * Gets of this Subscribable's subscriptions.
         * @return This Subscribable's subscrpitions
         */
         inline const std::vector<Subscribable*>& get_subscriptions() const

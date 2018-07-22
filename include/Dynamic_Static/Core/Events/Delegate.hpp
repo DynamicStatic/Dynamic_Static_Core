@@ -13,7 +13,6 @@
 #include "Dynamic_Static/Core/Events/Subscribable.hpp"
 #include "Dynamic_Static/Core/Action.hpp"
 #include "Dynamic_Static/Core/Defines.hpp"
-#include "Dynamic_Static/Core/NonCopyable.hpp"
 
 #include <utility>
 
@@ -23,7 +22,7 @@ namespace Dynamic_Static {
     * Encapsulates a Subscribable multicast Action<>.
     */
     template <typename ...Args>
-    class Delegate final
+    class Delegate
         : Subscribable
     {
     private:
@@ -55,12 +54,13 @@ namespace Dynamic_Static {
         }
 
         /*
-        * Removes this Delegate's Action<> and all subscriptions.
+        * Removes this Delegate's Action<>, all subscribers.
+        * \n NOTE : This method doesn't remove subscriptions
         * @return This Delegate
         */
         inline Delegate& operator=(nullptr_t)
         {
-            Subscribable::clear();
+            clear_subscribers();
             mAction = nullptr;
             return *this;
         }
@@ -70,7 +70,7 @@ namespace Dynamic_Static {
         * @param [in] other The Delegate to subscribe to this Delegate
         * @return This Delegate
         */
-        Delegate& operator+=(Delegate<Args...>& other)
+        inline Delegate& operator+=(Delegate<Args...>& other)
         {
             Subscribable::operator+=(other);
             return *this;
@@ -81,13 +81,12 @@ namespace Dynamic_Static {
         * @param [in] other The Delegate to unsubscribe from this Delegate
         * @return This Delegate
         */
-        Delegate& operator-=(Delegate<Args...>& other)
+        inline Delegate& operator-=(Delegate<Args...>& other)
         {
             Subscribable::operator-=(other);
             return *this;
         }
 
-        #if 1
         /*
         * Executes this Delegate.
         * @param [in] args The arguments to execute this Delegate with
@@ -97,27 +96,11 @@ namespace Dynamic_Static {
             if (mAction) {
                 mAction(std::forward<Args>(args)...);
             }
-            for (auto subscription : Subscribable::get_subscriptions()) {
-                const Delegate<Args...>& delegate = *reinterpret_cast<Delegate<Args...>*>(subscription);
+            for (auto subscriber : Subscribable::get_subscribers()) {
+                const Delegate<Args...>& delegate = *reinterpret_cast<Delegate<Args...>*>(subscriber);
                 delegate(std::forward<Args>(args)...);
             }
         }
-        #else
-        /*
-        * Executes this Delegate.
-        * @param [in] args The arguments to execute this Delegate with
-        */
-        inline void operator()(Args&&... args) const
-        {
-            if (mAction) {
-                mAction(std::forward<Args>(args)...);
-            }
-            for (auto subscription : Subscribable::get_subscriptions()) {
-                const Delegate<Args...>& delegate = *reinterpret_cast<Delegate<Args...>*>(subscription);
-                delegate(std::forward<Args>(args)...);
-            }
-        }
-        #endif
 
         /*
         * Gets a value indicating whether or not this Delegate has a valid Action<>.
@@ -130,9 +113,43 @@ namespace Dynamic_Static {
 
     public:
         /*
+        * Gets this Delegate's subscribers.
+        * @return This Delegate's subscribers
+        */
+        inline const std::vector<Subscribable*>& get_subscribers() const
+        {
+            return Subscribable::get_subscribers();
+        }
+
+        /*
+        * Gets this Delegate's subscriptions.
+        * @return This Delegate's subscrpitions
+        */
+        inline const std::vector<Subscribable*>& get_subscriptions() const
+        {
+            return Subscribable::get_subscriptions();
+        }
+
+        /*
+        * Removes all of this Delegate's subscribers.
+        */
+        inline void clear_subscribers()
+        {
+            Subscribable::clear_subscribers();
+        }
+
+        /*
         * Removes all of this Delegate's subscriptions.
         */
-        void clear()
+        inline void clear_subscriptions()
+        {
+            Subscribable::clear_subscriptions();
+        }
+
+        /*
+        * Removes all of this Delegate's subscriptions.
+        */
+        inline void clear()
         {
             Subscribable::clear();
         }
