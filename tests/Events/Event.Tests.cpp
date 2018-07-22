@@ -15,6 +15,8 @@
 
 #include <vector>
 
+#include <iostream>
+
 namespace Dynamic_Static {
 namespace Tests {
 
@@ -33,37 +35,42 @@ namespace Tests {
 
     class Listener final
     {
-    private:
-        int mInvocationCount { };
-        Delegate<const Publisher&> mOnPublisherEvent;
-
     public:
-        int get_invocation_count() const
+        int invocationCount { };
+        Delegate<const Publisher&> onPublisherEvent;
+
+        Listener() = default;
+
+        Listener(Listener&& other)
         {
-            return mInvocationCount;
+            *this = std::move(other);
         }
 
-        size_t get_subscription_count() const
+        Listener& operator=(Listener&& other)
         {
-            return mOnPublisherEvent.get_subscriptions().size();
-        }
-
-        void subscribe(Publisher& publisher)
-        {
-            publisher.on_event += mOnPublisherEvent;
-            bind_delegate();
-        }
-
-    private:
-        void on_publisher_event(const Publisher& publisher)
-        {
-            ++mInvocationCount;
+            if (this != &other) {
+                invocationCount = std::move(other.invocationCount);
+                onPublisherEvent = std::move(other.onPublisherEvent);
+                bind_delegate();
+            }
+            return *this;
         }
 
         void bind_delegate()
         {
             using namespace std::placeholders;
-            mOnPublisherEvent = std::bind(&Listener::on_publisher_event, this, _1);
+            onPublisherEvent = std::bind(&Listener::on_publisher_event, this, _1);
+        }
+
+        void subscribe(Publisher& publisher)
+        {
+            publisher.on_event += onPublisherEvent;
+            bind_delegate();
+        }
+
+        void on_publisher_event(const Publisher& publisher)
+        {
+            ++invocationCount;
         }
     };
 
@@ -78,7 +85,7 @@ namespace Tests {
     {
         bool allListenersInvoked = true;
         for (const auto& listener : listeners) {
-            if (listener.get_invocation_count() != listener.get_subscription_count()) {
+            if (listener.invocationCount != listener.onPublisherEvent.get_subscriptions().size()) {
                 allListenersInvoked = false;
                 break;
             }
