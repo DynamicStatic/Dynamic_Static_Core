@@ -31,6 +31,9 @@ DstCreateStaticLibrary(
         ${tclap.includeDirectories}
 
     includeFiles
+        ${includePath}/Events/Delegate.hpp
+        ${includePath}/Events/Event.hpp
+        ${includePath}/Events/Subscribable.hpp
         ${includePath}/Math/Colors.hpp
         ${includePath}/Math/Defines.hpp
         ${includePath}/Math/Transform.hpp
@@ -39,13 +42,16 @@ DstCreateStaticLibrary(
         ${includePath}/Threads/ThreadPool.hpp
         ${includePath}/Threads/ThreadUtilities.hpp
         ${includePath}/Threads/Worker.hpp
+        ${includePath}/Action.hpp
         ${includePath}/Algorithm.hpp
         ${includePath}/Callback.hpp
         ${includePath}/Defines.hpp
+        ${includePath}/Events.hpp
         ${includePath}/File.hpp
         ${includePath}/FileSystem.hpp
         ${includePath}/Math.hpp
         ${includePath}/Memory.hpp
+        ${includePath}/MoveNotifier.hpp
         ${includePath}/NonCopyable.hpp
         ${includePath}/Random.hpp
         ${includePath}/StringUtilities.hpp
@@ -66,6 +72,9 @@ if(BUILD_TESTS)
         target Dynamic_Static.Core
         folder Dynamic_Static.Core/
         sourceFiles
+            ${testsPath}/Events/Delegate.Tests.cpp
+            ${testsPath}/Events/Event.Tests.cpp
+            ${testsPath}/Events/Subscribable.Tests.cpp
             ${testsPath}/Threads/Semaphore.Tests.cpp
             ${testsPath}/Threads/ThreadPool.Tests.cpp
             ${testsPath}/Threads/Worker.Tests.cpp

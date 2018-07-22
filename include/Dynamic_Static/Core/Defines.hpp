@@ -16,8 +16,6 @@
 #include <cstdarg>
 #include <cstring>
 
-#define DYNAMIC_STATIC "Dynamic_Static"
-
 #if defined(__X86_64__) || defined(_WIN64)
     #ifndef DYNAMIC_STATIC_64_BIT
     #define DYNAMIC_STATIC_64_BIT
@@ -54,6 +52,7 @@
 
 #define DYNAMIC_STATIC_EXCEPTIONS_ENABLED
 
+#define DYNAMIC_STATIC "Dynamic_Static"
 #define DYNAMIC_STATIC_CORE_VERSION_MAJOR 1
 #define DYNAMIC_STATIC_CORE_VERSION_MINOR 0
 #define DYNAMIC_STATIC_CORE_VERSION_PATCH 0

@@ -10,6 +10,7 @@
 
 #pragma once
 
+#include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/Math/Colors.hpp"
 #include "Dynamic_Static/Core/Math/Defines.hpp"
 #include "Dynamic_Static/Core/Math/Transform.hpp"
