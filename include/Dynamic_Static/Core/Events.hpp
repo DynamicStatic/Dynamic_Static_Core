@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/Events/Delegate.hpp"
 #include "Dynamic_Static/Core/Events/Event.hpp"
 #include "Dynamic_Static/Core/Events/Subscribable.hpp"
+#include "Dynamic_Static/Core/Defines.hpp"

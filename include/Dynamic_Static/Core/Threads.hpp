@@ -10,8 +10,8 @@
 
 #pragma once
 
-#include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/Threads/Semaphore.hpp"
 #include "Dynamic_Static/Core/Threads/ThreadPool.hpp"
 #include "Dynamic_Static/Core/Threads/ThreadUtilities.hpp"
 #include "Dynamic_Static/Core/Threads/Worker.hpp"
+#include "Dynamic_Static/Core/Defines.hpp"

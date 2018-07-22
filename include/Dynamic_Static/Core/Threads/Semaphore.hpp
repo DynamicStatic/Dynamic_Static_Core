@@ -10,9 +10,9 @@
 
 #pragma once
 
+#include "Dynamic_Static/Core/Threads/ThreadUtilities.hpp"
 #include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/NonCopyable.hpp"
-#include "Dynamic_Static/Core/Threads/ThreadUtilities.hpp"
 #include "Dynamic_Static/Core/Time.hpp"
 
 #include <condition_variable>
