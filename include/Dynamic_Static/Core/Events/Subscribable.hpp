@@ -10,9 +10,11 @@
 
 #pragma once
 
+#include "Dynamic_Static/Core/Algorithm.hpp"
 #include "Dynamic_Static/Core/Defines.hpp"
 #include "Dynamic_Static/Core/NonCopyable.hpp"
 
+#include <algorithm>
 #include <utility>
 #include <vector>
 
@@ -61,13 +63,13 @@ namespace Dynamic_Static {
             if (this != &other) {
                 mSubscribers = std::move(other.mSubscribers);
                 for (auto subscriber : mSubscribers) {
-                    auto itr = std::find(subscriber->mSubscriptions.begin(), subscriber->mSubscriptions.end(), &other);
+                    auto itr = dst::find(subscriber->mSubscriptions, &other);
                     assert(itr != subscriber->mSubscriptions.end());
                     *itr = this;
                 }
                 mSubscriptions = std::move(other.mSubscriptions);
                 for (auto subscription : mSubscriptions) {
-                    auto itr = std::find(subscription->mSubscribers.begin(), subscription->mSubscribers.end(), &other);
+                    auto itr = dst::find(subscription->mSubscribers, &other);
                     assert(itr != subscription->mSubscribers.end());
                     *itr = this;
                 }
@@ -96,7 +98,13 @@ namespace Dynamic_Static {
         */
         inline Subscribable& operator-=(Subscribable& subscriber)
         {
-            subscriber.unsubscribe_from(*this);
+            auto itr = dst::find(mSubscribers, &subscriber);
+            if (itr != mSubscribers.end()) {
+                mSubscribers.erase(itr);
+                itr = dst::find(subscriber.mSubscriptions, this);
+                assert(itr != subscriber.mSubscriptions.end());
+                subscriber.mSubscriptions.erase(itr);
+            }
             return *this;
         }
 
@@ -125,7 +133,7 @@ namespace Dynamic_Static {
         */
         inline bool is_subscribed_to(const Subscribable& other) const
         {
-            return std::find(mSubscriptions.begin(), mSubscriptions.end(), &other) != mSubscriptions.end();
+            return dst::find(mSubscriptions, &other) != mSubscriptions.end();
         }
 
         /*
@@ -133,8 +141,10 @@ namespace Dynamic_Static {
         */
         inline void clear_subscribers()
         {
-            for (auto& subscriber : mSubscribers) {
-                subscriber->unsubscribe_from(*this);
+            for (auto subscriber : mSubscribers) {
+                auto itr = dst::find(subscriber->mSubscriptions, this);
+                assert(itr != subscriber->mSubscriptions.end());
+                subscriber->mSubscriptions.erase(itr);
             }
             mSubscribers.clear();
         }
@@ -145,7 +155,9 @@ namespace Dynamic_Static {
         inline void clear_subscriptions()
         {
             for (auto& subscription : mSubscriptions) {
-                unsubscribe_from(*subscription);
+                auto itr = dst::find(subscription->mSubscribers, this);
+                assert(itr != subscription->mSubscribers.end());
+                subscription->mSubscribers.erase(itr);
             }
             mSubscriptions.clear();
         }
@@ -157,18 +169,6 @@ namespace Dynamic_Static {
         {
             clear_subscribers();
             clear_subscriptions();
-        }
-
-    private:
-        inline void unsubscribe_from(Subscribable& subscription)
-        {
-            auto itr = std::find(mSubscriptions.begin(), mSubscriptions.end(), &subscription);
-            if (itr != mSubscriptions.end()) {
-                mSubscriptions.erase(itr);
-                itr = std::find(subscription.mSubscribers.begin(), subscription.mSubscribers.end(), this);
-                assert(itr != subscription.mSubscribers.end());
-                subscription.mSubscribers.erase(itr);
-            }
         }
     };
 

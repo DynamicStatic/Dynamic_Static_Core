@@ -62,4 +62,34 @@ namespace Dynamic_Static {
         return std::fma(t, v1, std::fma(-t, v0, v0));
     }
 
+    /*
+    * Gets the first element in a given range that is equal to a given value.
+    * @param [in] range The range to search
+    * @param [in] value The value to search for
+    * @param <RangeType> The type of the range to search
+    * \n NOTE : RangeType must provide begin() and end() methods
+    * @param <ValueType> The type of the value to search for
+    * @return Iterator to the first element equal to the given value
+    */
+    template <typename RangeType, typename ValueType>
+    inline auto find(RangeType& range, const ValueType& value)
+    {
+        return std::find(range.begin(), range.end(), value);
+    }
+
+    /*
+    * Gets the first element in a given range that is equal to a given value.
+    * @param [in] range The range to search
+    * @param [in] value The value to search for
+    * @param <RangeType> The type of the range to search
+    * \n NOTE : RangeType must provide begin() and end() methods
+    * @param <ValueType> The type of the value to search for
+    * @return Iterator to the first element equal to the given value
+    */
+    template <typename RangeType, typename ValueType>
+    inline auto find(const RangeType& range, const ValueType& value)
+    {
+        return std::find(range.begin(), range.end(), value);
+    }
+
 } // namespace Dynamic_Static
