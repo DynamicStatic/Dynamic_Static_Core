@@ -54,7 +54,7 @@ namespace Dynamic_Static {
         }
 
         /*
-        * Removes this Delegate's Action<>, all subscribers.
+        * Removes this Delegate's Action<> and all subscribers.
         * \n NOTE : This method doesn't remove subscriptions
         * @return This Delegate
         */

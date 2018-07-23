@@ -26,12 +26,37 @@ namespace Dynamic_Static {
     {
     public:
         /*
-        * Removes this Events subscribers.
+        * Constructs an instance of Event.
+        */
+        inline Event() = default;
+
+        /*
+        * Constructs an instance of Event.
+        * @param [in] action This Event's Action<>
+        */
+        inline Event(const Action<Args...>& action)
+            : mAction { action }
+        {
+        }
+
+        /*
+        * Assigns this Event's Action<>.
         * @return This Event
         */
-        inline Delegate& operator=(nullptr_t)
+        inline Event& operator=(const Action<Args...>& action)
         {
-            clear();
+            Delegate<Args...>::operator=(action);
+            return *this;
+        }
+
+        /*
+        * Removes this Event's Action<> and all subscribers.
+        * \n NOTE : This method doesn't remove subscriptions
+        * @return This Event
+        */
+        inline Event& operator=(nullptr_t)
+        {
+            Delegate<Args...>::operator=(nullptr);
             return *this;
         }
 
@@ -65,10 +90,7 @@ namespace Dynamic_Static {
         */
         inline void operator()(Args&&... args) const
         {
-            for (auto subscriber : Delegate<Args...>::get_subscribers()) {
-                const Delegate<Args...>& delegate = *reinterpret_cast<Delegate<Args...>*>(subscriber);
-                delegate(std::forward<Args>(args)...);
-            }
+            Delegate<Args...>::operator()(std::forward<Args>(args)...);
         }
 
     public:
