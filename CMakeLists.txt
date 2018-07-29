@@ -60,6 +60,7 @@ DstCreateStaticLibrary(
         ${includePath}/VectorUtilities.hpp
         ${includePath}/Version.hpp
         ${includePath}/Win32LeanAndMean.hpp
+        "${CMAKE_CURRENT_LIST_DIR}/include/Dynamic_Static.Core.hpp"
 
     sourceFiles
         ${CMAKE_CURRENT_LIST_DIR}/ForceCMakeBuild.cpp
