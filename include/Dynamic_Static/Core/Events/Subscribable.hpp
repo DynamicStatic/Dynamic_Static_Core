@@ -21,7 +21,7 @@
 namespace Dynamic_Static {
 
     /*
-    * Proivdes tracking of mutual subscription between objects.
+    * Provides tracking of mutual subscription between objects.
     */
     class Subscribable
         : NonCopyable
