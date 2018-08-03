@@ -17,40 +17,38 @@
 #include <cstring>
 
 #if defined(__X86_64__) || defined(_WIN64)
-    #ifndef DYNAMIC_STATIC_64_BIT
-    #define DYNAMIC_STATIC_64_BIT
-    #endif
+#ifndef DYNAMIC_STATIC_64_BIT
+#define DYNAMIC_STATIC_64_BIT
+#endif
 #else
-    #ifndef DYNAMIC_STATIC_32_BIT
-    #define DYNAMIC_STATIC_32_BIT
-    #endif
+#ifndef DYNAMIC_STATIC_32_BIT
+#define DYNAMIC_STATIC_32_BIT
+#endif
 #endif
 
 #if defined(_WIN32) || defined(_WIN64)
-    #ifndef DYNAMIC_STATIC_WINDOWS
-    #define DYNAMIC_STATIC_WINDOWS
-    #endif
+#ifndef DYNAMIC_STATIC_WINDOWS
+#define DYNAMIC_STATIC_WINDOWS
+#endif
 #elif defined(__linux__)
-    #ifndef DYNAMIC_STATIC_LINUX
-    #define DYNAMIC_STATIC_LINUX
-    #endif
+#ifndef DYNAMIC_STATIC_LINUX
+#define DYNAMIC_STATIC_LINUX
+#endif
 #endif
 
 #if defined(__clang__)
-    #ifndef DYNAMIC_STATIC_CLANG
-    #define DYNAMIC_STATIC_CLANG
-    #endif
-#elif defined(__GNUG__)
-    #ifndef DYNAMIC_STATIC_GCC
-    #define DYNAMIC_STATIC_GCC
-    #endif
-#elif defined(_MSC_BUILD)
-    #ifndef DYNAMIC_STATIC_MSVC
-    #define DYNAMIC_STATIC_MSVC
-    #endif
+#ifndef DYNAMIC_STATIC_CLANG
+#define DYNAMIC_STATIC_CLANG
 #endif
-
-#define DYNAMIC_STATIC_EXCEPTIONS_ENABLED
+#elif defined(__GNUG__)
+#ifndef DYNAMIC_STATIC_GCC
+#define DYNAMIC_STATIC_GCC
+#endif
+#elif defined(_MSC_BUILD)
+#ifndef DYNAMIC_STATIC_MSVC
+#define DYNAMIC_STATIC_MSVC
+#endif
+#endif
 
 #define DYNAMIC_STATIC "Dynamic_Static"
 #define DYNAMIC_STATIC_CORE_VERSION_MAJOR 1

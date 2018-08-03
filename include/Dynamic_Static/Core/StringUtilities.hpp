@@ -24,7 +24,7 @@ namespace Dynamic_Static {
     /*
     * Provides a non-owning reference to a contiguous sequence of char-like objects.
     */
-    class string_view
+    class StringView
         : public std::string_view
     {
     public:
@@ -32,7 +32,7 @@ namespace Dynamic_Static {
         * Constructs an instance of dst::string_view.
         * @param [in] strView The std::string_view to reference
         */
-        string_view(const std::string_view& strView)
+        StringView(const std::string_view& strView)
             : std::string_view(strView)
         {
         }
@@ -41,7 +41,7 @@ namespace Dynamic_Static {
         * Constructs an instance of dst::string_view.
         * @param [in] strView The std::string to reference
         */
-        string_view(const std::string& str)
+        StringView(const std::string& str)
             : std::string_view(str)
         {
         }
@@ -50,7 +50,7 @@ namespace Dynamic_Static {
         * Constructs an instance of dst::string_view.
         * @param [in] strView The const char* to reference
         */
-        string_view(const char* cStr)
+        StringView(const char* cStr)
             : std::string_view(cStr, cStr ? strlen(cStr) : 0)
         {
         }
@@ -59,7 +59,7 @@ namespace Dynamic_Static {
         * Constructs an instance of dst::string_view.
         * @param [in] strView The char to reference
         */
-        string_view(const char& c)
+        StringView(const char& c)
             : std::string_view(&c, 1)
         {
         }
@@ -74,9 +74,9 @@ namespace Dynamic_Static {
     * @return The resulting string
     */
     inline std::string replace(
-        const dst::string_view& str,
-        const dst::string_view& find,
-        const dst::string_view& replacement,
+        const dst::StringView& str,
+        const dst::StringView& find,
+        const dst::StringView& replacement,
         bool recursive = false
     )
     {
@@ -100,8 +100,8 @@ namespace Dynamic_Static {
     * @return The resulting string
     */
     inline std::string remove(
-        const dst::string_view& str,
-        const dst::string_view& find,
+        const dst::StringView& str,
+        const dst::StringView& find,
         bool recursive = false
     )
     {
@@ -115,8 +115,8 @@ namespace Dynamic_Static {
     * @return The resulting string
     */
     inline std::string reduce_sequence(
-        const dst::string_view& str,
-        const dst::string_view& find
+        const dst::StringView& str,
+        const dst::StringView& find
     )
     {
         std::string sequence(find.begin(), find.end());
@@ -140,8 +140,8 @@ namespace Dynamic_Static {
     * @return An std::vector<std::string> populated with split tokens
     */
     inline std::vector<std::string> split(
-        const dst::string_view& str,
-        const dst::string_view& delimiter
+        const dst::StringView& str,
+        const dst::StringView& delimiter
     )
     {
         std::vector<std::string> tokens;
@@ -176,7 +176,7 @@ namespace Dynamic_Static {
     * @param [in] str The string to convert to upper case
     * @return The resulting string
     */
-    inline std::string to_upper(const dst::string_view& str)
+    inline std::string to_upper(const dst::StringView& str)
     {
         std::string result(str.begin(), str.end());
         for (auto& c : result) {

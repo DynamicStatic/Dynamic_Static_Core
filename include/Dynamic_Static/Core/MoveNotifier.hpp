@@ -51,7 +51,7 @@ namespace Dynamic_Static {
         * @param [in] other The MoveNotifier to move from
         * @return This MoveNotifier
         */
-        MoveNotifier& operator=(MoveNotifier<T>&& other)
+        MoveNotifier<T>& operator=(MoveNotifier<T>&& other)
         {
             if (this != &other) {
                 on_move = std::move(other);

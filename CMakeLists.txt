@@ -31,39 +31,39 @@ DstCreateStaticLibrary(
         ${tclap.includeDirectories}
 
     includeFiles
-        ${includePath}/Events/Delegate.hpp
-        ${includePath}/Events/Event.hpp
-        ${includePath}/Events/Subscribable.hpp
-        ${includePath}/Math/Colors.hpp
-        ${includePath}/Math/Defines.hpp
-        ${includePath}/Math/Transform.hpp
-        ${includePath}/Math/Utilities.hpp
-        ${includePath}/Threads/Semaphore.hpp
-        ${includePath}/Threads/ThreadPool.hpp
-        ${includePath}/Threads/ThreadUtilities.hpp
-        ${includePath}/Threads/Worker.hpp
-        ${includePath}/Action.hpp
-        ${includePath}/Algorithm.hpp
-        ${includePath}/Callback.hpp
-        ${includePath}/Defines.hpp
-        ${includePath}/Events.hpp
-        ${includePath}/File.hpp
-        ${includePath}/FileSystem.hpp
-        ${includePath}/Math.hpp
-        ${includePath}/Memory.hpp
-        ${includePath}/MoveNotifier.hpp
-        ${includePath}/NonCopyable.hpp
-        ${includePath}/Random.hpp
-        ${includePath}/StringUtilities.hpp
-        ${includePath}/Threads.hpp
-        ${includePath}/Time.hpp
-        ${includePath}/VectorUtilities.hpp
-        ${includePath}/Version.hpp
-        ${includePath}/Win32LeanAndMean.hpp
-        "${CMAKE_CURRENT_LIST_DIR}/include/Dynamic_Static.Core.hpp"
+        "${includePath}/Events/Delegate.hpp"
+        "${includePath}/Events/Event.hpp"
+        "${includePath}/Events/Subscribable.hpp"
+        "${includePath}/Math/Colors.hpp"
+        "${includePath}/Math/Defines.hpp"
+        "${includePath}/Math/Transform.hpp"
+        "${includePath}/Math/Utilities.hpp"
+        "${includePath}/Threads/Semaphore.hpp"
+        "${includePath}/Threads/ThreadPool.hpp"
+        "${includePath}/Threads/ThreadUtilities.hpp"
+        "${includePath}/Threads/Worker.hpp"
+        "${includePath}/Action.hpp"
+        "${includePath}/Algorithm.hpp"
+        "${includePath}/Callback.hpp"
+        "${includePath}/Defines.hpp"
+        "${includePath}/Events.hpp"
+        "${includePath}/File.hpp"
+        "${includePath}/FileSystem.hpp"
+        "${includePath}/Math.hpp"
+        "${includePath}/Memory.hpp"
+        "${includePath}/MoveNotifier.hpp"
+        "${includePath}/NonCopyable.hpp"
+        "${includePath}/Random.hpp"
+        "${includePath}/StringUtilities.hpp"
+        "${includePath}/Threads.hpp"
+        "${includePath}/Time.hpp"
+        "${includePath}/VectorUtilities.hpp"
+        "${includePath}/Version.hpp"
+        "${includePath}/Win32LeanAndMean.hpp"
+        "${CMAKE_CURRENT_LIST_DIR}/Dynamic_Static.Core.hpp"
 
     sourceFiles
-        ${CMAKE_CURRENT_LIST_DIR}/ForceCMakeBuild.cpp
+        "${CMAKE_CURRENT_LIST_DIR}/ForceCMakeBuild.cpp"
 )
 
 option(BUILD_TESTS "Build Dynamic_Static.Core.Tests" ON)
@@ -73,14 +73,30 @@ if(BUILD_TESTS)
         target Dynamic_Static.Core
         folder Dynamic_Static.Core/
         sourceFiles
-            ${testsPath}/Events/Delegate.Tests.cpp
-            ${testsPath}/Events/Event.Tests.cpp
-            ${testsPath}/Events/Subscribable.Tests.cpp
-            ${testsPath}/Threads/Semaphore.Tests.cpp
-            ${testsPath}/Threads/ThreadPool.Tests.cpp
-            ${testsPath}/Threads/Worker.Tests.cpp
-            ${testsPath}/Random.Tests.cpp
-            ${testsPath}/StringUtilities.Tests.cpp
-            ${testsPath}/VectorUtilities.Tests.cpp
+            "${testsPath}/Events/Delegate.Tests.cpp"
+            "${testsPath}/Events/Event.Tests.cpp"
+            "${testsPath}/Events/Subscribable.Tests.cpp"
+            "${testsPath}/Threads/Semaphore.Tests.cpp"
+            "${testsPath}/Threads/ThreadPool.Tests.cpp"
+            "${testsPath}/Threads/Worker.Tests.cpp"
+            "${testsPath}/Random.Tests.cpp"
+            "${testsPath}/StringUtilities.Tests.cpp"
+            "${testsPath}/VectorUtilities.Tests.cpp"
     )
 endif()
+
+DstCreateExecutable(
+    target Dynamic_Static.Core.Generator
+    folder Dynamic_Static.Core/
+    includeDirectories
+        "${CMAKE_CURRENT_LIST_DIR}/include/"
+
+    sourceFiles
+        "${CMAKE_CURRENT_LIST_DIR}/Generator.Main.cpp"
+)
+target_compile_definitions(
+    Dynamic_Static.Core.Generator
+    PRIVATE
+        DYNAMIC_STATIC_CORE_INCLUDE_DIRECTORY="${CMAKE_CURRENT_LIST_DIR}/include/"
+        DYNAMIC_STATIC_CORE_OUTPUT_DIRECTORY="${CMAKE_CURRENT_LIST_DIR}/"
+)

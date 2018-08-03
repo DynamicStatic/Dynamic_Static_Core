@@ -15,6 +15,8 @@
 #if defined(DYNAMIC_STATIC_WINDOWS)
 #include "Dynamic_Static/Core/Win32LeanAndMean.hpp"
 #include <malloc.h>
+#else
+#include <stdlib.h>
 #endif
 
 namespace Dynamic_Static {
@@ -25,9 +27,8 @@ namespace Dynamic_Static {
     * @param [in] The alignment value, which must be a multiple of sizeof(void*) and an integer power of 2
     * @return A pointer to the memory block that was allocated or nullptr if the operation failed
     */
-    void* aligned_malloc(size_t size, size_t alignment)
+    inline void* aligned_malloc(size_t size, size_t alignment)
     {
-        // FROM : https://github.com/SaschaWillems/Vulkan/tree/master/dynamicuniformbuffer
         void* ptr = nullptr;
         #if defined(DYNAMIC_STATIC_WINDOWS)
         ptr = _aligned_malloc(size, alignment);
@@ -44,9 +45,8 @@ namespace Dynamic_Static {
     * Frees a block of memory that was allocated with dst::aligned_malloc().
     * @param [in] ptr A pointer to the memory block to free
     */
-    void aligned_free(void* ptr)
+    inline void aligned_free(void* ptr)
     {
-        // FROM : https://github.com/SaschaWillems/Vulkan/tree/master/dynamicuniformbuffer
         #if defined(DYNAMIC_STATIC_WINDOWS)
         _aligned_free(ptr);
         #else

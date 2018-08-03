@@ -12,8 +12,8 @@
 
 #include "Dynamic_Static/Core/Defines.hpp"
 
-#define DYNAMIC_STATIC_MATH_ENABLED
-#if defined(DYNAMIC_STATIC_MATH_ENABLED)
+#define DYNAMIC_STATIC_CORE_GLM_ENABLED
+#if defined(DYNAMIC_STATIC_CORE_GLM_ENABLED)
 
 #define GLM_FORCE_RADIANS
 #define GLM_FORCE_SIZE_T_LENGTH
@@ -21,7 +21,7 @@
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
 
 #if defined(DYNAMIC_STATIC_MSVC)
-    #pragma warning(push, 0)
+#pragma warning(push, 0)
 #endif
 
 #include "glm/glm.hpp"
@@ -32,7 +32,7 @@
 #include "glm/gtx/transform.hpp"
 
 #if defined(DYNAMIC_STATIC_MSVC)
-    #pragma warning(pop)
+#pragma warning(pop)
 #endif
 
 #define _USE_MATH_DEFINES
@@ -40,4 +40,4 @@
 #include <cmath>
 #include <ostream>
 
-#endif // defined(DYNAMIC_STATIC_MATH_ENABLED)
+#endif // defined(DYNAMIC_STATIC_CORE_GLM_ENABLED)

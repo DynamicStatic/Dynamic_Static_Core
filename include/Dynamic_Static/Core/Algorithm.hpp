@@ -47,13 +47,12 @@ namespace Dynamic_Static {
         //        addition to a performance benefit, accuracy is improved since
         //        there is no rounding performed until std::fma() returns.
         //
-        //        Consider...
-        //        (static_cast<T>(1) - t) * v0 + t * v1
-        //        and...
-        //        v0 + t * (v1 - v0)
-        //        The first form incurs 4 rounding errors and the second 3.
-        //        Note that the second form cannot guarantee that the value
-        //        returned equals v1 when t equals 1 due to rounding error.
+        //        In this lerp function there are 4 rounding errors...
+        //            (static_cast<T>(1) - t) * v0 + t * v1
+        //
+        //        ...this version has 3 rounding errors and no guarantee that
+        //        the result equals v1 when t equals 1 due to rounding error.
+        //            v0 + t * (v1 - v0)
         //
         //        std::fma() computes...
         //        x * y + z
