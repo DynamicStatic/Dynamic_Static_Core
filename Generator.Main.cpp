@@ -150,7 +150,6 @@ R"(
         auto itr = unprocessedFiles.find(filePath);
         processedFilePaths.insert(itr->first);
         processedFiles.push_back(itr->second);
-        unprocessedFiles.erase(itr);
     }
     for (auto itr : unprocessedFiles) {
         process_files(
