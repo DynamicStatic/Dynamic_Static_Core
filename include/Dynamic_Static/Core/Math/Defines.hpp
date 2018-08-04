@@ -35,9 +35,4 @@
 #pragma warning(pop)
 #endif
 
-#define _USE_MATH_DEFINES
-#include <math.h>
-#include <cmath>
-#include <ostream>
-
 #endif // defined(DYNAMIC_STATIC_CORE_GLM_ENABLED)

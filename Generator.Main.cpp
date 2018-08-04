@@ -97,12 +97,15 @@ void process_files(
 
 int main()
 {
+    static const std::set<std::string> ForceDefineSymbol {
+        "#define _USE_MATH_DEFINES"
+    };
     static const std::set<std::string> SkipStdIncludeExtraction {
         "Dynamic_Static/Core/Math/Defines.hpp",
         "Dynamic_Static/Core/Memory.hpp",
         "Dynamic_Static/Core/Win32LeanAndMean.hpp",
     };
-    static const std::vector<std::string> ForceOrder {
+    static const std::vector<std::string> ForceIncludeOrder {
         "Dynamic_Static/Core/Defines.hpp",
         "Dynamic_Static/Core/Math/Defines.hpp",
         "Dynamic_Static/Core/Win32LeanAndMean.hpp",
@@ -125,6 +128,9 @@ R"(
 #pragma once
 
 )";
+    for (const auto& symbol : ForceDefineSymbol) {
+        dstCore << symbol << std::endl;
+    }
     std::unordered_map<std::string, File> unprocessedFiles;
     std::set<std::string> stdIncludes;
     auto directoryPath = DYNAMIC_STATIC_CORE_INCLUDE_DIRECTORY DYNAMIC_STATIC;
@@ -145,7 +151,7 @@ R"(
     }
     std::set<std::string> processedFilePaths;
     std::vector<File> processedFiles;
-    for (const auto& filePath : ForceOrder) {
+    for (const auto& filePath : ForceIncludeOrder) {
         auto itr = unprocessedFiles.find(filePath);
         processedFilePaths.insert(itr->first);
         processedFiles.push_back(itr->second);
@@ -163,7 +169,9 @@ R"(
         bool populated = false;
         std::stringstream strStrm;
         for (const auto& line : file.lines) {
-            strStrm << line << std::endl;
+            if (ForceDefineSymbol.find(line) == ForceDefineSymbol.end()) {
+                strStrm << line << std::endl;
+            }
             if (!line.empty()) {
                 populated = true;
             }

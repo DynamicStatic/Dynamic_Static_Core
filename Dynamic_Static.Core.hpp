@@ -10,6 +10,7 @@
 
 #pragma once
 
+#define _USE_MATH_DEFINES
 #include <algorithm>
 #include <cassert>
 #include <cctype>
@@ -25,6 +26,7 @@
 #include <functional>
 #include <limits>
 #include <mutex>
+#include <ostream>
 #include <queue>
 #include <random>
 #include <ratio>
@@ -35,6 +37,7 @@
 #include <type_traits>
 #include <utility>
 #include <vector>
+
 
 #if defined(__X86_64__) || defined(_WIN64)
 #ifndef DYNAMIC_STATIC_64_BIT
@@ -110,11 +113,6 @@ namespace dst = Dynamic_Static;
 #if defined(DYNAMIC_STATIC_MSVC)
 #pragma warning(pop)
 #endif
-
-#define _USE_MATH_DEFINES
-#include <math.h>
-#include <cmath>
-#include <ostream>
 
 #endif // defined(DYNAMIC_STATIC_CORE_GLM_ENABLED)
 

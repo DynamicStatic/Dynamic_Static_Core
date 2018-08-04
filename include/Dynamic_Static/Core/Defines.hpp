@@ -10,11 +10,14 @@
 
 #pragma once
 
+#define _USE_MATH_DEFINES
+#include <cmath>
 #include <cassert>
 #include <cstddef>
 #include <cstdint>
 #include <cstdarg>
 #include <cstring>
+#include <ostream>
 
 #if defined(__X86_64__) || defined(_WIN64)
 #ifndef DYNAMIC_STATIC_64_BIT
