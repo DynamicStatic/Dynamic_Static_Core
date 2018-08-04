@@ -116,7 +116,7 @@ namespace dst = Dynamic_Static;
 #pragma warning(pop)
 #endif
 
-#endif // defined(DYNAMIC_STATIC_CORE_GLM_ENABLED)
+#endif // DYNAMIC_STATIC_CORE_GLM_ENABLED
 
 #ifdef DYNAMIC_STATIC_WINDOWS
 #ifndef WIN32_LEAN_AND_MEAN
@@ -1301,7 +1301,7 @@ namespace Dynamic_Static {
 
 } // namespace Dynamic_Static
 
-#if defined(DYNAMIC_STATIC_CORE_GLM_ENABLED)
+#ifdef DYNAMIC_STATIC_CORE_GLM_ENABLED
 
 namespace Dynamic_Static {
 namespace detail {
@@ -1621,9 +1621,9 @@ namespace detail {
 
 } // namespace Dynamic_Static
 
-#endif // defined(DYNAMIC_STATIC_CORE_GLM_ENABLED)
+#endif // DYNAMIC_STATIC_CORE_GLM_ENABLED
 
-#if defined(DYNAMIC_STATIC_CORE_GLM_ENABLED)
+#ifdef DYNAMIC_STATIC_CORE_GLM_ENABLED
 
 namespace Dynamic_Static {
 
@@ -1766,9 +1766,9 @@ namespace Dynamic_Static {
 
 } // namespace Dynamic_Static
 
-#endif // defined(DYNAMIC_STATIC_CORE_GLM_ENABLED)
+#endif // DYNAMIC_STATIC_CORE_GLM_ENABLED
 
-#if defined(DYNAMIC_STATIC_CORE_GLM_ENABLED)
+#ifdef DYNAMIC_STATIC_CORE_GLM_ENABLED
 
 namespace Dynamic_Static {
 
@@ -1859,7 +1859,7 @@ namespace Dynamic_Static {
 
 } // namespace Dynamic_Static
 
-#endif // defined(DYNAMIC_STATIC_CORE_GLM_ENABLED)
+#endif // DYNAMIC_STATIC_CORE_GLM_ENABLED
 
 namespace Dynamic_Static {
 
