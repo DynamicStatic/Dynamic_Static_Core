@@ -32,13 +32,13 @@ public:
         bool skipStdIncludeExtraction
     )
     {
-        bool pragmaOnceEncountered = false;
+        bool pragmaOnceFound = false;
         for (const auto& line : dst::File::read_all_lines(filePath)) {
             if (line == "#pragma once") {
-                pragmaOnceEncountered = true;
+                pragmaOnceFound = true;
                 continue;
             }
-            if (pragmaOnceEncountered) {
+            if (pragmaOnceFound) {
                 if (line.find("#include") != std::string::npos) {
                     if (line.find("Dynamic_Static/Core/") != std::string::npos) {
                         auto include = dst::remove(dst::remove(line, "#include "), '"');
@@ -88,11 +88,10 @@ void process_files(
             if (processedFilePaths.insert(dependency->first).second) {
                 processedFiles.push_back(dependency->second);
             }
-        } else {
-            if (processedFilePaths.insert(filePath).second) {
-                processedFiles.push_back(file);
-            }
         }
+    }
+    if (processedFilePaths.insert(filePath).second) {
+        processedFiles.push_back(file);
     }
 }
 

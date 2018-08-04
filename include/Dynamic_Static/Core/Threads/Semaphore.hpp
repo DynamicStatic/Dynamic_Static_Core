@@ -98,7 +98,7 @@ namespace Dynamic_Static {
         {
             std::unique_lock<std::mutex> lock(mMutex);
             ++mWaitingThreadCount;
-            auto predicate = [&]{ return mSignalCount > 0; };
+            auto predicate = [&] { return mSignalCount > 0; };
             if (dst::wait(lock, mCondition, timeOut, predicate)) {
                 --mSignalCount;
             }

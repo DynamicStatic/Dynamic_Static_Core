@@ -262,6 +262,24 @@ namespace Dynamic_Static {
 namespace Dynamic_Static {
 
     /*
+    * Removes copy constructors from derived classes.
+    */
+    class NonCopyable
+    {
+    protected:
+        NonCopyable() = default;
+        ~NonCopyable() = default;
+
+    private:
+        NonCopyable(const NonCopyable&) = delete;
+        NonCopyable& operator=(const NonCopyable&) = delete;
+    };
+
+} // namespace Dynamic_Static
+
+namespace Dynamic_Static {
+
+    /*
     * Provides tracking of mutual subscription between objects.
     */
     class Subscribable
@@ -411,24 +429,6 @@ namespace Dynamic_Static {
             clear_subscribers();
             clear_subscriptions();
         }
-    };
-
-} // namespace Dynamic_Static
-
-namespace Dynamic_Static {
-
-    /*
-    * Removes copy constructors from derived classes.
-    */
-    class NonCopyable
-    {
-    protected:
-        NonCopyable() = default;
-        ~NonCopyable() = default;
-
-    private:
-        NonCopyable(const NonCopyable&) = delete;
-        NonCopyable& operator=(const NonCopyable&) = delete;
     };
 
 } // namespace Dynamic_Static
@@ -683,35 +683,6 @@ namespace Dynamic_Static {
 namespace Dynamic_Static {
 
     /*
-    * Suspends the calling thread until a given std::condition variable is notified or a time out is reached.
-    * @param <PredicateType> The type of the predicate
-    * @param [in] lock A locked std::unique_lock<std::mutex> that will be unlocked on wait and relocked on resume
-    * @param [in] condition The std::condition_variable to wait on
-    * @param [in] predicate The predicate to test before waiting and on spurious or notified resumes
-    * @return Whether or not the predicate passed after a time out
-    */
-    template <typename DurationType, typename PredicateType>
-    inline bool wait(
-        std::unique_lock<std::mutex>& lock,
-        std::condition_variable& condition,
-        const DurationType& timeOut,
-        PredicateType predicate
-    )
-    {
-        bool predicatePassed = true;
-        if (timeOut.count()) {
-            predicatePassed = condition.wait_for(lock, timeOut, predicate);
-        } else {
-            condition.wait(lock, predicate);
-        }
-        return predicatePassed;
-    }
-
-} // namespace Dynamic_Static
-
-namespace Dynamic_Static {
-
-    /*
     * Represents the system wide real time wall clock.
     */
     typedef std::chrono::system_clock SystemClock;
@@ -894,6 +865,35 @@ namespace Dynamic_Static {
 namespace Dynamic_Static {
 
     /*
+    * Suspends the calling thread until a given std::condition variable is notified or a time out is reached.
+    * @param <PredicateType> The type of the predicate
+    * @param [in] lock A locked std::unique_lock<std::mutex> that will be unlocked on wait and relocked on resume
+    * @param [in] condition The std::condition_variable to wait on
+    * @param [in] predicate The predicate to test before waiting and on spurious or notified resumes
+    * @return Whether or not the predicate passed after a time out
+    */
+    template <typename DurationType, typename PredicateType>
+    inline bool wait(
+        std::unique_lock<std::mutex>& lock,
+        std::condition_variable& condition,
+        const DurationType& timeOut,
+        PredicateType predicate
+    )
+    {
+        bool predicatePassed = true;
+        if (timeOut.count()) {
+            predicatePassed = condition.wait_for(lock, timeOut, predicate);
+        } else {
+            condition.wait(lock, predicate);
+        }
+        return predicatePassed;
+    }
+
+} // namespace Dynamic_Static
+
+namespace Dynamic_Static {
+
+    /*
     * Provides high level control over signaling and synchronization between threads.
     */
     class Semaphore final
@@ -970,7 +970,7 @@ namespace Dynamic_Static {
         {
             std::unique_lock<std::mutex> lock(mMutex);
             ++mWaitingThreadCount;
-            auto predicate = [&]{ return mSignalCount > 0; };
+            auto predicate = [&] { return mSignalCount > 0; };
             if (dst::wait(lock, mCondition, timeOut, predicate)) {
                 --mSignalCount;
             }
@@ -1012,7 +1012,7 @@ namespace Dynamic_Static {
                 [&]
                 {
                     Millisecond<> duration { 0 };
-                    auto predicate = [&]{ return !mTasks.empty() || !mRunning; };
+                    auto predicate = [&] { return !mTasks.empty() || !mRunning; };
                     mRunning = true;
                     while (mRunning) {
                         std::unique_lock<std::mutex> lock(mMutex);
@@ -1080,7 +1080,7 @@ namespace Dynamic_Static {
         inline void wait(const DurationType& timeOut = DurationType { 0 })
         {
             std::unique_lock<std::mutex> lock(mMutex);
-            auto predicate = [&]{ return mTasks.empty(); };
+            auto predicate = [&] { return mTasks.empty(); };
             dst::wait(lock, mTasksComplete, timeOut, predicate);
         }
     };
@@ -1627,99 +1627,6 @@ namespace detail {
 
 namespace Dynamic_Static {
 
-    /*
-    * Represents a position, rotation, and scale.
-    */
-    struct Transform final
-    {
-        glm::vec3 translation { };
-        glm::quat rotation { 1, 0, 0, 0 };
-        glm::vec3 scale { 1 };
-
-        /*
-        * Gets a glm::mat4 representing this Transform's world from local matrix.
-        * @return A glm::mat4 representing this Transform's world from local matrix
-        */
-        inline glm::mat4 world_from_local() const
-        {
-            return
-                glm::translate(translation) *
-                glm::toMat4(rotation) *
-                glm::scale(scale);
-        }
-
-        /*
-        * Gets a glm::mat4 representing this Transform's local from world matrix.
-        * @return A glm::mat4 representing this Transform's local from world matrix
-        */
-        inline glm::mat4 local_from_world() const
-        {
-            return glm::transpose(world_from_local());
-        }
-
-        /*
-        * Gets a glm::vec3 representing this Transform's up vector in world space.
-        * @return A glm::vec3 representing this Transform's up vector in world space
-        */
-        inline glm::vec3 up() const
-        {
-            return glm::normalize(rotation * dst::world_up<glm::vec3>());
-        }
-
-        /*
-        * Gets a glm::vec3 representing this Transform's down vector in world space.
-        * @return A glm::vec3 representing this Transform's down vector in world space
-        */
-        inline glm::vec3 down() const
-        {
-            return glm::normalize(rotation * dst::world_down<glm::vec3>());
-        }
-
-        /*
-        * Gets a glm::vec3 representing this Transform's left vector in world space.
-        * @return A glm::vec3 representing this Transform's left vector in world space
-        */
-        inline glm::vec3 left() const
-        {
-            return glm::normalize(rotation * dst::world_left<glm::vec3>());
-        }
-
-        /*
-        * Gets a glm::vec3 representing this Transform's right vector in world space.
-        * @return A glm::vec3 representing this Transform's right vector in world space
-        */
-        inline glm::vec3 right() const
-        {
-            return glm::normalize(rotation * dst::world_right<glm::vec3>());
-        }
-
-        /*
-        * Gets a glm::vec3 representing this Transform's forward vector in world space.
-        * @return A glm::vec3 representing this Transform's forward vector in world space
-        */
-        inline glm::vec3 forward() const
-        {
-            return glm::normalize(rotation * dst::world_forward<glm::vec3>());
-        }
-
-        /*
-        * Gets a glm::vec3 representing this Transform's backward vector in world space.
-        * @return A glm::vec3 representing this Transform's backward vector in world space
-        */
-        inline glm::vec3 backward() const
-        {
-            return glm::normalize(rotation * dst::world_backward<glm::vec3>());
-        }
-    };
-
-} // namespace Dynamic_Static
-
-#endif // defined(DYNAMIC_STATIC_CORE_GLM_ENABLED)
-
-#if defined(DYNAMIC_STATIC_CORE_GLM_ENABLED)
-
-namespace Dynamic_Static {
-
     typedef struct Radians { } radians; /*!< Radians tag for functions operating on angles */
     typedef struct Degrees { } degrees; /*!< Degrees tag for functions operating on angles */
 
@@ -1856,6 +1763,99 @@ namespace Dynamic_Static {
         v.w = 1;
         return v;
     }
+
+} // namespace Dynamic_Static
+
+#endif // defined(DYNAMIC_STATIC_CORE_GLM_ENABLED)
+
+#if defined(DYNAMIC_STATIC_CORE_GLM_ENABLED)
+
+namespace Dynamic_Static {
+
+    /*
+    * Represents a position, rotation, and scale.
+    */
+    struct Transform final
+    {
+        glm::vec3 translation { };
+        glm::quat rotation { 1, 0, 0, 0 };
+        glm::vec3 scale { 1 };
+
+        /*
+        * Gets a glm::mat4 representing this Transform's world from local matrix.
+        * @return A glm::mat4 representing this Transform's world from local matrix
+        */
+        inline glm::mat4 world_from_local() const
+        {
+            return
+                glm::translate(translation) *
+                glm::toMat4(rotation) *
+                glm::scale(scale);
+        }
+
+        /*
+        * Gets a glm::mat4 representing this Transform's local from world matrix.
+        * @return A glm::mat4 representing this Transform's local from world matrix
+        */
+        inline glm::mat4 local_from_world() const
+        {
+            return glm::transpose(world_from_local());
+        }
+
+        /*
+        * Gets a glm::vec3 representing this Transform's up vector in world space.
+        * @return A glm::vec3 representing this Transform's up vector in world space
+        */
+        inline glm::vec3 up() const
+        {
+            return glm::normalize(rotation * dst::world_up<glm::vec3>());
+        }
+
+        /*
+        * Gets a glm::vec3 representing this Transform's down vector in world space.
+        * @return A glm::vec3 representing this Transform's down vector in world space
+        */
+        inline glm::vec3 down() const
+        {
+            return glm::normalize(rotation * dst::world_down<glm::vec3>());
+        }
+
+        /*
+        * Gets a glm::vec3 representing this Transform's left vector in world space.
+        * @return A glm::vec3 representing this Transform's left vector in world space
+        */
+        inline glm::vec3 left() const
+        {
+            return glm::normalize(rotation * dst::world_left<glm::vec3>());
+        }
+
+        /*
+        * Gets a glm::vec3 representing this Transform's right vector in world space.
+        * @return A glm::vec3 representing this Transform's right vector in world space
+        */
+        inline glm::vec3 right() const
+        {
+            return glm::normalize(rotation * dst::world_right<glm::vec3>());
+        }
+
+        /*
+        * Gets a glm::vec3 representing this Transform's forward vector in world space.
+        * @return A glm::vec3 representing this Transform's forward vector in world space
+        */
+        inline glm::vec3 forward() const
+        {
+            return glm::normalize(rotation * dst::world_forward<glm::vec3>());
+        }
+
+        /*
+        * Gets a glm::vec3 representing this Transform's backward vector in world space.
+        * @return A glm::vec3 representing this Transform's backward vector in world space
+        */
+        inline glm::vec3 backward() const
+        {
+            return glm::normalize(rotation * dst::world_backward<glm::vec3>());
+        }
+    };
 
 } // namespace Dynamic_Static
 

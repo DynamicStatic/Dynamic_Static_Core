@@ -52,7 +52,7 @@ namespace Dynamic_Static {
                 [&]
                 {
                     Millisecond<> duration { 0 };
-                    auto predicate = [&]{ return !mTasks.empty() || !mRunning; };
+                    auto predicate = [&] { return !mTasks.empty() || !mRunning; };
                     mRunning = true;
                     while (mRunning) {
                         std::unique_lock<std::mutex> lock(mMutex);
@@ -120,7 +120,7 @@ namespace Dynamic_Static {
         inline void wait(const DurationType& timeOut = DurationType { 0 })
         {
             std::unique_lock<std::mutex> lock(mMutex);
-            auto predicate = [&]{ return mTasks.empty(); };
+            auto predicate = [&] { return mTasks.empty(); };
             dst::wait(lock, mTasksComplete, timeOut, predicate);
         }
     };
