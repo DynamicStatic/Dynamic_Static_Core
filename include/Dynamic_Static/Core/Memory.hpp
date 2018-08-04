@@ -12,7 +12,7 @@
 
 #include "Dynamic_Static/Core/Defines.hpp"
 
-#if defined(DYNAMIC_STATIC_WINDOWS)
+#ifdef DYNAMIC_STATIC_WINDOWS
 #include "Dynamic_Static/Core/Win32LeanAndMean.hpp"
 #include <malloc.h>
 #else
@@ -30,7 +30,7 @@ namespace Dynamic_Static {
     inline void* aligned_malloc(size_t size, size_t alignment)
     {
         void* ptr = nullptr;
-        #if defined(DYNAMIC_STATIC_WINDOWS)
+        #ifdef DYNAMIC_STATIC_WINDOWS
         ptr = _aligned_malloc(size, alignment);
         #else
         int result = posix_memalign(&ptr, alignment, size);
@@ -47,7 +47,7 @@ namespace Dynamic_Static {
     */
     inline void aligned_free(void* ptr)
     {
-        #if defined(DYNAMIC_STATIC_WINDOWS)
+        #ifdef DYNAMIC_STATIC_WINDOWS
         _aligned_free(ptr);
         #else
         free(ptr);

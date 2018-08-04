@@ -12,7 +12,7 @@
 
 #include "Dynamic_Static/Core/Math/Defines.hpp"
 
-#if defined(DYNAMIC_STATIC_CORE_GLM_ENABLED)
+#ifdef DYNAMIC_STATIC_CORE_GLM_ENABLED
 
 #include <cmath>
 
@@ -157,4 +157,4 @@ namespace Dynamic_Static {
 
 } // namespace Dynamic_Static
 
-#endif // defined(DYNAMIC_STATIC_CORE_GLM_ENABLED)
+#endif // DYNAMIC_STATIC_CORE_GLM_ENABLED
