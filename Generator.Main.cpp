@@ -112,7 +112,7 @@ int main()
         "Dynamic_Static/Core/Memory.hpp",
     };
     std::ofstream dstCore(
-        DYNAMIC_STATIC_CORE_OUTPUT_DIRECTORY DYNAMIC_STATIC ".Core.hpp"
+        DYNAMIC_STATIC_CORE_INCLUDE_DIRECTORY DYNAMIC_STATIC ".Core.hpp"
     );
     dstCore <<
 R"(

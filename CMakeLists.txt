@@ -60,7 +60,6 @@ DstCreateStaticLibrary(
         "${includePath}/VectorUtilities.hpp"
         "${includePath}/Version.hpp"
         "${includePath}/Win32LeanAndMean.hpp"
-        "${CMAKE_CURRENT_LIST_DIR}/Dynamic_Static.Core.hpp"
 
     sourceFiles
         "${CMAKE_CURRENT_LIST_DIR}/ForceCMakeBuild.cpp"
@@ -98,5 +97,4 @@ target_compile_definitions(
     Dynamic_Static.Core.Generator
     PRIVATE
         DYNAMIC_STATIC_CORE_INCLUDE_DIRECTORY="${CMAKE_CURRENT_LIST_DIR}/include/"
-        DYNAMIC_STATIC_CORE_OUTPUT_DIRECTORY="${CMAKE_CURRENT_LIST_DIR}/"
 )
