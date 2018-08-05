@@ -22,7 +22,7 @@
 namespace Dynamic_Static {
 
     /*
-    * Allocates memory on a specified alignment boundary.
+    * Allocates memory on a given alignment boundary.
     * @param [in] size The size of the requested allocation
     * @param [in] The alignment value, which must be a multiple of sizeof(void*) and an integer power of 2
     * @return A pointer to the memory block that was allocated or nullptr if the operation failed

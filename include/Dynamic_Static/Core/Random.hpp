@@ -79,7 +79,7 @@ namespace Dynamic_Static {
         }
 
         /*
-        * Generates a random in the range of two specified values.
+        * Generates a random in the range of two given values.
         * @param <IntegerType> The type of the value
         * @param [in] min The lower bound of the range [inclusive]
         * @param [in] max The upper bound of the range (exclusive)
@@ -93,7 +93,7 @@ namespace Dynamic_Static {
         }
 
         /*
-        * Generates a random value in the range of two specified values.
+        * Generates a random value in the range of two given values.
         * @param <IntegerType> The type of the value
         * @param [in] min The lower bound of the range [inclusive]
         * @param [in] max The upper bound of the range (exclusive)
@@ -107,7 +107,7 @@ namespace Dynamic_Static {
         }
 
         /*
-        * Generates a random value in a specified type's range.
+        * Generates a random value in a given type's range.
         * @param <T> The type of the value
         * @return The generated value
         */
