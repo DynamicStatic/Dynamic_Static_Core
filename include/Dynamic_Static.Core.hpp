@@ -2368,7 +2368,7 @@ namespace Dynamic_Static {
     * @param [in] path The path to scrub
     * @reutrn The scrubbed path
     */
-    inline std::string scrub_path(const std::string_view& path)
+    inline std::string scrub_path(dst::StringView path)
     {
         return dst::reduce_sequence(dst::replace(path, '\\', '/'), '/');
     }
@@ -2440,7 +2440,7 @@ namespace Dynamic_Static {
     * @param [in] str The string to convert to lower case
     * @return The resulting string
     */
-    inline std::string to_lower(const std::string_view& str)
+    inline std::string to_lower(dst::StringView str)
     {
         std::string result(str.begin(), str.end());
         for (auto& c : result) {
