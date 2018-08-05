@@ -2118,6 +2118,10 @@ namespace Dynamic_Static {
         }
     };
 
+} // namespace Dynamic_Static
+
+namespace Dynamic_Static {
+
     /*
     * Gets a copy of an std::string with all occurences of a given substring replaced with another.
     * @param [in] str The source string

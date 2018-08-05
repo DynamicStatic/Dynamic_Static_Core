@@ -55,6 +55,7 @@ DstCreateStaticLibrary(
         "${includePath}/NonCopyable.hpp"
         "${includePath}/Random.hpp"
         "${includePath}/StringUtilities.hpp"
+        "${includePath}/StringView.hpp"
         "${includePath}/Threads.hpp"
         "${includePath}/Time.hpp"
         "${includePath}/VectorUtilities.hpp"
@@ -85,16 +86,16 @@ if(BUILD_TESTS)
 endif()
 
 DstCreateExecutable(
-    target Dynamic_Static.Core.Generator
+    target Dynamic_Static.Core.HeaderGenerator
     folder Dynamic_Static.Core/
     includeDirectories
         "${CMAKE_CURRENT_LIST_DIR}/include/"
 
     sourceFiles
-        "${CMAKE_CURRENT_LIST_DIR}/Generator.Main.cpp"
+        "${CMAKE_CURRENT_LIST_DIR}/HeaderGenerator.Main.cpp"
 )
 target_compile_definitions(
-    Dynamic_Static.Core.Generator
+    Dynamic_Static.Core.HeaderGenerator
     PRIVATE
         DYNAMIC_STATIC_CORE_INCLUDE_DIRECTORY="${CMAKE_CURRENT_LIST_DIR}/include/"
 )
