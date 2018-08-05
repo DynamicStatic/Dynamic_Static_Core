@@ -139,7 +139,7 @@ namespace dst = Dynamic_Static;
 namespace Dynamic_Static {
 
     /*
-    * Allocates memory on a specified alignment boundary.
+    * Allocates memory on a given alignment boundary.
     * @param [in] size The size of the requested allocation
     * @param [in] The alignment value, which must be a multiple of sizeof(void*) and an integer power of 2
     * @return A pointer to the memory block that was allocated or nullptr if the operation failed
@@ -2156,7 +2156,7 @@ namespace Dynamic_Static {
         }
 
         /*
-        * Generates a random in the range of two specified values.
+        * Generates a random in the range of two given values.
         * @param <IntegerType> The type of the value
         * @param [in] min The lower bound of the range [inclusive]
         * @param [in] max The upper bound of the range (exclusive)
@@ -2170,7 +2170,7 @@ namespace Dynamic_Static {
         }
 
         /*
-        * Generates a random value in the range of two specified values.
+        * Generates a random value in the range of two given values.
         * @param <IntegerType> The type of the value
         * @param [in] min The lower bound of the range [inclusive]
         * @param [in] max The upper bound of the range (exclusive)
@@ -2184,7 +2184,7 @@ namespace Dynamic_Static {
         }
 
         /*
-        * Generates a random value in a specified type's range.
+        * Generates a random value in a given type's range.
         * @param <T> The type of the value
         * @return The generated value
         */
@@ -2306,6 +2306,21 @@ namespace Dynamic_Static {
 namespace Dynamic_Static {
 
     /*
+    * Gets a value indicating whether or not a given string contains another given string.
+    * @param [in] str The string to search
+    * @param [in] find The string to find
+    * @param [in] offset The offset to start searching from (optional = 0)
+    */
+    inline bool contains(
+        const dst::StringView& str,
+        const dst::StringView& find,
+        size_t offset = 0
+    )
+    {
+        return str.find(find, offset) != std::string::npos;
+    }
+
+    /*
     * Gets a copy of an std::string with all occurences of a given substring replaced with another.
     * @param [in] str The source string
     * @param [in] find The string to find and replace in the source string
@@ -2374,7 +2389,7 @@ namespace Dynamic_Static {
     }
 
     /*
-    * Gets an std::vector<std::string> populated with substrings of a given std::string using a given delimiter.
+    * Gets an std::vector<std::string> populated with substrings of a given string using a given delimiter.
     * @param [in] str The string to search for delimiters
     * @param [in] delimiter The delimiter to search for
     * @return An std::vector<std::string> populated with split tokens
