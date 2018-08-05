@@ -23,13 +23,13 @@ class File final
 {
 public:
     std::vector<std::string> dstIncludes;
-    std::vector<std::string> stdIncludes;
+    std::vector<std::string> nonDstIncludes;
     std::vector<std::string> lines;
 
 public:
     File(
         const std::string& filePath,
-        bool skipStdIncludeExtraction
+        bool skipNonDstIncludeExtraction
     )
     {
         bool pragmaOnceFound = false;
@@ -44,10 +44,10 @@ public:
                         auto include = dst::remove(dst::remove(line, "#include "), '"');
                         dstIncludes.push_back(include);
                     } else {
-                        if (skipStdIncludeExtraction) {
+                        if (skipNonDstIncludeExtraction) {
                             lines.push_back(line);
                         } else {
-                            stdIncludes.push_back(line);
+                            nonDstIncludes.push_back(line);
                         }
                     }
                 } else {
@@ -67,7 +67,7 @@ public:
     }
 };
 
-void process_files(
+void process_file(
     std::unordered_map<std::string, File>& unprocessedFiles,
     std::set<std::string>& processedFilePaths,
     std::vector<File>& processedFiles,
@@ -78,7 +78,7 @@ void process_files(
     for (const auto& include : file.dstIncludes) {
         if (processedFilePaths.find(include) == processedFilePaths.end()) {
             auto dependency = unprocessedFiles.find(include);
-            process_files(
+            process_file(
                 unprocessedFiles,
                 processedFilePaths,
                 processedFiles,
@@ -100,7 +100,7 @@ int main()
     static const std::set<std::string> ForceDefineSymbol {
         "#define _USE_MATH_DEFINES"
     };
-    static const std::set<std::string> SkipStdIncludeExtraction {
+    static const std::set<std::string> SkipNonDstIncludeExtraction {
         "Dynamic_Static/Core/Math/Defines.hpp",
         "Dynamic_Static/Core/Memory.hpp",
         "Dynamic_Static/Core/Win32LeanAndMean.hpp",
@@ -139,9 +139,9 @@ R"(
             std::string fullPath = directoryEntry.path().string();
             auto relativePath = dst::scrub_path(fullPath);
             relativePath = dst::remove(relativePath, DYNAMIC_STATIC_CORE_INCLUDE_DIRECTORY);
-            bool skipStdIncludeExtraction = SkipStdIncludeExtraction.find(relativePath) != SkipStdIncludeExtraction.end();
+            bool skipStdIncludeExtraction = SkipNonDstIncludeExtraction.find(relativePath) != SkipNonDstIncludeExtraction.end();
             auto& file = unprocessedFiles.insert({ relativePath, File(fullPath, skipStdIncludeExtraction) }).first->second;
-            for (const auto& stdInclude : file.stdIncludes) {
+            for (const auto& stdInclude : file.nonDstIncludes) {
                 stdIncludes.insert(stdInclude);
             }
         }
@@ -157,7 +157,7 @@ R"(
         processedFiles.push_back(itr->second);
     }
     for (auto itr : unprocessedFiles) {
-        process_files(
+        process_file(
             unprocessedFiles,
             processedFilePaths,
             processedFiles,
