@@ -6,6 +6,8 @@
 #    http://opensource.org/licenses/MIT
 #==========================================
 
+# CMake configuration for Dynamic_Static.Core
+
 cmake_minimum_required(VERSION 3.3)
 if(DEFINED ENV{DYNAMIC_STATIC_SDK})
     include("$ENV{DYNAMIC_STATIC_SDK}/Dynamic_Static.CMake/.cmake")
