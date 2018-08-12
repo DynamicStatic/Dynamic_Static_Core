@@ -12,6 +12,7 @@ if(DEFINED ENV{DYNAMIC_STATIC_SDK})
 else()
     include("external/Dynamic_Static.CMake/.cmake")
 endif()
+
 DstCreateProject(Dynamic_Static.Core)
 
 include("external/glm.cmake")
@@ -20,6 +21,7 @@ set(includeDirectory "${CMAKE_CURRENT_LIST_DIR}/include/Dynamic_Static/Core/")
 DstCreateStaticLibrary(
     target Dynamic_Static.Core
     folder Dynamic_Static.Core/
+
     includeDirectories
         "${CMAKE_CURRENT_LIST_DIR}/include/"
         ${glm.includeDirectories}
@@ -67,6 +69,7 @@ if(BUILD_TESTS)
     DstCreateTests(
         target Dynamic_Static.Core
         folder Dynamic_Static.Core/
+
         sourceFiles
             "${testsPath}/Events/Delegate.Tests.cpp"
             "${testsPath}/Events/Event.Tests.cpp"
@@ -80,17 +83,20 @@ if(BUILD_TESTS)
     )
 endif()
 
-DstCreateExecutable(
-    target Dynamic_Static.Core.HeaderGenerator
-    folder Dynamic_Static.Core/
-    includeDirectories
-        "${CMAKE_CURRENT_LIST_DIR}/include/"
+option(BUILD_TESTS "Build Dynamic_Static.Core.HeaderGenerator" ON)
+if(BUILD_TESTS)
+    DstCreateExecutable(
+        target Dynamic_Static.Core.HeaderGenerator
+        folder Dynamic_Static.Core/
+        includeDirectories
+            "${CMAKE_CURRENT_LIST_DIR}/include/"
 
-    sourceFiles
-        "${CMAKE_CURRENT_LIST_DIR}/HeaderGenerator.Main.cpp"
-)
-target_compile_definitions(
-    Dynamic_Static.Core.HeaderGenerator
-    PRIVATE
-        DYNAMIC_STATIC_CORE_INCLUDE_DIRECTORY="${CMAKE_CURRENT_LIST_DIR}/include/"
-)
+        sourceFiles
+            "${CMAKE_CURRENT_LIST_DIR}/HeaderGenerator.Main.cpp"
+    )
+    target_compile_definitions(
+        Dynamic_Static.Core.HeaderGenerator
+        PRIVATE
+            DYNAMIC_STATIC_CORE_INCLUDE_DIRECTORY="${CMAKE_CURRENT_LIST_DIR}/include/"
+    )
+endif()
