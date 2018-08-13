@@ -70,7 +70,7 @@ namespace Dynamic_Static {
 
     /*
     * Removes duplicate elements from a given std::vector<>
-    * \n NOTE : This operation will sort the given std::vector
+    * \n NOTE : This function will sort the given std::vector
     * \n NOTE : The type of the given std::vector<> must provide operator< and operator==
     * \n        The type of the given std::vector<> must fulfill the Compare concept
     * \n        (http://en.cppreference.com/w/cpp/concept/Compare)

@@ -122,6 +122,27 @@ namespace Dynamic_Static {
         }
 
         /*
+        * Gets a reference to an element at a given index.
+        * @param [in] index The index of the element to get
+        * @return The element at the given index
+        */
+        T& operator[](size_t index)
+        {
+            return mData[index];
+        }
+
+        /*
+        * Gets a reference to an element at a given index.
+        * @param [in] index The index of the element to get
+        * @return The element at the given index
+        */
+        const T& operator[](size_t index) const
+        {
+            return mData[index];
+        }
+
+    public:
+        /*
         * Gets an iterator to the beginning of this Span's sequence.
         * @return An iterator to the beginning of this Span's sequence
         */

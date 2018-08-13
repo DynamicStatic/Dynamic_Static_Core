@@ -52,6 +52,7 @@ DstCreateStaticLibrary(
         "${includeDirectory}/MoveNotifier.hpp"
         "${includeDirectory}/NonCopyable.hpp"
         "${includeDirectory}/Random.hpp"
+        "${includeDirectory}/SharedObject.hpp"
         "${includeDirectory}/Span.hpp"
         "${includeDirectory}/StringUtilities.hpp"
         "${includeDirectory}/StringView.hpp"

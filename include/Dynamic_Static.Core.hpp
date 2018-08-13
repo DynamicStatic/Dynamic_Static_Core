@@ -27,6 +27,7 @@
 #include <functional>
 #include <initializer_list>
 #include <limits>
+#include <memory>
 #include <mutex>
 #include <ostream>
 #include <queue>
@@ -1330,6 +1331,27 @@ namespace Dynamic_Static {
         }
 
         /*
+        * Gets a reference to an element at a given index.
+        * @param [in] index The index of the element to get
+        * @return The element at the given index
+        */
+        T& operator[](size_t index)
+        {
+            return mData[index];
+        }
+
+        /*
+        * Gets a reference to an element at a given index.
+        * @param [in] index The index of the element to get
+        * @return The element at the given index
+        */
+        const T& operator[](size_t index) const
+        {
+            return mData[index];
+        }
+
+    public:
+        /*
         * Gets an iterator to the beginning of this Span's sequence.
         * @return An iterator to the beginning of this Span's sequence
         */
@@ -2096,6 +2118,55 @@ namespace Dynamic_Static {
 namespace Dynamic_Static {
 
     /*
+    * Provides an inheritable interface for std::enable_shared_from_this.
+    */
+    template <typename CRTP>
+    class SharedObject
+        : public std::enable_shared_from_this<CRTP>
+    {
+    public:
+        /*
+        * Gets a std::shared_ptr<> to this SharedObject.
+        * @return An std::shared_ptr<> to this SharedObject
+        */
+        inline std::shared_ptr<CRTP> get_shared_ptr()
+        {
+            return shared_from_this();
+        }
+
+        /*
+        * Gets a std::shared_ptr<const> to this SharedObject.
+        * @return An std::shared_ptr<const> to this SharedObject
+        */
+        inline std::shared_ptr<const CRTP> get_shared_ptr() const
+        {
+            return shared_from_this();
+        }
+
+        /*
+        * Gets a std::weak_ptr<> to this SharedObject.
+        * @return An std::weak_ptr<> to this SharedObject
+        */
+        inline std::weak_ptr<CRTP> get_weak_ptr()
+        {
+            return weak_from_this();
+        }
+
+        /*
+        * Gets a std::weak_ptr<const> to this SharedObject.
+        * @return An std::weak_ptr<const> to this SharedObject
+        */
+        inline std::weak_ptr<const CRTP> get_weak_ptr() const
+        {
+            return weak_from_this();
+        }
+    };
+
+} // namespace Dynamic_Static
+
+namespace Dynamic_Static {
+
+    /*
     * Provides high level control over random number generation.
     */
     class RandomNumberGenerator final
@@ -2575,7 +2646,7 @@ namespace Dynamic_Static {
 
     /*
     * Removes duplicate elements from a given std::vector<>
-    * \n NOTE : This operation will sort the given std::vector
+    * \n NOTE : This function will sort the given std::vector
     * \n NOTE : The type of the given std::vector<> must provide operator< and operator==
     * \n        The type of the given std::vector<> must fulfill the Compare concept
     * \n        (http://en.cppreference.com/w/cpp/concept/Compare)
