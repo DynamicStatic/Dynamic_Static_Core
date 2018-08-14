@@ -2136,8 +2136,8 @@ namespace Dynamic_Static {
         }
 
         /*
-        * Gets a std::shared_ptr<const> to this SharedObject.
-        * @return An std::shared_ptr<const> to this SharedObject
+        * Gets a std::shared_ptr<> to this SharedObject.
+        * @return An std::shared_ptr<> to this SharedObject
         */
         inline std::shared_ptr<const CRT> get_shared_ptr() const
         {
@@ -2154,8 +2154,8 @@ namespace Dynamic_Static {
         }
 
         /*
-        * Gets a std::weak_ptr<const> to this SharedObject.
-        * @return An std::weak_ptr<const> to this SharedObject
+        * Gets a std::weak_ptr<> to this SharedObject.
+        * @return An std::weak_ptr<> to this SharedObject
         */
         inline std::weak_ptr<const CRT> get_weak_ptr() const
         {
