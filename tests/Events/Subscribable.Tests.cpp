@@ -51,15 +51,15 @@ namespace Tests {
         bool is_subscribed() const
         {
             return
-                subscribable0->is_subscribed_to(*subscribable1) ||
-                subscribable1->is_subscribed_to(*subscribable0);
+                subscribable0->subscribed_to(*subscribable1) ||
+                subscribable1->subscribed_to(*subscribable0);
         }
 
         bool is_unsusbscribed() const
         {
             return
-                !subscribable0->is_subscribed_to(*subscribable1) &&
-                !subscribable1->is_subscribed_to(*subscribable0);
+                !subscribable0->subscribed_to(*subscribable1) &&
+                !subscribable1->subscribed_to(*subscribable0);
         }
     };
 
@@ -148,11 +148,11 @@ namespace Tests {
         Subscribable obj0;
         Subscribable obj1;
         obj0 += obj1;
-        REQUIRE(obj1.is_subscribed_to(obj0));
+        REQUIRE(obj1.subscribed_to(obj0));
         Subscribable obj2 = std::move(obj0);
         Subscribable obj3 = std::move(obj1);
-        REQUIRE(!obj1.is_subscribed_to(obj0));
-        REQUIRE(obj3.is_subscribed_to(obj2));
+        REQUIRE(!obj1.subscribed_to(obj0));
+        REQUIRE(obj3.subscribed_to(obj2));
     }
 
 } // namespace Tests

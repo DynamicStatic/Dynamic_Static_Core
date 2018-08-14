@@ -346,7 +346,7 @@ namespace Dynamic_Static {
         */
         inline Subscribable& operator+=(Subscribable& subscriber)
         {
-            if (!subscriber.is_subscribed_to(*this)) {
+            if (!subscriber.subscribed_to(*this)) {
                 mSubscribers.push_back(&subscriber);
                 subscriber.mSubscriptions.push_back(this);
             }
@@ -393,7 +393,7 @@ namespace Dynamic_Static {
         * Gets a value indicating whether or not this Subscribable is subscribed to a given Subscribable.
         * @return Whether or not this Subscribable is subscribed to a given Subscribable
         */
-        inline bool is_subscribed_to(const Subscribable& other) const
+        inline bool subscribed_to(const Subscribable& other) const
         {
             return dst::find(mSubscriptions, &other) != mSubscriptions.end();
         }
