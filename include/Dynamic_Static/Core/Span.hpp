@@ -164,10 +164,30 @@ namespace Dynamic_Static {
         * Gets a reference to this Span's first element.
         * @return A reference to this Span's first element
         */
+        T& front()
+        {
+            assert(mData && mCount);
+            return *mData;
+        }
+
+        /*
+        * Gets a reference to this Span's first element.
+        * @return A reference to this Span's first element
+        */
         const T& front() const
         {
             assert(mData && mCount);
             return *mData;
+        }
+
+        /*
+        * Gets a reference to this Span's last element.
+        * @return A reference to this Span's last element
+        */
+        T& back()
+        {
+            assert(mData && mCount);
+            return *(mData + mCount - 1);
         }
 
         /*
