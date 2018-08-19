@@ -1355,9 +1355,27 @@ namespace Dynamic_Static {
         * Gets an iterator to the beginning of this Span's sequence.
         * @return An iterator to the beginning of this Span's sequence
         */
+        T* begin()
+        {
+            return mData;
+        }
+
+        /*
+        * Gets an iterator to the beginning of this Span's sequence.
+        * @return An iterator to the beginning of this Span's sequence
+        */
         const T* begin() const
         {
             return mData;
+        }
+
+        /*
+        * Gets an iterator to the end of this Span's sequence.
+        * @return An iterator to the end of this Span's sequence
+        */
+        T* end()
+        {
+            return mData + mCount;
         }
 
         /*
