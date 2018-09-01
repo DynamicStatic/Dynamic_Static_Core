@@ -21,11 +21,11 @@
 
 namespace Dynamic_Static {
 
-    /*
-    * Allocates memory on a given alignment boundary.
-    * @param [in] size The size of the requested allocation
-    * @param [in] The alignment value, which must be a multiple of sizeof(void*) and an integer power of 2
-    * @return A pointer to the memory block that was allocated or nullptr if the operation failed
+    /*!
+    Allocates memory on a given alignment boundary.
+    @param [in] size The size of the requested allocation
+    @param [in] The alignment value, which must be a multiple of sizeof(void*) and an integer power of 2
+    @return A pointer to the memory block that was allocated or nullptr if the operation failed
     */
     inline void* aligned_malloc(size_t size, size_t alignment)
     {
@@ -41,9 +41,9 @@ namespace Dynamic_Static {
         return ptr;
     }
 
-    /*
-    * Frees a block of memory that was allocated with dst::aligned_malloc().
-    * @param [in] ptr A pointer to the memory block to free
+    /*!
+    Frees a block of memory that was allocated with dst::aligned_malloc().
+    @param [in] ptr A pointer to the memory block to free
     */
     inline void aligned_free(void* ptr)
     {

@@ -20,8 +20,8 @@
 
 namespace Dynamic_Static {
 
-    /*
-    * Provides tracking of mutual subscription between objects.
+    /*!
+    Provides tracking of mutual subscription between objects.
     */
     class Subscribable
         : NonCopyable
@@ -31,32 +31,32 @@ namespace Dynamic_Static {
         std::vector<Subscribable*> mSubscriptions;
 
     public:
-        /*
-        * Constructs an instance of Subscribable.
+        /*!
+        Constructs an instance of Subscribable.
         */
         inline Subscribable() = default;
 
-        /*
-        * Moves an instance of Subscribable.
-        * @param [in] other The Subscribable to move from
+        /*!
+        Moves an instance of Subscribable.
+        @param [in] other The Subscribable to move from
         */
         inline Subscribable(Subscribable&& other)
         {
             *this = std::move(other);
         }
 
-        /*
-        * Destroys this instance of Subscribable.
+        /*!
+        Destroys this instance of Subscribable.
         */
         virtual inline ~Subscribable()
         {
             clear();
         }
 
-        /*
-        * Moves an instance of Subscribable.
-        * @param [in] other The Subscribable to move from
-        * @return This Subscribable
+        /*!
+        Moves an instance of Subscribable.
+        @param [in] other The Subscribable to move from
+        @return This Subscribable
         */
         inline Subscribable& operator=(Subscribable&& other)
         {
@@ -77,10 +77,10 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /*
-        * Subscribes a given Subscribable to this Subscribable.
-        * @param [in] subscriber The Subscribable subscribing to this Subscribable
-        * @return This Subscribable
+        /*!
+        Subscribes a given Subscribable to this Subscribable.
+        @param [in] subscriber The Subscribable subscribing to this Subscribable
+        @return This Subscribable
         */
         inline Subscribable& operator+=(Subscribable& subscriber)
         {
@@ -91,10 +91,10 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /*
-        * Unsubscribes a given Subscribable from this Subscribable.
-        * @param [in] subscriber The Subscribable unsubscribing from this Subscribable
-        * @return This Subscribable
+        /*!
+        Unsubscribes a given Subscribable from this Subscribable.
+        @param [in] subscriber The Subscribable unsubscribing from this Subscribable
+        @return This Subscribable
         */
         inline Subscribable& operator-=(Subscribable& subscriber)
         {
@@ -109,35 +109,35 @@ namespace Dynamic_Static {
         }
 
     public:
-        /*
-        * Gets of this Subscribable's subscribers.
-        * @return This Subscribable's subscribers
+        /*!
+        Gets of this Subscribable's subscribers.
+        @return This Subscribable's subscribers
         */
         inline const std::vector<Subscribable*>& get_subscribers() const
         {
             return mSubscribers;
         }
 
-        /*
-        * Gets of this Subscribable's subscriptions.
-        * @return This Subscribable's subscrpitions
+        /*!
+        Gets of this Subscribable's subscriptions.
+        @return This Subscribable's subscrpitions
         */
         inline const std::vector<Subscribable*>& get_subscriptions() const
         {
             return mSubscriptions;
         }
 
-        /*
-        * Gets a value indicating whether or not this Subscribable is subscribed to a given Subscribable.
-        * @return Whether or not this Subscribable is subscribed to a given Subscribable
+        /*!
+        Gets a value indicating whether or not this Subscribable is subscribed to a given Subscribable.
+        @return Whether or not this Subscribable is subscribed to a given Subscribable
         */
         inline bool subscribed_to(const Subscribable& other) const
         {
             return dst::find(mSubscriptions, &other) != mSubscriptions.end();
         }
 
-        /*
-        * Removes all of this Subscribable's subscribers.
+        /*!
+        Removes all of this Subscribable's subscribers.
         */
         inline void clear_subscribers()
         {
@@ -149,8 +149,8 @@ namespace Dynamic_Static {
             mSubscribers.clear();
         }
 
-        /*
-        * Removes all of this Subscribable's subscriptions.
+        /*!
+        Removes all of this Subscribable's subscriptions.
         */
         inline void clear_subscriptions()
         {
@@ -162,8 +162,8 @@ namespace Dynamic_Static {
             mSubscriptions.clear();
         }
 
-        /*
-        * Removes all of this Subscribable's subscribers and subscriptions.
+        /*!
+        Removes all of this Subscribable's subscribers and subscriptions.
         */
         inline void clear()
         {

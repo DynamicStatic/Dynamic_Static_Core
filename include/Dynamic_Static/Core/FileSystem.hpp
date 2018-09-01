@@ -14,7 +14,7 @@
 
 #include <experimental/filesystem>
 
-// NOTE : This file should be removed once std::filesystem is fully supported.
+// NOTE : dst::filesystem should be remove once std::filesystem is fully supported.
 
 namespace Dynamic_Static {
 

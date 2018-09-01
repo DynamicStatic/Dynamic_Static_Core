@@ -22,15 +22,15 @@
 
 namespace Dynamic_Static {
 
-    /*
-    * Provides high level control over queueing tasks for a persistent std::thread.
+    /*!
+    Provides high level control over queueing tasks for a persistent std::thread.
     */
     class Worker final
         : NonCopyable
     {
     public:
-        /*
-        * Represents a Task for a Worker to process on a child thread.
+        /*!
+        Represents a Task for a Worker to process on a child thread.
         */
         using Task = std::function<void()>;
 
@@ -43,8 +43,8 @@ namespace Dynamic_Static {
         bool mRunning { false };
 
     public:
-        /*
-        * Constructs an instance of Worker.
+        /*!
+        Constructs an instance of Worker.
         */
         inline Worker()
         {
@@ -76,8 +76,8 @@ namespace Dynamic_Static {
             }
         }
 
-        /*
-        * Destroys this instance of Worker.
+        /*!
+        Destroys this instance of Worker.
         */
         inline ~Worker()
         {
@@ -89,19 +89,19 @@ namespace Dynamic_Static {
         }
 
     public:
-        /*
-        * Gets this Worker's pending Task count
-        * \n NOTE : This Workers's Task count may have changed by the time this method returns
-        * @return This Worker's Task count
+        /*!
+        Gets this Worker's pending Task count
+        \n NOTE : This Workers's Task count may have changed by the time this method returns
+        @return This Worker's Task count
         */
         inline size_t get_task_count() const
         {
             return mTasks.size();
         }
 
-        /*
-        * Pushes a Task for this Worker to process on a child thread.
-        * @param [in] task The Task to push
+        /*!
+        Pushes a Task for this Worker to process on a child thread.
+        @param [in] task The Task to push
         */
         inline void push(Task task)
         {
@@ -110,11 +110,11 @@ namespace Dynamic_Static {
             mTasks.push(task);
         }
 
-        /*
-        * Suspends the calling thread until this Worker has completed all pending tasks.
-        * @param <DurationType> The type of the timeOut Duration (optional = Millisecond<>)
-        * @param [in] timeOut The maximum amount of time to wait (optional = 0)
-        * \n NOTE : A Duration of 0 for timeOut results in an infinite maximum wait
+        /*!
+        Suspends the calling thread until this Worker has completed all pending tasks.
+        @param <DurationType> The type of the timeOut Duration (optional = Millisecond<>)
+        @param [in] timeOut The maximum amount of time to wait (optional = 0)
+        \n NOTE : A Duration of 0 for timeOut results in an infinite maximum wait
         */
         template <typename DurationType = Millisecond<>>
         inline void wait(const DurationType& timeOut = DurationType { 0 })

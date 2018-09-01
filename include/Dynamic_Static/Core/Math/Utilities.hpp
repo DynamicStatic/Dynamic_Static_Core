@@ -21,11 +21,11 @@ namespace Dynamic_Static {
     typedef struct Radians { } radians; /*!< Radians tag for functions operating on angles */
     typedef struct Degrees { } degrees; /*!< Degrees tag for functions operating on angles */
 
-    /*
-    * Wraps an angle to the range [0, 2Pi].
-    * @param [in] angle The angle to wrap
-    * @param [tag dispatch dst::radians]
-    * @return The wrapped angle
+    /*!
+    Wraps an angle to the range [0, 2Pi].
+    @param [in] angle The angle to wrap
+    @param [tag dispatch dst::radians]
+    @return The wrapped angle
     */
     template <typename T>
     inline T wrap_angle(const T& angle, const Radians&)
@@ -35,9 +35,9 @@ namespace Dynamic_Static {
         return wrappedAngle < 0 ? wrappedAngle : wrappedAngle + twoPi;
     }
 
-    /*
-    * Gets the world left vector; (-1, 0), (-1, 0, 0), or (-1, 0, 0, 0).
-    * @return The world left vector
+    /*!
+    Gets the world left vector; (-1, 0), (-1, 0, 0), or (-1, 0, 0, 0).
+    @return The world left vector
     */
     template <typename VectorType>
     inline constexpr VectorType world_left()
@@ -47,9 +47,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets the world right vector; (1, 0), (1, 0, 0), or (1, 0, 0, 0).
-    * @return The world right vector
+    /*!
+    Gets the world right vector; (1, 0), (1, 0, 0), or (1, 0, 0, 0).
+    @return The world right vector
     */
     template <typename VectorType>
     inline constexpr VectorType world_right()
@@ -59,9 +59,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets the world up vector; (0, 1), (0, 1, 0), or (0, 1, 0, 0).
-    * @return The world up vector
+    /*!
+    Gets the world up vector; (0, 1), (0, 1, 0), or (0, 1, 0, 0).
+    @return The world up vector
     */
     template <typename VectorType>
     inline constexpr VectorType world_up()
@@ -71,9 +71,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets the world down vector; (0, -1), (0, -1, 0), or (0, -1, 0, 0).
-    * @return The world down vector
+    /*!
+    Gets the world down vector; (0, -1), (0, -1, 0), or (0, -1, 0, 0).
+    @return The world down vector
     */
     template <typename VectorType>
     inline constexpr VectorType world_down()
@@ -83,9 +83,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets the world forward vector; (0, 0, -1) or (0, 0, -1, 0).
-    * @return The world forward vector
+    /*!
+    Gets the world forward vector; (0, 0, -1) or (0, 0, -1, 0).
+    @return The world forward vector
     */
     template <typename VectorType>
     inline constexpr VectorType world_forward()
@@ -95,9 +95,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets the world backward vector; (0, 0, 1) or (0, 0, 1, 0).
-    * @return The world backward vector
+    /*!
+    Gets the world backward vector; (0, 0, 1) or (0, 0, 1, 0).
+    @return The world backward vector
     */
     template <typename VectorType>
     inline constexpr VectorType world_backward()
@@ -107,9 +107,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets a 2, 3, or 4 component vector with its x component set to 1; (1, 0), (1, 0, 0), or (1, 0, 0, 0).
-    * @return The 2, 3, or 4 component vector with its x component set to 1
+    /*!
+    Gets a 2, 3, or 4 component vector with its x component set to 1; (1, 0), (1, 0, 0), or (1, 0, 0, 0).
+    @return The 2, 3, or 4 component vector with its x component set to 1
     */
     template <typename VectorType>
     inline constexpr VectorType unit_x()
@@ -119,9 +119,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets a 2, 3, or 4 component vector with its y component set to 1; (0, 1), (0, 1, 0), or (0, 1, 0, 0).
-    * @return The 2, 3, or 4 component vector with its y component set to 1
+    /*!
+    Gets a 2, 3, or 4 component vector with its y component set to 1; (0, 1), (0, 1, 0), or (0, 1, 0, 0).
+    @return The 2, 3, or 4 component vector with its y component set to 1
     */
     template <typename VectorType>
     inline constexpr VectorType unit_y()
@@ -131,9 +131,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets a 3 or 4 component vector with its z component set to 1; (0, 0, 1) or (0, 0, 1, 0).
-    * @return The 3 or 4 component vector with its z component set to 1
+    /*!
+    Gets a 3 or 4 component vector with its z component set to 1; (0, 0, 1) or (0, 0, 1, 0).
+    @return The 3 or 4 component vector with its z component set to 1
     */
     template <typename VectorType>
     inline constexpr VectorType unit_z()
@@ -143,9 +143,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets a 4 component vector with its w component set to 1; (0, 0, 0, 1).
-    * @return The 4 component vector with its w component set to 1
+    /*!
+    Gets a 4 component vector with its w component set to 1; (0, 0, 0, 1).
+    @return The 4 component vector with its w component set to 1
     */
     template <typename VectorType>
     inline constexpr VectorType unit_w()

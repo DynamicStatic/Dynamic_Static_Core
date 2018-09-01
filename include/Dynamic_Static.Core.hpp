@@ -139,11 +139,11 @@ namespace dst = Dynamic_Static;
 
 namespace Dynamic_Static {
 
-    /*
-    * Allocates memory on a given alignment boundary.
-    * @param [in] size The size of the requested allocation
-    * @param [in] The alignment value, which must be a multiple of sizeof(void*) and an integer power of 2
-    * @return A pointer to the memory block that was allocated or nullptr if the operation failed
+    /*!
+    Allocates memory on a given alignment boundary.
+    @param [in] size The size of the requested allocation
+    @param [in] The alignment value, which must be a multiple of sizeof(void*) and an integer power of 2
+    @return A pointer to the memory block that was allocated or nullptr if the operation failed
     */
     inline void* aligned_malloc(size_t size, size_t alignment)
     {
@@ -159,9 +159,9 @@ namespace Dynamic_Static {
         return ptr;
     }
 
-    /*
-    * Frees a block of memory that was allocated with dst::aligned_malloc().
-    * @param [in] ptr A pointer to the memory block to free
+    /*!
+    Frees a block of memory that was allocated with dst::aligned_malloc().
+    @param [in] ptr A pointer to the memory block to free
     */
     inline void aligned_free(void* ptr)
     {
@@ -176,8 +176,8 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Represents an std::function<> with no return value.
+    /*!
+    Represents an std::function<> with no return value.
     */
     template <typename ...Args>
     using Action = std::function<void(Args...)>;
@@ -186,12 +186,12 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Rounds a given floating point value to the nearest whole number then casts the result to a given type.
-    * @param <RT> The type to cast the rounded result to
-    * @param <T> The type of the value to round and cast
-    * @param [in] The value to round and cast
-    * @return The value after rounding and casting
+    /*!
+    Rounds a given floating point value to the nearest whole number then casts the result to a given type.
+    @param <RT> The type to cast the rounded result to
+    @param <T> The type of the value to round and cast
+    @param [in] The value to round and cast
+    @return The value after rounding and casting
     */
     template <typename RT, typename T>
     inline RT round_cast(const T& value)
@@ -199,45 +199,47 @@ namespace Dynamic_Static {
         return static_cast<RT>(std::round(value));
     }
 
-    /*
-    * Gets a linear interpolation from one given floating point value to another using a 0 - 1 weighting.
-    * @param <T> The type of the value to interpolate
-    * @param [in] v0 The value to interpolate from
-    * @param [in] v1 The value to interpolate to
-    * @param [in] t The weight of the interpolation
-    * @return The interpolated value
+    /*!
+    Gets a linear interpolation from one given floating point value to another using a 0 - 1 weighting.
+    @param <T> The type of the value to interpolate
+    @param [in] v0 The value to interpolate from
+    @param [in] v1 The value to interpolate to
+    @param [in] t The weight of the interpolation
+    @return The interpolated value
     */
     template <typename T>
     inline T lerp(T v0, T v1, T t)
     {
         // FROM : https://devblogs.nvidia.com/parallelforall/lerp-faster-cuda/
-        // TLDR : std::fma() (fused multiply-add) is commonly implemented as a
-        //        single CPU instruction which will be used if available.  In
-        //        addition to a performance benefit, accuracy is improved since
-        //        there is no rounding performed until std::fma() returns.
-        //
-        //        In this lerp function there are 4 rounding errors...
-        //            (static_cast<T>(1) - t) * v0 + t * v1
-        //
-        //        ...this version has 3 rounding errors and no guarantee that
-        //        the result equals v1 when t equals 1 due to rounding error.
-        //            v0 + t * (v1 - v0)
-        //
-        //        std::fma() computes...
-        //        x * y + z
-        //        so our operation is...
-        //        t * v1 + (-t * v0 + v0)
+        /* TLDR :
+            std::fma() (fused multiply-add) is commonly implemented as a single
+            CPU instruction which will be used if available.  In addition to a
+            performance benefit, accuracy is improved since there's no rounding
+            performed until std::fma() returns.
+
+            In this lerp function there are 4 rounding errors...
+                (static_cast<T>(1) - t) * v0 + t * v1
+
+            ...this version has 3 rounding errors and no guarantee that the
+            result equals v1 when t equals 1 due to rounding error...
+                v0 + t * (v1 - v0)
+
+            std::fma() computes...
+            x * y + z
+            so our operation is...
+            t * v1 + (-t * v0 + v0)
+        */
         return std::fma(t, v1, std::fma(-t, v0, v0));
     }
 
-    /*
-    * Gets the first element in a given range that is equal to a given value.
-    * @param [in] range The range to search
-    * @param [in] value The value to search for
-    * @param <RangeType> The type of the range to search
-    * \n NOTE : RangeType must provide begin() and end() methods
-    * @param <ValueType> The type of the value to search for
-    * @return Iterator to the first element equal to the given value
+    /*!
+    Gets the first element in a given range that is equal to a given value.
+    @param [in] range The range to search
+    @param [in] value The value to search for
+    @param <RangeType> The type of the range to search
+    \n NOTE : RangeType must provide begin() and end() methods
+    @param <ValueType> The type of the value to search for
+    @return Iterator to the first element equal to the given value
     */
     template <typename RangeType, typename ValueType>
     inline auto find(RangeType& range, const ValueType& value)
@@ -245,14 +247,14 @@ namespace Dynamic_Static {
         return std::find(range.begin(), range.end(), value);
     }
 
-    /*
-    * Gets the first element in a given range that is equal to a given value.
-    * @param [in] range The range to search
-    * @param [in] value The value to search for
-    * @param <RangeType> The type of the range to search
-    * \n NOTE : RangeType must provide begin() and end() methods
-    * @param <ValueType> The type of the value to search for
-    * @return Iterator to the first element equal to the given value
+    /*!
+    Gets the first element in a given range that is equal to a given value.
+    @param [in] range The range to search
+    @param [in] value The value to search for
+    @param <RangeType> The type of the range to search
+    \n NOTE : RangeType must provide begin() and end() methods
+    @param <ValueType> The type of the value to search for
+    @return Iterator to the first element equal to the given value
     */
     template <typename RangeType, typename ValueType>
     inline auto find(const RangeType& range, const ValueType& value)
@@ -264,8 +266,8 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Removes copy constructors from derived classes.
+    /*!
+    Removes copy constructors from derived classes.
     */
     class NonCopyable
     {
@@ -282,8 +284,8 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Provides tracking of mutual subscription between objects.
+    /*!
+    Provides tracking of mutual subscription between objects.
     */
     class Subscribable
         : NonCopyable
@@ -293,32 +295,32 @@ namespace Dynamic_Static {
         std::vector<Subscribable*> mSubscriptions;
 
     public:
-        /*
-        * Constructs an instance of Subscribable.
+        /*!
+        Constructs an instance of Subscribable.
         */
         inline Subscribable() = default;
 
-        /*
-        * Moves an instance of Subscribable.
-        * @param [in] other The Subscribable to move from
+        /*!
+        Moves an instance of Subscribable.
+        @param [in] other The Subscribable to move from
         */
         inline Subscribable(Subscribable&& other)
         {
             *this = std::move(other);
         }
 
-        /*
-        * Destroys this instance of Subscribable.
+        /*!
+        Destroys this instance of Subscribable.
         */
         virtual inline ~Subscribable()
         {
             clear();
         }
 
-        /*
-        * Moves an instance of Subscribable.
-        * @param [in] other The Subscribable to move from
-        * @return This Subscribable
+        /*!
+        Moves an instance of Subscribable.
+        @param [in] other The Subscribable to move from
+        @return This Subscribable
         */
         inline Subscribable& operator=(Subscribable&& other)
         {
@@ -339,10 +341,10 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /*
-        * Subscribes a given Subscribable to this Subscribable.
-        * @param [in] subscriber The Subscribable subscribing to this Subscribable
-        * @return This Subscribable
+        /*!
+        Subscribes a given Subscribable to this Subscribable.
+        @param [in] subscriber The Subscribable subscribing to this Subscribable
+        @return This Subscribable
         */
         inline Subscribable& operator+=(Subscribable& subscriber)
         {
@@ -353,10 +355,10 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /*
-        * Unsubscribes a given Subscribable from this Subscribable.
-        * @param [in] subscriber The Subscribable unsubscribing from this Subscribable
-        * @return This Subscribable
+        /*!
+        Unsubscribes a given Subscribable from this Subscribable.
+        @param [in] subscriber The Subscribable unsubscribing from this Subscribable
+        @return This Subscribable
         */
         inline Subscribable& operator-=(Subscribable& subscriber)
         {
@@ -371,35 +373,35 @@ namespace Dynamic_Static {
         }
 
     public:
-        /*
-        * Gets of this Subscribable's subscribers.
-        * @return This Subscribable's subscribers
+        /*!
+        Gets of this Subscribable's subscribers.
+        @return This Subscribable's subscribers
         */
         inline const std::vector<Subscribable*>& get_subscribers() const
         {
             return mSubscribers;
         }
 
-        /*
-        * Gets of this Subscribable's subscriptions.
-        * @return This Subscribable's subscrpitions
+        /*!
+        Gets of this Subscribable's subscriptions.
+        @return This Subscribable's subscrpitions
         */
         inline const std::vector<Subscribable*>& get_subscriptions() const
         {
             return mSubscriptions;
         }
 
-        /*
-        * Gets a value indicating whether or not this Subscribable is subscribed to a given Subscribable.
-        * @return Whether or not this Subscribable is subscribed to a given Subscribable
+        /*!
+        Gets a value indicating whether or not this Subscribable is subscribed to a given Subscribable.
+        @return Whether or not this Subscribable is subscribed to a given Subscribable
         */
         inline bool subscribed_to(const Subscribable& other) const
         {
             return dst::find(mSubscriptions, &other) != mSubscriptions.end();
         }
 
-        /*
-        * Removes all of this Subscribable's subscribers.
+        /*!
+        Removes all of this Subscribable's subscribers.
         */
         inline void clear_subscribers()
         {
@@ -411,8 +413,8 @@ namespace Dynamic_Static {
             mSubscribers.clear();
         }
 
-        /*
-        * Removes all of this Subscribable's subscriptions.
+        /*!
+        Removes all of this Subscribable's subscriptions.
         */
         inline void clear_subscriptions()
         {
@@ -424,8 +426,8 @@ namespace Dynamic_Static {
             mSubscriptions.clear();
         }
 
-        /*
-        * Removes all of this Subscribable's subscribers and subscriptions.
+        /*!
+        Removes all of this Subscribable's subscribers and subscriptions.
         */
         inline void clear()
         {
@@ -438,8 +440,8 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Encapsulates a Subscribable multicast Action<>.
+    /*!
+    Encapsulates a Subscribable multicast Action<>.
     */
     template <typename ...Args>
     class Delegate
@@ -449,23 +451,23 @@ namespace Dynamic_Static {
         Action<Args...> mAction;
 
     public:
-        /*
-        * Constructs an instance of Delegate.
+        /*!
+        Constructs an instance of Delegate.
         */
         inline Delegate() = default;
 
-        /*
-        * Constructs an instance of Delegate.
-        * @param [in] action This Delegate's Action<>
+        /*!
+        Constructs an instance of Delegate.
+        @param [in] action This Delegate's Action<>
         */
         inline Delegate(const Action<Args...>& action)
             : mAction { action }
         {
         }
 
-        /*
-        * Assigns this Delegate's Action<>.
-        * @return This Delegate
+        /*!
+        Assigns this Delegate's Action<>.
+        @return This Delegate
         */
         inline Delegate& operator=(const Action<Args...>& action)
         {
@@ -473,10 +475,10 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /*
-        * Removes this Delegate's Action<> and all subscribers.
-        * \n NOTE : This method doesn't remove subscriptions
-        * @return This Delegate
+        /*!
+        Removes this Delegate's Action<> and all subscribers.
+        \n NOTE : This method doesn't remove subscriptions
+        @return This Delegate
         */
         inline Delegate& operator=(nullptr_t)
         {
@@ -485,10 +487,10 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /*
-        * Subscribes a given Delegate to this Delegate.
-        * @param [in] other The Delegate to subscribe to this Delegate
-        * @return This Delegate
+        /*!
+        Subscribes a given Delegate to this Delegate.
+        @param [in] other The Delegate to subscribe to this Delegate
+        @return This Delegate
         */
         inline Delegate& operator+=(Delegate<Args...>& other)
         {
@@ -496,10 +498,10 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /*
-        * Unsubscribes a given Delegate from this Delegate.
-        * @param [in] other The Delegate to unsubscribe from this Delegate
-        * @return This Delegate
+        /*!
+        Unsubscribes a given Delegate from this Delegate.
+        @param [in] other The Delegate to unsubscribe from this Delegate
+        @return This Delegate
         */
         inline Delegate& operator-=(Delegate<Args...>& other)
         {
@@ -507,9 +509,9 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /*
-        * Executes this Delegate.
-        * @param [in] args The arguments to execute this Delegate with
+        /*!
+        Executes this Delegate.
+        @param [in] args The arguments to execute this Delegate with
         */
         inline void operator()(Args... args) const
         {
@@ -522,9 +524,9 @@ namespace Dynamic_Static {
             }
         }
 
-        /*
-        * Gets a value indicating whether or not this Delegate has a valid Action<>.
-        * @return Whether or not this Delegate has a valid Action<>
+        /*!
+        Gets a value indicating whether or not this Delegate has a valid Action<>.
+        @return Whether or not this Delegate has a valid Action<>
         */
         inline operator bool() const
         {
@@ -532,42 +534,42 @@ namespace Dynamic_Static {
         }
 
     public:
-        /*
-        * Gets this Delegate's subscribers.
-        * @return This Delegate's subscribers
+        /*!
+        Gets this Delegate's subscribers.
+        @return This Delegate's subscribers
         */
         inline const std::vector<Subscribable*>& get_subscribers() const
         {
             return Subscribable::get_subscribers();
         }
 
-        /*
-        * Gets this Delegate's subscriptions.
-        * @return This Delegate's subscrpitions
+        /*!
+        Gets this Delegate's subscriptions.
+        @return This Delegate's subscrpitions
         */
         inline const std::vector<Subscribable*>& get_subscriptions() const
         {
             return Subscribable::get_subscriptions();
         }
 
-        /*
-        * Removes all of this Delegate's subscribers.
+        /*!
+        Removes all of this Delegate's subscribers.
         */
         inline void clear_subscribers()
         {
             Subscribable::clear_subscribers();
         }
 
-        /*
-        * Removes all of this Delegate's subscriptions.
+        /*!
+        Removes all of this Delegate's subscriptions.
         */
         inline void clear_subscriptions()
         {
             Subscribable::clear_subscriptions();
         }
 
-        /*
-        * Removes all of this Delegate's subscriptions.
+        /*!
+        Removes all of this Delegate's subscriptions.
         */
         inline void clear()
         {
@@ -579,33 +581,33 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Encapsulates a collection of Delegates<> that are callable by a given type.
-    * @param <CallerType> The type of object that can excute this Event
-    * @param <Args> This Event's argument types
+    /*!
+    Encapsulates a collection of Delegates<> that are callable by a given type.
+    @param <CallerType> The type of object that can excute this Event
+    @param <Args> This Event's argument types
     */
     template <typename CallerType, typename ...Args>
     class Event
         : Delegate<Args...>
     {
     public:
-        /*
-        * Constructs an instance of Event.
+        /*!
+        Constructs an instance of Event.
         */
         inline Event() = default;
 
-        /*
-        * Constructs an instance of Event.
-        * @param [in] action This Event's Action<>
+        /*!
+        Constructs an instance of Event.
+        @param [in] action This Event's Action<>
         */
         inline Event(const Action<Args...>& action)
             : mAction { action }
         {
         }
 
-        /*
-        * Assigns this Event's Action<>.
-        * @return This Event
+        /*!
+        Assigns this Event's Action<>.
+        @return This Event
         */
         inline Event& operator=(const Action<Args...>& action)
         {
@@ -613,10 +615,10 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /*
-        * Removes this Event's Action<> and all subscribers.
-        * \n NOTE : This method doesn't remove subscriptions
-        * @return This Event
+        /*!
+        Removes this Event's Action<> and all subscribers.
+        \n NOTE : This method doesn't remove subscriptions
+        @return This Event
         */
         inline Event& operator=(nullptr_t)
         {
@@ -624,10 +626,10 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /*
-        * Subscribes a given Delegate<> to this Event.
-        * @param [in] delegate The Delegate<> to subscribe to this Event
-        * @return This Event
+        /*!
+        Subscribes a given Delegate<> to this Event.
+        @param [in] delegate The Delegate<> to subscribe to this Event
+        @return This Event
         */
         inline Event<CallerType, Args...>& operator+=(Delegate<Args...>& delegate)
         {
@@ -635,10 +637,10 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /*
-        * Unsubscribes a given Delegate<> from this Event.
-        * @param [in] delegate The Delegate<> to unsubscribe from this Event
-        * @return This Event
+        /*!
+        Unsubscribes a given Delegate<> from this Event.
+        @param [in] delegate The Delegate<> to unsubscribe from this Event
+        @return This Event
         */
         inline Event<CallerType, Args...>& operator-=(Delegate<Args...>& delegate)
         {
@@ -647,10 +649,10 @@ namespace Dynamic_Static {
         }
 
     private:
-        /*
-        * Executes all of this Event's subscribed Delegates<>.
-        * \n NOTE : This method can only be called by an object of type CallerType
-        * @param [in] args The arguments to execute this Event with
+        /*!
+        Executes all of this Event's subscribed Delegates<>.
+        \n NOTE : This method can only be called by an object of type CallerType
+        @param [in] args The arguments to execute this Event with
         */
         inline void operator()(Args&&... args) const
         {
@@ -658,9 +660,9 @@ namespace Dynamic_Static {
         }
 
     public:
-        /*
-        * Gets this Event's subscribers.
-        * @return This Event's subscribers
+        /*!
+        Gets this Event's subscribers.
+        @return This Event's subscribers
         */
         inline const std::vector<dst::Subscribable*>& get_subscribers() const
         {
@@ -668,9 +670,9 @@ namespace Dynamic_Static {
         }
 
     private:
-        /*
-        * Removes all of this Events's subscribers.
-        * \n NOTE : This method can only be called by an object of type CallerType
+        /*!
+        Removes all of this Events's subscribers.
+        \n NOTE : This method can only be called by an object of type CallerType
         */
         inline void clear()
         {
@@ -685,78 +687,78 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Represents the system wide real time wall clock.
+    /*!
+    Represents the system wide real time wall clock.
     */
     typedef std::chrono::system_clock SystemClock;
 
-    /*
-    * Represents a monotonic clock.
-    * \n NOTE : This clock is not related to wall clock time (for example, it can be time since last reboot)
+    /*!
+    Represents a monotonic clock.
+    \n NOTE : This clock is not related to wall clock time (for example, it can be time since last reboot)
     */
     typedef std::chrono::steady_clock SteadyClock;
 
-    /*
-    * Represents the clock with the smallest tick period provided by the implementation.
+    /*!
+    Represents the clock with the smallest tick period provided by the implementation.
     */
     typedef std::chrono::high_resolution_clock HighResolutionClock;
 
-    /*
-    * Represents a time interval.
-    * @param <TickType> This Duration's tick type
-    * @param <Period> This Duration's period in terms of a ratio of seconds
+    /*!
+    Represents a time interval.
+    @param <TickType> This Duration's tick type
+    @param <Period> This Duration's period in terms of a ratio of seconds
     */
     template <typename TickType, typename Period>
     using Duration = std::chrono::duration<TickType, Period>;
 
-    /*
-    * Represents an hour time interval.
-    * @param <TickType> This hour's tick type (optional = double)
+    /*!
+    Represents an hour time interval.
+    @param <TickType> This hour's tick type (optional = double)
     */
     template <typename TickType = double>
     using Hour = Duration<TickType, std::ratio<3600>>;
 
-    /*
-    * Represents a minute time interval.
-    * @param <TickType> This minute's tick type (optional = double)
+    /*!
+    Represents a minute time interval.
+    @param <TickType> This minute's tick type (optional = double)
     */
     template <typename TickType = double>
     using Minute = Duration<TickType, std::ratio<60>>;
 
-    /*
-    * Represents a second time interval.
-    * @param <TickType> This second's tick type (optional = double)
+    /*!
+    Represents a second time interval.
+    @param <TickType> This second's tick type (optional = double)
     */
     template <typename TickType = double>
     using Second = Duration<TickType, std::ratio<1>>;
 
-    /*
-    * Represents a millisecond time interval.
-    * @param <TickType> This millisecond's tick type (optional = double)
+    /*!
+    Represents a millisecond time interval.
+    @param <TickType> This millisecond's tick type (optional = double)
     */
     template <typename TickType = double>
     using Millisecond = Duration<TickType, std::milli>;
 
-    /*
-    * Represents a microsecond time interval.
-    * @param <TickType> This microsecond's tick type (optional = double)
+    /*!
+    Represents a microsecond time interval.
+    @param <TickType> This microsecond's tick type (optional = double)
     */
     template <typename TickType = double>
     using Microsecond = Duration<TickType, std::micro>;
 
-    /*
-    * Represents a nanosecond time interval.
-    * @param <TickType> This Nanosecond's tick type (optional = double)
+    /*!
+    Represents a nanosecond time interval.
+    @param <TickType> This Nanosecond's tick type (optional = double)
     */
     template <typename TickType = double>
     using Nanosecond = Duration<TickType, std::nano>;
 
-    /*
-    * Converts a given Duration from one type to another.
-    * @param <ToType> The Duration type to convert to
-    * @param <FromType> The Duration type to convert from
-    * @param [in] duration The Duration to convert
-    * @return The converted Duration
+    /*!
+    Converts a given Duration from one type to another.
+    @param <ToType> The Duration type to convert to
+    @param <FromType> The Duration type to convert from
+    @param [in] duration The Duration to convert
+    @return The converted Duration
     */
     template <typename ToType, typename FromType>
     inline constexpr ToType duration_cast(const FromType& duration)
@@ -764,16 +766,16 @@ namespace Dynamic_Static {
         return std::chrono::duration_cast<ToType>(duration);
     }
 
-    /*
-    * Represents a point in time.
-    * @param <ClockType> This TimePoint's clock type (optional = HighResolutionClock)
-    * @param <DurationType> This TimePoint's Duration type (optional = Nanosecond<>)
+    /*!
+    Represents a point in time.
+    @param <ClockType> This TimePoint's clock type (optional = HighResolutionClock)
+    @param <DurationType> This TimePoint's Duration type (optional = Nanosecond<>)
     */
     template <typename ClockType = HighResolutionClock, typename DurationType = Nanosecond<>>
     using TimePoint = std::chrono::time_point<HighResolutionClock, DurationType>;
 
-    /*
-    * Encapsulates a running time keeper.
+    /*!
+    Encapsulates a running time keeper.
     */
     class Timer final
     {
@@ -781,10 +783,10 @@ namespace Dynamic_Static {
         TimePoint<> mBegin { HighResolutionClock::now() };
 
     public:
-        /*
-        * Gets this Timer's total run time.
-        * @param <DurationType> The type of Duration to use
-        * @return This Timer's total run time
+        /*!
+        Gets this Timer's total run time.
+        @param <DurationType> The type of Duration to use
+        @return This Timer's total run time
         */
         template <typename DurationType>
         inline auto total() const
@@ -792,8 +794,8 @@ namespace Dynamic_Static {
             return duration_cast<DurationType>(HighResolutionClock::now() - mBegin).count();
         }
 
-        /*
-        * Resets this Timer.
+        /*!
+        Resets this Timer.
         */
         inline void reset()
         {
@@ -801,8 +803,8 @@ namespace Dynamic_Static {
         }
     };
 
-    /*
-    * Encapsulates a periodic time keeper.
+    /*!
+    Encapsulates a periodic time keeper.
     */
     class Clock final
     {
@@ -812,19 +814,19 @@ namespace Dynamic_Static {
         TimePoint<> mPrevious { mBegin };
 
     public:
-        /*
-        * Gets this Clock's current TimePoint.
-        * @return This Clock's current TimePoint
+        /*!
+        Gets this Clock's current TimePoint.
+        @return This Clock's current TimePoint
         */
         inline const TimePoint<>& current() const
         {
             return mCurrent;
         }
 
-        /*
-        * Gets this Clock's total run time.
-        * @param <DurationType> The type of Duration to use
-        * @return This Clock's total run time
+        /*!
+        Gets this Clock's total run time.
+        @param <DurationType> The type of Duration to use
+        @return This Clock's total run time
         */
         template <typename DurationType>
         inline auto total() const
@@ -832,10 +834,10 @@ namespace Dynamic_Static {
             return duration_cast<DurationType>(mCurrent - mBegin).count();
         }
 
-        /*
-        * Gets the amount of time elapsed since this Clock's last update.
-        * @param <DurationType> The type of Duration to use
-        * @return This Clock's elapsed time
+        /*!
+        Gets the amount of time elapsed since this Clock's last update.
+        @param <DurationType> The type of Duration to use
+        @return This Clock's elapsed time
         */
         template <typename DurationType>
         inline auto elapsed() const
@@ -843,8 +845,8 @@ namespace Dynamic_Static {
             return duration_cast<DurationType>(mCurrent - mPrevious).count();
         }
 
-        /*
-        * Updates this Clock.
+        /*!
+        Updates this Clock.
         */
         inline void update()
         {
@@ -852,8 +854,8 @@ namespace Dynamic_Static {
             mCurrent = HighResolutionClock::now();
         }
 
-        /*
-        * Resets this Clock.
+        /*!
+        Resets this Clock.
         */
         inline void reset()
         {
@@ -867,13 +869,13 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Suspends the calling thread until a given std::condition variable is notified or a time out is reached.
-    * @param <PredicateType> The type of the predicate
-    * @param [in] lock A locked std::unique_lock<std::mutex> that will be unlocked on wait and relocked on resume
-    * @param [in] condition The std::condition_variable to wait on
-    * @param [in] predicate The predicate to test before waiting and on spurious or notified resumes
-    * @return Whether or not the predicate passed after a time out
+    /*!
+    Suspends the calling thread until a given std::condition variable is notified or a time out is reached.
+    @param <PredicateType> The type of the predicate
+    @param [in] lock A locked std::unique_lock<std::mutex> that will be unlocked on wait and relocked on resume
+    @param [in] condition The std::condition_variable to wait on
+    @param [in] predicate The predicate to test before waiting and on spurious or notified resumes
+    @return Whether or not the predicate passed after a time out
     */
     template <typename DurationType, typename PredicateType>
     inline bool wait(
@@ -896,8 +898,8 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Provides high level control over signaling and synchronization between threads.
+    /*!
+    Provides high level control over signaling and synchronization between threads.
     */
     class Semaphore final
         : NonCopyable
@@ -909,18 +911,18 @@ namespace Dynamic_Static {
         int mSignalCount { 0 };
 
     public:
-        /*
-        * Constructs an instance of Semaphore.
-        * @param [in] signalCount This Semaphore's initial signalCount (optional = 0)
+        /*!
+        Constructs an instance of Semaphore.
+        @param [in] signalCount This Semaphore's initial signalCount (optional = 0)
         */
         inline Semaphore(int signalCount = 0)
             : mSignalCount { signalCount }
         {
         }
 
-        /*
-        * Destroys this instance of Semphore.
-        * \n NOTE : This will cause all threads waiting on this Semaphore to resume execution.
+        /*!
+        Destroys this instance of Semphore.
+        \n NOTE : This will cause all threads waiting on this Semaphore to resume execution.
         */
         inline ~Semaphore()
         {
@@ -931,19 +933,19 @@ namespace Dynamic_Static {
         }
 
     public:
-        /*
-        * Gets this Semaphore's current signal count.
-        * \n NOTE : This Semaphore's signal count may have changed by the time this method returns
-        * @return This Semaphore's current signal count
+        /*!
+        Gets this Semaphore's current signal count.
+        \n NOTE : This Semaphore's signal count may have changed by the time this method returns
+        @return This Semaphore's current signal count
         */
         inline int get_signal_count() const
         {
             return mSignalCount;
         }
 
-        /*
-        * Notifies a given number of threads waiting on this Semaphore and increments this Semaphore's signal count once for each thread notified.
-        * @param [in] count The number of threads to notify (optional = 1)
+        /*!
+        Notifies a given number of threads waiting on this Semaphore and increments this Semaphore's signal count once for each thread notified.
+        @param [in] count The number of threads to notify (optional = 1)
         */
         inline void notify(int count = 1)
         {
@@ -954,19 +956,19 @@ namespace Dynamic_Static {
             }
         }
 
-        /*
-        * Notifies each thread waiting on this Semaphore and increments this Semaphore's signal count once for each thread notified.
+        /*!
+        Notifies each thread waiting on this Semaphore and increments this Semaphore's signal count once for each thread notified.
         */
         inline void notify_all()
         {
             notify(mWaitingThreadCount);
         }
 
-        /*
-        * Suspends the calling thread if this Semaphore's signal count is zero and decrements this Semaphore's signal count by one.
-        * @param <DurationType> The type of the timeOut Duration (optional = Millisecond<>)
-        * @param [in] timeOut The maximum amount of time to wait (optional = 0)
-        * \n NOTE : A Duration of 0 for timeOut results in an infinite maximum wait
+        /*!
+        Suspends the calling thread if this Semaphore's signal count is zero and decrements this Semaphore's signal count by one.
+        @param <DurationType> The type of the timeOut Duration (optional = Millisecond<>)
+        @param [in] timeOut The maximum amount of time to wait (optional = 0)
+        \n NOTE : A Duration of 0 for timeOut results in an infinite maximum wait
         */
         template <typename DurationType = Millisecond<>>
         inline void wait(const DurationType& timeOut = DurationType { 0 })
@@ -985,15 +987,15 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Provides high level control over queueing tasks for a persistent std::thread.
+    /*!
+    Provides high level control over queueing tasks for a persistent std::thread.
     */
     class Worker final
         : NonCopyable
     {
     public:
-        /*
-        * Represents a Task for a Worker to process on a child thread.
+        /*!
+        Represents a Task for a Worker to process on a child thread.
         */
         using Task = std::function<void()>;
 
@@ -1006,8 +1008,8 @@ namespace Dynamic_Static {
         bool mRunning { false };
 
     public:
-        /*
-        * Constructs an instance of Worker.
+        /*!
+        Constructs an instance of Worker.
         */
         inline Worker()
         {
@@ -1039,8 +1041,8 @@ namespace Dynamic_Static {
             }
         }
 
-        /*
-        * Destroys this instance of Worker.
+        /*!
+        Destroys this instance of Worker.
         */
         inline ~Worker()
         {
@@ -1052,19 +1054,19 @@ namespace Dynamic_Static {
         }
 
     public:
-        /*
-        * Gets this Worker's pending Task count
-        * \n NOTE : This Workers's Task count may have changed by the time this method returns
-        * @return This Worker's Task count
+        /*!
+        Gets this Worker's pending Task count
+        \n NOTE : This Workers's Task count may have changed by the time this method returns
+        @return This Worker's Task count
         */
         inline size_t get_task_count() const
         {
             return mTasks.size();
         }
 
-        /*
-        * Pushes a Task for this Worker to process on a child thread.
-        * @param [in] task The Task to push
+        /*!
+        Pushes a Task for this Worker to process on a child thread.
+        @param [in] task The Task to push
         */
         inline void push(Task task)
         {
@@ -1073,11 +1075,11 @@ namespace Dynamic_Static {
             mTasks.push(task);
         }
 
-        /*
-        * Suspends the calling thread until this Worker has completed all pending tasks.
-        * @param <DurationType> The type of the timeOut Duration (optional = Millisecond<>)
-        * @param [in] timeOut The maximum amount of time to wait (optional = 0)
-        * \n NOTE : A Duration of 0 for timeOut results in an infinite maximum wait
+        /*!
+        Suspends the calling thread until this Worker has completed all pending tasks.
+        @param <DurationType> The type of the timeOut Duration (optional = Millisecond<>)
+        @param [in] timeOut The maximum amount of time to wait (optional = 0)
+        \n NOTE : A Duration of 0 for timeOut results in an infinite maximum wait
         */
         template <typename DurationType = Millisecond<>>
         inline void wait(const DurationType& timeOut = DurationType { 0 })
@@ -1092,8 +1094,8 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Provides high level control over a pool of Workers.
+    /*!
+    Provides high level control over a pool of Workers.
     */
     class ThreadPool final
         : NonCopyable
@@ -1103,10 +1105,10 @@ namespace Dynamic_Static {
         size_t mIndex { 0 };
 
     public:
-        /*
-        * Constructs an instance of ThreadPool.
-        * @param [in] workerCount This ThreadPool's worker count (optional = 0)
-        * \n NOTE : A value of 0 for workerCount results in using the value returned from std::thread::hardware_concurrency()
+        /*!
+        Constructs an instance of ThreadPool.
+        @param [in] workerCount This ThreadPool's worker count (optional = 0)
+        \n NOTE : A value of 0 for workerCount results in using the value returned from std::thread::hardware_concurrency()
         */
         inline ThreadPool(size_t workerCount = 0)
         {
@@ -1116,8 +1118,8 @@ namespace Dynamic_Static {
             mWorkers = std::vector<Worker>(workerCount);
         }
 
-        /*
-        * Destroys this instance of ThreadPool.
+        /*!
+        Destroys this instance of ThreadPool.
         */
         inline ~ThreadPool()
         {
@@ -1125,18 +1127,18 @@ namespace Dynamic_Static {
         }
 
     public:
-        /*
-        * Gets this ThreadPool' Worker count.
-        * @return This ThreadPool's Worker count
+        /*!
+        Gets this ThreadPool' Worker count.
+        @return This ThreadPool's Worker count
         */
         inline size_t get_worker_count() const
         {
             return mWorkers.size();
         }
 
-        /*
-        * Gets this ThreadPool's pending Worker::Task count.
-        * \n NOTE : This ThreadPool's pending Worker::Task count may have changed by the time this method returns
+        /*!
+        Gets this ThreadPool's pending Worker::Task count.
+        \n NOTE : This ThreadPool's pending Worker::Task count may have changed by the time this method returns
         */
         inline size_t get_task_count() const
         {
@@ -1147,8 +1149,8 @@ namespace Dynamic_Static {
             return taskCount;
         }
 
-        /*
-        * Pushes a Worker::Task for this ThreadPool to process on a child thread.
+        /*!
+        Pushes a Worker::Task for this ThreadPool to process on a child thread.
         */
         inline void push(Worker::Task task)
         {
@@ -1158,11 +1160,11 @@ namespace Dynamic_Static {
             }
         }
 
-        /*
-        * Suspends the calling thread until this ThreadPool has completed all pending tasks.
-        * @param <DurationType> The type of the timeOut Duration (optional = Millisecond<>)
-        * @param [in] timeOut The maximum amount of time to wait (optional = 0)
-        * \n NOTE : A Duration of 0 for timeOut results in an infinite maximum wait
+        /*!
+        Suspends the calling thread until this ThreadPool has completed all pending tasks.
+        @param <DurationType> The type of the timeOut Duration (optional = Millisecond<>)
+        @param [in] timeOut The maximum amount of time to wait (optional = 0)
+        \n NOTE : A Duration of 0 for timeOut results in an infinite maximum wait
         */
         template <typename DurationType = Millisecond<>>
         inline void wait(const DurationType& timeOut = DurationType { 0 })
@@ -1177,10 +1179,10 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Encapsulates an Action<> that is callable by a given type.
-    * @param <CallerType> The type of object that can execute this Callback
-    * @param <Args> This Callback's argument types
+    /*!
+    Encapsulates an Action<> that is callable by a given type.
+    @param <CallerType> The type of object that can execute this Callback
+    @param <Args> This Callback's argument types
     */
     template <typename CallerType, typename ...Args>
     class Callback
@@ -1191,9 +1193,9 @@ namespace Dynamic_Static {
         Action<Args...> mAction;
 
     public:
-        /*
-        * Assigns this Callback's Action<>.
-        * @return This Callback
+        /*!
+        Assigns this Callback's Action<>.
+        @return This Callback
         */
         inline Callback<CallerType, Args...>& operator=(const Action<Args...>& action)
         {
@@ -1201,9 +1203,9 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /*
-        * Gets a value indicating whether or not this Callback has a valid Action<>.
-        * @return Whether or not this Callback has a valid Action<>
+        /*!
+        Gets a value indicating whether or not this Callback has a valid Action<>.
+        @return Whether or not this Callback has a valid Action<>
         */
         inline operator bool() const
         {
@@ -1211,10 +1213,10 @@ namespace Dynamic_Static {
         }
 
     private:
-        /*
-        * Executes this Callback.
-        * \n NOTE : This method can only be called by an object of type CallerType
-        * @param [in] args The arguments to execute this Callback with
+        /*!
+        Executes this Callback.
+        \n NOTE : This method can only be called by an object of type CallerType
+        @param [in] args The arguments to execute this Callback with
         */
         inline void operator()(Args&&... args) const
         {
@@ -1228,8 +1230,8 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Represents a non-owning reference to a contiguous sequence of objects.
+    /*!
+    Represents a non-owning reference to a contiguous sequence of objects.
     */
     template <typename T>
     class Span
@@ -1241,21 +1243,21 @@ namespace Dynamic_Static {
         size_t mCount { 0 };
 
     public:
-        /*
-        * Constructs an instance of Span.
+        /*!
+        Constructs an instance of Span.
         */
         Span() = default;
 
-        /*
-        * Constructs an instance of Span.
+        /*!
+        Constructs an instance of Span.
         */
         constexpr Span(std::nullptr_t)
         {
         }
 
-        /*
-        * Constructs an instance of Span.
-        * @param [in] data This Span's data
+        /*!
+        Constructs an instance of Span.
+        @param [in] data This Span's data
         */
         Span(T& data)
             : mData { &data }
@@ -1263,10 +1265,10 @@ namespace Dynamic_Static {
         {
         }
 
-        /*
-        * Constructs an instance of Span.
-        * @param [in] data This Span's data
-        * @param [in] count This Span's count
+        /*!
+        Constructs an instance of Span.
+        @param [in] data This Span's data
+        @param [in] count This Span's count
         */
         Span(T* data, size_t count)
             : mData { data }
@@ -1274,10 +1276,10 @@ namespace Dynamic_Static {
         {
         }
 
-        /*
-        * Constructs an instance of Span.
-        * @param <N> This Span's count
-        * @param [in] data This Span's data
+        /*!
+        Constructs an instance of Span.
+        @param <N> This Span's count
+        @param [in] data This Span's data
         */
         template <size_t N>
         Span(std::array<typename std::remove_const<T>::type, N>& data)
@@ -1286,10 +1288,10 @@ namespace Dynamic_Static {
         {
         }
 
-        /*
-        * Constructs an instance of Span.
-        * @param <N> This Span's count
-        * @param [in] data This Span's data
+        /*!
+        Constructs an instance of Span.
+        @param <N> This Span's count
+        @param [in] data This Span's data
         */
         template <size_t N>
         Span(const std::array<typename std::remove_const<T>::type, N>& data)
@@ -1298,9 +1300,9 @@ namespace Dynamic_Static {
         {
         }
 
-        /*
-        * Constructs an instance of Span.
-        * @param [in] data This Span's data
+        /*!
+        Constructs an instance of Span.
+        @param [in] data This Span's data
         */
         template <class Allocator = std::allocator<typename std::remove_const<T>::type>>
         Span(std::vector<typename std::remove_const<T>::type, Allocator>& data)
@@ -1309,9 +1311,9 @@ namespace Dynamic_Static {
         {
         }
 
-        /*
-        * Constructs an instance of Span.
-        * @param [in] data This Span's data
+        /*!
+        Constructs an instance of Span.
+        @param [in] data This Span's data
         */
         template <class Allocator = std::allocator<typename std::remove_const<T>::type>>
         Span(const std::vector<typename std::remove_const<T>::type, Allocator>& data)
@@ -1320,9 +1322,9 @@ namespace Dynamic_Static {
         {
         }
 
-        /*
-        * Constructs an instance of Span.
-        * @param [in] data This Span's data
+        /*!
+        Constructs an instance of Span.
+        @param [in] data This Span's data
         */
         Span(const std::initializer_list<T>& data)
             : mData { data.begin() }
@@ -1330,20 +1332,20 @@ namespace Dynamic_Static {
         {
         }
 
-        /*
-        * Gets a reference to an element at a given index.
-        * @param [in] index The index of the element to get
-        * @return The element at the given index
+        /*!
+        Gets a reference to an element at a given index.
+        @param [in] index The index of the element to get
+        @return The element at the given index
         */
         T& operator[](size_t index)
         {
             return mData[index];
         }
 
-        /*
-        * Gets a reference to an element at a given index.
-        * @param [in] index The index of the element to get
-        * @return The element at the given index
+        /*!
+        Gets a reference to an element at a given index.
+        @param [in] index The index of the element to get
+        @return The element at the given index
         */
         const T& operator[](size_t index) const
         {
@@ -1351,45 +1353,45 @@ namespace Dynamic_Static {
         }
 
     public:
-        /*
-        * Gets an iterator to the beginning of this Span's sequence.
-        * @return An iterator to the beginning of this Span's sequence
+        /*!
+        Gets an iterator to the beginning of this Span's sequence.
+        @return An iterator to the beginning of this Span's sequence
         */
         T* begin()
         {
             return mData;
         }
 
-        /*
-        * Gets an iterator to the beginning of this Span's sequence.
-        * @return An iterator to the beginning of this Span's sequence
+        /*!
+        Gets an iterator to the beginning of this Span's sequence.
+        @return An iterator to the beginning of this Span's sequence
         */
         const T* begin() const
         {
             return mData;
         }
 
-        /*
-        * Gets an iterator to the end of this Span's sequence.
-        * @return An iterator to the end of this Span's sequence
+        /*!
+        Gets an iterator to the end of this Span's sequence.
+        @return An iterator to the end of this Span's sequence
         */
         T* end()
         {
             return mData + mCount;
         }
 
-        /*
-        * Gets an iterator to the end of this Span's sequence.
-        * @return An iterator to the end of this Span's sequence
+        /*!
+        Gets an iterator to the end of this Span's sequence.
+        @return An iterator to the end of this Span's sequence
         */
         const T* end() const
         {
             return mData + mCount;
         }
 
-        /*
-        * Gets a reference to this Span's first element.
-        * @return A reference to this Span's first element
+        /*!
+        Gets a reference to this Span's first element.
+        @return A reference to this Span's first element
         */
         T& front()
         {
@@ -1397,9 +1399,9 @@ namespace Dynamic_Static {
             return *mData;
         }
 
-        /*
-        * Gets a reference to this Span's first element.
-        * @return A reference to this Span's first element
+        /*!
+        Gets a reference to this Span's first element.
+        @return A reference to this Span's first element
         */
         const T& front() const
         {
@@ -1407,9 +1409,9 @@ namespace Dynamic_Static {
             return *mData;
         }
 
-        /*
-        * Gets a reference to this Span's last element.
-        * @return A reference to this Span's last element
+        /*!
+        Gets a reference to this Span's last element.
+        @return A reference to this Span's last element
         */
         T& back()
         {
@@ -1417,9 +1419,9 @@ namespace Dynamic_Static {
             return *(mData + mCount - 1);
         }
 
-        /*
-        * Gets a reference to this Span's last element.
-        * @return A reference to this Span's last element
+        /*!
+        Gets a reference to this Span's last element.
+        @return A reference to this Span's last element
         */
         const T& back() const
         {
@@ -1427,36 +1429,36 @@ namespace Dynamic_Static {
             return *(mData + mCount - 1);
         }
 
-        /*
-        * Gets a value indicating whether or not this Span is empty.
-        * @return A value indicating whether or not this Span is empty
+        /*!
+        Gets a value indicating whether or not this Span is empty.
+        @return A value indicating whether or not this Span is empty
         */
         bool empty() const
         {
             return (mCount == 0);
         }
 
-        /*
-        * Gets this Span's count.
-        * @return This Span's count
+        /*!
+        Gets this Span's count.
+        @return This Span's count
         */
         size_t size() const
         {
             return mCount;
         }
 
-        /*
-        * Gets this Span's size in bytes.
-        * @return This Span's size in bytes
+        /*!
+        Gets this Span's size in bytes.
+        @return This Span's size in bytes
         */
         size_t size_bytes() const
         {
             return mCount * sizeof(T);
         }
 
-        /*
-        * Gets a pointer to this Span's underlying storage.
-        * @return A pointer to this Span's underlying storage
+        /*!
+        Gets a pointer to this Span's underlying storage.
+        @return A pointer to this Span's underlying storage
         */
         T* data() const
         {
@@ -1469,10 +1471,10 @@ namespace Dynamic_Static {
 namespace Dynamic_Static {
 namespace File {
 
-    /*
-    * Reads all lines in the file at the given file path.
-    * @param [in] filePath The path to the file to read
-    * @param [in] lines An std::vector<std::string> to populate with the lines read from the file
+    /*!
+    Reads all lines in the file at the given file path.
+    @param [in] filePath The path to the file to read
+    @param [in] lines An std::vector<std::string> to populate with the lines read from the file
     */
     inline void read_all_lines(
         const std::string_view& filePath,
@@ -1489,10 +1491,10 @@ namespace File {
         }
     }
 
-    /*
-    * Reads all lines in the file at the given file path.
-    * @param [in] filePath The path to the file to read
-    * @param [in] lines An std::vector<std::string> populated with the lines read from the file
+    /*!
+    Reads all lines in the file at the given file path.
+    @param [in] filePath The path to the file to read
+    @param [in] lines An std::vector<std::string> populated with the lines read from the file
     */
     inline std::vector<std::string> read_all_lines(const std::string_view& filePath)
     {
@@ -1501,10 +1503,10 @@ namespace File {
         return lines;
     }
 
-    /*
-    * Reads all bytes in the file at the given file path.
-    * @param [in] filePath The path to the file to read
-    * @param [in] lines An std::vector<std::byte> to populate with the bytes read from the file
+    /*!
+    Reads all bytes in the file at the given file path.
+    @param [in] filePath The path to the file to read
+    @param [in] lines An std::vector<std::byte> to populate with the bytes read from the file
     */
     inline void read_all_bytes(
         const std::string_view& filePath,
@@ -1521,10 +1523,10 @@ namespace File {
         }
     }
 
-    /*
-    * Reads all bytes in the file at the given file path.
-    * @param [in] filePath The path to the file to read
-    * @param [in] lines An std::vector<std::byte> populated with the bytes read from the file
+    /*!
+    Reads all bytes in the file at the given file path.
+    @param [in] filePath The path to the file to read
+    @param [in] lines An std::vector<std::byte> populated with the bytes read from the file
     */
     inline std::vector<std::byte> read_all_bytes(const std::string_view& filePath)
     {
@@ -1536,7 +1538,7 @@ namespace File {
 } // namespace File
 } // namespace Dynamic_Static
 
-// NOTE : This file should be removed once std::filesystem is fully supported.
+// NOTE : dst::filesystem should be remove once std::filesystem is fully supported.
 
 namespace Dynamic_Static {
 
@@ -1853,8 +1855,8 @@ namespace detail {
 
 } // namespace detail
 
-    /*
-    * Represents a 4 channel color.
+    /*!
+    Represents a 4 channel color.
     */
     struct Color
         : public glm::vec4
@@ -1873,11 +1875,11 @@ namespace Dynamic_Static {
     typedef struct Radians { } radians; /*!< Radians tag for functions operating on angles */
     typedef struct Degrees { } degrees; /*!< Degrees tag for functions operating on angles */
 
-    /*
-    * Wraps an angle to the range [0, 2Pi].
-    * @param [in] angle The angle to wrap
-    * @param [tag dispatch dst::radians]
-    * @return The wrapped angle
+    /*!
+    Wraps an angle to the range [0, 2Pi].
+    @param [in] angle The angle to wrap
+    @param [tag dispatch dst::radians]
+    @return The wrapped angle
     */
     template <typename T>
     inline T wrap_angle(const T& angle, const Radians&)
@@ -1887,9 +1889,9 @@ namespace Dynamic_Static {
         return wrappedAngle < 0 ? wrappedAngle : wrappedAngle + twoPi;
     }
 
-    /*
-    * Gets the world left vector; (-1, 0), (-1, 0, 0), or (-1, 0, 0, 0).
-    * @return The world left vector
+    /*!
+    Gets the world left vector; (-1, 0), (-1, 0, 0), or (-1, 0, 0, 0).
+    @return The world left vector
     */
     template <typename VectorType>
     inline constexpr VectorType world_left()
@@ -1899,9 +1901,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets the world right vector; (1, 0), (1, 0, 0), or (1, 0, 0, 0).
-    * @return The world right vector
+    /*!
+    Gets the world right vector; (1, 0), (1, 0, 0), or (1, 0, 0, 0).
+    @return The world right vector
     */
     template <typename VectorType>
     inline constexpr VectorType world_right()
@@ -1911,9 +1913,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets the world up vector; (0, 1), (0, 1, 0), or (0, 1, 0, 0).
-    * @return The world up vector
+    /*!
+    Gets the world up vector; (0, 1), (0, 1, 0), or (0, 1, 0, 0).
+    @return The world up vector
     */
     template <typename VectorType>
     inline constexpr VectorType world_up()
@@ -1923,9 +1925,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets the world down vector; (0, -1), (0, -1, 0), or (0, -1, 0, 0).
-    * @return The world down vector
+    /*!
+    Gets the world down vector; (0, -1), (0, -1, 0), or (0, -1, 0, 0).
+    @return The world down vector
     */
     template <typename VectorType>
     inline constexpr VectorType world_down()
@@ -1935,9 +1937,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets the world forward vector; (0, 0, -1) or (0, 0, -1, 0).
-    * @return The world forward vector
+    /*!
+    Gets the world forward vector; (0, 0, -1) or (0, 0, -1, 0).
+    @return The world forward vector
     */
     template <typename VectorType>
     inline constexpr VectorType world_forward()
@@ -1947,9 +1949,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets the world backward vector; (0, 0, 1) or (0, 0, 1, 0).
-    * @return The world backward vector
+    /*!
+    Gets the world backward vector; (0, 0, 1) or (0, 0, 1, 0).
+    @return The world backward vector
     */
     template <typename VectorType>
     inline constexpr VectorType world_backward()
@@ -1959,9 +1961,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets a 2, 3, or 4 component vector with its x component set to 1; (1, 0), (1, 0, 0), or (1, 0, 0, 0).
-    * @return The 2, 3, or 4 component vector with its x component set to 1
+    /*!
+    Gets a 2, 3, or 4 component vector with its x component set to 1; (1, 0), (1, 0, 0), or (1, 0, 0, 0).
+    @return The 2, 3, or 4 component vector with its x component set to 1
     */
     template <typename VectorType>
     inline constexpr VectorType unit_x()
@@ -1971,9 +1973,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets a 2, 3, or 4 component vector with its y component set to 1; (0, 1), (0, 1, 0), or (0, 1, 0, 0).
-    * @return The 2, 3, or 4 component vector with its y component set to 1
+    /*!
+    Gets a 2, 3, or 4 component vector with its y component set to 1; (0, 1), (0, 1, 0), or (0, 1, 0, 0).
+    @return The 2, 3, or 4 component vector with its y component set to 1
     */
     template <typename VectorType>
     inline constexpr VectorType unit_y()
@@ -1983,9 +1985,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets a 3 or 4 component vector with its z component set to 1; (0, 0, 1) or (0, 0, 1, 0).
-    * @return The 3 or 4 component vector with its z component set to 1
+    /*!
+    Gets a 3 or 4 component vector with its z component set to 1; (0, 0, 1) or (0, 0, 1, 0).
+    @return The 3 or 4 component vector with its z component set to 1
     */
     template <typename VectorType>
     inline constexpr VectorType unit_z()
@@ -1995,9 +1997,9 @@ namespace Dynamic_Static {
         return v;
     }
 
-    /*
-    * Gets a 4 component vector with its w component set to 1; (0, 0, 0, 1).
-    * @return The 4 component vector with its w component set to 1
+    /*!
+    Gets a 4 component vector with its w component set to 1; (0, 0, 0, 1).
+    @return The 4 component vector with its w component set to 1
     */
     template <typename VectorType>
     inline constexpr VectorType unit_w()
@@ -2015,8 +2017,8 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Represents a position, rotation, and scale.
+    /*!
+    Represents a position, rotation, and scale.
     */
     struct Transform final
     {
@@ -2024,9 +2026,9 @@ namespace Dynamic_Static {
         glm::quat rotation { 1, 0, 0, 0 };
         glm::vec3 scale { 1 };
 
-        /*
-        * Gets a glm::mat4 representing this Transform's world from local matrix.
-        * @return A glm::mat4 representing this Transform's world from local matrix
+        /*!
+        Gets a glm::mat4 representing this Transform's world from local matrix.
+        @return A glm::mat4 representing this Transform's world from local matrix
         */
         inline glm::mat4 world_from_local() const
         {
@@ -2036,63 +2038,63 @@ namespace Dynamic_Static {
                 glm::scale(scale);
         }
 
-        /*
-        * Gets a glm::mat4 representing this Transform's local from world matrix.
-        * @return A glm::mat4 representing this Transform's local from world matrix
+        /*!
+        Gets a glm::mat4 representing this Transform's local from world matrix.
+        @return A glm::mat4 representing this Transform's local from world matrix
         */
         inline glm::mat4 local_from_world() const
         {
             return glm::transpose(world_from_local());
         }
 
-        /*
-        * Gets a glm::vec3 representing this Transform's up vector in world space.
-        * @return A glm::vec3 representing this Transform's up vector in world space
+        /*!
+        Gets a glm::vec3 representing this Transform's up vector in world space.
+        @return A glm::vec3 representing this Transform's up vector in world space
         */
         inline glm::vec3 up() const
         {
             return glm::normalize(rotation * dst::world_up<glm::vec3>());
         }
 
-        /*
-        * Gets a glm::vec3 representing this Transform's down vector in world space.
-        * @return A glm::vec3 representing this Transform's down vector in world space
+        /*!
+        Gets a glm::vec3 representing this Transform's down vector in world space.
+        @return A glm::vec3 representing this Transform's down vector in world space
         */
         inline glm::vec3 down() const
         {
             return glm::normalize(rotation * dst::world_down<glm::vec3>());
         }
 
-        /*
-        * Gets a glm::vec3 representing this Transform's left vector in world space.
-        * @return A glm::vec3 representing this Transform's left vector in world space
+        /*!
+        Gets a glm::vec3 representing this Transform's left vector in world space.
+        @return A glm::vec3 representing this Transform's left vector in world space
         */
         inline glm::vec3 left() const
         {
             return glm::normalize(rotation * dst::world_left<glm::vec3>());
         }
 
-        /*
-        * Gets a glm::vec3 representing this Transform's right vector in world space.
-        * @return A glm::vec3 representing this Transform's right vector in world space
+        /*!
+        Gets a glm::vec3 representing this Transform's right vector in world space.
+        @return A glm::vec3 representing this Transform's right vector in world space
         */
         inline glm::vec3 right() const
         {
             return glm::normalize(rotation * dst::world_right<glm::vec3>());
         }
 
-        /*
-        * Gets a glm::vec3 representing this Transform's forward vector in world space.
-        * @return A glm::vec3 representing this Transform's forward vector in world space
+        /*!
+        Gets a glm::vec3 representing this Transform's forward vector in world space.
+        @return A glm::vec3 representing this Transform's forward vector in world space
         */
         inline glm::vec3 forward() const
         {
             return glm::normalize(rotation * dst::world_forward<glm::vec3>());
         }
 
-        /*
-        * Gets a glm::vec3 representing this Transform's backward vector in world space.
-        * @return A glm::vec3 representing this Transform's backward vector in world space
+        /*!
+        Gets a glm::vec3 representing this Transform's backward vector in world space.
+        @return A glm::vec3 representing this Transform's backward vector in world space
         */
         inline glm::vec3 backward() const
         {
@@ -2106,39 +2108,39 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Provides a Callback<> for move notification.
+    /*!
+    Provides a Callback<> for move notification.
     */
     template <typename T>
     class MoveNotifier
     {
     public:
-        /*
-        * Callback<> executed when this MoveNotifier is moved.
-        * @param [in] (MoveNotifier*) The address moved to
-        * @param [in] (MoveNotifier*) The address moved from
+        /*!
+        Callback<> executed when this MoveNotifier is moved.
+        @param [in] (MoveNotifier*) The address moved to
+        @param [in] (MoveNotifier*) The address moved from
         */
         Callback<MoveNotifier<T>, MoveNotifier<T>*, MoveNotifier<T>*> on_move;
 
     public:
-        /*
-        * Constructs an instance of MoveNotifier<T>.
+        /*!
+        Constructs an instance of MoveNotifier<T>.
         */
         MoveNotifier() = default;
 
-        /*
-        * Moves this instance of MoveNotifier.
-        * @param [in] other The MoveNotifier to move from
+        /*!
+        Moves this instance of MoveNotifier.
+        @param [in] other The MoveNotifier to move from
         */
         MoveNotifier(MoveNotifier<T>&& other)
         {
             *this = std::move(other);
         }
 
-        /*
-        * Moves this instance of MoveNotifier.
-        * @param [in] other The MoveNotifier to move from
-        * @return This MoveNotifier
+        /*!
+        Moves this instance of MoveNotifier.
+        @param [in] other The MoveNotifier to move from
+        @return This MoveNotifier
         */
         MoveNotifier<T>& operator=(MoveNotifier<T>&& other)
         {
@@ -2155,45 +2157,45 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Provides an inheritable interface for std::enable_shared_from_this.
-    * @param <CRT> The type of the shared object
+    /*!
+    Provides an inheritable interface for std::enable_shared_from_this.
+    @param <CRT> The type of the shared object
     */
     template <typename CRT>
     class SharedObject
         : public std::enable_shared_from_this<CRT>
     {
     public:
-        /*
-        * Gets a std::shared_ptr<> to this SharedObject.
-        * @return An std::shared_ptr<> to this SharedObject
+        /*!
+        Gets a std::shared_ptr<> to this SharedObject.
+        @return An std::shared_ptr<> to this SharedObject
         */
         inline std::shared_ptr<CRT> get_shared_ptr()
         {
             return shared_from_this();
         }
 
-        /*
-        * Gets a std::shared_ptr<> to this SharedObject.
-        * @return An std::shared_ptr<> to this SharedObject
+        /*!
+        Gets a std::shared_ptr<> to this SharedObject.
+        @return An std::shared_ptr<> to this SharedObject
         */
         inline std::shared_ptr<const CRT> get_shared_ptr() const
         {
             return shared_from_this();
         }
 
-        /*
-        * Gets a std::weak_ptr<> to this SharedObject.
-        * @return An std::weak_ptr<> to this SharedObject
+        /*!
+        Gets a std::weak_ptr<> to this SharedObject.
+        @return An std::weak_ptr<> to this SharedObject
         */
         inline std::weak_ptr<CRT> get_weak_ptr()
         {
             return weak_from_this();
         }
 
-        /*
-        * Gets a std::weak_ptr<> to this SharedObject.
-        * @return An std::weak_ptr<> to this SharedObject
+        /*!
+        Gets a std::weak_ptr<> to this SharedObject.
+        @return An std::weak_ptr<> to this SharedObject
         */
         inline std::weak_ptr<const CRT> get_weak_ptr() const
         {
@@ -2205,8 +2207,8 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Provides high level control over random number generation.
+    /*!
+    Provides high level control over random number generation.
     */
     class RandomNumberGenerator final
     {
@@ -2217,17 +2219,17 @@ namespace Dynamic_Static {
         std::uniform_int_distribution<uint64_t> mIntDistribution { 0, std::numeric_limits<uint64_t>::max() };
 
     public:
-        /*
-        * Constructs a new instance of RandomNumberGenerator.
+        /*!
+        Constructs a new instance of RandomNumberGenerator.
         */
         inline RandomNumberGenerator()
             : RandomNumberGenerator(std::random_device()())
         {
         }
 
-        /*
-        * Constructs a new instance of RandomNumberGenerator with a given seed.
-        * @param [in] seed This RandomNumberGenerator's seed
+        /*!
+        Constructs a new instance of RandomNumberGenerator with a given seed.
+        @param [in] seed This RandomNumberGenerator's seed
         */
         inline RandomNumberGenerator(uint32_t seed)
         {
@@ -2235,19 +2237,19 @@ namespace Dynamic_Static {
         }
 
     public:
-        /*
-        * Gets this RandomNumberGenerator's seed.
-        * @return This RandomNumberGenerator's seed
+        /*!
+        Gets this RandomNumberGenerator's seed.
+        @return This RandomNumberGenerator's seed
         */
         inline uint32_t get_seed() const
         {
             return mSeed;
         }
 
-        /*
-        * Sets this RandomNumberGenerator's seed.
-        * \n NOTE : Calling this method will reset this RandomNumberGenerator
-        * @param [in] This RandomNumberGenerator's seed
+        /*!
+        Sets this RandomNumberGenerator's seed.
+        \n NOTE : Calling this method will reset this RandomNumberGenerator
+        @param [in] This RandomNumberGenerator's seed
         */
         inline void set_seed(uint32_t seed)
         {
@@ -2255,8 +2257,8 @@ namespace Dynamic_Static {
             reset();
         }
 
-        /*
-        * Resets this RandomNumberGenerator.
+        /*!
+        Resets this RandomNumberGenerator.
         */
         inline void reset()
         {
@@ -2265,12 +2267,12 @@ namespace Dynamic_Static {
             mIntDistribution.reset();
         }
 
-        /*
-        * Generates a random in the range of two given values.
-        * @param <IntegerType> The type of the value
-        * @param [in] min The lower bound of the range [inclusive]
-        * @param [in] max The upper bound of the range (exclusive)
-        * @return The generated value
+        /*!
+        Generates a random in the range of two given values.
+        @param <IntegerType> The type of the value
+        @param [in] min The lower bound of the range [inclusive]
+        @param [in] max The upper bound of the range (exclusive)
+        @return The generated value
         */
         template <typename IntegerType>
         inline typename std::enable_if<std::is_integral<IntegerType>::value, IntegerType>::type
@@ -2279,12 +2281,12 @@ namespace Dynamic_Static {
             return static_cast<IntegerType>(mIntDistribution(mEngine) % (max - min) + min);
         }
 
-        /*
-        * Generates a random value in the range of two given values.
-        * @param <IntegerType> The type of the value
-        * @param [in] min The lower bound of the range [inclusive]
-        * @param [in] max The upper bound of the range (exclusive)
-        * @return The generated value
+        /*!
+        Generates a random value in the range of two given values.
+        @param <IntegerType> The type of the value
+        @param [in] min The lower bound of the range [inclusive]
+        @param [in] max The upper bound of the range (exclusive)
+        @return The generated value
         */
         template <typename FloatingPointType>
         inline typename std::enable_if<std::is_floating_point<FloatingPointType>::value, FloatingPointType>::type
@@ -2293,10 +2295,10 @@ namespace Dynamic_Static {
             return static_cast<FloatingPointType>(mRealDistribution(mEngine) * (max - min) + min);
         }
 
-        /*
-        * Generates a random value in a given type's range.
-        * @param <T> The type of the value
-        * @return The generated value
+        /*!
+        Generates a random value in a given type's range.
+        @param <T> The type of the value
+        @return The generated value
         */
         template <typename T>
         inline T value()
@@ -2304,10 +2306,10 @@ namespace Dynamic_Static {
             return range<T>(std::numeric_limits<T>::min(), std::numeric_limits<T>::max());
         }
 
-        /*
-        * Has a chance of returning true based on a given value.
-        * @param [in] value The value (0 - 100] to test
-        * @return Whether or not the value passed
+        /*!
+        Has a chance of returning true based on a given value.
+        @param [in] value The value (0 - 100] to test
+        @return Whether or not the value passed
         */
         template <typename IntegerType>
         inline bool probability(
@@ -2318,10 +2320,10 @@ namespace Dynamic_Static {
             return value >= range<IntegerType>(1, 101);
         }
 
-        /*
-        * Has a chance of returning true based on a given value.
-        * @param [in] value The floating point value (0 - 1] to test
-        * @return Whether or not the value passed
+        /*!
+        Has a chance of returning true based on a given value.
+        @param [in] value The floating point value (0 - 1] to test
+        @return Whether or not the value passed
         */
         template <typename FloatingPointType>
         inline bool probability(
@@ -2332,10 +2334,10 @@ namespace Dynamic_Static {
             return value >= range<FloatingPointType>(std::numeric_limits<FloatingPointType>::epsilon(), 1.);
         }
 
-        /*
-        * Generates a random index for a collection with a given count.
-        * @param [in] count The number of elements in the collection
-        * @return The generated index
+        /*!
+        Generates a random index for a collection with a given count.
+        @param [in] count The number of elements in the collection
+        @return The generated index
         */
         template <typename IntegerType>
         inline IntegerType index(IntegerType count)
@@ -2347,10 +2349,10 @@ namespace Dynamic_Static {
             return count ? range<IntegerType>(0, count) : 0;
         }
 
-        /*
-        * Generates a roll from a die with a given number of sides.
-        * @param [in] D The number of sides on the die
-        * @return The result of the die roll
+        /*!
+        Generates a roll from a die with a given number of sides.
+        @param [in] D The number of sides on the die
+        @return The result of the die roll
         */
         template <typename IntegerType>
         inline IntegerType die_roll(IntegerType D)
@@ -2367,43 +2369,43 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Provides a non-owning reference to a contiguous sequence of char-like objects.
+    /*!
+    Provides a non-owning reference to a contiguous sequence of char-like objects.
     */
     class StringView
         : public std::string_view
     {
     public:
-        /*
-        * Constructs an instance of dst::string_view.
-        * @param [in] strView The std::string_view to reference
+        /*!
+        Constructs an instance of dst::string_view.
+        @param [in] strView The std::string_view to reference
         */
         StringView(const std::string_view& strView)
             : std::string_view(strView)
         {
         }
 
-        /*
-        * Constructs an instance of dst::string_view.
-        * @param [in] strView The std::string to reference
+        /*!
+        Constructs an instance of dst::string_view.
+        @param [in] strView The std::string to reference
         */
         StringView(const std::string& str)
             : std::string_view(str)
         {
         }
 
-        /*
-        * Constructs an instance of dst::string_view.
-        * @param [in] strView The const char* to reference
+        /*!
+        Constructs an instance of dst::string_view.
+        @param [in] strView The const char* to reference
         */
         StringView(const char* cStr)
             : std::string_view(cStr, cStr ? strlen(cStr) : 0)
         {
         }
 
-        /*
-        * Constructs an instance of dst::string_view.
-        * @param [in] strView The char to reference
+        /*!
+        Constructs an instance of dst::string_view.
+        @param [in] strView The char to reference
         */
         StringView(const char& c)
             : std::string_view(&c, 1)
@@ -2415,11 +2417,11 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Gets a value indicating whether or not a given string contains another given string.
-    * @param [in] str The string to search
-    * @param [in] find The string to find
-    * @param [in] offset The offset to start searching from (optional = 0)
+    /*!
+    Gets a value indicating whether or not a given string contains another given string.
+    @param [in] str The string to search
+    @param [in] find The string to find
+    @param [in] offset The offset to start searching from (optional = 0)
     */
     inline bool contains(
         const dst::StringView& str,
@@ -2430,13 +2432,13 @@ namespace Dynamic_Static {
         return str.find(find, offset) != std::string::npos;
     }
 
-    /*
-    * Gets a copy of an std::string with all occurences of a given substring replaced with another.
-    * @param [in] str The source string
-    * @param [in] find The string to find and replace in the source string
-    * @param [in] replacement The string to replace found occurences with
-    * @param [in] recursive (default = false) Whether or not to recursively replace occurences of the find string
-    * @return The resulting string
+    /*!
+    Gets a copy of an std::string with all occurences of a given substring replaced with another.
+    @param [in] str The source string
+    @param [in] find The string to find and replace in the source string
+    @param [in] replacement The string to replace found occurences with
+    @param [in] recursive (default = false) Whether or not to recursively replace occurences of the find string
+    @return The resulting string
     */
     inline std::string replace(
         const dst::StringView& str,
@@ -2457,12 +2459,12 @@ namespace Dynamic_Static {
         return result;
     }
 
-    /*
-    * Gets a copy of an std::string with all occurences of a given substring removed.
-    * @param [in] str The source string
-    * @param [in] find The string to find and remove from the source string
-    * @param [in] recursive (default = false) Whether or not to recursively remove occurences of the find string
-    * @return The resulting string
+    /*!
+    Gets a copy of an std::string with all occurences of a given substring removed.
+    @param [in] str The source string
+    @param [in] find The string to find and remove from the source string
+    @param [in] recursive (default = false) Whether or not to recursively remove occurences of the find string
+    @return The resulting string
     */
     inline std::string remove(
         const dst::StringView& str,
@@ -2473,11 +2475,11 @@ namespace Dynamic_Static {
         return dst::replace(str, find, nullptr, recursive);
     }
 
-    /*
-    * Gets a copy of an std::string with all repetitive occurences of a given substring reduced to single occurences.
-    * @param [in] str The source string
-    * @param [in] find The string to find and reduce
-    * @return The resulting string
+    /*!
+    Gets a copy of an std::string with all repetitive occurences of a given substring reduced to single occurences.
+    @param [in] str The source string
+    @param [in] find The string to find and reduce
+    @return The resulting string
     */
     inline std::string reduce_sequence(
         const dst::StringView& str,
@@ -2488,21 +2490,21 @@ namespace Dynamic_Static {
         return dst::replace(str, sequence + sequence, find, true);
     }
 
-    /*
-    * Gets a copy of an std::string containing a path with back slashes replaced with forward slashes and slash sequences reduced.
-    * @param [in] path The path to scrub
-    * @reutrn The scrubbed path
+    /*!
+    Gets a copy of an std::string containing a path with back slashes replaced with forward slashes and slash sequences reduced.
+    @param [in] path The path to scrub
+    @reutrn The scrubbed path
     */
     inline std::string scrub_path(dst::StringView path)
     {
         return dst::reduce_sequence(dst::replace(path, '\\', '/'), '/');
     }
 
-    /*
-    * Gets an std::vector<std::string> populated with substrings of a given string using a given delimiter.
-    * @param [in] str The string to search for delimiters
-    * @param [in] delimiter The delimiter to search for
-    * @return An std::vector<std::string> populated with split tokens
+    /*!
+    Gets an std::vector<std::string> populated with substrings of a given string using a given delimiter.
+    @param [in] str The string to search for delimiters
+    @param [in] delimiter The delimiter to search for
+    @return An std::vector<std::string> populated with split tokens
     */
     inline std::vector<std::string> split(
         const dst::StringView& str,
@@ -2526,20 +2528,20 @@ namespace Dynamic_Static {
         return tokens;
     }
 
-    /*
-    * Gets the upper case version of a given char.
-    * @param [in] c The char to convert to upper case
-    * @return The resulting char
+    /*!
+    Gets the upper case version of a given char.
+    @param [in] c The char to convert to upper case
+    @return The resulting char
     */
     inline char to_upper(char c)
     {
         return static_cast<char>(std::toupper(static_cast<int>(c)));
     }
 
-    /*
-    * Gets a copy of an std::string with all characters converted to upper case.
-    * @param [in] str The string to convert to upper case
-    * @return The resulting string
+    /*!
+    Gets a copy of an std::string with all characters converted to upper case.
+    @param [in] str The string to convert to upper case
+    @return The resulting string
     */
     inline std::string to_upper(const dst::StringView& str)
     {
@@ -2550,20 +2552,20 @@ namespace Dynamic_Static {
         return result;
     }
 
-    /*
-    * Gets the lower case version of a given char.
-    * @param [in] c The char to convert to lower case
-    * @return The resulting char
+    /*!
+    Gets the lower case version of a given char.
+    @param [in] c The char to convert to lower case
+    @return The resulting char
     */
     inline char to_lower(char c)
     {
         return static_cast<char>(std::tolower(static_cast<int>(c)));
     }
 
-    /*
-    * Gets a copy of an std::string with all characters converted to lower case.
-    * @param [in] str The string to convert to lower case
-    * @return The resulting string
+    /*!
+    Gets a copy of an std::string with all characters converted to lower case.
+    @param [in] str The string to convert to lower case
+    @return The resulting string
     */
     inline std::string to_lower(dst::StringView str)
     {
@@ -2574,10 +2576,10 @@ namespace Dynamic_Static {
         return result;
     }
 
-    /*
-    * Gets the std::string representation of the hex value of a given integral value.
-    * @param <T> The type of the given value
-    * @return The string representation of the hex value of the given integral value
+    /*!
+    Gets the std::string representation of the hex value of a given integral value.
+    @param <T> The type of the given value
+    @return The string representation of the hex value of the given integral value
     */
     template <typename T>
     inline std::string to_hex_string(const T& value)
@@ -2595,29 +2597,29 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Represents a Version with major, minor, and patch values.
+    /*!
+    Represents a Version with major, minor, and patch values.
     */
     struct Version final
     {
-        /*
-        * This Version's major value
+        /*!
+        This Version's major value
         */
         int major { 0 };
 
-        /*
-        * This Version's minor value
+        /*!
+        This Version's minor value
         */
         int minor { 0 };
 
-        /*
-        * This Version's patch value
+        /*!
+        This Version's patch value
         */
         int patch { 0 };
 
-        /*
-        * Gets the std::string representation of this Version.
-        * @return The std::string representation of this Version
+        /*!
+        Gets the std::string representation of this Version.
+        @return The std::string representation of this Version
         */
         inline std::string to_string() const
         {
@@ -2632,14 +2634,14 @@ namespace Dynamic_Static {
 
 namespace Dynamic_Static {
 
-    /*
-    * Populates a given std::vector<> with objects converted from another std::vector<> using a given conversion function.
-    * @param <SourceType> The type of the source std::vector<>
-    * @param <DestinationType> The type of the destination std::vector<>
-    * @param <ConversionFunctionType> The type of the conversion function
-    * @param [in] source The source std::vector<>
-    * @param [out] destination The destination std::vector<>
-    * @param [in] conversion The conversion function
+    /*!
+    Populates a given std::vector<> with objects converted from another std::vector<> using a given conversion function.
+    @param <SourceType> The type of the source std::vector<>
+    @param <DestinationType> The type of the destination std::vector<>
+    @param <ConversionFunctionType> The type of the conversion function
+    @param [in] source The source std::vector<>
+    @param [out] destination The destination std::vector<>
+    @param [in] conversion The conversion function
     */
     template <
         typename SourceType,
@@ -2659,14 +2661,14 @@ namespace Dynamic_Static {
         }
     }
 
-    /*
-    * Gets a std::vector<> populated with objects converted from another std::vector<> using a given conversion function.
-    * @param <SourceType> The type of the source std::vector<>
-    * @param <DestinationType> The type of the destination std::vector<>
-    * @param <ConversionFunctionType> The type of the conversion function
-    * @param [in] source The source std::vector<>
-    * @param [in] conversion The conversion function
-    * @return A std::vector<> containing the converted objects
+    /*!
+    Gets a std::vector<> populated with objects converted from another std::vector<> using a given conversion function.
+    @param <SourceType> The type of the source std::vector<>
+    @param <DestinationType> The type of the destination std::vector<>
+    @param <ConversionFunctionType> The type of the conversion function
+    @param [in] source The source std::vector<>
+    @param [in] conversion The conversion function
+    @return A std::vector<> containing the converted objects
     */
     template <
         typename SourceType,
@@ -2683,14 +2685,13 @@ namespace Dynamic_Static {
         return destination;
     }
 
-    /*
-    * Removes duplicate elements from a given std::vector<>.
-    * \n NOTE : This function will sort the given std::vector<>
-    * \n NOTE : The type of the given std::vector<> must provide operator< and operator==
-    * \n        The type of the given std::vector<> must fulfill the Compare concept
-    * \n        (http://en.cppreference.com/w/cpp/concept/Compare)
-    * @param <T> T The type of the std::vector<> to remove duplicates from
-    * @param [in, out] vctr The std::vector<> to remove duplicates from
+    /*!
+    Removes duplicate elements from a given std::vector<>.
+    \n NOTE : This function will sort the given std::vector<>
+    \n NOTE : The type of the given std::vector<> must provide operator< and operator==
+    \n NOTE : The type of the given std::vector<> must fulfill the Compare concept (http://en.cppreference.com/w/cpp/concept/Compare)
+    @param <T> T The type of the std::vector<> to remove duplicates from
+    @param [in, out] vctr The std::vector<> to remove duplicates from
     */
     template <typename T>
     inline void remove_duplicates(std::vector<T>& vctr)

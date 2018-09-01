@@ -19,8 +19,8 @@
 
 namespace Dynamic_Static {
 
-    /*
-    * Provides high level control over a pool of Workers.
+    /*!
+    Provides high level control over a pool of Workers.
     */
     class ThreadPool final
         : NonCopyable
@@ -30,10 +30,10 @@ namespace Dynamic_Static {
         size_t mIndex { 0 };
 
     public:
-        /*
-        * Constructs an instance of ThreadPool.
-        * @param [in] workerCount This ThreadPool's worker count (optional = 0)
-        * \n NOTE : A value of 0 for workerCount results in using the value returned from std::thread::hardware_concurrency()
+        /*!
+        Constructs an instance of ThreadPool.
+        @param [in] workerCount This ThreadPool's worker count (optional = 0)
+        \n NOTE : A value of 0 for workerCount results in using the value returned from std::thread::hardware_concurrency()
         */
         inline ThreadPool(size_t workerCount = 0)
         {
@@ -43,8 +43,8 @@ namespace Dynamic_Static {
             mWorkers = std::vector<Worker>(workerCount);
         }
 
-        /*
-        * Destroys this instance of ThreadPool.
+        /*!
+        Destroys this instance of ThreadPool.
         */
         inline ~ThreadPool()
         {
@@ -52,18 +52,18 @@ namespace Dynamic_Static {
         }
 
     public:
-        /*
-        * Gets this ThreadPool' Worker count.
-        * @return This ThreadPool's Worker count
+        /*!
+        Gets this ThreadPool' Worker count.
+        @return This ThreadPool's Worker count
         */
         inline size_t get_worker_count() const
         {
             return mWorkers.size();
         }
 
-        /*
-        * Gets this ThreadPool's pending Worker::Task count.
-        * \n NOTE : This ThreadPool's pending Worker::Task count may have changed by the time this method returns
+        /*!
+        Gets this ThreadPool's pending Worker::Task count.
+        \n NOTE : This ThreadPool's pending Worker::Task count may have changed by the time this method returns
         */
         inline size_t get_task_count() const
         {
@@ -74,8 +74,8 @@ namespace Dynamic_Static {
             return taskCount;
         }
 
-        /*
-        * Pushes a Worker::Task for this ThreadPool to process on a child thread.
+        /*!
+        Pushes a Worker::Task for this ThreadPool to process on a child thread.
         */
         inline void push(Worker::Task task)
         {
@@ -85,11 +85,11 @@ namespace Dynamic_Static {
             }
         }
 
-        /*
-        * Suspends the calling thread until this ThreadPool has completed all pending tasks.
-        * @param <DurationType> The type of the timeOut Duration (optional = Millisecond<>)
-        * @param [in] timeOut The maximum amount of time to wait (optional = 0)
-        * \n NOTE : A Duration of 0 for timeOut results in an infinite maximum wait
+        /*!
+        Suspends the calling thread until this ThreadPool has completed all pending tasks.
+        @param <DurationType> The type of the timeOut Duration (optional = Millisecond<>)
+        @param [in] timeOut The maximum amount of time to wait (optional = 0)
+        \n NOTE : A Duration of 0 for timeOut results in an infinite maximum wait
         */
         template <typename DurationType = Millisecond<>>
         inline void wait(const DurationType& timeOut = DurationType { 0 })

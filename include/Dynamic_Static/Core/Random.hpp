@@ -18,8 +18,8 @@
 
 namespace Dynamic_Static {
 
-    /*
-    * Provides high level control over random number generation.
+    /*!
+    Provides high level control over random number generation.
     */
     class RandomNumberGenerator final
     {
@@ -30,17 +30,17 @@ namespace Dynamic_Static {
         std::uniform_int_distribution<uint64_t> mIntDistribution { 0, std::numeric_limits<uint64_t>::max() };
 
     public:
-        /*
-        * Constructs a new instance of RandomNumberGenerator.
+        /*!
+        Constructs a new instance of RandomNumberGenerator.
         */
         inline RandomNumberGenerator()
             : RandomNumberGenerator(std::random_device()())
         {
         }
 
-        /*
-        * Constructs a new instance of RandomNumberGenerator with a given seed.
-        * @param [in] seed This RandomNumberGenerator's seed
+        /*!
+        Constructs a new instance of RandomNumberGenerator with a given seed.
+        @param [in] seed This RandomNumberGenerator's seed
         */
         inline RandomNumberGenerator(uint32_t seed)
         {
@@ -48,19 +48,19 @@ namespace Dynamic_Static {
         }
 
     public:
-        /*
-        * Gets this RandomNumberGenerator's seed.
-        * @return This RandomNumberGenerator's seed
+        /*!
+        Gets this RandomNumberGenerator's seed.
+        @return This RandomNumberGenerator's seed
         */
         inline uint32_t get_seed() const
         {
             return mSeed;
         }
 
-        /*
-        * Sets this RandomNumberGenerator's seed.
-        * \n NOTE : Calling this method will reset this RandomNumberGenerator
-        * @param [in] This RandomNumberGenerator's seed
+        /*!
+        Sets this RandomNumberGenerator's seed.
+        \n NOTE : Calling this method will reset this RandomNumberGenerator
+        @param [in] This RandomNumberGenerator's seed
         */
         inline void set_seed(uint32_t seed)
         {
@@ -68,8 +68,8 @@ namespace Dynamic_Static {
             reset();
         }
 
-        /*
-        * Resets this RandomNumberGenerator.
+        /*!
+        Resets this RandomNumberGenerator.
         */
         inline void reset()
         {
@@ -78,12 +78,12 @@ namespace Dynamic_Static {
             mIntDistribution.reset();
         }
 
-        /*
-        * Generates a random in the range of two given values.
-        * @param <IntegerType> The type of the value
-        * @param [in] min The lower bound of the range [inclusive]
-        * @param [in] max The upper bound of the range (exclusive)
-        * @return The generated value
+        /*!
+        Generates a random in the range of two given values.
+        @param <IntegerType> The type of the value
+        @param [in] min The lower bound of the range [inclusive]
+        @param [in] max The upper bound of the range (exclusive)
+        @return The generated value
         */
         template <typename IntegerType>
         inline typename std::enable_if<std::is_integral<IntegerType>::value, IntegerType>::type
@@ -92,12 +92,12 @@ namespace Dynamic_Static {
             return static_cast<IntegerType>(mIntDistribution(mEngine) % (max - min) + min);
         }
 
-        /*
-        * Generates a random value in the range of two given values.
-        * @param <IntegerType> The type of the value
-        * @param [in] min The lower bound of the range [inclusive]
-        * @param [in] max The upper bound of the range (exclusive)
-        * @return The generated value
+        /*!
+        Generates a random value in the range of two given values.
+        @param <IntegerType> The type of the value
+        @param [in] min The lower bound of the range [inclusive]
+        @param [in] max The upper bound of the range (exclusive)
+        @return The generated value
         */
         template <typename FloatingPointType>
         inline typename std::enable_if<std::is_floating_point<FloatingPointType>::value, FloatingPointType>::type
@@ -106,10 +106,10 @@ namespace Dynamic_Static {
             return static_cast<FloatingPointType>(mRealDistribution(mEngine) * (max - min) + min);
         }
 
-        /*
-        * Generates a random value in a given type's range.
-        * @param <T> The type of the value
-        * @return The generated value
+        /*!
+        Generates a random value in a given type's range.
+        @param <T> The type of the value
+        @return The generated value
         */
         template <typename T>
         inline T value()
@@ -117,10 +117,10 @@ namespace Dynamic_Static {
             return range<T>(std::numeric_limits<T>::min(), std::numeric_limits<T>::max());
         }
 
-        /*
-        * Has a chance of returning true based on a given value.
-        * @param [in] value The value (0 - 100] to test
-        * @return Whether or not the value passed
+        /*!
+        Has a chance of returning true based on a given value.
+        @param [in] value The value (0 - 100] to test
+        @return Whether or not the value passed
         */
         template <typename IntegerType>
         inline bool probability(
@@ -131,10 +131,10 @@ namespace Dynamic_Static {
             return value >= range<IntegerType>(1, 101);
         }
 
-        /*
-        * Has a chance of returning true based on a given value.
-        * @param [in] value The floating point value (0 - 1] to test
-        * @return Whether or not the value passed
+        /*!
+        Has a chance of returning true based on a given value.
+        @param [in] value The floating point value (0 - 1] to test
+        @return Whether or not the value passed
         */
         template <typename FloatingPointType>
         inline bool probability(
@@ -145,10 +145,10 @@ namespace Dynamic_Static {
             return value >= range<FloatingPointType>(std::numeric_limits<FloatingPointType>::epsilon(), 1.);
         }
 
-        /*
-        * Generates a random index for a collection with a given count.
-        * @param [in] count The number of elements in the collection
-        * @return The generated index
+        /*!
+        Generates a random index for a collection with a given count.
+        @param [in] count The number of elements in the collection
+        @return The generated index
         */
         template <typename IntegerType>
         inline IntegerType index(IntegerType count)
@@ -160,10 +160,10 @@ namespace Dynamic_Static {
             return count ? range<IntegerType>(0, count) : 0;
         }
 
-        /*
-        * Generates a roll from a die with a given number of sides.
-        * @param [in] D The number of sides on the die
-        * @return The result of the die roll
+        /*!
+        Generates a roll from a die with a given number of sides.
+        @param [in] D The number of sides on the die
+        @return The result of the die roll
         */
         template <typename IntegerType>
         inline IntegerType die_roll(IntegerType D)

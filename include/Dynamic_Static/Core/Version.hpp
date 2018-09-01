@@ -16,29 +16,29 @@
 
 namespace Dynamic_Static {
 
-    /*
-    * Represents a Version with major, minor, and patch values.
+    /*!
+    Represents a Version with major, minor, and patch values.
     */
     struct Version final
     {
-        /*
-        * This Version's major value
+        /*!
+        This Version's major value
         */
         int major { 0 };
 
-        /*
-        * This Version's minor value
+        /*!
+        This Version's minor value
         */
         int minor { 0 };
 
-        /*
-        * This Version's patch value
+        /*!
+        This Version's patch value
         */
         int patch { 0 };
 
-        /*
-        * Gets the std::string representation of this Version.
-        * @return The std::string representation of this Version
+        /*!
+        Gets the std::string representation of this Version.
+        @return The std::string representation of this Version
         */
         inline std::string to_string() const
         {

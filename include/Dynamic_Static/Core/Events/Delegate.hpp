@@ -18,8 +18,8 @@
 
 namespace Dynamic_Static {
 
-    /*
-    * Encapsulates a Subscribable multicast Action<>.
+    /*!
+    Encapsulates a Subscribable multicast Action<>.
     */
     template <typename ...Args>
     class Delegate
@@ -29,23 +29,23 @@ namespace Dynamic_Static {
         Action<Args...> mAction;
 
     public:
-        /*
-        * Constructs an instance of Delegate.
+        /*!
+        Constructs an instance of Delegate.
         */
         inline Delegate() = default;
 
-        /*
-        * Constructs an instance of Delegate.
-        * @param [in] action This Delegate's Action<>
+        /*!
+        Constructs an instance of Delegate.
+        @param [in] action This Delegate's Action<>
         */
         inline Delegate(const Action<Args...>& action)
             : mAction { action }
         {
         }
 
-        /*
-        * Assigns this Delegate's Action<>.
-        * @return This Delegate
+        /*!
+        Assigns this Delegate's Action<>.
+        @return This Delegate
         */
         inline Delegate& operator=(const Action<Args...>& action)
         {
@@ -53,10 +53,10 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /*
-        * Removes this Delegate's Action<> and all subscribers.
-        * \n NOTE : This method doesn't remove subscriptions
-        * @return This Delegate
+        /*!
+        Removes this Delegate's Action<> and all subscribers.
+        \n NOTE : This method doesn't remove subscriptions
+        @return This Delegate
         */
         inline Delegate& operator=(nullptr_t)
         {
@@ -65,10 +65,10 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /*
-        * Subscribes a given Delegate to this Delegate.
-        * @param [in] other The Delegate to subscribe to this Delegate
-        * @return This Delegate
+        /*!
+        Subscribes a given Delegate to this Delegate.
+        @param [in] other The Delegate to subscribe to this Delegate
+        @return This Delegate
         */
         inline Delegate& operator+=(Delegate<Args...>& other)
         {
@@ -76,10 +76,10 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /*
-        * Unsubscribes a given Delegate from this Delegate.
-        * @param [in] other The Delegate to unsubscribe from this Delegate
-        * @return This Delegate
+        /*!
+        Unsubscribes a given Delegate from this Delegate.
+        @param [in] other The Delegate to unsubscribe from this Delegate
+        @return This Delegate
         */
         inline Delegate& operator-=(Delegate<Args...>& other)
         {
@@ -87,9 +87,9 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /*
-        * Executes this Delegate.
-        * @param [in] args The arguments to execute this Delegate with
+        /*!
+        Executes this Delegate.
+        @param [in] args The arguments to execute this Delegate with
         */
         inline void operator()(Args... args) const
         {
@@ -102,9 +102,9 @@ namespace Dynamic_Static {
             }
         }
 
-        /*
-        * Gets a value indicating whether or not this Delegate has a valid Action<>.
-        * @return Whether or not this Delegate has a valid Action<>
+        /*!
+        Gets a value indicating whether or not this Delegate has a valid Action<>.
+        @return Whether or not this Delegate has a valid Action<>
         */
         inline operator bool() const
         {
@@ -112,42 +112,42 @@ namespace Dynamic_Static {
         }
 
     public:
-        /*
-        * Gets this Delegate's subscribers.
-        * @return This Delegate's subscribers
+        /*!
+        Gets this Delegate's subscribers.
+        @return This Delegate's subscribers
         */
         inline const std::vector<Subscribable*>& get_subscribers() const
         {
             return Subscribable::get_subscribers();
         }
 
-        /*
-        * Gets this Delegate's subscriptions.
-        * @return This Delegate's subscrpitions
+        /*!
+        Gets this Delegate's subscriptions.
+        @return This Delegate's subscrpitions
         */
         inline const std::vector<Subscribable*>& get_subscriptions() const
         {
             return Subscribable::get_subscriptions();
         }
 
-        /*
-        * Removes all of this Delegate's subscribers.
+        /*!
+        Removes all of this Delegate's subscribers.
         */
         inline void clear_subscribers()
         {
             Subscribable::clear_subscribers();
         }
 
-        /*
-        * Removes all of this Delegate's subscriptions.
+        /*!
+        Removes all of this Delegate's subscriptions.
         */
         inline void clear_subscriptions()
         {
             Subscribable::clear_subscriptions();
         }
 
-        /*
-        * Removes all of this Delegate's subscriptions.
+        /*!
+        Removes all of this Delegate's subscriptions.
         */
         inline void clear()
         {

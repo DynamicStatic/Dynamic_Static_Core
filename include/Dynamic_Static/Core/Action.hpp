@@ -16,8 +16,8 @@
 
 namespace Dynamic_Static {
 
-    /*
-    * Represents an std::function<> with no return value.
+    /*!
+    Represents an std::function<> with no return value.
     */
     template <typename ...Args>
     using Action = std::function<void(Args...)>;

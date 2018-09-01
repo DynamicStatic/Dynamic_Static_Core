@@ -19,8 +19,8 @@
 
 namespace Dynamic_Static {
 
-    /*
-    * Represents a non-owning reference to a contiguous sequence of objects.
+    /*!
+    Represents a non-owning reference to a contiguous sequence of objects.
     */
     template <typename T>
     class Span
@@ -32,21 +32,21 @@ namespace Dynamic_Static {
         size_t mCount { 0 };
 
     public:
-        /*
-        * Constructs an instance of Span.
+        /*!
+        Constructs an instance of Span.
         */
         Span() = default;
 
-        /*
-        * Constructs an instance of Span.
+        /*!
+        Constructs an instance of Span.
         */
         constexpr Span(std::nullptr_t)
         {
         }
 
-        /*
-        * Constructs an instance of Span.
-        * @param [in] data This Span's data
+        /*!
+        Constructs an instance of Span.
+        @param [in] data This Span's data
         */
         Span(T& data)
             : mData { &data }
@@ -54,10 +54,10 @@ namespace Dynamic_Static {
         {
         }
 
-        /*
-        * Constructs an instance of Span.
-        * @param [in] data This Span's data
-        * @param [in] count This Span's count
+        /*!
+        Constructs an instance of Span.
+        @param [in] data This Span's data
+        @param [in] count This Span's count
         */
         Span(T* data, size_t count)
             : mData { data }
@@ -65,10 +65,10 @@ namespace Dynamic_Static {
         {
         }
 
-        /*
-        * Constructs an instance of Span.
-        * @param <N> This Span's count
-        * @param [in] data This Span's data
+        /*!
+        Constructs an instance of Span.
+        @param <N> This Span's count
+        @param [in] data This Span's data
         */
         template <size_t N>
         Span(std::array<typename std::remove_const<T>::type, N>& data)
@@ -77,10 +77,10 @@ namespace Dynamic_Static {
         {
         }
 
-        /*
-        * Constructs an instance of Span.
-        * @param <N> This Span's count
-        * @param [in] data This Span's data
+        /*!
+        Constructs an instance of Span.
+        @param <N> This Span's count
+        @param [in] data This Span's data
         */
         template <size_t N>
         Span(const std::array<typename std::remove_const<T>::type, N>& data)
@@ -89,9 +89,9 @@ namespace Dynamic_Static {
         {
         }
 
-        /*
-        * Constructs an instance of Span.
-        * @param [in] data This Span's data
+        /*!
+        Constructs an instance of Span.
+        @param [in] data This Span's data
         */
         template <class Allocator = std::allocator<typename std::remove_const<T>::type>>
         Span(std::vector<typename std::remove_const<T>::type, Allocator>& data)
@@ -100,9 +100,9 @@ namespace Dynamic_Static {
         {
         }
 
-        /*
-        * Constructs an instance of Span.
-        * @param [in] data This Span's data
+        /*!
+        Constructs an instance of Span.
+        @param [in] data This Span's data
         */
         template <class Allocator = std::allocator<typename std::remove_const<T>::type>>
         Span(const std::vector<typename std::remove_const<T>::type, Allocator>& data)
@@ -111,9 +111,9 @@ namespace Dynamic_Static {
         {
         }
 
-        /*
-        * Constructs an instance of Span.
-        * @param [in] data This Span's data
+        /*!
+        Constructs an instance of Span.
+        @param [in] data This Span's data
         */
         Span(const std::initializer_list<T>& data)
             : mData { data.begin() }
@@ -121,20 +121,20 @@ namespace Dynamic_Static {
         {
         }
 
-        /*
-        * Gets a reference to an element at a given index.
-        * @param [in] index The index of the element to get
-        * @return The element at the given index
+        /*!
+        Gets a reference to an element at a given index.
+        @param [in] index The index of the element to get
+        @return The element at the given index
         */
         T& operator[](size_t index)
         {
             return mData[index];
         }
 
-        /*
-        * Gets a reference to an element at a given index.
-        * @param [in] index The index of the element to get
-        * @return The element at the given index
+        /*!
+        Gets a reference to an element at a given index.
+        @param [in] index The index of the element to get
+        @return The element at the given index
         */
         const T& operator[](size_t index) const
         {
@@ -142,45 +142,45 @@ namespace Dynamic_Static {
         }
 
     public:
-        /*
-        * Gets an iterator to the beginning of this Span's sequence.
-        * @return An iterator to the beginning of this Span's sequence
+        /*!
+        Gets an iterator to the beginning of this Span's sequence.
+        @return An iterator to the beginning of this Span's sequence
         */
         T* begin()
         {
             return mData;
         }
 
-        /*
-        * Gets an iterator to the beginning of this Span's sequence.
-        * @return An iterator to the beginning of this Span's sequence
+        /*!
+        Gets an iterator to the beginning of this Span's sequence.
+        @return An iterator to the beginning of this Span's sequence
         */
         const T* begin() const
         {
             return mData;
         }
 
-        /*
-        * Gets an iterator to the end of this Span's sequence.
-        * @return An iterator to the end of this Span's sequence
+        /*!
+        Gets an iterator to the end of this Span's sequence.
+        @return An iterator to the end of this Span's sequence
         */
         T* end()
         {
             return mData + mCount;
         }
 
-        /*
-        * Gets an iterator to the end of this Span's sequence.
-        * @return An iterator to the end of this Span's sequence
+        /*!
+        Gets an iterator to the end of this Span's sequence.
+        @return An iterator to the end of this Span's sequence
         */
         const T* end() const
         {
             return mData + mCount;
         }
 
-        /*
-        * Gets a reference to this Span's first element.
-        * @return A reference to this Span's first element
+        /*!
+        Gets a reference to this Span's first element.
+        @return A reference to this Span's first element
         */
         T& front()
         {
@@ -188,9 +188,9 @@ namespace Dynamic_Static {
             return *mData;
         }
 
-        /*
-        * Gets a reference to this Span's first element.
-        * @return A reference to this Span's first element
+        /*!
+        Gets a reference to this Span's first element.
+        @return A reference to this Span's first element
         */
         const T& front() const
         {
@@ -198,9 +198,9 @@ namespace Dynamic_Static {
             return *mData;
         }
 
-        /*
-        * Gets a reference to this Span's last element.
-        * @return A reference to this Span's last element
+        /*!
+        Gets a reference to this Span's last element.
+        @return A reference to this Span's last element
         */
         T& back()
         {
@@ -208,9 +208,9 @@ namespace Dynamic_Static {
             return *(mData + mCount - 1);
         }
 
-        /*
-        * Gets a reference to this Span's last element.
-        * @return A reference to this Span's last element
+        /*!
+        Gets a reference to this Span's last element.
+        @return A reference to this Span's last element
         */
         const T& back() const
         {
@@ -218,36 +218,36 @@ namespace Dynamic_Static {
             return *(mData + mCount - 1);
         }
 
-        /*
-        * Gets a value indicating whether or not this Span is empty.
-        * @return A value indicating whether or not this Span is empty
+        /*!
+        Gets a value indicating whether or not this Span is empty.
+        @return A value indicating whether or not this Span is empty
         */
         bool empty() const
         {
             return (mCount == 0);
         }
 
-        /*
-        * Gets this Span's count.
-        * @return This Span's count
+        /*!
+        Gets this Span's count.
+        @return This Span's count
         */
         size_t size() const
         {
             return mCount;
         }
 
-        /*
-        * Gets this Span's size in bytes.
-        * @return This Span's size in bytes
+        /*!
+        Gets this Span's size in bytes.
+        @return This Span's size in bytes
         */
         size_t size_bytes() const
         {
             return mCount * sizeof(T);
         }
 
-        /*
-        * Gets a pointer to this Span's underlying storage.
-        * @return A pointer to this Span's underlying storage
+        /*!
+        Gets a pointer to this Span's underlying storage.
+        @return A pointer to this Span's underlying storage
         */
         T* data() const
         {

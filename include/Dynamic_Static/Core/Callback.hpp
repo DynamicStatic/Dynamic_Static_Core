@@ -18,10 +18,10 @@
 
 namespace Dynamic_Static {
 
-    /*
-    * Encapsulates an Action<> that is callable by a given type.
-    * @param <CallerType> The type of object that can execute this Callback
-    * @param <Args> This Callback's argument types
+    /*!
+    Encapsulates an Action<> that is callable by a given type.
+    @param <CallerType> The type of object that can execute this Callback
+    @param <Args> This Callback's argument types
     */
     template <typename CallerType, typename ...Args>
     class Callback
@@ -32,9 +32,9 @@ namespace Dynamic_Static {
         Action<Args...> mAction;
 
     public:
-        /*
-        * Assigns this Callback's Action<>.
-        * @return This Callback
+        /*!
+        Assigns this Callback's Action<>.
+        @return This Callback
         */
         inline Callback<CallerType, Args...>& operator=(const Action<Args...>& action)
         {
@@ -42,9 +42,9 @@ namespace Dynamic_Static {
             return *this;
         }
 
-        /*
-        * Gets a value indicating whether or not this Callback has a valid Action<>.
-        * @return Whether or not this Callback has a valid Action<>
+        /*!
+        Gets a value indicating whether or not this Callback has a valid Action<>.
+        @return Whether or not this Callback has a valid Action<>
         */
         inline operator bool() const
         {
@@ -52,10 +52,10 @@ namespace Dynamic_Static {
         }
 
     private:
-        /*
-        * Executes this Callback.
-        * \n NOTE : This method can only be called by an object of type CallerType
-        * @param [in] args The arguments to execute this Callback with
+        /*!
+        Executes this Callback.
+        \n NOTE : This method can only be called by an object of type CallerType
+        @param [in] args The arguments to execute this Callback with
         */
         inline void operator()(Args&&... args) const
         {

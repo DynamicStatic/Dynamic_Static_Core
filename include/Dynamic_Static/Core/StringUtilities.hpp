@@ -21,11 +21,11 @@
 
 namespace Dynamic_Static {
 
-    /*
-    * Gets a value indicating whether or not a given string contains another given string.
-    * @param [in] str The string to search
-    * @param [in] find The string to find
-    * @param [in] offset The offset to start searching from (optional = 0)
+    /*!
+    Gets a value indicating whether or not a given string contains another given string.
+    @param [in] str The string to search
+    @param [in] find The string to find
+    @param [in] offset The offset to start searching from (optional = 0)
     */
     inline bool contains(
         const dst::StringView& str,
@@ -36,13 +36,13 @@ namespace Dynamic_Static {
         return str.find(find, offset) != std::string::npos;
     }
 
-    /*
-    * Gets a copy of an std::string with all occurences of a given substring replaced with another.
-    * @param [in] str The source string
-    * @param [in] find The string to find and replace in the source string
-    * @param [in] replacement The string to replace found occurences with
-    * @param [in] recursive (default = false) Whether or not to recursively replace occurences of the find string
-    * @return The resulting string
+    /*!
+    Gets a copy of an std::string with all occurences of a given substring replaced with another.
+    @param [in] str The source string
+    @param [in] find The string to find and replace in the source string
+    @param [in] replacement The string to replace found occurences with
+    @param [in] recursive (default = false) Whether or not to recursively replace occurences of the find string
+    @return The resulting string
     */
     inline std::string replace(
         const dst::StringView& str,
@@ -63,12 +63,12 @@ namespace Dynamic_Static {
         return result;
     }
 
-    /*
-    * Gets a copy of an std::string with all occurences of a given substring removed.
-    * @param [in] str The source string
-    * @param [in] find The string to find and remove from the source string
-    * @param [in] recursive (default = false) Whether or not to recursively remove occurences of the find string
-    * @return The resulting string
+    /*!
+    Gets a copy of an std::string with all occurences of a given substring removed.
+    @param [in] str The source string
+    @param [in] find The string to find and remove from the source string
+    @param [in] recursive (default = false) Whether or not to recursively remove occurences of the find string
+    @return The resulting string
     */
     inline std::string remove(
         const dst::StringView& str,
@@ -79,11 +79,11 @@ namespace Dynamic_Static {
         return dst::replace(str, find, nullptr, recursive);
     }
 
-    /*
-    * Gets a copy of an std::string with all repetitive occurences of a given substring reduced to single occurences.
-    * @param [in] str The source string
-    * @param [in] find The string to find and reduce
-    * @return The resulting string
+    /*!
+    Gets a copy of an std::string with all repetitive occurences of a given substring reduced to single occurences.
+    @param [in] str The source string
+    @param [in] find The string to find and reduce
+    @return The resulting string
     */
     inline std::string reduce_sequence(
         const dst::StringView& str,
@@ -94,21 +94,21 @@ namespace Dynamic_Static {
         return dst::replace(str, sequence + sequence, find, true);
     }
 
-    /*
-    * Gets a copy of an std::string containing a path with back slashes replaced with forward slashes and slash sequences reduced.
-    * @param [in] path The path to scrub
-    * @reutrn The scrubbed path
+    /*!
+    Gets a copy of an std::string containing a path with back slashes replaced with forward slashes and slash sequences reduced.
+    @param [in] path The path to scrub
+    @reutrn The scrubbed path
     */
     inline std::string scrub_path(dst::StringView path)
     {
         return dst::reduce_sequence(dst::replace(path, '\\', '/'), '/');
     }
 
-    /*
-    * Gets an std::vector<std::string> populated with substrings of a given string using a given delimiter.
-    * @param [in] str The string to search for delimiters
-    * @param [in] delimiter The delimiter to search for
-    * @return An std::vector<std::string> populated with split tokens
+    /*!
+    Gets an std::vector<std::string> populated with substrings of a given string using a given delimiter.
+    @param [in] str The string to search for delimiters
+    @param [in] delimiter The delimiter to search for
+    @return An std::vector<std::string> populated with split tokens
     */
     inline std::vector<std::string> split(
         const dst::StringView& str,
@@ -132,20 +132,20 @@ namespace Dynamic_Static {
         return tokens;
     }
 
-    /*
-    * Gets the upper case version of a given char.
-    * @param [in] c The char to convert to upper case
-    * @return The resulting char
+    /*!
+    Gets the upper case version of a given char.
+    @param [in] c The char to convert to upper case
+    @return The resulting char
     */
     inline char to_upper(char c)
     {
         return static_cast<char>(std::toupper(static_cast<int>(c)));
     }
 
-    /*
-    * Gets a copy of an std::string with all characters converted to upper case.
-    * @param [in] str The string to convert to upper case
-    * @return The resulting string
+    /*!
+    Gets a copy of an std::string with all characters converted to upper case.
+    @param [in] str The string to convert to upper case
+    @return The resulting string
     */
     inline std::string to_upper(const dst::StringView& str)
     {
@@ -156,20 +156,20 @@ namespace Dynamic_Static {
         return result;
     }
 
-    /*
-    * Gets the lower case version of a given char.
-    * @param [in] c The char to convert to lower case
-    * @return The resulting char
+    /*!
+    Gets the lower case version of a given char.
+    @param [in] c The char to convert to lower case
+    @return The resulting char
     */
     inline char to_lower(char c)
     {
         return static_cast<char>(std::tolower(static_cast<int>(c)));
     }
 
-    /*
-    * Gets a copy of an std::string with all characters converted to lower case.
-    * @param [in] str The string to convert to lower case
-    * @return The resulting string
+    /*!
+    Gets a copy of an std::string with all characters converted to lower case.
+    @param [in] str The string to convert to lower case
+    @return The resulting string
     */
     inline std::string to_lower(dst::StringView str)
     {
@@ -180,10 +180,10 @@ namespace Dynamic_Static {
         return result;
     }
 
-    /*
-    * Gets the std::string representation of the hex value of a given integral value.
-    * @param <T> The type of the given value
-    * @return The string representation of the hex value of the given integral value
+    /*!
+    Gets the std::string representation of the hex value of a given integral value.
+    @param <T> The type of the given value
+    @return The string representation of the hex value of the given integral value
     */
     template <typename T>
     inline std::string to_hex_string(const T& value)

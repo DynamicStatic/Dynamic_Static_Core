@@ -17,39 +17,39 @@
 
 namespace Dynamic_Static {
 
-    /*
-    * Provides a Callback<> for move notification.
+    /*!
+    Provides a Callback<> for move notification.
     */
     template <typename T>
     class MoveNotifier
     {
     public:
-        /*
-        * Callback<> executed when this MoveNotifier is moved.
-        * @param [in] (MoveNotifier*) The address moved to
-        * @param [in] (MoveNotifier*) The address moved from
+        /*!
+        Callback<> executed when this MoveNotifier is moved.
+        @param [in] (MoveNotifier*) The address moved to
+        @param [in] (MoveNotifier*) The address moved from
         */
         Callback<MoveNotifier<T>, MoveNotifier<T>*, MoveNotifier<T>*> on_move;
 
     public:
-        /*
-        * Constructs an instance of MoveNotifier<T>.
+        /*!
+        Constructs an instance of MoveNotifier<T>.
         */
         MoveNotifier() = default;
 
-        /*
-        * Moves this instance of MoveNotifier.
-        * @param [in] other The MoveNotifier to move from
+        /*!
+        Moves this instance of MoveNotifier.
+        @param [in] other The MoveNotifier to move from
         */
         MoveNotifier(MoveNotifier<T>&& other)
         {
             *this = std::move(other);
         }
 
-        /*
-        * Moves this instance of MoveNotifier.
-        * @param [in] other The MoveNotifier to move from
-        * @return This MoveNotifier
+        /*!
+        Moves this instance of MoveNotifier.
+        @param [in] other The MoveNotifier to move from
+        @return This MoveNotifier
         */
         MoveNotifier<T>& operator=(MoveNotifier<T>&& other)
         {

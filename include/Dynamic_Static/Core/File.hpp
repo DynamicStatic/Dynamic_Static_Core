@@ -20,10 +20,10 @@
 namespace Dynamic_Static {
 namespace File {
 
-    /*
-    * Reads all lines in the file at the given file path.
-    * @param [in] filePath The path to the file to read
-    * @param [in] lines An std::vector<std::string> to populate with the lines read from the file
+    /*!
+    Reads all lines in the file at the given file path.
+    @param [in] filePath The path to the file to read
+    @param [in] lines An std::vector<std::string> to populate with the lines read from the file
     */
     inline void read_all_lines(
         const std::string_view& filePath,
@@ -40,10 +40,10 @@ namespace File {
         }
     }
 
-    /*
-    * Reads all lines in the file at the given file path.
-    * @param [in] filePath The path to the file to read
-    * @param [in] lines An std::vector<std::string> populated with the lines read from the file
+    /*!
+    Reads all lines in the file at the given file path.
+    @param [in] filePath The path to the file to read
+    @param [in] lines An std::vector<std::string> populated with the lines read from the file
     */
     inline std::vector<std::string> read_all_lines(const std::string_view& filePath)
     {
@@ -52,10 +52,10 @@ namespace File {
         return lines;
     }
 
-    /*
-    * Reads all bytes in the file at the given file path.
-    * @param [in] filePath The path to the file to read
-    * @param [in] lines An std::vector<std::byte> to populate with the bytes read from the file
+    /*!
+    Reads all bytes in the file at the given file path.
+    @param [in] filePath The path to the file to read
+    @param [in] lines An std::vector<std::byte> to populate with the bytes read from the file
     */
     inline void read_all_bytes(
         const std::string_view& filePath,
@@ -72,10 +72,10 @@ namespace File {
         }
     }
 
-    /*
-    * Reads all bytes in the file at the given file path.
-    * @param [in] filePath The path to the file to read
-    * @param [in] lines An std::vector<std::byte> populated with the bytes read from the file
+    /*!
+    Reads all bytes in the file at the given file path.
+    @param [in] filePath The path to the file to read
+    @param [in] lines An std::vector<std::byte> populated with the bytes read from the file
     */
     inline std::vector<std::byte> read_all_bytes(const std::string_view& filePath)
     {
