@@ -84,15 +84,4 @@ namespace Dynamic_Static {
         vctr.erase(std::unique(vctr.begin(), vctr.end()), vctr.end());
     }
 
-    /*
-    * Gets the size in bytes of a given std::vector<>.
-    * @param <T> The type of the std::vector<> to get the size in bytes of
-    * @return The size in bytes of the given std::vector<>
-    */
-    template <typename T>
-    inline size_t size_bytes(const std::vector<T>& vctr)
-    {
-        return sizeof(T) * vctr.size();
-    }
-
 } // namespace Dynamic_Static
