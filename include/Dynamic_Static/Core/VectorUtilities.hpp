@@ -46,8 +46,8 @@ namespace Dynamic_Static {
 
     /*
     * Gets a std::vector<> populated with objects converted from another std::vector<> using a given conversion function.
-    * @param <SourceType> The type of the source std::vector
-    * @param <DestinationType> The type of the destination std::vector
+    * @param <SourceType> The type of the source std::vector<>
+    * @param <DestinationType> The type of the destination std::vector<>
     * @param <ConversionFunctionType> The type of the conversion function
     * @param [in] source The source std::vector<>
     * @param [in] conversion The conversion function
@@ -69,19 +69,30 @@ namespace Dynamic_Static {
     }
 
     /*
-    * Removes duplicate elements from a given std::vector<>
-    * \n NOTE : This function will sort the given std::vector
+    * Removes duplicate elements from a given std::vector<>.
+    * \n NOTE : This function will sort the given std::vector<>
     * \n NOTE : The type of the given std::vector<> must provide operator< and operator==
     * \n        The type of the given std::vector<> must fulfill the Compare concept
     * \n        (http://en.cppreference.com/w/cpp/concept/Compare)
-    * @param <T> T The type of the std::vector to remove duplicates from
-    * @param [in, out] vctr The std::vector to remove duplicates from
+    * @param <T> T The type of the std::vector<> to remove duplicates from
+    * @param [in, out] vctr The std::vector<> to remove duplicates from
     */
     template <typename T>
     inline void remove_duplicates(std::vector<T>& vctr)
     {
         std::sort(vctr.begin(), vctr.end());
         vctr.erase(std::unique(vctr.begin(), vctr.end()), vctr.end());
+    }
+
+    /*
+    * Gets the size in bytes of a given std::vector<>.
+    * @param <T> The type of the std::vector<> to get the size in bytes of
+    * @return The size in bytes of the given std::vector<>
+    */
+    template <typename T>
+    inline size_t size_bytes(const std::vector<T>& vctr)
+    {
+        return sizeof(T) * vctr.size();
     }
 
 } // namespace Dynamic_Static
