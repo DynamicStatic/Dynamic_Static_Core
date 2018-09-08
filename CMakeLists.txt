@@ -66,8 +66,8 @@ DstCreateStaticLibrary(
         "${CMAKE_CURRENT_LIST_DIR}/ForceCMakeBuild.cpp"
 )
 
-option(BUILD_TESTS "Build Dynamic_Static.Core.Tests" ON)
-if(BUILD_TESTS)
+option(BUILD_DST_TESTS "Build Dynamic_Static.Core.Tests" ON)
+if(BUILD_DST_TESTS)
     set(testsPath "${CMAKE_CURRENT_LIST_DIR}/tests/")
     DstCreateTests(
         target Dynamic_Static.Core
@@ -86,16 +86,13 @@ if(BUILD_TESTS)
     )
 endif()
 
-option(BUILD_TESTS "Build Dynamic_Static.Core.HeaderGenerator" ON)
-if(BUILD_TESTS)
+option(BUILD_DST_HEADER_GENERATOR "Build Dynamic_Static.Core.HeaderGenerator" ON)
+if(BUILD_DST_HEADER_GENERATOR)
     DstCreateExecutable(
         target Dynamic_Static.Core.HeaderGenerator
         folder Dynamic_Static.Core/
-        includeDirectories
-            "${CMAKE_CURRENT_LIST_DIR}/include/"
-
-        sourceFiles
-            "${CMAKE_CURRENT_LIST_DIR}/HeaderGenerator.Main.cpp"
+        includeDirectories "${CMAKE_CURRENT_LIST_DIR}/include/"
+        sourceFiles "${CMAKE_CURRENT_LIST_DIR}/HeaderGenerator.Main.cpp"
     )
     target_compile_definitions(
         Dynamic_Static.Core.HeaderGenerator
