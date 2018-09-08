@@ -1876,6 +1876,17 @@ namespace Dynamic_Static {
     typedef struct Degrees { } degrees; /*!< Degrees tag for functions operating on angles */
 
     /*!
+    Gets a given glm::vec's aspect ratio.
+    @param [in] v The glm::vec to get the aspect ratio of
+    @return The aspect ratio of the given glm::vec
+    */
+    template <typename VectorType>
+    inline T aspect_ratio(const VectorType& v)
+    {
+        return v.y != 0 ? v.x / v.y : 0;
+    }
+
+    /*!
     Wraps an angle to the range [0, 2Pi].
     @param [in] angle The angle to wrap
     @param [tag dispatch dst::radians]
