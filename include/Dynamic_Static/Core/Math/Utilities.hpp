@@ -23,13 +23,17 @@ namespace Dynamic_Static {
 
     /*!
     Gets a given glm::vec's aspect ratio.
+    @param <VectorType> The glm::vec type of the given glm::vec
+    @param <RT> The return type (optional = float)
     @param [in] v The glm::vec to get the aspect ratio of
     @return The aspect ratio of the given glm::vec
     */
-    template <typename VectorType>
-    inline T aspect_ratio(const VectorType& v)
+    template <typename VectorType, typename RT = float>
+    inline RT aspect_ratio(const VectorType& v)
     {
-        return v.y != 0 ? v.x / v.y : 0;
+        auto w = static_cast<RT>(v[0]);
+        auto h = static_cast<RT>(v[1]);
+        return h != 0 ? w / h : 0;
     }
 
     /*!
