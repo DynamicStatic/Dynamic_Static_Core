@@ -2715,4 +2715,20 @@ namespace Dynamic_Static {
         vctr.erase(std::unique(vctr.begin(), vctr.end()), vctr.end());
     }
 
+    /*!
+    Appends copies of the elements of one collection to the end of another.
+    @param <T> The type of the collection to append to
+    @param <U> The type of the collection to copy from
+    @param [in] v0 The collection to append to
+    @param [in] v1 The collection to copy from
+    */
+    template <typename T, typename U>
+    inline void append(
+        T& v0,
+        const U& v1
+    )
+    {
+        v0.insert(v0.end(), v1.begin(), v1.end());
+    }
+
 } // namespace Dynamic_Static
