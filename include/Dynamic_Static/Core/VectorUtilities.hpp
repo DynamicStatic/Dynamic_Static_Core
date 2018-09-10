@@ -11,6 +11,7 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Defines.hpp"
+#include "Dynamic_Static/Core/Span.hpp"
 
 #include <algorithm>
 #include <vector>
