@@ -51,6 +51,17 @@ namespace Dynamic_Static {
     }
 
     /*!
+    Gets the Cartesian coordinate of a given polar coordinate.
+    @param [in] r The radial distance from the origin
+    @param [in] theta The counterclockwise angle from the x axis
+    @return The Cartesian coordinate of the given polar coordinate
+    */
+    inline glm::vec2 polar_to_cartesian(float r, float theta)
+    {
+        return glm::vec2(std::cos(theta), std::sin(theta)) * r;
+    }
+
+    /*!
     Gets the world left vector; (-1, 0), (-1, 0, 0), or (-1, 0, 0, 0).
     @return The world left vector
     */
