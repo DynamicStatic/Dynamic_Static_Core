@@ -2046,7 +2046,7 @@ namespace Dynamic_Static {
     /*!
     Represents a position, rotation, and scale.
     */
-    struct Transform final
+    struct Transform
     {
         glm::vec3 translation { };
         glm::quat rotation { 1, 0, 0, 0 };
