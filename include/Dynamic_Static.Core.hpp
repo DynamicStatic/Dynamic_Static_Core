@@ -1005,6 +1005,28 @@ namespace Dynamic_Static {
     public:
         /*!
         */
+        inline Entity() = default;
+
+        /*!
+        */
+        inline Entity(Entity&& other)
+        {
+            *this = std::move(other);
+        }
+
+        /*!
+        */
+        inline Entity& operator=(Entity&& other)
+        {
+            if (this != &other) {
+                mComponents = std::move(other.mComponents);
+            }
+            return *this;
+        }
+
+    public:
+        /*!
+        */
         template <typename ComponentType>
         ComponentType* add_component(Component::Pool<ComponentType>& pool)
         {
