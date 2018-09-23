@@ -45,7 +45,7 @@ namespace Dynamic_Static {
     template <typename T>
     inline T wrap_angle(const T& angle, const Radians&)
     {
-        T twoPi = static_cast<T>(M_PI * 2);
+        auto twoPi = glm::two_pi<T>();
         T wrappedAngle = std::fmod(angle, twoPi);
         return wrappedAngle < 0 ? wrappedAngle : wrappedAngle + twoPi;
     }
