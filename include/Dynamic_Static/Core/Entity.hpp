@@ -35,7 +35,7 @@ namespace Dynamic_Static {
         {
             auto component = pool.check_out();
             if (component) {
-                auto typeId = get_type_id<ComponentType>();
+                auto typeId = Component::get_type_id<ComponentType>();
                 Component::Handle handle(typeId, &pool, component);
                 Component::Handle::Comparator comparator;
                 auto itr = std::lower_bound(mComponents.begin(), mComponents.end(), handle, comparator);
@@ -57,7 +57,7 @@ namespace Dynamic_Static {
         template <typename ComponentType>
         const ComponentType* get_component() const
         {
-            auto typeId = get_type_id<ComponentType>();
+            auto typeId = Component::get_type_id<ComponentType>();
             Component::Handle::Comparator comparator;
             auto itr = std::lower_bound(mComponents.begin(), mComponents.end(), typeId, comparator);
             return itr != mComponents.end() ? (ComponentType*)itr->get_component() : nullptr;

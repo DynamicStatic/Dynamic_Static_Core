@@ -121,7 +121,7 @@ namespace Dynamic_Static {
             */
             inline void check_in(void* component) override
             {
-                assert(mComponents.front() <= component && component <= mComponents.back());
+                assert(&mComponents.front() <= component && component <= &mComponents.back());
                 auto itr = std::lower_bound(mCheckedIn.begin(), mCheckedIn.end(), (ComponentType*)component);
                 mCheckedIn.insert(itr, (ComponentType*)component);
             }
