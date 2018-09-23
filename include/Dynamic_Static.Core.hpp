@@ -688,6 +688,602 @@ namespace Dynamic_Static {
 namespace Dynamic_Static {
 
     /*!
+    Encapsulates an Action<> that is callable by a given type.
+    @param <CallerType> The type of object that can execute this Callback
+    @param <Args> This Callback's argument types
+    */
+    template <typename CallerType, typename ...Args>
+    class Callback
+    {
+        friend CallerType;
+
+    private:
+        Action<Args...> mAction;
+
+    public:
+        /*!
+        Assigns this Callback's Action<>.
+        @return This Callback
+        */
+        inline Callback<CallerType, Args...>& operator=(const Action<Args...>& action)
+        {
+            mAction = action;
+            return *this;
+        }
+
+        /*!
+        Gets a value indicating whether or not this Callback has a valid Action<>.
+        @return Whether or not this Callback has a valid Action<>
+        */
+        inline operator bool() const
+        {
+            return mAction != nullptr;
+        }
+
+    private:
+        /*!
+        Executes this Callback.
+        \n NOTE : This method can only be called by an object of type CallerType
+        @param [in] args The arguments to execute this Callback with
+        */
+        inline void operator()(Args&&... args) const
+        {
+            if (mAction) {
+                mAction(std::forward<Args>(args)...);
+            }
+        }
+    };
+
+} // namespace Dynamic_Static
+
+namespace Dynamic_Static {
+
+    /*!
+    */
+    class Component
+    {
+    public:
+        /*!
+        */
+        class IPool
+        {
+        public:
+            /*!
+            */
+            virtual void* check_out() = 0;
+
+            /*!
+            */
+            virtual void check_in(void*) = 0;
+        };
+
+        /*!
+        */
+        template <typename ComponentType>
+        class Pool
+            : public IPool
+            , NonCopyable
+        {
+        private:
+            std::vector<ComponentType> mComponents;
+            std::vector<ComponentType*> mCheckedIn;
+
+        public:
+            /*!
+            */
+            inline Pool() = default;
+
+            /*!
+            */
+            inline Pool(size_t count)
+                : mComponents(count)
+                , mCheckedIn(count)
+            {
+                for (size_t i = 0; i < count; ++i) {
+                    mCheckedIn[i] = &mComponents[i];
+                }
+            }
+
+            /*!
+            */
+            inline Pool(Pool<ComponentType>&& other)
+            {
+                *this = std::move(other);
+            }
+
+            /*!
+            */
+            inline Pool& operator=(Pool<ComponentType>&& other)
+            {
+                if (this != &other) {
+                    mComponents = std::move(other.mComponents);
+                    mCheckedIn = std::move(other.mCheckedIn);
+                }
+                return *this;
+            }
+
+        public:
+            /*!
+            */
+            inline size_t total() const
+            {
+                return mComponents.size();
+            }
+
+            /*!
+            */
+            inline size_t count() const
+            {
+                return mCheckedIn.size();
+            }
+
+            /*!
+            */
+            inline size_t empty() const
+            {
+                return mCheckedIn.empty();
+            }
+
+            /*!
+            */
+            inline void* check_out() override
+            {
+                ComponentType* component = nullptr;
+                if (!empty()) {
+                    component = mCheckedIn.back();
+                    *component = ComponentType { };
+                    mCheckedIn.pop_back();
+                }
+                return component;
+            }
+
+            /*!
+            */
+            inline void check_in(void* component) override
+            {
+                assert(mComponents.front() <= component && component <= mComponents.back());
+                auto itr = std::lower_bound(mCheckedIn.begin(), mCheckedIn.end(), (ComponentType*)component);
+                mCheckedIn.insert(itr, (ComponentType*)component);
+            }
+
+            /*!
+            */
+            template <typename ProcessFunctionType>
+            inline void process_components(ProcessFunctionType process)
+            {
+                for (auto& component : mComponents) {
+                    process(component);
+                }
+            }
+        };
+
+        /*!
+        */
+        class Handle final
+            : NonCopyable
+        {
+        public:
+            /*!
+            */
+            struct Comparator final
+            {
+                /*!
+                */
+                inline bool operator()(const Handle& lhs, const Handle& rhs)
+                {
+
+                }
+
+                /*!
+                */
+                inline bool operator()(const Handle& lhs, uint64_t rhs)
+                {
+
+                }
+
+                /*!
+                */
+                inline bool operator()(uint64_t lhs, const Handle& rhs)
+                {
+
+                }
+            };
+
+        private:
+            uint64_t mTypeId { 0 };
+            IPool* mPool { nullptr };
+            void* mComponent { nullptr };
+
+        public:
+            /*!
+            */
+            inline Handle(
+                uint64_t typeId,
+                IPool* pool,
+                void* component
+            )
+                : mTypeId { typeId }
+                , mPool { pool }
+                , mComponent { component }
+            {
+                assert(mTypeId);
+                assert(mPool);
+                assert(mComponent);
+            }
+
+            /*!
+            */
+            inline Handle() = default;
+
+            /*!
+            */
+            inline Handle(Handle&& other)
+            {
+                *this = std::move(other);
+            }
+
+            /*!
+            */
+            inline ~Handle()
+            {
+                check_in();
+            }
+
+            /*!
+            */
+            inline Handle& operator=(Handle&& other)
+            {
+                if (this != &other) {
+                    check_in();
+                    mTypeId = std::move(other.mTypeId);
+                    mPool = std::move(other.mPool);
+                    mComponent = std::move(other.mComponent);
+                    other.mTypeId = 0;
+                    other.mPool = nullptr;
+                    other.mComponent = nullptr;
+                }
+                return *this;
+            }
+
+        public:
+            /*!
+            */
+            uint64_t get_type_id() const
+            {
+                return mTypeId;
+            }
+
+            /*!
+            */
+            void* get_component()
+            {
+                return mComponent;
+            }
+
+            /*!
+            */
+            const void* get_component() const
+            {
+                return mComponent;
+            }
+
+        private:
+            void check_in()
+            {
+                if (mPool && mComponent) {
+                    mPool->check_in(mComponent);
+                    mTypeId = 0;
+                    mPool = nullptr;
+                    mComponent = nullptr;
+                }
+            }
+        };
+
+    public:
+        /*!
+        */
+        template <typename ComponentType>
+        static inline uint64_t get_type_id()
+        {
+            static uint8_t sId;
+            return (uint64_t)&sId;
+        }
+    };
+
+} // namespace Dynamic_Static
+
+namespace Dynamic_Static {
+
+    /*!
+    */
+    class Entity
+        : NonCopyable
+    {
+    private:
+        std::vector<Component::Handle> mComponents;
+
+    public:
+        /*!
+        */
+        template <typename ComponentType>
+        ComponentType* add_component(Component::Pool<ComponentType>& pool)
+        {
+            auto component = pool.check_out();
+            if (component) {
+                auto typeId = get_type_id<ComponentType>();
+                Component::Handle handle(typeId, &pool, component);
+                Component::Handle::Comparator comparator;
+                auto itr = std::lower_bound(mComponents.begin(), mComponents.end(), handle, comparator);
+                mComponents.insert(itr, std::move(handle));
+            }
+            return (ComponentType*)component;
+        }
+
+        /*!
+        */
+        template <typename ComponentType>
+        ComponentType* get_component()
+        {
+            return const_cast<ComponentType*>(std::as_const(*this).get_component<ComponentType>());
+        }
+
+        /*!
+        */
+        template <typename ComponentType>
+        const ComponentType* get_component() const
+        {
+            auto typeId = get_type_id<ComponentType>();
+            Component::Handle::Comparator comparator;
+            auto itr = std::lower_bound(mComponents.begin(), mComponents.end(), typeId, comparator);
+            return itr != mComponents.end() ? (ComponentType*)itr->get_component() : nullptr;
+        }
+    };
+
+} // namespace Dynamic_Static
+
+namespace Dynamic_Static {
+
+    /*!
+    Represents a non-owning reference to a contiguous sequence of objects.
+    */
+    template <typename T>
+    class Span
+    {
+        // FROM : Modified ArrayProxy https://github.com/KhronosGroup/Vulkan-Hpp
+
+    private:
+        T* mData { nullptr };
+        size_t mCount { 0 };
+
+    public:
+        /*!
+        Constructs an instance of Span.
+        */
+        Span() = default;
+
+        /*!
+        Constructs an instance of Span.
+        */
+        constexpr Span(std::nullptr_t)
+        {
+        }
+
+        /*!
+        Constructs an instance of Span.
+        @param [in] data This Span's data
+        */
+        Span(T& data)
+            : mData { &data }
+            , mCount { 1 }
+        {
+        }
+
+        /*!
+        Constructs an instance of Span.
+        @param [in] data This Span's data
+        @param [in] count This Span's count
+        */
+        Span(T* data, size_t count)
+            : mData { data }
+            , mCount { count }
+        {
+        }
+
+        /*!
+        Constructs an instance of Span.
+        @param <N> This Span's count
+        @param [in] data This Span's data
+        */
+        template <size_t N>
+        Span(std::array<typename std::remove_const<T>::type, N>& data)
+            : mData(data.data())
+            , mCount(N)
+        {
+        }
+
+        /*!
+        Constructs an instance of Span.
+        @param <N> This Span's count
+        @param [in] data This Span's data
+        */
+        template <size_t N>
+        Span(const std::array<typename std::remove_const<T>::type, N>& data)
+            : mData(data.data())
+            , mCount(N)
+        {
+        }
+
+        /*!
+        Constructs an instance of Span.
+        @param [in] data This Span's data
+        */
+        template <class Allocator = std::allocator<typename std::remove_const<T>::type>>
+        Span(std::vector<typename std::remove_const<T>::type, Allocator>& data)
+            : mData { data.data() }
+            , mCount { data.size() }
+        {
+        }
+
+        /*!
+        Constructs an instance of Span.
+        @param [in] data This Span's data
+        */
+        template <class Allocator = std::allocator<typename std::remove_const<T>::type>>
+        Span(const std::vector<typename std::remove_const<T>::type, Allocator>& data)
+            : mData { data.data() }
+            , mCount { data.size() }
+        {
+        }
+
+        /*!
+        Constructs an instance of Span.
+        @param [in] data This Span's data
+        */
+        Span(const std::initializer_list<T>& data)
+            : mData { data.begin() }
+            , mCount { data.end() - data.begin() }
+        {
+        }
+
+        /*!
+        Gets a reference to an element at a given index.
+        @param [in] index The index of the element to get
+        @return The element at the given index
+        */
+        T& operator[](size_t index)
+        {
+            return mData[index];
+        }
+
+        /*!
+        Gets a reference to an element at a given index.
+        @param [in] index The index of the element to get
+        @return The element at the given index
+        */
+        const T& operator[](size_t index) const
+        {
+            return mData[index];
+        }
+
+    public:
+        /*!
+        Gets an iterator to the beginning of this Span's sequence.
+        @return An iterator to the beginning of this Span's sequence
+        */
+        T* begin()
+        {
+            return mData;
+        }
+
+        /*!
+        Gets an iterator to the beginning of this Span's sequence.
+        @return An iterator to the beginning of this Span's sequence
+        */
+        const T* begin() const
+        {
+            return mData;
+        }
+
+        /*!
+        Gets an iterator to the end of this Span's sequence.
+        @return An iterator to the end of this Span's sequence
+        */
+        T* end()
+        {
+            return mData + mCount;
+        }
+
+        /*!
+        Gets an iterator to the end of this Span's sequence.
+        @return An iterator to the end of this Span's sequence
+        */
+        const T* end() const
+        {
+            return mData + mCount;
+        }
+
+        /*!
+        Gets a reference to this Span's first element.
+        @return A reference to this Span's first element
+        */
+        T& front()
+        {
+            assert(mData && mCount);
+            return *mData;
+        }
+
+        /*!
+        Gets a reference to this Span's first element.
+        @return A reference to this Span's first element
+        */
+        const T& front() const
+        {
+            assert(mData && mCount);
+            return *mData;
+        }
+
+        /*!
+        Gets a reference to this Span's last element.
+        @return A reference to this Span's last element
+        */
+        T& back()
+        {
+            assert(mData && mCount);
+            return *(mData + mCount - 1);
+        }
+
+        /*!
+        Gets a reference to this Span's last element.
+        @return A reference to this Span's last element
+        */
+        const T& back() const
+        {
+            assert(mData && mCount);
+            return *(mData + mCount - 1);
+        }
+
+        /*!
+        Gets a value indicating whether or not this Span is empty.
+        @return A value indicating whether or not this Span is empty
+        */
+        bool empty() const
+        {
+            return (mCount == 0);
+        }
+
+        /*!
+        Gets this Span's count.
+        @return This Span's count
+        */
+        size_t size() const
+        {
+            return mCount;
+        }
+
+        /*!
+        Gets this Span's size in bytes.
+        @return This Span's size in bytes
+        */
+        size_t size_bytes() const
+        {
+            return mCount * sizeof(T);
+        }
+
+        /*!
+        Gets a pointer to this Span's underlying storage.
+        @return A pointer to this Span's underlying storage
+        */
+        T* data() const
+        {
+            return mData;
+        }
+    };
+
+} // namespace Dynamic_Static
+
+namespace Dynamic_Static {
+
+    /*!
     Represents the system wide real time wall clock.
     */
     typedef std::chrono::system_clock SystemClock;
@@ -1172,297 +1768,6 @@ namespace Dynamic_Static {
             for (auto& worker : mWorkers) {
                 worker.wait(timeOut);
             }
-        }
-    };
-
-} // namespace Dynamic_Static
-
-namespace Dynamic_Static {
-
-    /*!
-    Encapsulates an Action<> that is callable by a given type.
-    @param <CallerType> The type of object that can execute this Callback
-    @param <Args> This Callback's argument types
-    */
-    template <typename CallerType, typename ...Args>
-    class Callback
-    {
-        friend CallerType;
-
-    private:
-        Action<Args...> mAction;
-
-    public:
-        /*!
-        Assigns this Callback's Action<>.
-        @return This Callback
-        */
-        inline Callback<CallerType, Args...>& operator=(const Action<Args...>& action)
-        {
-            mAction = action;
-            return *this;
-        }
-
-        /*!
-        Gets a value indicating whether or not this Callback has a valid Action<>.
-        @return Whether or not this Callback has a valid Action<>
-        */
-        inline operator bool() const
-        {
-            return mAction != nullptr;
-        }
-
-    private:
-        /*!
-        Executes this Callback.
-        \n NOTE : This method can only be called by an object of type CallerType
-        @param [in] args The arguments to execute this Callback with
-        */
-        inline void operator()(Args&&... args) const
-        {
-            if (mAction) {
-                mAction(std::forward<Args>(args)...);
-            }
-        }
-    };
-
-} // namespace Dynamic_Static
-
-namespace Dynamic_Static {
-
-    /*!
-    Represents a non-owning reference to a contiguous sequence of objects.
-    */
-    template <typename T>
-    class Span
-    {
-        // FROM : Modified ArrayProxy https://github.com/KhronosGroup/Vulkan-Hpp
-
-    private:
-        T* mData { nullptr };
-        size_t mCount { 0 };
-
-    public:
-        /*!
-        Constructs an instance of Span.
-        */
-        Span() = default;
-
-        /*!
-        Constructs an instance of Span.
-        */
-        constexpr Span(std::nullptr_t)
-        {
-        }
-
-        /*!
-        Constructs an instance of Span.
-        @param [in] data This Span's data
-        */
-        Span(T& data)
-            : mData { &data }
-            , mCount { 1 }
-        {
-        }
-
-        /*!
-        Constructs an instance of Span.
-        @param [in] data This Span's data
-        @param [in] count This Span's count
-        */
-        Span(T* data, size_t count)
-            : mData { data }
-            , mCount { count }
-        {
-        }
-
-        /*!
-        Constructs an instance of Span.
-        @param <N> This Span's count
-        @param [in] data This Span's data
-        */
-        template <size_t N>
-        Span(std::array<typename std::remove_const<T>::type, N>& data)
-            : mData(data.data())
-            , mCount(N)
-        {
-        }
-
-        /*!
-        Constructs an instance of Span.
-        @param <N> This Span's count
-        @param [in] data This Span's data
-        */
-        template <size_t N>
-        Span(const std::array<typename std::remove_const<T>::type, N>& data)
-            : mData(data.data())
-            , mCount(N)
-        {
-        }
-
-        /*!
-        Constructs an instance of Span.
-        @param [in] data This Span's data
-        */
-        template <class Allocator = std::allocator<typename std::remove_const<T>::type>>
-        Span(std::vector<typename std::remove_const<T>::type, Allocator>& data)
-            : mData { data.data() }
-            , mCount { data.size() }
-        {
-        }
-
-        /*!
-        Constructs an instance of Span.
-        @param [in] data This Span's data
-        */
-        template <class Allocator = std::allocator<typename std::remove_const<T>::type>>
-        Span(const std::vector<typename std::remove_const<T>::type, Allocator>& data)
-            : mData { data.data() }
-            , mCount { data.size() }
-        {
-        }
-
-        /*!
-        Constructs an instance of Span.
-        @param [in] data This Span's data
-        */
-        Span(const std::initializer_list<T>& data)
-            : mData { data.begin() }
-            , mCount { data.end() - data.begin() }
-        {
-        }
-
-        /*!
-        Gets a reference to an element at a given index.
-        @param [in] index The index of the element to get
-        @return The element at the given index
-        */
-        T& operator[](size_t index)
-        {
-            return mData[index];
-        }
-
-        /*!
-        Gets a reference to an element at a given index.
-        @param [in] index The index of the element to get
-        @return The element at the given index
-        */
-        const T& operator[](size_t index) const
-        {
-            return mData[index];
-        }
-
-    public:
-        /*!
-        Gets an iterator to the beginning of this Span's sequence.
-        @return An iterator to the beginning of this Span's sequence
-        */
-        T* begin()
-        {
-            return mData;
-        }
-
-        /*!
-        Gets an iterator to the beginning of this Span's sequence.
-        @return An iterator to the beginning of this Span's sequence
-        */
-        const T* begin() const
-        {
-            return mData;
-        }
-
-        /*!
-        Gets an iterator to the end of this Span's sequence.
-        @return An iterator to the end of this Span's sequence
-        */
-        T* end()
-        {
-            return mData + mCount;
-        }
-
-        /*!
-        Gets an iterator to the end of this Span's sequence.
-        @return An iterator to the end of this Span's sequence
-        */
-        const T* end() const
-        {
-            return mData + mCount;
-        }
-
-        /*!
-        Gets a reference to this Span's first element.
-        @return A reference to this Span's first element
-        */
-        T& front()
-        {
-            assert(mData && mCount);
-            return *mData;
-        }
-
-        /*!
-        Gets a reference to this Span's first element.
-        @return A reference to this Span's first element
-        */
-        const T& front() const
-        {
-            assert(mData && mCount);
-            return *mData;
-        }
-
-        /*!
-        Gets a reference to this Span's last element.
-        @return A reference to this Span's last element
-        */
-        T& back()
-        {
-            assert(mData && mCount);
-            return *(mData + mCount - 1);
-        }
-
-        /*!
-        Gets a reference to this Span's last element.
-        @return A reference to this Span's last element
-        */
-        const T& back() const
-        {
-            assert(mData && mCount);
-            return *(mData + mCount - 1);
-        }
-
-        /*!
-        Gets a value indicating whether or not this Span is empty.
-        @return A value indicating whether or not this Span is empty
-        */
-        bool empty() const
-        {
-            return (mCount == 0);
-        }
-
-        /*!
-        Gets this Span's count.
-        @return This Span's count
-        */
-        size_t size() const
-        {
-            return mCount;
-        }
-
-        /*!
-        Gets this Span's size in bytes.
-        @return This Span's size in bytes
-        */
-        size_t size_bytes() const
-        {
-            return mCount * sizeof(T);
-        }
-
-        /*!
-        Gets a pointer to this Span's underlying storage.
-        @return A pointer to this Span's underlying storage
-        */
-        T* data() const
-        {
-            return mData;
         }
     };
 

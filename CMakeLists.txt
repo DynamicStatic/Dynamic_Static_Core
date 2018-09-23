@@ -19,48 +19,51 @@ DstCreateProject(Dynamic_Static.Core)
 
 include("external/glm.cmake")
 
-set(includeDirectory "${CMAKE_CURRENT_LIST_DIR}/include/Dynamic_Static/Core/")
+set(includeDirectory "${CMAKE_CURRENT_LIST_DIR}/include/")
+set(includePath "${includeDirectory}/Dynamic_Static/Core/")
 DstCreateStaticLibrary(
     target Dynamic_Static.Core
     folder Dynamic_Static.Core/
 
     includeDirectories
-        "${CMAKE_CURRENT_LIST_DIR}/include/"
-        ${glm.includeDirectories}
+        "${includeDirectory}"
+        "${glm.includeDirectories}"
 
     includeFiles
-        "${includeDirectory}/Events/Delegate.hpp"
-        "${includeDirectory}/Events/Event.hpp"
-        "${includeDirectory}/Events/Subscribable.hpp"
-        "${includeDirectory}/Math/Colors.hpp"
-        "${includeDirectory}/Math/Defines.hpp"
-        "${includeDirectory}/Math/Transform.hpp"
-        "${includeDirectory}/Math/Utilities.hpp"
-        "${includeDirectory}/Threads/Semaphore.hpp"
-        "${includeDirectory}/Threads/ThreadPool.hpp"
-        "${includeDirectory}/Threads/ThreadUtilities.hpp"
-        "${includeDirectory}/Threads/Worker.hpp"
-        "${includeDirectory}/Action.hpp"
-        "${includeDirectory}/Algorithm.hpp"
-        "${includeDirectory}/Callback.hpp"
-        "${includeDirectory}/Defines.hpp"
-        "${includeDirectory}/Events.hpp"
-        "${includeDirectory}/File.hpp"
-        "${includeDirectory}/FileSystem.hpp"
-        "${includeDirectory}/Math.hpp"
-        "${includeDirectory}/Memory.hpp"
-        "${includeDirectory}/MoveNotifier.hpp"
-        "${includeDirectory}/NonCopyable.hpp"
-        "${includeDirectory}/Random.hpp"
-        "${includeDirectory}/SharedObject.hpp"
-        "${includeDirectory}/Span.hpp"
-        "${includeDirectory}/StringUtilities.hpp"
-        "${includeDirectory}/StringView.hpp"
-        "${includeDirectory}/Threads.hpp"
-        "${includeDirectory}/Time.hpp"
-        "${includeDirectory}/VectorUtilities.hpp"
-        "${includeDirectory}/Version.hpp"
-        "${includeDirectory}/Win32LeanAndMean.hpp"
+        "${includePath}/Events/Delegate.hpp"
+        "${includePath}/Events/Event.hpp"
+        "${includePath}/Events/Subscribable.hpp"
+        "${includePath}/Math/Colors.hpp"
+        "${includePath}/Math/Defines.hpp"
+        "${includePath}/Math/Transform.hpp"
+        "${includePath}/Math/Utilities.hpp"
+        "${includePath}/Threads/Semaphore.hpp"
+        "${includePath}/Threads/ThreadPool.hpp"
+        "${includePath}/Threads/ThreadUtilities.hpp"
+        "${includePath}/Threads/Worker.hpp"
+        "${includePath}/Action.hpp"
+        "${includePath}/Algorithm.hpp"
+        "${includePath}/Callback.hpp"
+        "${includePath}/Component.hpp"
+        "${includePath}/Defines.hpp"
+        "${includePath}/Entity.hpp"
+        "${includePath}/Events.hpp"
+        "${includePath}/File.hpp"
+        "${includePath}/FileSystem.hpp"
+        "${includePath}/Math.hpp"
+        "${includePath}/Memory.hpp"
+        "${includePath}/MoveNotifier.hpp"
+        "${includePath}/NonCopyable.hpp"
+        "${includePath}/Random.hpp"
+        "${includePath}/SharedObject.hpp"
+        "${includePath}/Span.hpp"
+        "${includePath}/StringUtilities.hpp"
+        "${includePath}/StringView.hpp"
+        "${includePath}/Threads.hpp"
+        "${includePath}/Time.hpp"
+        "${includePath}/VectorUtilities.hpp"
+        "${includePath}/Version.hpp"
+        "${includePath}/Win32LeanAndMean.hpp"
 
     sourceFiles
         "${CMAKE_CURRENT_LIST_DIR}/ForceCMakeBuild.cpp"
