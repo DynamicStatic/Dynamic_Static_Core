@@ -151,21 +151,24 @@ namespace Dynamic_Static {
                 */
                 inline bool operator()(const Handle& lhs, const Handle& rhs)
                 {
-
+                    return
+                        lhs.mTypeId < rhs.mTypeId ||
+                        lhs.mPool < rhs.mPool ||
+                        lhs.mComponent < rhs.mComponent;
                 }
 
                 /*!
                 */
                 inline bool operator()(const Handle& lhs, uint64_t rhs)
                 {
-
+                    return lhs.mTypeId < rhs;
                 }
 
                 /*!
                 */
                 inline bool operator()(uint64_t lhs, const Handle& rhs)
                 {
-
+                    return lhs < rhs.mTypeId;
                 }
             };
 
