@@ -118,13 +118,11 @@ namespace Dynamic_Static {
 
             /*!
             */
-            template <typename ...Args>
-            inline void* check_out(Args&&... args) override
+            inline void* check_out() override
             {
                 ComponentType* component = nullptr;
                 if (!empty()) {
                     component = mCheckedIn.back();
-                    *component = ComponentType(std::forward<Args>(args)...);
                     mCheckedIn.pop_back();
                 }
                 return component;

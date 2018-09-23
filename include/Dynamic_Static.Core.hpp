@@ -838,13 +838,11 @@ namespace Dynamic_Static {
 
             /*!
             */
-            template <typename ...Args>
-            inline void* check_out(Args&&... args) override
+            inline void* check_out() override
             {
                 ComponentType* component = nullptr;
                 if (!empty()) {
                     component = mCheckedIn.back();
-                    *component = ComponentType(std::forward<Args>(args)...);
                     mCheckedIn.pop_back();
                 }
                 return component;
@@ -1049,9 +1047,9 @@ namespace Dynamic_Static {
             Args&&... args
         )
         {
-            ComponentType* component = nullptr;
-            if (!pool.empty()) {
-                component = (ComponentType*)pool.check_out(std::forward<Args>(args)...);
+            ComponentType* component = (ComponentType*)pool.check_out();
+            if (component) {
+                *component = ComponentType(std::forward<Args>(args)...);
                 auto typeId = Component::get_type_id<ComponentType>();
                 Component::Handle handle(typeId, &pool, component);
                 Component::Handle::Comparator comparator;
