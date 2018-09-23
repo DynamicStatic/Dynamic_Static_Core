@@ -750,6 +750,18 @@ namespace Dynamic_Static {
         public:
             /*!
             */
+            virtual size_t total() const = 0;
+
+            /*!
+            */
+            virtual size_t count() const = 0;
+
+            /*!
+            */
+            virtual size_t empty() const = 0;
+
+            /*!
+            */
             virtual void* check_out() = 0;
 
             /*!
@@ -805,33 +817,34 @@ namespace Dynamic_Static {
         public:
             /*!
             */
-            inline size_t total() const
+            inline size_t total() const override
             {
                 return mComponents.size();
             }
 
             /*!
             */
-            inline size_t count() const
+            inline size_t count() const override
             {
                 return mCheckedIn.size();
             }
 
             /*!
             */
-            inline size_t empty() const
+            inline size_t empty() const override
             {
                 return mCheckedIn.empty();
             }
 
             /*!
             */
-            inline void* check_out() override
+            template <typename ...Args>
+            inline void* check_out(Args&&... args) override
             {
                 ComponentType* component = nullptr;
                 if (!empty()) {
                     component = mCheckedIn.back();
-                    *component = ComponentType { };
+                    *component = ComponentType(std::forward<Args>(args)...);
                     mCheckedIn.pop_back();
                 }
                 return component;
@@ -1030,24 +1043,28 @@ namespace Dynamic_Static {
     public:
         /*!
         */
-        template <typename ComponentType>
-        ComponentType* add_component(Component::Pool<ComponentType>& pool)
+        template <typename ComponentType, typename ...Args>
+        inline ComponentType* add_component(
+            Component::Pool<ComponentType>& pool,
+            Args&&... args
+        )
         {
-            auto component = pool.check_out();
-            if (component) {
+            ComponentType* component = nullptr;
+            if (!pool.empty()) {
+                component = (ComponentType*)pool.check_out(std::forward<Args>(args)...);
                 auto typeId = Component::get_type_id<ComponentType>();
                 Component::Handle handle(typeId, &pool, component);
                 Component::Handle::Comparator comparator;
                 auto itr = std::lower_bound(mComponents.begin(), mComponents.end(), handle, comparator);
                 mComponents.insert(itr, std::move(handle));
             }
-            return (ComponentType*)component;
+            return component;
         }
 
         /*!
         */
         template <typename ComponentType>
-        ComponentType* get_component()
+        inline ComponentType* get_component()
         {
             return const_cast<ComponentType*>(std::as_const(*this).get_component<ComponentType>());
         }
@@ -1055,12 +1072,19 @@ namespace Dynamic_Static {
         /*!
         */
         template <typename ComponentType>
-        const ComponentType* get_component() const
+        inline const ComponentType* get_component() const
         {
             auto typeId = Component::get_type_id<ComponentType>();
             Component::Handle::Comparator comparator;
             auto itr = std::lower_bound(mComponents.begin(), mComponents.end(), typeId, comparator);
             return itr != mComponents.end() ? (ComponentType*)itr->get_component() : nullptr;
+        }
+
+        /*!
+        */
+        inline void remove_all_components()
+        {
+            mComponents.clear();
         }
     };
 

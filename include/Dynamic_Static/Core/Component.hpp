@@ -30,6 +30,18 @@ namespace Dynamic_Static {
         public:
             /*!
             */
+            virtual size_t total() const = 0;
+
+            /*!
+            */
+            virtual size_t count() const = 0;
+
+            /*!
+            */
+            virtual size_t empty() const = 0;
+
+            /*!
+            */
             virtual void* check_out() = 0;
 
             /*!
@@ -85,33 +97,34 @@ namespace Dynamic_Static {
         public:
             /*!
             */
-            inline size_t total() const
+            inline size_t total() const override
             {
                 return mComponents.size();
             }
 
             /*!
             */
-            inline size_t count() const
+            inline size_t count() const override
             {
                 return mCheckedIn.size();
             }
 
             /*!
             */
-            inline size_t empty() const
+            inline size_t empty() const override
             {
                 return mCheckedIn.empty();
             }
 
             /*!
             */
-            inline void* check_out() override
+            template <typename ...Args>
+            inline void* check_out(Args&&... args) override
             {
                 ComponentType* component = nullptr;
                 if (!empty()) {
                     component = mCheckedIn.back();
-                    *component = ComponentType { };
+                    *component = ComponentType(std::forward<Args>(args)...);
                     mCheckedIn.pop_back();
                 }
                 return component;
