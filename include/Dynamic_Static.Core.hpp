@@ -923,6 +923,11 @@ namespace Dynamic_Static {
                 // TODO : Need to use indices into pool vs pointers...not sure
                 //  exactly how to do that when we don't have a pool for some
                 //  components...
+                // TODO : Need to figure out how to deal with Components adding
+                //  themselves mutliple times to the same Entity as their own
+                //  base...specifically, how to deal with dtors...it's ok for
+                //  now...only ShapeBlaster is using it and ShapeBlaster
+                //  Entities never remove Components until they die.
                 assert(mTypeId);
                 assert(mComponent);
             }
