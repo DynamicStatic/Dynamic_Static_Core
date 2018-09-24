@@ -61,6 +61,7 @@ DstCreateStaticLibrary(
         "${includePath}/StringView.hpp"
         "${includePath}/Threads.hpp"
         "${includePath}/Time.hpp"
+        "${includePath}/TypeUtilities.hpp"
         "${includePath}/VectorUtilities.hpp"
         "${includePath}/Version.hpp"
         "${includePath}/Win32LeanAndMean.hpp"

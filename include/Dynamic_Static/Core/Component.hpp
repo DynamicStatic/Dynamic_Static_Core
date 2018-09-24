@@ -200,8 +200,10 @@ namespace Dynamic_Static {
                 , mPool { pool }
                 , mComponent { component }
             {
+                // TODO : Need to use indices into pool vs pointers...not sure
+                //  exactly how to do that when we don't have a pool for some
+                //  components...
                 assert(mTypeId);
-                assert(mPool);
                 assert(mComponent);
             }
 

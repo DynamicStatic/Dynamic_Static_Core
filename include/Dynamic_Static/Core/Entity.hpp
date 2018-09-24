@@ -66,6 +66,25 @@ namespace Dynamic_Static {
                 Component::Handle::Comparator comparator;
                 auto itr = std::lower_bound(mComponents.begin(), mComponents.end(), handle, comparator);
                 mComponents.insert(itr, std::move(handle));
+                call_on_add(component);
+            }
+            return component;
+        }
+
+        /*!
+        */
+        template <typename ComponentType>
+        inline ComponentType* add_component(ComponentType* component)
+        {
+            if (component) {
+                // TODO : Need to prevent the same component being added
+                //  multiple times.
+                auto typeId = Component::get_type_id<ComponentType>();
+                Component::Handle handle(typeId, nullptr, component);
+                Component::Handle::Comparator comparator;
+                auto itr = std::lower_bound(mComponents.begin(), mComponents.end(), handle, comparator);
+                mComponents.insert(itr, std::move(handle));
+                call_on_add(component);
             }
             return component;
         }
@@ -94,6 +113,28 @@ namespace Dynamic_Static {
         inline void remove_all_components()
         {
             mComponents.clear();
+        }
+
+    private:
+        template <typename ComponentType>
+        struct has_on_add final
+        {
+            template <typename T> static std::false_type test(...) { }
+            template <typename T> static auto test(int)->decltype(&T::on_add, std::true_type()) { }
+            static constexpr bool value { std::is_same<std::true_type, decltype(test<ComponentType>(0))>::value };
+        };
+
+        template <typename ComponentType>
+        typename std::enable_if<has_on_add<ComponentType>::value>::type
+            call_on_add(ComponentType* component)
+        {
+            component->on_add(*this);
+        }
+
+        template <typename ComponentType>
+        typename std::enable_if<!has_on_add<ComponentType>::value>::type
+            call_on_add(ComponentType*)
+        {
         }
     };
 
