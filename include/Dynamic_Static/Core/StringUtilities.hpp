@@ -28,12 +28,14 @@ namespace Dynamic_Static {
     @param [in] offset The offset to start searching from (optional = 0)
     */
     inline bool contains(
-        const dst::StringView& str,
-        const dst::StringView& find,
+        dst::StringView str,
+        dst::StringView find,
         size_t offset = 0
     )
     {
-        return str.find(find, offset) != std::string::npos;
+        // TODO : Why does std::basic_string_view find() not select
+        //  dst::BasicStringView's conversion to const char*?
+        return str.find(find.c_str(), offset) != std::string::npos;
     }
 
     /*!
@@ -45,9 +47,9 @@ namespace Dynamic_Static {
     @return The resulting string
     */
     inline std::string replace(
-        const dst::StringView& str,
-        const dst::StringView& find,
-        const dst::StringView& replacement,
+        dst::StringView str,
+        dst::StringView find,
+        dst::StringView replacement,
         bool recursive = false
     )
     {
@@ -71,8 +73,8 @@ namespace Dynamic_Static {
     @return The resulting string
     */
     inline std::string remove(
-        const dst::StringView& str,
-        const dst::StringView& find,
+        dst::StringView str,
+        dst::StringView find,
         bool recursive = false
     )
     {
@@ -86,8 +88,8 @@ namespace Dynamic_Static {
     @return The resulting string
     */
     inline std::string reduce_sequence(
-        const dst::StringView& str,
-        const dst::StringView& find
+        dst::StringView str,
+        dst::StringView find
     )
     {
         std::string sequence(find.begin(), find.end());
@@ -101,7 +103,7 @@ namespace Dynamic_Static {
     */
     inline std::string scrub_path(dst::StringView path)
     {
-        return dst::reduce_sequence(dst::replace(path, '\\', '/'), '/');
+        return dst::reduce_sequence(dst::replace(path, "\\", "/"), "/");
     }
 
     /*!
@@ -111,15 +113,15 @@ namespace Dynamic_Static {
     @return An std::vector<std::string> populated with split tokens
     */
     inline std::vector<std::string> split(
-        const dst::StringView& str,
-        const dst::StringView& delimiter
+        dst::StringView str,
+        dst::StringView delimiter
     )
     {
         std::vector<std::string> tokens;
         if (!str.empty() && !delimiter.empty()) {
             size_t index = 0;
             size_t offset = 0;
-            while ((index = str.find(delimiter, offset)) != std::string::npos) {
+            while ((index = str.find(delimiter.c_str(), offset)) != std::string::npos) {
                 if (index - offset > 0) {
                     tokens.push_back(std::string(str.substr(offset, index - offset)));
                 }
@@ -139,7 +141,7 @@ namespace Dynamic_Static {
     */
     inline char to_upper(char c)
     {
-        return static_cast<char>(std::toupper(static_cast<int>(c)));
+        return (char)std::toupper((int)c);
     }
 
     /*!
@@ -147,7 +149,7 @@ namespace Dynamic_Static {
     @param [in] str The string to convert to upper case
     @return The resulting string
     */
-    inline std::string to_upper(const dst::StringView& str)
+    inline std::string to_upper(dst::StringView str)
     {
         std::string result(str.begin(), str.end());
         for (auto& c : result) {
@@ -163,7 +165,7 @@ namespace Dynamic_Static {
     */
     inline char to_lower(char c)
     {
-        return static_cast<char>(std::tolower(static_cast<int>(c)));
+        return (char)std::tolower((int)c);
     }
 
     /*!

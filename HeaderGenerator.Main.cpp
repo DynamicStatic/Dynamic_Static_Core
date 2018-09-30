@@ -41,7 +41,7 @@ public:
             if (pragmaOnceFound) {
                 if (line.find("#include") != std::string::npos) {
                     if (line.find("Dynamic_Static/Core/") != std::string::npos) {
-                        auto include = dst::remove(dst::remove(line, "#include "), '"');
+                        auto include = dst::remove(dst::remove(line, "#include "), "\"");
                         dstIncludes.push_back(include);
                     } else {
                         if (skipNonDstIncludeExtraction) {

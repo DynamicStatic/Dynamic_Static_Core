@@ -24,7 +24,7 @@ namespace Tests {
         SECTION("Valid find and replace")
         {
             std::string str = TestString;
-            str = dst::replace(str, '!', '.');
+            str = dst::replace(str, "!", ".");
             str = dst::replace(str, "quick", "slow");
             str = dst::replace(str, "jumps", "trips");
             str = dst::replace(str, "lazy", "sleeping");
@@ -45,7 +45,7 @@ namespace Tests {
     {
         std::string str = TestString;
         str = dst::remove(str, " brow");
-        str = dst::remove(str, 'n');
+        str = dst::remove(str, "n");
         str = dst::remove(str, " lazy");
         str = dst::remove(str, "-dog-");
         REQUIRE(str == "The quick fox jumps over the dog!");
@@ -54,9 +54,9 @@ namespace Tests {
     TEST_CASE("reduce_sequence()", "[StringUtilities]")
     {
         std::string str = "some\\ugly\\/\\//\\path\\with\\a/////broken\\\\extension.....ext";
-        str = dst::replace(str, '\\', '/');
-        str = dst::reduce_sequence(str, '/');
-        str = dst::reduce_sequence(str, '.');
+        str = dst::replace(str, "\\", "/");
+        str = dst::reduce_sequence(str, "/");
+        str = dst::reduce_sequence(str, ".");
         str = dst::replace(str, "ugly", "nice");
         str = dst::replace(str, "broken", "decent");
         REQUIRE(str == "some/nice/path/with/a/decent/extension.ext");
@@ -81,38 +81,38 @@ namespace Tests {
 
         SECTION("Empty input produces empty result")
         {
-            auto tokens = dst::split(std::string(), ' ');
+            auto tokens = dst::split(std::string(), " ");
             REQUIRE(tokens.empty());
         }
 
         SECTION("nullptr input produces empty result")
         {
-            auto tokens = dst::split(nullptr, ' ');
+            auto tokens = dst::split(nullptr, " ");
             REQUIRE(tokens.empty());
         }
 
         SECTION("Split on character delimiter")
         {
             auto str = "The;quick;brown;fox";
-            REQUIRE(dst::split(str, ';') == ResultTokens);
+            REQUIRE(dst::split(str, ";") == ResultTokens);
         }
 
         SECTION("Split on character delimiter (prefix)")
         {
             auto str = ";The;quick;brown;fox";
-            REQUIRE(dst::split(str, ';') == ResultTokens);
+            REQUIRE(dst::split(str, ";") == ResultTokens);
         }
 
         SECTION("Split on character delimiter (postfix)")
         {
             auto str = "The;quick;brown;fox;";
-            REQUIRE(dst::split(str, ';') == ResultTokens);
+            REQUIRE(dst::split(str, ";") == ResultTokens);
         }
 
         SECTION("Split on character delimiter (prefix and postfix)")
         {
             auto str = ";The;quick;brown;fox;";
-            REQUIRE(dst::split(str, ';') == ResultTokens);
+            REQUIRE(dst::split(str, ";") == ResultTokens);
         }
 
         SECTION("Split on string delimiter")

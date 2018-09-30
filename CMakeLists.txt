@@ -86,6 +86,7 @@ if(BUILD_DST_TESTS)
             "${testsPath}/Threads/Worker.Tests.cpp"
             "${testsPath}/Random.Tests.cpp"
             "${testsPath}/StringUtilities.Tests.cpp"
+            "${testsPath}/StringView.Tests.cpp"
             "${testsPath}/VectorUtilities.Tests.cpp"
     )
 endif()
