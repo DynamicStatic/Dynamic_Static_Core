@@ -14,8 +14,8 @@
 
 #include <string>
 
-namespace Dynamic_Static {
-namespace Tests {
+namespace dst {
+namespace tests {
 
     static const std::string TestString { "The quick brown fox jumps over the lazy dog!" };
 
@@ -135,5 +135,5 @@ namespace Tests {
         REQUIRE(dst::to_lower(str) == "the quick brown fox jumps over the lazy dog!");
     }
 
-} // namespace Tests
-} // namespace Dynamic_Static
+} // namespace tests
+} // namespace dst

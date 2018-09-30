@@ -15,7 +15,7 @@
 
 #include <utility>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Provides a Callback<> for move notification.
@@ -62,4 +62,4 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst

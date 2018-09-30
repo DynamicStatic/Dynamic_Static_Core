@@ -16,8 +16,8 @@
 #include <atomic>
 #include <thread>
 
-namespace Dynamic_Static {
-namespace Tests {
+namespace dst {
+namespace tests {
 
     static constexpr size_t ThreadCount { 16 };
     static constexpr size_t NotifyCount { ThreadCount / 4 };
@@ -174,5 +174,5 @@ namespace Tests {
         REQUIRE(counter == threads.size());
     }
 
-} // namespace Tests
-} // namespace Dynamic_Static
+} // namespace tests
+} // namespace dst

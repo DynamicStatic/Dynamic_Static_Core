@@ -12,10 +12,10 @@
 
 #include "catch.hpp"
 
-namespace Dynamic_Static {
-namespace Tests {
+namespace dst {
+namespace tests {
 
 
 
-} // namespace Tests
-} // namespace Dynamic_Static
+} // namespace tests
+} // namespace dst

@@ -19,7 +19,7 @@
 #include <stdlib.h>
 #endif
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Allocates memory on a given alignment boundary.
@@ -54,4 +54,4 @@ namespace Dynamic_Static {
         #endif
     }
 
-} // namespace Dynamic_Static
+} // namespace dst

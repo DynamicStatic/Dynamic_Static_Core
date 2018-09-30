@@ -16,7 +16,7 @@
 
 #include <utility>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Encapsulates a Subscribable multicast Action<>.
@@ -155,4 +155,4 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst

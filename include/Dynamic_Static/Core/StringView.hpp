@@ -16,7 +16,7 @@
 #include <string>
 #include <string_view>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Provides a non-owning reference to a contiguous, null-terminated sequence of char-like objects.
@@ -162,4 +162,4 @@ namespace Dynamic_Static {
     using U32StringView = BasicStringView<char32_t>;
     using WStringView = BasicStringView<wchar_t>;
 
-} // namespace Dynamic_Static
+} // namespace dst

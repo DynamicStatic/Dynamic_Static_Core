@@ -19,7 +19,7 @@
 #include <mutex>
 #include <thread>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Provides high level control over signaling and synchronization between threads.
@@ -106,4 +106,4 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst

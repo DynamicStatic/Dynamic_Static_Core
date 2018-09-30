@@ -18,8 +18,8 @@
 #include <set>
 #include <string>
 
-namespace Dynamic_Static {
-namespace Tests {
+namespace dst {
+namespace tests {
 
     static constexpr size_t TestCount = 128;
     static dst::RandomNumberGenerator sgRng;
@@ -102,5 +102,5 @@ namespace Tests {
         REQUIRE(success);
     }
 
-} // namespace Tests
-} // namespace Dynamic_Static
+} // namespace tests
+} // namespace dst

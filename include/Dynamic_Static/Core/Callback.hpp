@@ -16,7 +16,7 @@
 #include <functional>
 #include <utility>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Encapsulates an Action<> that is callable by a given type.
@@ -65,4 +65,4 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst

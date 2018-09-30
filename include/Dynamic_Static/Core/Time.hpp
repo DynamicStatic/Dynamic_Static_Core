@@ -15,7 +15,7 @@
 #include <chrono>
 #include <ratio>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Represents the system wide real time wall clock.
@@ -195,4 +195,4 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst

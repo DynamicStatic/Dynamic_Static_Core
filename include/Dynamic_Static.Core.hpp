@@ -85,14 +85,13 @@
 #define dst_expand(STR) dst_stringify(STR)
 #define dst_file_line (__FILE__ " @ line " dst_expand(__LINE__))
 
-namespace Dynamic_Static {
+namespace dst {
 
     static constexpr int VersionMajor { DYNAMIC_STATIC_CORE_VERSION_MAJOR }; /*!< Dynamic_Static.Core major version */
     static constexpr int VersionMinor { DYNAMIC_STATIC_CORE_VERSION_MINOR }; /*!< Dynamic_Static.Core minor version */
     static constexpr int VersionPatch { DYNAMIC_STATIC_CORE_VERSION_PATCH }; /*!< Dynamic_Static.Core patch version */
 
-} // namespace Dynamic_Static
-namespace dst = Dynamic_Static;
+} // namespace dst
 
 #ifndef DYNAMIC_STATIC_CORE_GLM_DISABLED
 #ifndef DYNAMIC_STATIC_CORE_GLM_ENABLED
@@ -137,7 +136,7 @@ namespace dst = Dynamic_Static;
 #include <stdlib.h>
 #endif
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Allocates memory on a given alignment boundary.
@@ -172,9 +171,9 @@ namespace Dynamic_Static {
         #endif
     }
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Represents an std::function<> with no return value.
@@ -182,9 +181,9 @@ namespace Dynamic_Static {
     template <typename ...Args>
     using Action = std::function<void(Args...)>;
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Rounds a given floating point value to the nearest whole number then casts the result to a given type.
@@ -262,9 +261,9 @@ namespace Dynamic_Static {
         return std::find(range.begin(), range.end(), value);
     }
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Removes copy constructors from derived classes.
@@ -280,9 +279,9 @@ namespace Dynamic_Static {
         NonCopyable& operator=(const NonCopyable&) = delete;
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Provides tracking of mutual subscription between objects.
@@ -436,9 +435,9 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Encapsulates a Subscribable multicast Action<>.
@@ -577,9 +576,9 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Encapsulates a collection of Delegates<> that are callable by a given type.
@@ -683,9 +682,9 @@ namespace Dynamic_Static {
         friend CallerType;
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Encapsulates an Action<> that is callable by a given type.
@@ -734,9 +733,9 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     */
@@ -1011,9 +1010,9 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     */
@@ -1134,9 +1133,9 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Represents a non-owning reference to a contiguous sequence of objects.
@@ -1374,9 +1373,9 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Represents the system wide real time wall clock.
@@ -1556,9 +1555,9 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Suspends the calling thread until a given std::condition variable is notified or a time out is reached.
@@ -1585,9 +1584,9 @@ namespace Dynamic_Static {
         return predicatePassed;
     }
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Provides high level control over signaling and synchronization between threads.
@@ -1674,9 +1673,9 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Provides high level control over queueing tasks for a persistent std::thread.
@@ -1781,9 +1780,9 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Provides high level control over a pool of Workers.
@@ -1866,9 +1865,9 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 namespace File {
 
     /*!
@@ -1936,19 +1935,19 @@ namespace File {
     }
 
 } // namespace File
-} // namespace Dynamic_Static
+} // namespace dst
 
 // NOTE : dst::filesystem should be remove once std::filesystem is fully supported.
 
-namespace Dynamic_Static {
+namespace dst {
 
     namespace filesystem = std::experimental::filesystem;
 
-} // namespace Dynamic_Static
+} // namespace dst
 
 #ifdef DYNAMIC_STATIC_CORE_GLM_ENABLED
 
-namespace Dynamic_Static {
+namespace dst {
 namespace detail {
 
     template <typename Void>
@@ -2264,13 +2263,13 @@ namespace detail {
     {
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
 #endif // DYNAMIC_STATIC_CORE_GLM_ENABLED
 
 #ifdef DYNAMIC_STATIC_CORE_GLM_ENABLED
 
-namespace Dynamic_Static {
+namespace dst {
 
     typedef struct Radians { } radians; /*!< Radians tag for functions operating on angles */
     typedef struct Degrees { } degrees; /*!< Degrees tag for functions operating on angles */
@@ -2435,13 +2434,13 @@ namespace Dynamic_Static {
         return v;
     }
 
-} // namespace Dynamic_Static
+} // namespace dst
 
 #endif // DYNAMIC_STATIC_CORE_GLM_ENABLED
 
 #ifdef DYNAMIC_STATIC_CORE_GLM_ENABLED
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Represents a position, rotation, and scale.
@@ -2528,11 +2527,11 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
 #endif // DYNAMIC_STATIC_CORE_GLM_ENABLED
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Provides a Callback<> for move notification.
@@ -2579,9 +2578,9 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Provides an inheritable interface for std::enable_shared_from_this.
@@ -2629,9 +2628,9 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Provides high level control over random number generation.
@@ -2791,9 +2790,9 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Provides a non-owning reference to a contiguous, null-terminated sequence of char-like objects.
@@ -2939,9 +2938,9 @@ namespace Dynamic_Static {
     using U32StringView = BasicStringView<char32_t>;
     using WStringView = BasicStringView<wchar_t>;
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Gets a value indicating whether or not a given string contains another given string.
@@ -3121,9 +3120,9 @@ namespace Dynamic_Static {
         return strStr.str();
     }
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Represents a Version with major, minor, and patch values.
@@ -3158,9 +3157,9 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Populates a given std::vector<> with objects converted from another std::vector<> using a given conversion function.
@@ -3244,4 +3243,4 @@ namespace Dynamic_Static {
         v0.insert(v0.end(), v1.begin(), v1.end());
     }
 
-} // namespace Dynamic_Static
+} // namespace dst

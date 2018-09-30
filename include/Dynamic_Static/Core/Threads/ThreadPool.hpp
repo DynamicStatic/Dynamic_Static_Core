@@ -17,7 +17,7 @@
 #include <algorithm>
 #include <vector>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Provides high level control over a pool of Workers.
@@ -100,4 +100,4 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst

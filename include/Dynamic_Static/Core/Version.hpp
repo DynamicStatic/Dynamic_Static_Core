@@ -14,7 +14,7 @@
 
 #include <string>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Represents a Version with major, minor, and patch values.
@@ -49,4 +49,4 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst

@@ -20,7 +20,7 @@
 #include <queue>
 #include <thread>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Provides high level control over queueing tasks for a persistent std::thread.
@@ -125,4 +125,4 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst

@@ -16,7 +16,7 @@
 #include <algorithm>
 #include <vector>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Populates a given std::vector<> with objects converted from another std::vector<> using a given conversion function.
@@ -100,4 +100,4 @@ namespace Dynamic_Static {
         v0.insert(v0.end(), v1.begin(), v1.end());
     }
 
-} // namespace Dynamic_Static
+} // namespace dst

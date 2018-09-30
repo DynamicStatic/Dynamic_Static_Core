@@ -16,7 +16,7 @@
 
 #include <cmath>
 
-namespace Dynamic_Static {
+namespace dst {
 
     typedef struct Radians { } radians; /*!< Radians tag for functions operating on angles */
     typedef struct Degrees { } degrees; /*!< Degrees tag for functions operating on angles */
@@ -181,6 +181,6 @@ namespace Dynamic_Static {
         return v;
     }
 
-} // namespace Dynamic_Static
+} // namespace dst
 
 #endif // DYNAMIC_STATIC_CORE_GLM_ENABLED

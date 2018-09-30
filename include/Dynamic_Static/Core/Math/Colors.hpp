@@ -14,7 +14,7 @@
 
 #ifdef DYNAMIC_STATIC_CORE_GLM_ENABLED
 
-namespace Dynamic_Static {
+namespace dst {
 namespace detail {
 
     template <typename Void>
@@ -330,6 +330,6 @@ namespace detail {
     {
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
 #endif // DYNAMIC_STATIC_CORE_GLM_ENABLED

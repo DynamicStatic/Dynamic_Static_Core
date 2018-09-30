@@ -12,7 +12,7 @@
 
 #include "Dynamic_Static/Core/Defines.hpp"
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Removes copy constructors from derived classes.
@@ -28,4 +28,4 @@ namespace Dynamic_Static {
         NonCopyable& operator=(const NonCopyable&) = delete;
     };
 
-} // namespace Dynamic_Static
+} // namespace dst

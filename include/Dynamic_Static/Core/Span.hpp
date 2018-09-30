@@ -17,7 +17,7 @@
 #include <type_traits>
 #include <vector>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Represents a non-owning reference to a contiguous sequence of objects.
@@ -255,4 +255,4 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst

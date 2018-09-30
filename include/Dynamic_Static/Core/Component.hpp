@@ -16,7 +16,7 @@
 #include <utility>
 #include <vector>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     */
@@ -291,4 +291,4 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst

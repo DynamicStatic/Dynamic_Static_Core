@@ -15,7 +15,7 @@
 #include <algorithm>
 #include <cmath>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Rounds a given floating point value to the nearest whole number then casts the result to a given type.
@@ -93,4 +93,4 @@ namespace Dynamic_Static {
         return std::find(range.begin(), range.end(), value);
     }
 
-} // namespace Dynamic_Static
+} // namespace dst

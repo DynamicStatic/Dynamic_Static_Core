@@ -19,7 +19,7 @@
 #include <string>
 #include <vector>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Gets a value indicating whether or not a given string contains another given string.
@@ -199,4 +199,4 @@ namespace Dynamic_Static {
         return strStr.str();
     }
 
-} // namespace Dynamic_Static
+} // namespace dst

@@ -17,7 +17,7 @@
 #include <string_view>
 #include <vector>
 
-namespace Dynamic_Static {
+namespace dst {
 namespace File {
 
     /*!
@@ -85,4 +85,4 @@ namespace File {
     }
 
 } // namespace File
-} // namespace Dynamic_Static
+} // namespace dst

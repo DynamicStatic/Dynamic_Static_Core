@@ -16,7 +16,7 @@
 #include <random>
 #include <type_traits>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Provides high level control over random number generation.
@@ -176,4 +176,4 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst

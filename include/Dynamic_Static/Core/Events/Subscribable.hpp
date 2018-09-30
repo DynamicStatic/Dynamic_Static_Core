@@ -18,7 +18,7 @@
 #include <utility>
 #include <vector>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Provides tracking of mutual subscription between objects.
@@ -172,4 +172,4 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst

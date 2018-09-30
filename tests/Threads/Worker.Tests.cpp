@@ -15,8 +15,8 @@
 
 #include <thread>
 
-namespace Dynamic_Static {
-namespace Tests {
+namespace dst {
+namespace tests {
 
     static constexpr size_t WaitTarget { 5 };
     static constexpr size_t CounterTarget { 10 };
@@ -102,5 +102,5 @@ namespace Tests {
         REQUIRE(b == true);
     }
 
-} // namespace Tests
-} // namespace Dynamic_Static
+} // namespace tests
+} // namespace dst

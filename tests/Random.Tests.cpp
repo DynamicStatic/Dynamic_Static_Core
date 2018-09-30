@@ -12,8 +12,8 @@
 
 #include "catch.hpp"
 
-namespace Dynamic_Static {
-namespace Tests {
+namespace dst {
+namespace tests {
 
     static constexpr int MaxValue { 4 };
     static constexpr int MinValue { -MaxValue };
@@ -205,5 +205,5 @@ namespace Tests {
         REQUIRE(deterministic);
     }
 
-} // namespace Tests
-} // namespace Dynamic_Static
+} // namespace tests
+} // namespace dst

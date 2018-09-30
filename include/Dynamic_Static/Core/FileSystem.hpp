@@ -16,8 +16,8 @@
 
 // NOTE : dst::filesystem should be remove once std::filesystem is fully supported.
 
-namespace Dynamic_Static {
+namespace dst {
 
     namespace filesystem = std::experimental::filesystem;
 
-} // namespace Dynamic_Static
+} // namespace dst

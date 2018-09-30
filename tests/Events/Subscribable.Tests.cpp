@@ -15,8 +15,8 @@
 
 #include <vector>
 
-namespace Dynamic_Static {
-namespace Tests {
+namespace dst {
+namespace tests {
 
     static constexpr int TestCount { 16 };
 
@@ -155,5 +155,5 @@ namespace Tests {
         REQUIRE(obj3.subscribed_to(obj2));
     }
 
-} // namespace Tests
-} // namespace Dynamic_Static
+} // namespace tests
+} // namespace dst

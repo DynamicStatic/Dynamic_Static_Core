@@ -17,8 +17,8 @@
 
 #include <iostream>
 
-namespace Dynamic_Static {
-namespace Tests {
+namespace dst {
+namespace tests {
 
     static constexpr int TestCount { 16 };
 
@@ -132,5 +132,5 @@ namespace Tests {
         REQUIRE(validate_invocation(listenersMoveTo));
     }
 
-} // namespace Tests
-} // namespace Dynamic_Static
+} // namespace tests
+} // namespace dst

@@ -16,7 +16,7 @@
 #include <condition_variable>
 #include <mutex>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Suspends the calling thread until a given std::condition variable is notified or a time out is reached.
@@ -43,4 +43,4 @@ namespace Dynamic_Static {
         return predicatePassed;
     }
 
-} // namespace Dynamic_Static
+} // namespace dst

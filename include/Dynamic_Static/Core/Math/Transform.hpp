@@ -16,7 +16,7 @@
 
 #include "Dynamic_Static/Core/Math/Utilities.hpp"
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Represents a position, rotation, and scale.
@@ -103,6 +103,6 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
 
 #endif // DYNAMIC_STATIC_CORE_GLM_ENABLED

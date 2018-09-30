@@ -14,7 +14,7 @@
 
 #include <memory>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Provides an inheritable interface for std::enable_shared_from_this.
@@ -62,4 +62,4 @@ namespace Dynamic_Static {
         }
     };
 
-} // namespace Dynamic_Static
+} // namespace dst

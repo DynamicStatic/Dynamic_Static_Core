@@ -14,7 +14,7 @@
 
 #include <functional>
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Represents an std::function<> with no return value.
@@ -22,4 +22,4 @@ namespace Dynamic_Static {
     template <typename ...Args>
     using Action = std::function<void(Args...)>;
 
-} // namespace Dynamic_Static
+} // namespace dst

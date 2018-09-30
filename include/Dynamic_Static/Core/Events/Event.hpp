@@ -13,7 +13,7 @@
 #include "Dynamic_Static/Core/Events/Delegate.hpp"
 #include "Dynamic_Static/Core/Defines.hpp"
 
-namespace Dynamic_Static {
+namespace dst {
 
     /*!
     Encapsulates a collection of Delegates<> that are callable by a given type.
@@ -117,4 +117,4 @@ namespace Dynamic_Static {
         friend CallerType;
     };
 
-} // namespace Dynamic_Static
+} // namespace dst
