@@ -11,10 +11,9 @@
 #pragma once
 
 #include "Dynamic_Static/Core/Defines.hpp"
+#include "Dynamic_Static/Core/StringView.hpp"
 
 #include <fstream>
-#include <string>
-#include <string_view>
 #include <vector>
 
 namespace dst {
@@ -26,7 +25,7 @@ namespace File {
     @param [in] lines An std::vector<std::string> to populate with the lines read from the file
     */
     inline void read_all_lines(
-        const std::string_view& filePath,
+        StringView filePath,
         std::vector<std::string>& lines
     )
     {
@@ -45,7 +44,7 @@ namespace File {
     @param [in] filePath The path to the file to read
     @param [in] lines An std::vector<std::string> populated with the lines read from the file
     */
-    inline std::vector<std::string> read_all_lines(const std::string_view& filePath)
+    inline std::vector<std::string> read_all_lines(StringView filePath)
     {
         std::vector<std::string> lines;
         read_all_lines(filePath, lines);
@@ -58,7 +57,7 @@ namespace File {
     @param [in] lines An std::vector<std::byte> to populate with the bytes read from the file
     */
     inline void read_all_bytes(
-        const std::string_view& filePath,
+        StringView filePath,
         std::vector<std::byte>& bytes
     )
     {
@@ -66,9 +65,9 @@ namespace File {
         std::ifstream file(filePath.data(), std::ios::binary | std::ios::ate);
         if (file.is_open()) {
             auto size = file.tellg();
-            bytes.resize(static_cast<size_t>(size));
+            bytes.resize((size_t)size);
             file.seekg(0, std::ios::beg);
-            file.read(reinterpret_cast<char*>(bytes.data()), size);
+            file.read((char*)bytes.data(), size);
         }
     }
 
@@ -77,7 +76,7 @@ namespace File {
     @param [in] filePath The path to the file to read
     @param [in] lines An std::vector<std::byte> populated with the bytes read from the file
     */
-    inline std::vector<std::byte> read_all_bytes(const std::string_view& filePath)
+    inline std::vector<std::byte> read_all_bytes(StringView filePath)
     {
         std::vector<std::byte> bytes;
         read_all_bytes(filePath, bytes);
