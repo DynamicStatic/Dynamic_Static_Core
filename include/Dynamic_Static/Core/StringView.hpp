@@ -20,6 +20,8 @@ namespace dst {
 
     /*!
     Provides a non-owning reference to a contiguous, null-terminated sequence of char-like objects.
+    @param <CharType> This BasicStringView's cahracter type
+    @param <TraitsType> This BasicStringView's character traits (optional = std::char_traits<CharType>)
     */
     template <typename CharType, typename TraitsType = std::char_traits<CharType>>
     class BasicStringView
@@ -43,7 +45,7 @@ namespace dst {
         using BaseType::npos;
         using BaseType::size_type;
 
-        /*
+        /*!
         Constructs an instance of BasicStringView from a given BasicStringView.
         */
         inline constexpr BasicStringView(const BasicStringView&) = default;
@@ -69,12 +71,12 @@ namespace dst {
         {
         }
 
-        /*
+        /*!
         Copies a given BasicStringView.
         */
         inline constexpr BasicStringView& operator=(const BasicStringView&) = default;
 
-        /*
+        /*!
         Gets a value indicating whether or not a given BasicStringView is equal to this BasicStringView.
         @param [in] other The BasicStringView to compare against this BasicStringView
         @return Whether or not the given BasicStringView is equal to this BasicStringView
@@ -84,7 +86,7 @@ namespace dst {
             return *(BaseType*)this == *(BaseType*)&other;
         }
 
-        /*
+        /*!
         Gets a value indicating whether or not a given BasicStringView is inequal to this BasicStringView.
         @param [in] other The BasicStringView to compare against this BasicStringView
         @return Whether or not the given BasicStringView is inequal to this BasicStringView
@@ -94,7 +96,7 @@ namespace dst {
             return !(*this == other);
         }
 
-        /*
+        /*!
         Converts this BasicStringView to its referenced character array.
         @return Converts this BasicStringView to its referenced character array
         */
@@ -128,7 +130,7 @@ namespace dst {
         using BaseType::compare;
         using BaseType::find;
 
-        /*
+        /*!
         Gets this BasicStringView's referenced character array.
         @return This BasicStringView's referenced character array
         */
@@ -137,7 +139,7 @@ namespace dst {
             return data();
         }
 
-        /*
+        /*!
         Gets a std::basic_string_view<> constructed from this BasicStringView's referenced character array.
         @return A std::basic_string_view<> constructed from this BasicStringView's referenced character array.
         */
@@ -146,8 +148,10 @@ namespace dst {
             return *this;
         }
 
-        /*
+        /*!
         Gets a std::basic_string<> constructed from this BasicStringView's referenced character array.
+        @param <AllocatorType> The type of allocator to construct the std::basic_string<> with (optional = std::allocator<CharType>)
+        @param allocator The allocator to construct the std::basic_string<> with (optional = AllocatorType { })
         @return A std::basic_string<> constructed from this BasicStringView's referenced character array.
         */
         template <typename AllocatorType = std::allocator<CharType>>
@@ -163,3 +167,51 @@ namespace dst {
     using WStringView = BasicStringView<wchar_t>;
 
 } // namespace dst
+
+/*!
+TODO : Documentation.
+*/
+template <typename CharType, typename TraitsType, typename AllocatorType>
+inline constexpr bool operator==(
+    const dst::BasicStringView<CharType, TraitsType>& lhs,
+    const std::basic_string<CharType, TraitsType, AllocatorType>& rhs
+)
+{
+    return lhs == dst::BasicStringView(rhs);
+}
+
+/*!
+TODO : Documentation.
+*/
+template <typename CharType, typename TraitsType, typename AllocatorType>
+inline constexpr bool operator==(
+    const std::basic_string<CharType, TraitsType, AllocatorType>& lhs,
+    const dst::BasicStringView<CharType, TraitsType>& rhs
+)
+{
+    return dst::BasicStringView(lhs) == rhs;
+}
+
+/*!
+TODO : Documentation.
+*/
+template <typename CharType, typename TraitsType, typename AllocatorType>
+inline constexpr bool operator!=(
+    const dst::BasicStringView<CharType, TraitsType>& lhs,
+    const std::basic_string<CharType, TraitsType, AllocatorType>& rhs
+)
+{
+    return !(lhs == dst::BasicStringView(rhs));
+}
+
+/*!
+TODO : Documentation.
+*/
+template <typename CharType, typename TraitsType, typename AllocatorType>
+inline constexpr bool operator!=(
+    const std::basic_string<CharType, TraitsType, AllocatorType>& lhs,
+    const dst::BasicStringView<CharType, TraitsType>& rhs
+)
+{
+    return !(dst::BasicStringView(lhs) == rhs);
+}
