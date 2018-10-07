@@ -1896,6 +1896,11 @@ namespace dst {
         using BaseType::npos;
         using BaseType::size_type;
 
+        /*
+        Constructs an instance of BasicStringView.
+        */
+        inline constexpr BasicStringView() = default;
+
         /*!
         Constructs an instance of BasicStringView from a given BasicStringView.
         */
