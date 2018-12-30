@@ -39,7 +39,7 @@ namespace dst {
     }
 
     /*!
-    Gets a copy of an std::string with all occurences of a given substring replaced with another.
+    Gets a copy of a string with all occurences of a given substring replaced with another.
     @param [in] str The source string
     @param [in] find The string to find and replace in the source string
     @param [in] replacement The string to replace found occurences with
@@ -66,7 +66,33 @@ namespace dst {
     }
 
     /*!
-    Gets a copy of an std::string with all occurences of a given substring removed.
+    Gets a copy of a string with a all occurences of a given collection of substrings replaced with a paired replacement.
+    @param [in] str The source string
+    @param [in] replacements The collection of  find and replace pairs
+    @return The resulting string
+    */
+    inline std::string replace(
+        const dst::StringView str,
+        std::vector<std::pair<std::string, std::string>> replacements
+    )
+    {
+        std::string result = str;
+        std::sort(replacements.begin(), replacements.end(),
+            [](const auto& lhs, const auto& rhs)
+            {
+                return lhs.first.length() > rhs.first.length();
+            }
+        );
+        for (const auto& replacement : replacements) {
+            const auto& find = replacement.first;
+            const auto& replace = replacement.second;
+            result = dst::replace(result, find, replace);
+        }
+        return result;
+    }
+
+    /*!
+    Gets a copy of a string with all occurences of a given substring removed.
     @param [in] str The source string
     @param [in] find The string to find and remove from the source string
     @param [in] recursive (default = false) Whether or not to recursively remove occurences of the find string
@@ -82,7 +108,7 @@ namespace dst {
     }
 
     /*!
-    Gets a copy of an std::string with all repetitive occurences of a given substring reduced to single occurences.
+    Gets a copy of a string with all repetitive occurences of a given substring reduced to single occurences.
     @param [in] str The source string
     @param [in] find The string to find and reduce
     @return The resulting string
@@ -97,7 +123,7 @@ namespace dst {
     }
 
     /*!
-    Gets a copy of an std::string containing a path with back slashes replaced with forward slashes and slash sequences reduced.
+    Gets a copy of a string containing a path with back slashes replaced with forward slashes and slash sequences reduced.
     @param [in] path The path to scrub
     @reutrn The scrubbed path
     */
@@ -132,6 +158,17 @@ namespace dst {
             }
         }
         return tokens;
+    }
+
+    /*!
+    Gets a value indicating whether or not a given string contains only whitespace
+    @param [in] str The string to search
+    @param [in] find The string to find
+    @param [in] offset The offset to start searching from (optional = 0)
+    */
+    inline bool is_whitespace(dst::StringView str)
+    {
+        return std::all_of(str.begin(), str.end(), std::isspace);
     }
 
     /*!
