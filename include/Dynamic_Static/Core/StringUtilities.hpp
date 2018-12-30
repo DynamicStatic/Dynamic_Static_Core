@@ -72,7 +72,7 @@ namespace dst {
     @return The resulting string
     */
     inline std::string replace(
-        const dst::StringView str,
+        dst::StringView str,
         std::vector<std::pair<std::string, std::string>> replacements
     )
     {
