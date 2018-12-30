@@ -26,6 +26,7 @@ namespace dst {
     @param [in] str The string to search
     @param [in] find The string to find
     @param [in] offset The offset to start searching from (optional = 0)
+    @return Whether or not the given string contains the other given string
     */
     inline bool contains(
         dst::StringView str,
@@ -162,9 +163,8 @@ namespace dst {
 
     /*!
     Gets a value indicating whether or not a given string contains only whitespace
-    @param [in] str The string to search
-    @param [in] find The string to find
-    @param [in] offset The offset to start searching from (optional = 0)
+    @param [in] str The string to check
+    @return Whether or not the given string contains only whitespace characters
     */
     inline bool is_whitespace(dst::StringView str)
     {
