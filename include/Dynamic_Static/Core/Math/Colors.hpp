@@ -322,7 +322,7 @@ namespace detail {
 } // namespace detail
 
     /*!
-    Represents a 4 channel color.
+    Represents a 4 channel color
     */
     struct Color
         : public glm::vec4
