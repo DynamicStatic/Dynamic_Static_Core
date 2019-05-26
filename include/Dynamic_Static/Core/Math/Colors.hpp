@@ -322,11 +322,19 @@ namespace detail {
 } // namespace detail
 
     /*!
-    Represents a 4 channel color
+    Represents a 4 channel color stored as 4 32 bit floating point values
     */
     struct Color
         : public glm::vec4
         , public detail::ColorConstants<void>
+    {
+    };
+
+    /*!
+    Represents a 4 channel color stored as 4 8 bit unsigned integer values
+    */
+    struct Color32
+        : public glm::u8vec4
     {
     };
 
