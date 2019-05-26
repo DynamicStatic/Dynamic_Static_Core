@@ -22,7 +22,7 @@
 namespace dst {
 
     /*!
-    Gets a value indicating whether or not a given string contains another given string.
+    Gets a value indicating whether or not a given string contains another given string
     @param [in] str The string to search
     @param [in] find The string to find
     @param [in] offset The offset to start searching from (optional = 0)
@@ -40,7 +40,7 @@ namespace dst {
     }
 
     /*!
-    Gets a copy of a string with all occurences of a given substring replaced with another.
+    Gets a copy of a string with all occurences of a given substring replaced with another
     @param [in] str The source string
     @param [in] find The string to find and replace in the source string
     @param [in] replacement The string to replace found occurences with
@@ -67,7 +67,7 @@ namespace dst {
     }
 
     /*!
-    Gets a copy of a string with a all occurences of a given collection of substrings replaced with a paired replacement.
+    Gets a copy of a string with a all occurences of a given collection of substrings replaced with a paired replacement
     @param [in] str The source string
     @param [in] replacements The collection of  find and replace pairs
     @return The resulting string
@@ -93,7 +93,7 @@ namespace dst {
     }
 
     /*!
-    Gets a copy of a string with all occurences of a given substring removed.
+    Gets a copy of a string with all occurences of a given substring removed
     @param [in] str The source string
     @param [in] find The string to find and remove from the source string
     @param [in] recursive (default = false) Whether or not to recursively remove occurences of the find string
@@ -109,7 +109,7 @@ namespace dst {
     }
 
     /*!
-    Gets a copy of a string with all repetitive occurences of a given substring reduced to single occurences.
+    Gets a copy of a string with all repetitive occurences of a given substring reduced to single occurences
     @param [in] str The source string
     @param [in] find The string to find and reduce
     @return The resulting string
@@ -124,7 +124,7 @@ namespace dst {
     }
 
     /*!
-    Gets a copy of a string containing a path with back slashes replaced with forward slashes and slash sequences reduced.
+    Gets a copy of a string containing a path with back slashes replaced with forward slashes and slash sequences reduced
     @param [in] path The path to scrub
     @reutrn The scrubbed path
     */
@@ -134,7 +134,7 @@ namespace dst {
     }
 
     /*!
-    Gets an std::vector<std::string> populated with substrings of a given string using a given delimiter.
+    Gets an std::vector<std::string> populated with substrings of a given string using a given delimiter
     @param [in] str The string to search for delimiters
     @param [in] delimiter The delimiter to search for
     @return An std::vector<std::string> populated with split tokens
@@ -172,7 +172,7 @@ namespace dst {
     }
 
     /*!
-    Gets the upper case version of a given char.
+    Gets the upper case version of a given char
     @param [in] c The char to convert to upper case
     @return The resulting char
     */
@@ -182,7 +182,7 @@ namespace dst {
     }
 
     /*!
-    Gets a copy of an std::string with all characters converted to upper case.
+    Gets a copy of an std::string with all characters converted to upper case
     @param [in] str The string to convert to upper case
     @return The resulting string
     */
@@ -196,7 +196,7 @@ namespace dst {
     }
 
     /*!
-    Gets the lower case version of a given char.
+    Gets the lower case version of a given char
     @param [in] c The char to convert to lower case
     @return The resulting char
     */
@@ -206,7 +206,7 @@ namespace dst {
     }
 
     /*!
-    Gets a copy of an std::string with all characters converted to lower case.
+    Gets a copy of an std::string with all characters converted to lower case
     @param [in] str The string to convert to lower case
     @return The resulting string
     */
@@ -220,7 +220,7 @@ namespace dst {
     }
 
     /*!
-    Gets the std::string representation of the hex value of a given integral value.
+    Gets the std::string representation of the hex value of a given integral value
     @param <T> The type of the given value
     @return The string representation of the hex value of the given integral value
     */
@@ -234,6 +234,186 @@ namespace dst {
         std::stringstream strStr;
         strStr << "0x" << std::hex << value;
         return strStr.str();
+    }
+
+    /*!
+    Gets the std::string representation of a given int
+    @param [in] value The int to get the std::string representation of
+    @return The std::string representation of the given int
+    */
+    inline std::string to_string(int value)
+    {
+        return std::to_string(value);
+    }
+
+    /*!
+    Gets the std::string representation of a given unsigned int
+    @param [in] value The unsigned int to get the std::string representation of
+    @return The std::string representation of the given unsigned int
+    */
+    inline std::string to_string(unsigned int value)
+    {
+        return std::to_string(value);
+    }
+
+    /*!
+    Gets the std::string representation of a given long
+    @param [in] value The long to get the std::string representation of
+    @return The std::string representation of the given long
+    */
+    inline std::string to_string(long value)
+    {
+        return std::to_string(value);
+    }
+
+    /*!
+    Gets the std::string representation of a given unsigned long
+    @param [in] value The unsigned long to get the std::string representation of
+    @return The std::string representation of the given unsigned long
+    */
+    inline std::string to_string(unsigned long value)
+    {
+        return std::to_string(value);
+    }
+
+    /*!
+    Gets the std::string representation of a given long long
+    @param [in] value The long long to get the std::string representation of
+    @return The std::string representation of the given long long
+    */
+    inline std::string to_string(long long value)
+    {
+        return std::to_string(value);
+    }
+
+    /*!
+    Gets the std::string representation of a given unsigned long long
+    @param [in] value The unsigned long long to get the std::string representation of
+    @return The std::string representation of the given unsigned long long
+    */
+    inline std::string to_string(unsigned long long value)
+    {
+        return std::to_string(value);
+    }
+
+    /*!
+    Gets the std::string representation of a given float
+    @param [in] value The float to get the std::string representation of
+    @return The std::string representation of the given float
+    */
+    inline std::string to_string(float value)
+    {
+        return std::to_string(value);
+    }
+
+    /*!
+    Gets the std::string representation of a given double
+    @param [in] value The double to get the std::string representation of
+    @return The std::string representation of the given double
+    */
+    inline std::string to_string(double value)
+    {
+        return std::to_string(value);
+    }
+
+    /*!
+    Gets the std::string representation of a given long double
+    @param [in] value The long double to get the std::string representation of
+    @return The std::string representation of the given long double
+    */
+    inline std::string to_string(long double value)
+    {
+        return std::to_string(value);
+    }
+
+    /*!
+    Gets the std::wstring representation of a given int
+    @param [in] value The int to get the std::wstring representation of
+    @return The std::wstring representation of the given int
+    */
+    inline std::wstring to_wstring(int value)
+    {
+        return std::to_wstring(value);
+    }
+
+    /*!
+    Gets the std::wstring representation of a given unsigned int
+    @param [in] value The unsigned int to get the std::wstring representation of
+    @return The std::wstring representation of the given unsigned int
+    */
+    inline std::wstring to_wstring(unsigned int value)
+    {
+        return std::to_wstring(value);
+    }
+
+    /*!
+    Gets the std::wstring representation of a given long
+    @param [in] value The long to get the std::wstring representation of
+    @return The std::wstring representation of the given long
+    */
+    inline std::wstring to_wstring(long value)
+    {
+        return std::to_wstring(value);
+    }
+
+    /*!
+    Gets the std::wstring representation of a given unsigned long
+    @param [in] value The unsigned long to get the std::wstring representation of
+    @return The std::wstring representation of the given unsigned long
+    */
+    inline std::wstring to_wstring(unsigned long value)
+    {
+        return std::to_wstring(value);
+    }
+
+    /*!
+    Gets the std::wstring representation of a given long long
+    @param [in] value The long long to get the std::wstring representation of
+    @return The std::wstring representation of the given long long
+    */
+    inline std::wstring to_wstring(long long value)
+    {
+        return std::to_wstring(value);
+    }
+
+    /*!
+    Gets the std::wstring representation of a given unsigned long long
+    @param [in] value The unsigned long long to get the std::wstring representation of
+    @return The std::wstring representation of the given unsigned long long
+    */
+    inline std::wstring to_wstring(unsigned long long value)
+    {
+        return std::to_wstring(value);
+    }
+
+    /*!
+    Gets the std::wstring representation of a given float
+    @param [in] value The float to get the std::wstring representation of
+    @return The std::wstring representation of the given float
+    */
+    inline std::wstring to_wstring(float value)
+    {
+        return std::to_wstring(value);
+    }
+
+    /*!
+    Gets the std::wstring representation of a given double
+    @param [in] value The double to get the std::wstring representation of
+    @return The std::wstring representation of the given double
+    */
+    inline std::wstring to_wstring(double value)
+    {
+        return std::to_wstring(value);
+    }
+
+    /*!
+    Gets the std::wstring representation of a given long double
+    @param [in] value The long double to get the std::wstring representation of
+    @return The std::wstring representation of the given long double
+    */
+    inline std::wstring to_wstring(long double value)
+    {
+        return std::to_wstring(value);
     }
 
 } // namespace dst
