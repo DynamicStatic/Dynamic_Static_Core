@@ -168,7 +168,7 @@ namespace dst {
     */
     inline bool is_whitespace(dst::StringView str)
     {
-        return std::all_of(str.begin(), str.end(), std::isspace);
+        return std::all_of(str.begin(), str.end(), [](char c) { return std::isspace((int)c); });
     }
 
     /*!
