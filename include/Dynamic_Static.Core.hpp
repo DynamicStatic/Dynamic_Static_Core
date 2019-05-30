@@ -2913,9 +2913,10 @@ namespace dst {
         @return The generated value
         */
         template <typename IntegerType>
-        inline typename std::enable_if<std::is_integral<IntegerType>::value, IntegerType>::type
-            range(IntegerType min, IntegerType max)
+        typename std::enable_if<std::is_integral<IntegerType>::value, IntegerType>::type
+        inline range(IntegerType min, IntegerType max)
         {
+            // TODO : Make max [inclusive]
             return static_cast<IntegerType>(mIntDistribution(mEngine) % (max - min) + min);
         }
 
@@ -2927,9 +2928,10 @@ namespace dst {
         @return The generated value
         */
         template <typename FloatingPointType>
-        inline typename std::enable_if<std::is_floating_point<FloatingPointType>::value, FloatingPointType>::type
-            range(FloatingPointType min, FloatingPointType max)
+        typename std::enable_if<std::is_floating_point<FloatingPointType>::value, FloatingPointType>::type
+        inline range(FloatingPointType min, FloatingPointType max)
         {
+            // TODO : Make max [inclusive]
             return static_cast<FloatingPointType>(mRealDistribution(mEngine) * (max - min) + min);
         }
 

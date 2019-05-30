@@ -70,6 +70,7 @@ namespace tests {
 
         void on_publisher_event(const Publisher& publisher)
         {
+            (void)publisher;
             ++invocationCount;
         }
     };
