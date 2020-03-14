@@ -6,24 +6,39 @@
 #    http://opensource.org/licenses/MIT
 #==========================================
 
+# Dynamic_Static.Core CMake configuration
 cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 project(Dynamic_Static.Core VERSION 0.2.0)
 set(CMAKE_CXX_STANDARD 17)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/")
 set(externalDirectory "${CMAKE_CURRENT_LIST_DIR}/external/")
 include("${externalDirectory}/Dynamic_Static.CMake/Dynamic_Static.ex.cmake")
+
+# Options
+option(DST_GLM_ENABLED "TODO : Documentation" ON)
+
+# Dynamic_Static.Core library
 set(includeDirectory "${CMAKE_CURRENT_LIST_DIR}/include.ex/")
 set(includePath "${includeDirectory}/dynamic_static/core/")
 DstAddStaticLibrary(
     target Dynamic_Static.Core
     includeDirectories
         "${includeDirectory}"
+        "${externalDirectory}/glm/"
 
         "${CMAKE_CURRENT_LIST_DIR}/include/"
 
     includeFiles
+        "${includePath}/math/defines.hpp"
+        "${includePath}/math/transform.hpp"
+        "${includePath}/math/utilities.hpp"
+        "${includePath}/action.hpp"
+        "${includePath}/callback.hpp"
         "${includePath}/defines.hpp"
+        "${includePath}/math.hpp"
         "${includePath}/time.hpp"
+        "${includePath}/to-string.hpp"
+        "${includePath}/version.hpp"
         "${includePath}/win32-lean-and-mean.hpp"
 
         "${CMAKE_CURRENT_LIST_DIR}/include/Dynamic_Static/Core/Events/Delegate.hpp"

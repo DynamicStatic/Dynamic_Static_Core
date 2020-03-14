@@ -86,30 +86,6 @@ namespace dst {
     }
 
     /*!
-    Gets the world up vector; (0, 1), (0, 1, 0), or (0, 1, 0, 0).
-    @return The world up vector
-    */
-    template <typename VectorType>
-    inline constexpr VectorType world_up()
-    {
-        VectorType v { };
-        v.y = 1;
-        return v;
-    }
-
-    /*!
-    Gets the world down vector; (0, -1), (0, -1, 0), or (0, -1, 0, 0).
-    @return The world down vector
-    */
-    template <typename VectorType>
-    inline constexpr VectorType world_down()
-    {
-        VectorType v { };
-        v.y = -1;
-        return v;
-    }
-
-    /*!
     Gets the world forward vector; (0, 0, -1) or (0, 0, -1, 0).
     @return The world forward vector
     */
