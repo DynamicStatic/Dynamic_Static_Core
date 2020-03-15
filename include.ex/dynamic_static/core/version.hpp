@@ -42,7 +42,7 @@ struct Version final
 TODO : Documentation
 */
 template <>
-std::string to_string<Version>(const Version& version)
+inline std::string to_string<Version>(const Version& version)
 {
     return
         std::to_string(version.major) + "." +
