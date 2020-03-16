@@ -22,6 +22,7 @@ set(includeDirectory "${CMAKE_CURRENT_LIST_DIR}/include.ex/")
 set(includePath "${includeDirectory}/dynamic_static/core/")
 DstAddStaticLibrary(
     target Dynamic_Static.Core
+    folder Dynamic_Static.Core/
     includeDirectories
         "${includeDirectory}"
         "${externalDirectory}/glm/"
@@ -35,12 +36,14 @@ DstAddStaticLibrary(
         "${includePath}/action.hpp"
         "${includePath}/callback.hpp"
         "${includePath}/defines.hpp"
+        "${includePath}/enum.hpp"
         "${includePath}/math.hpp"
         "${includePath}/span.hpp"
         "${includePath}/time.hpp"
         "${includePath}/to-string.hpp"
         "${includePath}/version.hpp"
         "${includePath}/win32-lean-and-mean.hpp"
+        "${includeDirectory}/dynamic_static.core.hpp"
 
         "${CMAKE_CURRENT_LIST_DIR}/include/Dynamic_Static/Core/Events/Delegate.ex.hpp"
         "${CMAKE_CURRENT_LIST_DIR}/include/Dynamic_Static/Core/Events/Event.ex.hpp"
@@ -77,4 +80,7 @@ DstAddStaticLibrary(
         "${CMAKE_CURRENT_LIST_DIR}/include/Dynamic_Static/Core/VectorUtilities.ex.hpp"
         "${CMAKE_CURRENT_LIST_DIR}/include/Dynamic_Static/Core/Version.ex.hpp"
         "${CMAKE_CURRENT_LIST_DIR}/include/Dynamic_Static/Core/Win32LeanAndMean.ex.hpp"
+
+    sourceFiles
+        "${CMAKE_CURRENT_LIST_DIR}/dynamic_static.core.cpp"
 )

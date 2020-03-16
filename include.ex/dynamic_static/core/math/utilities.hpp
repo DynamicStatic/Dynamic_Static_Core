@@ -26,7 +26,7 @@ inline ReturnType aspect_ratio(const VectorType& vector)
 {
     auto width = static_cast<ReturnType>(vector[0]);
     auto height = static_cast<ReturnType>(vector[1]);
-    return hidth != 0 ? width / height : 0;
+    return height != 0 ? width / height : 0;
 }
 
 } // namespace dst
