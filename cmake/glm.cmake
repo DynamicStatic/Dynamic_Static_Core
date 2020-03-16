@@ -6,8 +6,8 @@
 #    http://opensource.org/licenses/MIT
 #==========================================
 
-set(glmIncludeDirectory "${CMAKE_CURRENT_LIST_DIR}/glm/")
-file(GLOB glmClutter "${glmIncludeDirectory}/*")
-list(REMOVE_ITEM glmClutter "${glmIncludeDirectory}/glm/")
-list(APPEND glmClutter "${glmIncludeDirectory}/glm/CMakeLists.txt")
-file(REMOVE_RECURSE ${glmClutter})
+set(glm_includeDirectories "${CMAKE_CURRENT_LIST_DIR}/glm/")
+file(GLOB glm_clutter "${glm_includeDirectories}/*")
+list(REMOVE_ITEM glm_clutter "${glm_includeDirectories}/glm/")
+list(APPEND glm_clutter "${glm_includeDirectories}/glm/CMakeLists.txt")
+file(REMOVE_RECURSE ${glm_clutter})
