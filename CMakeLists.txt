@@ -37,6 +37,7 @@ DstAddStaticLibrary(
         "${includePath}/threads/thread-pool.hpp"
         "${includePath}/threads/worker.hpp"
         "${includePath}/action.hpp"
+        "${includePath}/algorithm.hpp"
         "${includePath}/callback.hpp"
         "${includePath}/defines.hpp"
         "${includePath}/enum.hpp"

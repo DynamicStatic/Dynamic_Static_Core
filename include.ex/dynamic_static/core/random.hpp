@@ -73,7 +73,7 @@ public:
     */
     template <typename T>
     typename std::enable_if<std::is_floating_point<T>::value, T>::type
-    inline range(T min = 0, T max = 1) const
+    inline range(T min = 0, T max = 1)
     {
         return static_cast<T>(mRealDistribution(mEngine) * (max - min) + min);
     }
