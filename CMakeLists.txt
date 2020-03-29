@@ -10,6 +10,7 @@
 cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 project(Dynamic_Static.Core VERSION 0.2.0)
 set(CMAKE_CXX_STANDARD 17)
+option(DST_CORE_BUILD_TESTS "Build dynamic_static.core.tests" ON)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/")
 set(externalDirectory "${CMAKE_CURRENT_LIST_DIR}/external/")
 include("${externalDirectory}/Dynamic_Static.CMake/Dynamic_Static.ex.cmake")
@@ -17,12 +18,11 @@ include("${externalDirectory}/Dynamic_Static.CMake/Dynamic_Static.ex.cmake")
 # Options
 option(DST_GLM_ENABLED "TODO : Documentation" ON)
 
-# Dynamic_Static.Core library
+# dynamic_static.core library
 set(includeDirectory "${CMAKE_CURRENT_LIST_DIR}/include.ex/")
 set(includePath "${includeDirectory}/dynamic_static/core/")
 DstAddStaticLibrary(
-    target Dynamic_Static.Core
-    folder Dynamic_Static.Core/
+    target dynamic_static.core
     includeDirectories
         "${includeDirectory}"
         "${externalDirectory}/glm/"
@@ -33,9 +33,8 @@ DstAddStaticLibrary(
         "${includePath}/math/defines.hpp"
         "${includePath}/math/transform.hpp"
         "${includePath}/math/utilities.hpp"
-        "${includePath}/threads/semaphore.hpp"
-        "${includePath}/threads/thread-pool.hpp"
-        "${includePath}/threads/worker.hpp"
+        "${includePath}/thread/pool.hpp"
+        "${includePath}/thread/worker.hpp"
         "${includePath}/action.hpp"
         "${includePath}/algorithm.hpp"
         "${includePath}/callback.hpp"
@@ -44,7 +43,8 @@ DstAddStaticLibrary(
         "${includePath}/math.hpp"
         "${includePath}/random.hpp"
         "${includePath}/span.hpp"
-        "${includePath}/threads.hpp"
+        "${includePath}/string.hpp"
+        "${includePath}/thread.hpp"
         "${includePath}/time.hpp"
         "${includePath}/to-string.hpp"
         "${includePath}/version.hpp"
@@ -90,3 +90,13 @@ DstAddStaticLibrary(
     sourceFiles
         "${CMAKE_CURRENT_LIST_DIR}/dynamic_static.core.cpp"
 )
+
+# dynamic_static.core.tests
+if(DST_CORE_BUILD_TESTS)
+    set(testsPath "${CMAKE_CURRENT_LIST_DIR}/tests.ex/")
+    DstAddTests(
+        target dynamic_static.core
+        sourceFiles
+            "${testsPath}/string.tests.cpp"
+    )
+endif()

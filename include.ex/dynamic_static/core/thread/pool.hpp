@@ -10,7 +10,7 @@
 
 #pragma once
 
-#include "dynamic_static/core/threads/worker.hpp"
+#include "dynamic_static/core/thread/worker.hpp"
 #include "dynamic_static/core/algorithm.hpp"
 #include "dynamic_static/core/defines.hpp"
 
@@ -72,6 +72,7 @@ public:
     */
     inline void push(Worker::Task&& task)
     {
+        assert(!mWorkers.empty() && "TODO : Documentation");
         Worker* pWorker = &mWorkers[0];
         for (auto& worker : mWorkers) {
             if (worker.task_count() < pWorker->task_count()) {

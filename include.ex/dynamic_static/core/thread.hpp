@@ -10,7 +10,6 @@
 
 #pragma once
 
-#include "dynamic_static/core/threads/semaphore.hpp"
-#include "dynamic_static/core/threads/thread-pool.hpp"
-#include "dynamic_static/core/threads/worker.hpp"
+#include "dynamic_static/core/thread/pool.hpp"
+#include "dynamic_static/core/thread/worker.hpp"
 #include "dynamic_static/core/defines.hpp"

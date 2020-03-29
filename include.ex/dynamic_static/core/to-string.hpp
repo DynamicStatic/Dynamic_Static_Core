@@ -25,4 +25,13 @@ inline std::string to_string(const T& obj)
     return std::to_string(obj);
 }
 
+/**
+TODO : Documentation
+*/
+template <typename T>
+inline std::wstring to_wstring(const T& obj)
+{
+    return std::to_wstring(obj);
+}
+
 } // namespace dst

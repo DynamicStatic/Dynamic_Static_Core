@@ -40,7 +40,7 @@ inline T lerp(T v0, T v1, T t)
     // TLDR :
     //  std::fma() (fused multiply-add) is commonly implemented as a single CPU
     //  instruction which will be used if available.  In addition to a performance
-    //  benefit accuracy is improved since there's no rounding performed until
+    //  benefit, accuracy is improved since there's no rounding performed until
     //  std::fma() returns.
     //
     //  In this lerp function there are 4 rounding errors...
@@ -54,7 +54,7 @@ inline T lerp(T v0, T v1, T t)
     //  x * y + z
     //  so our operation is...
     //  t * v1 + (-t * v0 + v0)
-    //
+
     return std::fma(t, v1, std::fma(-t, v0, v0));
 }
 
