@@ -236,6 +236,33 @@ TEST_CASE("string::is_whitespace()")
 /**
 TODO : Documentation
 */
+TEST_CASE("string::trim_leading_whitespace()")
+{
+    auto str = "        " + TheQuickBrownFox + "        ";
+    REQUIRE(string::trim_leading_whitespace(str) == TheQuickBrownFox + "        ");
+}
+
+/**
+TODO : Documentation
+*/
+TEST_CASE("string::trim_trailing_whitespace()")
+{
+    auto str = "        " + TheQuickBrownFox + "        ";
+    REQUIRE(string::trim_trailing_whitespace(str) == "        " + TheQuickBrownFox);
+}
+
+/**
+TODO : Documentation
+*/
+TEST_CASE("string::trim_whitespace()")
+{
+    auto str = "        " + TheQuickBrownFox + "        ";
+    REQUIRE(string::trim_whitespace(str) == TheQuickBrownFox);
+}
+
+/**
+TODO : Documentation
+*/
 TEST_CASE("string::is_upper()")
 {
     SECTION("Successful true")

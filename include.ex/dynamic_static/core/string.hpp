@@ -178,6 +178,32 @@ inline bool is_whitespace(const std::string& str)
 /**
 TODO : Documentation
 */
+inline std::string trim_leading_whitespace(const std::string& str)
+{
+    auto offset = str.find_first_not_of(" \f\n\r\t\v");
+    return offset == std::string::npos ? std::string() : str.substr(offset);
+}
+
+/**
+TODO : Documentation
+*/
+inline std::string trim_trailing_whitespace(const std::string& str)
+{
+    auto offset = str.find_last_not_of(" \f\n\r\t\v");
+    return offset == std::string::npos ? std::string() : str.substr(0, offset + 1);
+}
+
+/**
+TODO : Documentation
+*/
+inline std::string trim_whitespace(const std::string& str)
+{
+    return trim_leading_whitespace(trim_trailing_whitespace(str));
+}
+
+/**
+TODO : Documentation
+*/
 inline bool is_upper(char c)
 {
     return std::isupper((int)c);

@@ -11,9 +11,11 @@ cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
 project(Dynamic_Static.Core VERSION 0.2.0)
 set(CMAKE_CXX_STANDARD 17)
 option(DST_CORE_BUILD_TESTS "Build dynamic_static.core.tests" ON)
+set(dynamic_static "${CMAKE_CURRENT_LIST_DIR}/../")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/")
 set(externalDirectory "${CMAKE_CURRENT_LIST_DIR}/external/")
-include("${externalDirectory}/Dynamic_Static.CMake/Dynamic_Static.ex.cmake")
+# include("${externalDirectory}/Dynamic_Static.CMake/Dynamic_Static.ex.cmake")
+include("${dynamic_static}/Dynamic_Static.CMake/Dynamic_Static.ex.cmake")
 
 # Options
 option(DST_GLM_ENABLED "TODO : Documentation" ON)
@@ -44,6 +46,7 @@ DstAddStaticLibrary(
         "${includePath}/random.hpp"
         "${includePath}/span.hpp"
         "${includePath}/string.hpp"
+        "${includePath}/tab.hpp"
         "${includePath}/thread.hpp"
         "${includePath}/time.hpp"
         "${includePath}/to-string.hpp"
@@ -95,7 +98,8 @@ DstAddStaticLibrary(
 if(DST_CORE_BUILD_TESTS)
     set(testsPath "${CMAKE_CURRENT_LIST_DIR}/tests.ex/")
     DstAddTests(
-        target dynamic_static.core
+        target
+            dynamic_static.core
         sourceFiles
             "${testsPath}/string.tests.cpp"
     )

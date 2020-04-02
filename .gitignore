@@ -2,11 +2,6 @@
 [Bb]uild/
 [Cc][Mm]ake[Bb]uild/
 [Cc][Mm]ake[_-][Bb]uild/
-[Ww]in32/
-[Xx]64/
+[Ii]nstall/
 latex
 html
-*.tmp
-*.dir
-packages
-CMakeSettings.json
