@@ -106,13 +106,13 @@ inline std::string to_string<Tab>(const Tab& tab)
     return std::string(std::max(0, tab.count * tab.size), tab.character);
 }
 
-} // namespace
-
 /**
 TODO : Documentation
 */
-std::ostream& operator<<(std::ostream& stream, const dst::Tab& tab)
+std::ostream& operator<<(std::ostream& stream, const Tab& tab)
 {
     stream << to_string(tab);
     return stream;
 }
+
+} // namespace dst

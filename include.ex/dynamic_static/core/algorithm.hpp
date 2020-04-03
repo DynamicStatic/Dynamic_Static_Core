@@ -71,4 +71,24 @@ inline ReturnType round_cast(const T& value)
     return static_cast<ReturnType>(std::round(value));
 }
 
+/**
+TODO : Documentation
+*/
+template <typename ContainerType>
+inline void sort(ContainerType& container)
+{
+    std::sort(container.begin(), container.end());
+}
+
+/**
+TODO : Documentation
+*/
+template <typename ContainerType>
+inline ContainerType sort_copy(const ContainerType& container)
+{
+    auto copy = container;
+    sort(copy);
+    return copy;
+}
+
 } // namespace dst

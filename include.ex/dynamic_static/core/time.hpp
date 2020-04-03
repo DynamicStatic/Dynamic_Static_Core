@@ -13,6 +13,7 @@
 #include "dynamic_static/core/defines.hpp"
 
 #include <chrono>
+#include <ctime>
 #include <ratio>
 
 namespace dst {
@@ -82,6 +83,74 @@ inline constexpr ToDurationType duration_cast(const FromDurationType& duration)
 {
     return std::chrono::duration_cast<ToDurationType>(duration);
 }
+
+/**
+TODO : Documentation
+*/
+struct DateTime final
+{
+public:
+    /**
+    TODO : Documentation
+    */
+    enum class Day
+    {
+        Sunday    = 1, //!< TODO : Documentation
+        Monday    = 2, //!< TODO : Documentation
+        Tuesday   = 3, //!< TODO : Documentation
+        Wednesday = 4, //!< TODO : Documentation
+        Thursday  = 5, //!< TODO : Documentation
+        Friday    = 6, //!< TODO : Documentation
+        Saturday  = 7, //!< TODO : Documentation
+    };
+
+    /**
+    TODO : Documentation
+    */
+    enum class Month
+    {
+        January   = 1,  //!< TODO : Documentation
+        February  = 2,  //!< TODO : Documentation
+        March     = 3,  //!< TODO : Documentation
+        April     = 4,  //!< TODO : Documentation
+        May       = 5,  //!< TODO : Documentation
+        June      = 6,  //!< TODO : Documentation
+        July      = 7,  //!< TODO : Documentation
+        August    = 8,  //!< TODO : Documentation
+        September = 9,  //!< TODO : Documentation
+        October   = 10, //!< TODO : Documentation
+        November  = 11, //!< TODO : Documentation
+        December  = 12, //!< TODO : Documentation
+    };
+
+    /**
+    TODO : Documentation
+    */
+    static DateTime now()
+    {
+        DateTime dateTime;
+        auto systemClockNow = SystemClock::to_time_t(SystemClock::now());
+        auto pLocalTime = std::localtime(&systemClockNow);
+        if (pLocalTime) {
+            dateTime.year = 1900 + pLocalTime->tm_year;
+            dateTime.month = (Month)(1 + pLocalTime->tm_mon);
+            dateTime.dayOfTheMonth = pLocalTime->tm_mday;
+            dateTime.dayOfTheWeek = (Day)(1 + pLocalTime->tm_wday);
+            dateTime.hour = pLocalTime->tm_hour;
+            dateTime.minute = pLocalTime->tm_min;
+            dateTime.second = pLocalTime->tm_sec;
+        }
+        return dateTime;
+    }
+
+    int year { };
+    Month month { };
+    int dayOfTheMonth { };
+    Day dayOfTheWeek { };
+    int hour { };
+    int minute { };
+    int second { };
+};
 
 /**
 TODO : Documentation
