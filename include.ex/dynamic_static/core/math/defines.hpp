@@ -16,7 +16,7 @@
 #define GLM_FORCE_SIZE_T_LENGTH
 #define GLM_ENABLE_EXPERIMENTAL
 #define GLM_FORCE_DEPTH_ZERO_TO_ONE
-#ifdef DYNAMIC_STATIC_MSVC
+#ifdef DYNAMIC_STATIC_COMPILER_MSVC
 #pragma warning(push, 0)
 #endif
 #include "glm/glm.hpp"
@@ -25,7 +25,7 @@
 #include "glm/gtx/quaternion.hpp"
 #include "glm/gtx/string_cast.hpp"
 #include "glm/gtx/transform.hpp"
-#ifdef DYNAMIC_STATIC_MSVC
+#ifdef DYNAMIC_STATIC_COMPILER_MSVC
 #pragma warning(pop)
 #endif
 

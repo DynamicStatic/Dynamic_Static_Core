@@ -12,13 +12,13 @@
 
 #include "dynamic_static/core/defines.hpp"
 
-#ifdef DYNAMIC_STATIC_WINDOWS
+#ifdef DYNAMIC_STATIC_PLATFORM_WINDOWS
 #include <filesystem>
 #endif
 
 namespace dst {
 
-#ifdef DYNAMIC_STATIC_WINDOWS
+#ifdef DYNAMIC_STATIC_PLATFORM_WINDOWS
 namespace filesystem = std::filesystem;
 #endif
 
