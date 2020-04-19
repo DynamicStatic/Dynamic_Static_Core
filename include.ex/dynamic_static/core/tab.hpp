@@ -92,6 +92,26 @@ public:
         return other;
     }
 
+    /**
+    TODO : Documentation
+    */
+    inline Tab operator+(int value) const
+    {
+        auto other = *this;
+        other.count += value;
+        return other;
+    }
+
+    /**
+    TODO : Documentation
+    */
+    inline Tab operator-(int value) const
+    {
+        auto other = *this;
+        other.count -= value;
+        return other;
+    }
+
     int count { 0 };
     int size { 4 };
     char character { ' ' };
