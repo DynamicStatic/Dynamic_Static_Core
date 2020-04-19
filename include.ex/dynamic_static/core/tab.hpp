@@ -109,7 +109,7 @@ inline std::string to_string<Tab>(const Tab& tab)
 /**
 TODO : Documentation
 */
-std::ostream& operator<<(std::ostream& stream, const Tab& tab)
+inline std::ostream& operator<<(std::ostream& stream, const Tab& tab)
 {
     stream << to_string(tab);
     return stream;
