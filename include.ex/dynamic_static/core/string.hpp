@@ -110,19 +110,20 @@ TODO : Documentation
 */
 inline std::string replace(
     const std::string& str,
-    std::vector<Replacement> replacements
+    const std::vector<Replacement>& replacements
 )
 {
     auto result = str;
+    auto sortedReplacements = replacements;
     std::sort(
-        replacements.begin(),
-        replacements.end(),
+        sortedReplacements.begin(),
+        sortedReplacements.end(),
         [](const auto& lhs, const auto& rhs)
         {
             return lhs.first.length() > rhs.first.length();
         }
     );
-    for (const auto& replacement : replacements) {
+    for (const auto& replacement : sortedReplacements) {
         result = replace(result, replacement.first, replacement.second);
     }
     return result;

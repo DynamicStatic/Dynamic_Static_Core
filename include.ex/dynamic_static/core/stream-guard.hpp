@@ -26,7 +26,7 @@ class StreamGuard final
 {
 public:
     /**
-    Constructs an instance of NewlineGuard
+    Constructs an instance of StreamGuard
     TODO : Documentation
     */
     StreamGuard(const Args&... args)
