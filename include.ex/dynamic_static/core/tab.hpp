@@ -36,9 +36,9 @@ public:
         TODO : Documentation
         */
         inline Scope(Tab& tab)
-            : mTab { &tab }
+            : mpTab { &tab }
         {
-            ++*mTab;
+            ++* mpTab;
         }
 
         /**
@@ -47,11 +47,27 @@ public:
         */
         inline ~Scope()
         {
-            --*mTab;
+            --* mpTab;
+        }
+
+        /**
+        TODO : Documentation
+        */
+        inline operator const Tab&() const
+        {
+            return *mpTab;
+        }
+
+        /**
+        TODO : Documentation
+        */
+        inline operator Tab&()
+        {
+            return *mpTab;
         }
 
     private:
-        Tab* mTab { nullptr };
+        Tab* mpTab { nullptr };
     };
 
     /**
