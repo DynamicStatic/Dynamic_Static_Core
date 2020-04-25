@@ -14,7 +14,6 @@
 #include "dynamic_static/core/algorithm.hpp"
 #include "dynamic_static/core/defines.hpp"
 
-#include <algorithm>
 #include <thread>
 #include <utility>
 #include <vector>
@@ -32,11 +31,8 @@ public:
     TODO : Documentation
     */
     inline ThreadPool(size_t workerCount = 0)
+        : mWorkers(workerCount ? workerCount : std::thread::hardware_concurrency())
     {
-        size_t maxWorkerCount = std::thread::hardware_concurrency();
-        workerCount = workerCount ? workerCount : maxWorkerCount;
-        workerCount = clamp(workerCount, size_t(1), maxWorkerCount);
-        mWorkers = std::vector<Worker>(workerCount);
     }
 
     /**
@@ -72,13 +68,14 @@ public:
     */
     inline void push(Worker::Task&& task)
     {
-        assert(!mWorkers.empty() && "TODO : Documentation");
+        assert(!mWorkers.empty());
         Worker* pWorker = &mWorkers[0];
         for (auto& worker : mWorkers) {
             if (worker.task_count() < pWorker->task_count()) {
                 pWorker = &worker;
             }
         }
+        assert(pWorker);
         pWorker->push(std::move(task));
     }
 
@@ -86,11 +83,18 @@ public:
     TODO : Documentation
     */
     template <typename DurationType = Milliseconds<>>
-    inline void wait(const DurationType& timeOut = DurationType { 0 })
+    inline bool wait(const DurationType& timeOut = DurationType { 0 })
     {
+        // TODO : This needs to be reworked so that each Worker doesn't have timeout
+        // TODO : Workers should expose their task complete std::condition_variable
+        bool allTasksFinished = true;
         for (auto& worker : mWorkers) {
-            worker.wait(timeOut);
+            if (!worker.wait(timeOut)) {
+                allTasksFinished = false;
+                break;
+            }
         }
+        return allTasksFinished;
     }
 
 private:

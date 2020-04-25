@@ -52,6 +52,7 @@ DstAddStaticLibrary(
         "${includePath}/thread.hpp"
         "${includePath}/time.hpp"
         "${includePath}/to-string.hpp"
+        "${includePath}/vector.hpp"
         "${includePath}/version.hpp"
         "${includePath}/win32-lean-and-mean.hpp"
         "${includeDirectory}/dynamic_static.core.hpp"

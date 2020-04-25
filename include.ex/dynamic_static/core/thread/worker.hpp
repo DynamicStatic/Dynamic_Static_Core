@@ -96,27 +96,29 @@ public:
     TODO : Documentation
     */
     template <typename DurationType = Milliseconds<>>
-    inline void wait(const DurationType& timeOut = DurationType { 0 })
+    inline bool wait(const DurationType& timeOut = DurationType { 0 })
     {
         std::unique_lock<std::mutex> lock(mMutex);
         auto predicate = [&]() { return mTasks.empty(); };
-        wait(lock, mTasksComplete, timeOut, predicate);
+        return wait(lock, mTasksComplete, timeOut, predicate);
     }
 
 private:
     template <typename DurationType, typename PredicateType>
-    inline void wait(
+    inline bool wait(
         std::unique_lock<std::mutex>& lock,
         std::condition_variable& condition,
         const DurationType& timeOut,
         PredicateType predicate
     )
     {
+        bool predicateEvaluatedTrue = true;
         if (timeOut.count()) {
-            condition.wait_for(lock, timeOut, predicate);
+            predicateEvaluatedTrue = condition.wait_for(lock, timeOut, predicate);
         } else {
             condition.wait(lock, predicate);
         }
+        return predicateEvaluatedTrue;
     }
 
     std::mutex mMutex;
