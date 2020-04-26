@@ -93,20 +93,6 @@ public:
     /**
     TODO : Documentation
     */
-    enum class Day
-    {
-        Sunday    = 1, //!< TODO : Documentation
-        Monday    = 2, //!< TODO : Documentation
-        Tuesday   = 3, //!< TODO : Documentation
-        Wednesday = 4, //!< TODO : Documentation
-        Thursday  = 5, //!< TODO : Documentation
-        Friday    = 6, //!< TODO : Documentation
-        Saturday  = 7, //!< TODO : Documentation
-    };
-
-    /**
-    TODO : Documentation
-    */
     enum class Month
     {
         January   = 1,  //!< TODO : Documentation
@@ -126,11 +112,34 @@ public:
     /**
     TODO : Documentation
     */
+    enum class Day
+    {
+        Sunday    = 1, //!< TODO : Documentation
+        Monday    = 2, //!< TODO : Documentation
+        Tuesday   = 3, //!< TODO : Documentation
+        Wednesday = 4, //!< TODO : Documentation
+        Thursday  = 5, //!< TODO : Documentation
+        Friday    = 6, //!< TODO : Documentation
+        Saturday  = 7, //!< TODO : Documentation
+    };
+
+    /**
+    TODO : Documentation
+    */
     static DateTime now()
     {
-        DateTime dateTime;
+        DateTime dateTime { };
         auto systemClockNow = SystemClock::to_time_t(SystemClock::now());
-        auto pLocalTime = std::localtime(&systemClockNow);
+        const tm* pLocalTime = nullptr;
+        #ifdef DYNAMIC_STATIC_PLATFORM_WINDOWS
+        tm localTime { };
+        auto error = localtime_s(&localTime, &systemClockNow);
+        if (!error) {
+            pLocalTime = &localTime;
+        }
+        #else
+        pLocalTime = localtime(&systemClockNow);
+        #endif // DYNAMIC_STATIC_PLATFORM_WINDOWS
         if (pLocalTime) {
             dateTime.year = 1900 + pLocalTime->tm_year;
             dateTime.month = (Month)(1 + pLocalTime->tm_mon);
