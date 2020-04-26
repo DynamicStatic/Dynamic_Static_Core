@@ -50,4 +50,16 @@ inline std::string to_string<Version>(const Version& version)
         std::to_string(version.patch);
 }
 
+/**
+TODO : Documentation
+*/
+template <>
+inline std::wstring to_wstring<Version>(const Version& version)
+{
+    return
+        std::to_wstring(version.major) + L"." +
+        std::to_wstring(version.minor) + L"." +
+        std::to_wstring(version.patch);
+}
+
 } // namespace dst

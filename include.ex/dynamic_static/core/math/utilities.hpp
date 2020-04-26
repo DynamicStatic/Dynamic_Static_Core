@@ -15,11 +15,11 @@
 namespace dst {
 
 /**
-Gets a given glm::vec object's aspect ratio
-@param <VectorType> The type of the given glm::vec
-@param <ReturnType, default = float> The return type
-@param [in] vector The glm::vec to get the aspect ratio of
-@return The aspect ratio of the given glm::vec
+Gets a given glm::vec<> object's aspect ratio
+@param <VectorType> The type of the given glm::vec<>
+@param <ReturnType>(optional = float) The return type
+@param [in] vector The glm::vec<> to get the aspect ratio of
+@return The aspect ratio of the given glm::vec<>
 */
 template <typename VectorType, typename ReturnType = float>
 inline ReturnType aspect_ratio(const VectorType& vector)
