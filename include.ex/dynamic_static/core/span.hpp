@@ -11,7 +11,9 @@
 #pragma once
 
 #include "dynamic_static/core/defines.hpp"
+#include "dynamic_static/core/vector.hpp"
 
+#include <algorithm>
 #include <array>
 #include <initializer_list>
 #include <type_traits>
@@ -51,8 +53,8 @@ public:
     TODO : Documentation
     */
     inline Span(T* data, size_t count)
-        : mData { data }
-        , mCount { count }
+        : mData { count ? data : nullptr }
+        , mCount { data ? count : 0 }
     {
     }
 
@@ -61,7 +63,7 @@ public:
     */
     template <size_t N>
     inline Span(std::array<typename std::remove_const<T>::type, N>& data)
-        : mData { data.data() }
+        : mData { N ? data.data() : nullptr }
         , mCount { N }
     {
     }
@@ -71,7 +73,7 @@ public:
     */
     template <size_t N>
     inline Span(const std::array<typename std::remove_const<T>::type, N>& data)
-        : mData { data.data() }
+        : mData { N ? data.data() : nullptr }
         , mCount { N }
     {
     }
@@ -82,7 +84,7 @@ public:
     */
     template <class AllocatorType = std::allocator<typename std::remove_const<T>::type>>
     inline Span(std::vector<typename std::remove_const<T>::type, AllocatorType>& data)
-        : mData { data.data() }
+        : mData { vector::data(data) }
         , mCount { data.size() }
     {
     }
@@ -93,7 +95,7 @@ public:
     */
     template <class AllocatorType = std::allocator<typename std::remove_const<T>::type>>
     inline Span(const std::vector<typename std::remove_const<T>::type, AllocatorType>& data)
-        : mData { data.data() }
+        : mData { vector::data(data) }
         , mCount { data.size() }
     {
     }
@@ -246,5 +248,59 @@ private:
     T* mData { nullptr };
     size_t mCount { 0 };
 };
+
+/**
+TODO : Documentation
+*/
+template <typename T>
+inline bool operator==(const Span<T>& lhs, const Span<T>& rhs)
+{
+    return std::equal(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+}
+
+/**
+TODO : Documentation
+*/
+template <typename T>
+inline bool operator!=(const Span<T>& lhs, const Span<T>& rhs)
+{
+    return !(lhs == rhs);
+}
+
+/**
+TODO : Documentation
+*/
+template <typename T>
+inline bool operator<(const Span<T>& lhs, const Span<T>& rhs)
+{
+    return std::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+}
+
+/**
+TODO : Documentation
+*/
+template <typename T>
+inline bool operator>(const Span<T>& lhs, const Span<T>& rhs)
+{
+    return !(lhs < rhs) && !(lhs == rhs);
+}
+
+/**
+TODO : Documentation
+*/
+template <typename T>
+inline bool operator<=(const Span<T>& lhs, const Span<T>& rhs)
+{
+    return lhs < rhs || lhs == rhs;
+}
+
+/**
+TODO : Documentation
+*/
+template <typename T>
+inline bool operator>=(const Span<T>& lhs, const Span<T>& rhs)
+{
+    return lhs > rhs || lhs == rhs;
+}
 
 } // namespace dst

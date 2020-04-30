@@ -76,5 +76,23 @@ inline void append(T& vctr0, const U& vctr1)
     vctr0.insert(vctr0.end(), vctr1.begin(), vctr1.end());
 }
 
+/**
+TODO : Documentation
+*/
+template <typename T>
+inline const T* data(const std::vector<T>& vctr)
+{
+    return !vctr.empty() ? vctr.data() : nullptr;
+}
+
+/**
+TODO : Documentation
+*/
+template <typename T>
+inline T* data(std::vector<T>& vctr)
+{
+    return !vctr.empty() ? vctr.data() : nullptr;
+}
+
 } // namespace vector
 } // namespace dst
