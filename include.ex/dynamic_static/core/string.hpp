@@ -273,24 +273,6 @@ inline std::string to_lower(const std::string& str)
 /**
 TODO : Documentation
 */
-template <typename T>
-inline std::string to_hex_string(const T& value, bool prepend0x = true)
-{
-    static_assert(
-        std::is_integral<T>::value,
-        "dst::string::to_hex_string() may only be used with integer types"
-    );
-    std::stringstream strStr;
-    if (prepend0x) {
-        strStr << "0x";
-    }
-    strStr << std::hex << value;
-    return strStr.str();
-}
-
-/**
-TODO : Documentation
-*/
 inline std::vector<std::string> split(
     const std::string& str,
     const Proxy& delimiter
@@ -349,4 +331,41 @@ inline std::vector<std::string> split_camel_case(const std::string& str)
 }
 
 } // namespace string
+
+/**
+TODO : Documentation
+*/
+template <typename T>
+inline std::string to_hex_string(const T& value, bool prepend0x = true)
+{
+    static_assert(
+        std::is_integral<T>::value,
+        "dst::string::to_hex_string() may only be used with integer types"
+        );
+    std::stringstream strStr;
+    if (prepend0x) {
+        strStr << "0x";
+    }
+    strStr << std::hex << value;
+    return strStr.str();
+}
+
+/**
+TODO : Documentation
+*/
+template <typename T>
+inline std::string to_string(const T& obj)
+{
+    return std::to_string(obj);
+}
+
+/**
+TODO : Documentation
+*/
+template <typename T>
+inline std::wstring to_wstring(const T& obj)
+{
+    return std::to_wstring(obj);
+}
+
 } // namespace dst

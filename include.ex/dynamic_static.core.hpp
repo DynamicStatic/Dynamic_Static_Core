@@ -24,6 +24,5 @@
 #include "dynamic_static/core/tab.hpp"
 #include "dynamic_static/core/thread.hpp"
 #include "dynamic_static/core/time.hpp"
-#include "dynamic_static/core/to-string.hpp"
 #include "dynamic_static/core/version.hpp"
 #include "dynamic_static/core/win32-lean-and-mean.hpp"

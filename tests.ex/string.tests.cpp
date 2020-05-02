@@ -315,15 +315,6 @@ TEST_CASE("string::to_lower()")
 /**
 TODO : Documentation
 */
-TEST_CASE("string::to_hex_string()")
-{
-    REQUIRE(string::to_hex_string(3735928559) == "0xdeadbeef");
-    REQUIRE(string::to_hex_string(3735928559, false) == "deadbeef");
-}
-
-/**
-TODO : Documentation
-*/
 TEST_CASE("string::split()")
 {
     static const std::vector<std::string> Tokens { "The", "quick", "brown", "fox" };
@@ -375,6 +366,15 @@ TEST_CASE("string::split_camel_case()")
 {
     static const std::vector<std::string> Tokens { "The", "Quick", "Brown", "FOX" };
     REQUIRE(string::split_camel_case("TheQuickBrownFOX") == Tokens);
+}
+
+/**
+TODO : Documentation
+*/
+TEST_CASE("to_hex_string()")
+{
+    REQUIRE(to_hex_string(3735928559) == "0xdeadbeef");
+    REQUIRE(to_hex_string(3735928559, false) == "deadbeef");
 }
 
 } // namespace tests

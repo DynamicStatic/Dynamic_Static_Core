@@ -11,7 +11,7 @@
 #pragma once
 
 #include "dynamic_static/core/defines.hpp"
-#include "dynamic_static/core/to-string.hpp"
+#include "dynamic_static/core/string.hpp"
 
 #include <algorithm>
 #include <ostream>
