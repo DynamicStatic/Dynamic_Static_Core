@@ -282,7 +282,7 @@ TODO : Documentation
 template <typename T>
 inline bool operator>(const Span<T>& lhs, const Span<T>& rhs)
 {
-    return !(lhs < rhs) && !(lhs == rhs);
+    return rhs < lhs;
 }
 
 /**
@@ -291,7 +291,7 @@ TODO : Documentation
 template <typename T>
 inline bool operator<=(const Span<T>& lhs, const Span<T>& rhs)
 {
-    return lhs < rhs || lhs == rhs;
+    return !(rhs < lhs);
 }
 
 /**
@@ -300,7 +300,7 @@ TODO : Documentation
 template <typename T>
 inline bool operator>=(const Span<T>& lhs, const Span<T>& rhs)
 {
-    return lhs > rhs || lhs == rhs;
+    return !(lhs < rhs);
 }
 
 } // namespace dst
