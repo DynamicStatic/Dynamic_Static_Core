@@ -72,8 +72,16 @@ public:
     TODO : Documentation
     */
     template <typename T>
-    typename std::enable_if<std::is_floating_point<T>::value, T>::type
-    inline range(T min = 0, T max = 1)
+    inline typename std::enable_if<std::is_integral<T>::value, T>::type range(T min = 0, T max = 1)
+    {
+        return static_cast<T>(mIntDistribution(mEngine) * (max - min) + min);
+    }
+
+    /**
+    TODO : Documentation
+    */
+    template <typename T>
+    inline typename std::enable_if<std::is_floating_point<T>::value, T>::type range(T min = 0, T max = 1)
     {
         return static_cast<T>(mRealDistribution(mEngine) * (max - min) + min);
     }
@@ -82,7 +90,7 @@ public:
     TODO : Documentation
     */
     template <typename T>
-    inline T value() const
+    inline T value()
     {
         return range<T>(std::numeric_limits<T>::min(), std::numeric_limits<T>::max());
     }
