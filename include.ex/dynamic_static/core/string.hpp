@@ -13,6 +13,7 @@
 #include "dynamic_static/core/defines.hpp"
 
 #include <algorithm>
+#include <initializer_list>
 #include <sstream>
 #include <string>
 #include <type_traits>
@@ -139,6 +140,21 @@ inline std::string remove(
 )
 {
     return replace(str, find, std::string(), recurisve);
+}
+
+/**
+TODO : Documentation
+*/
+inline std::string remove(
+    const std::string& str,
+    const std::initializer_list<Proxy>& finds
+)
+{
+    auto result = str;
+    for (const auto& find : finds) {
+        result = remove(result, find);
+    }
+    return result;
 }
 
 /**
@@ -341,7 +357,7 @@ inline std::string to_hex_string(const T& value, bool prepend0x = true)
     static_assert(
         std::is_integral<T>::value,
         "dst::string::to_hex_string() may only be used with integer types"
-        );
+    );
     std::stringstream strStr;
     if (prepend0x) {
         strStr << "0x";

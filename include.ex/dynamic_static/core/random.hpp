@@ -89,6 +89,18 @@ public:
     /**
     TODO : Documentation
     */
+    template <typename FloatingPointType>
+    inline bool probability(
+        FloatingPointType value,
+        typename std::enable_if<std::is_floating_point<FloatingPointType>::value, FloatingPointType>::type* = nullptr
+    )
+    {
+        return value >= range<FloatingPointType>(std::numeric_limits<FloatingPointType>::epsilon(), static_cast<FloatingPointType>(1.0) );
+    }
+
+    /**
+    TODO : Documentation
+    */
     template <typename T>
     inline T value()
     {
