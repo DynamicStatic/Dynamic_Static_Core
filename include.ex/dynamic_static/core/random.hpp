@@ -39,6 +39,7 @@ public:
     */
     inline RandomNumberGenerator(uint32_t seed)
     {
+        set_seed(seed);
     }
 
     /**
@@ -74,7 +75,7 @@ public:
     template <typename T>
     inline typename std::enable_if<std::is_integral<T>::value, T>::type range(T min = 0, T max = 1)
     {
-        return static_cast<T>(mIntDistribution(mEngine) * (max - min) + min);
+        return static_cast<T>(mIntDistribution(mEngine) % (max - min) + min);
     }
 
     /**
@@ -105,6 +106,19 @@ public:
     inline T value()
     {
         return range<T>(std::numeric_limits<T>::min(), std::numeric_limits<T>::max());
+    }
+
+    /**
+    TODO : Documentation
+    */
+    template <typename IntegerType>
+    inline IntegerType die_roll(IntegerType D)
+    {
+        static_assert(
+            std::is_integral<IntegerType>::value,
+            "dst::RandomNumberGenerator::die_roll() can only be used with integer types"
+        );
+        return D >= 1 ? range<IntegerType>(1, D + 1) : 0;
     }
 
 private:
