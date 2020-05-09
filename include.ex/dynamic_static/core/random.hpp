@@ -84,7 +84,7 @@ public:
     template <typename T>
     inline typename std::enable_if<std::is_floating_point<T>::value, T>::type range(T min = 0, T max = 1)
     {
-        return static_cast<T>(mRealDistribution(mEngine) * (max - min) + min);
+        return static_cast<T>(mRealDistribution(mEngine) * static_cast<double>((max - min) + min));
     }
 
     /**

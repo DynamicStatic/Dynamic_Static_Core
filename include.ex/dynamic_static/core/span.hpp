@@ -280,18 +280,18 @@ inline bool operator<(const Span<T>& lhs, const Span<T>& rhs)
 TODO : Documentation
 */
 template <typename T>
-inline bool operator>(const Span<T>& lhs, const Span<T>& rhs)
+inline bool operator<=(const Span<T>& lhs, const Span<T>& rhs)
 {
-    return rhs < lhs;
+    return !(rhs < lhs);
 }
 
 /**
 TODO : Documentation
 */
 template <typename T>
-inline bool operator<=(const Span<T>& lhs, const Span<T>& rhs)
+inline bool operator>(const Span<T>& lhs, const Span<T>& rhs)
 {
-    return !(rhs < lhs);
+    return rhs < lhs;
 }
 
 /**
