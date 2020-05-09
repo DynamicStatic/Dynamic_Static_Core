@@ -75,7 +75,7 @@ public:
     template <typename T>
     inline typename std::enable_if<std::is_integral<T>::value, T>::type range(T min = 0, T max = 1)
     {
-        return static_cast<T>(mIntDistribution(mEngine) % (max - min) + min);
+        return (T)mIntDistribution(mEngine) % (max - min) + min;
     }
 
     /**
@@ -84,19 +84,19 @@ public:
     template <typename T>
     inline typename std::enable_if<std::is_floating_point<T>::value, T>::type range(T min = 0, T max = 1)
     {
-        return static_cast<T>(mRealDistribution(mEngine) * static_cast<double>((max - min) + min));
+        return (T)mRealDistribution(mEngine) * (max - min) + min;
     }
 
     /**
     TODO : Documentation
     */
-    template <typename FloatingPointType>
+    template <typename T>
     inline bool probability(
-        FloatingPointType value,
-        typename std::enable_if<std::is_floating_point<FloatingPointType>::value, FloatingPointType>::type* = nullptr
+        T value,
+        typename std::enable_if<std::is_floating_point<T>::value, T>::type* = nullptr
     )
     {
-        return value >= range<FloatingPointType>(std::numeric_limits<FloatingPointType>::epsilon(), static_cast<FloatingPointType>(1.0) );
+        return value >= range<T>(std::numeric_limits<T>::epsilon(), (T)1.0 );
     }
 
     /**
@@ -111,14 +111,14 @@ public:
     /**
     TODO : Documentation
     */
-    template <typename IntegerType>
-    inline IntegerType die_roll(IntegerType D)
+    template <typename T>
+    inline T die_roll(T D)
     {
         static_assert(
-            std::is_integral<IntegerType>::value,
-            "dst::RandomNumberGenerator::die_roll() can only be used with integer types"
+            std::is_integral<T>::value,
+            "dst::RandomNumberGenerator<>::die_roll<>() can only be used with integer types"
         );
-        return D >= 1 ? range<IntegerType>(1, D + 1) : 0;
+        return D >= 1 ? range<T>(1, D + 1) : 0;
     }
 
 private:
