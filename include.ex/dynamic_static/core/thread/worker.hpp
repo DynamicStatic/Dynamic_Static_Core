@@ -112,13 +112,12 @@ private:
         PredicateType predicate
     )
     {
-        bool predicateEvaluatedTrue = true;
         if (timeOut.count()) {
-            predicateEvaluatedTrue = condition.wait_for(lock, timeOut, predicate);
+            return condition.wait_for(lock, timeOut, predicate);
         } else {
             condition.wait(lock, predicate);
         }
-        return predicateEvaluatedTrue;
+        return true;
     }
 
     std::mutex mMutex;
