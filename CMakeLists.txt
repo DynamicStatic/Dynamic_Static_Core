@@ -41,13 +41,17 @@ DstAddStaticLibrary(
         "${includePath}/algorithm.hpp"
         "${includePath}/callback.hpp"
         "${includePath}/defines.hpp"
+        "${includePath}/delegate.hpp"
         "${includePath}/enum.hpp"
+        "${includePath}/event.hpp"
         "${includePath}/filesystem.hpp"
         "${includePath}/math.hpp"
+        "${includePath}/memory.hpp"
         "${includePath}/random.hpp"
         "${includePath}/span.hpp"
         "${includePath}/stream-guard.hpp"
         "${includePath}/string.hpp"
+        "${includePath}/subscribable.hpp"
         "${includePath}/tab.hpp"
         "${includePath}/thread.hpp"
         "${includePath}/time.hpp"
@@ -103,6 +107,8 @@ if(DST_CORE_BUILD_TESTS)
         target
             dynamic_static.core
         sourceFiles
+            "${testsPath}/random.tests.cpp"
             "${testsPath}/string.tests.cpp"
+            "${testsPath}/subscribable.tests.cpp"
     )
 endif()
