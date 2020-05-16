@@ -10,67 +10,112 @@
 
 #pragma once
 
-#include "dynamic_static/core/event/delegate.hpp"
-#include "dynamic_static/core/action.hpp"
 #include "dynamic_static/core/defines.hpp"
+#include "dynamic_static/core/delegate.hpp"
 
 #include <functional>
 #include <utility>
 
 namespace dst {
 
+/**
+Encapsulates a Subscribable multicast Action<> that may only be called by a single type
+@param <...Args> This Event<> object's argument types
+*/
 template <typename CallerType, typename ...Args>
 class Event
     : private Delegate<Args...>
 {
+    friend CallerType;
+
 public:
     /**
-    TODO : Documentation
+    Adds a subscriber to this Event<>
+    @param [in] subscriber The Delegate<> subscribing to this Event<>
+    @return A reference to this Event<>
+        @note This method is a noop if it would cause a duplicate subscription
+        @note This method is a noop if it would cause a self subscription
+    */
+    inline Event<CallerType, Args...>& operator+=(Delegate<Args...>& subscriber)
+    {
+        Delegate<Args...>::operator+=(subscriber);
+        return *this;
+    }
+
+    /**
+    Removes a subscriber from this Event<>
+    @param [in] subscriber The Delegate<> unsubscribing from this Event<>
+    @return A reference to this Event<>
+        @note This method is a noop if the given Delegate<> is not subscribed to this Event<>
+    */
+    inline Event<CallerType, Args...>& operator-=(Delegate<Args...>& subscriber)
+    {
+        Delegate<Args...>::operator-=(subscriber);
+        return *this;
+    }
+
+private:
+    /**
+    Constructs an instance of Event<>
     */
     Event() = default;
 
     /**
-    TODO : Documentation
+    Moves an instance of Event<>
+    @param [in] other The Event<> to move from
     */
-    inline Event(Action<Args...> action)
-        : Delegate<Args...>(action)
-    {
-    }
-
-    /**
-    TODO : Documentation
-    */
-    inline Event(Event<CallerType, Args...>&& other)
+    inline Event(Event<CallerType, Args...>&& other) noexcept
     {
         *this = std::move(other);
     }
 
     /**
-    TODO : Documentation
+    Moves an instance of Delegate<>
+    @param [in] other The Delegate<> to move from
+    @return A reference to this Delegate<>
     */
-    inline Event<CallerType, Args...>& operator=(Event<CallerType, Args...>&& other)
+    inline Event<CallerType, Args...>& operator=(Event<CallerType, Args...>&& other) noexcept
     {
-        Delegate<Args...>::operator=(std::move(other));
+        Delegate<Args...>::operator=(std::move((Delegate<Args...>&&)other));
+        return *this;
     }
 
     /**
-    TODO : Documentation
-    */
-    inline Event<CallerType, Args...>& operator=(Action<Args...> action)
-    {
-        Delegate<Args...>::operator=(action);
-    }
-
-private:
-    /**
-    TODO : Documentation
+    Calls this Event<> object's subscribed Delegate<> objects (recursively) with the given arguments
+    @param [in] args The arguments to call this Event<> object's subscribed Delegate<> objects (recursively) with
+        @note The order that subscribed Delegate<> objects are called in is nondetermninistic; ie. it is not the order they were subscribed in
+        @note This Event<> object and subscribed Delegate<> objects (recursively) must not add or remove subscribers during the scope of this method
+        @note This Event<> object and subscribed Delegate<> objects (recursively) must not std::move() during the scope of this method
+        @note This Event<> object and subscribed Delegate<> objects (recursively) must not be destroyed during the scope of this method
     */
     inline void operator()(Args&&... args) const
     {
         Delegate<Args...>::operator()(std::forward<Args>(args)...);
     }
 
-    friend CallerType;
+    /**
+    Removes all subscribers from this Event<>
+    */
+    inline void clear_subscribers()
+    {
+        Delegate<Args...>::clear_subscribers();
+    }
+
+    /**
+    Removes all subscriptions to this Event<>
+    */
+    inline void clear_subscriptions()
+    {
+        Delegate<Args...>::clear_subscriptions();
+    }
+
+    /**
+    Removes all subscribers from and subscriptions to this Event<>
+    */
+    inline void clear()
+    {
+        Delegate<Args...>::clear();
+    }
 };
 
 } // namespace dst

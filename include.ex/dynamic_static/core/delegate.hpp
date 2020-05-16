@@ -55,7 +55,7 @@ public:
         @note Passing nullptr for action will clear this Delegate<> object's Action<>
     */
     template <typename ActionType>
-    inline Delegate& operator=(ActionType action)
+    inline Delegate<Args...>& operator=(ActionType action)
     {
         mAction = action;
         return *this;
@@ -65,7 +65,7 @@ public:
     Moves an instance of Delegate<>
     @param [in] other The Delegate<> to move from
     */
-    inline Delegate(Delegate<Args...>&& other)
+    inline Delegate(Delegate<Args...>&& other) noexcept
     {
         *this = std::move(other);
     }
@@ -75,7 +75,7 @@ public:
     @param [in] other The Delegate<> to move from
     @return A reference to this Delegate<>
     */
-    inline Delegate<Args...>& operator=(Delegate<Args...>&& other)
+    inline Delegate<Args...>& operator=(Delegate<Args...>&& other) noexcept
     {
         Subscribable::operator=(std::move(other));
         mAction = std::move(other.mAction);
@@ -90,7 +90,7 @@ public:
         @note This method is a noop if it would cause a duplicate subscription
         @note This method is a noop if it would cause a self subscription
     */
-    inline Delegate& operator+=(Delegate<Args...>& subscriber)
+    inline Delegate<Args...>& operator+=(Delegate<Args...>& subscriber)
     {
         Subscribable::operator+=(subscriber);
         return *this;
@@ -102,16 +102,16 @@ public:
     @return A reference to this Delegate<>
         @note This method is a noop if the given Delegate<> is not subscribed to this Delegate<>
     */
-    inline Delegate& operator-=(Delegate<Args...>& subscriber)
+    inline Delegate<Args...>& operator-=(Delegate<Args...>& subscriber)
     {
         Subscribable::operator-=(subscriber);
         return *this;
     }
 
     /**
-    Calls this Delegate<> object's Action<> and that of all subscribed Delegate<> objects (recursively)
-    @param [in] args The arguments to call this Delegate<> object's Action<> and all subscribed Delegate<> objects with
-        @note The order that subscribed Delegate<> objects are called in is nondetermninistic; ie it is not the order they were subscribed in
+    Calls this Delegate<> object's Action<> and that of all subscribed Delegate<> objects (recursively) with the given arguments
+    @param [in] args The arguments to call this Delegate<> object's Action<> and all subscribed Delegate<> objects (recursively) with
+        @note The order that subscribed Delegate<> objects are called in is nondetermninistic; ie. it is not the order they were subscribed in
         @note This Delegate<> object and subscribed Delegate<> objects (recursively) must not add or remove subscribers during the scope of this method
         @note This Delegate<> object and subscribed Delegate<> objects (recursively) must not std::move() during the scope of this method
         @note This Delegate<> object and subscribed Delegate<> objects (recursively) must not be destroyed during the scope of this method

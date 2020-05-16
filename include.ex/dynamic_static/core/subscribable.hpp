@@ -98,7 +98,7 @@ public:
     Gets this Subscribable subscribers
     @return This Subscribable object's subscribers
         @note Adding or removing sbuscribers invalidates the returned collection's iterators
-        @note The order of subscribers is nondeterministic; ie it is not the order they were subscribed in
+        @note The order of subscribers is nondeterministic; ie. it is not the order they were subscribed in
     */
     inline const std::set<Subscribable*>& get_subscribers() const
     {

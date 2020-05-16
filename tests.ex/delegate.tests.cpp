@@ -39,7 +39,7 @@ TEST_CASE("Delegate<>::operator=()", "[Delegate<>]")
 }
 
 /**
-Validates that Delegate<> objects can be assigned to and called via Delegate<>
+Validates that Delegate<> objects can be subscribe to and be called via Delegate<>
 */
 TEST_CASE("Delegate<>::operator+=()", "[Delegate<>]")
 {
@@ -73,14 +73,14 @@ TEST_CASE("Delegate<>::operator=(Delegate<>&&)", "[Delegate<>]")
         }
     }
     delegate += delegates[0];
-    auto delegateMove = std::move(delegate);
-    std::vector<Delegate<int&>> delegatesMove(TestCount);
+    auto movedDelegate = std::move(delegate);
+    std::vector<Delegate<int&>> movedDelegates(TestCount);
     for (size_t i = 0; i < TestCount; ++i) {
-        delegatesMove[i] = std::move(delegates[i]);
+        movedDelegates[i] = std::move(delegates[i]);
     }
     delegate(actualValue);
     CHECK(actualValue == 0);
-    delegateMove(actualValue);
+    movedDelegate(actualValue);
     CHECK(actualValue == targetValue);
 }
 

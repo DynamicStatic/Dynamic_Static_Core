@@ -108,6 +108,7 @@ if(DST_CORE_BUILD_TESTS)
             dynamic_static.core
         sourceFiles
             "${testsPath}/delegate.tests.cpp"
+            "${testsPath}/event.tests.cpp"
             "${testsPath}/random.tests.cpp"
             "${testsPath}/string.tests.cpp"
             "${testsPath}/subscribable.tests.cpp"
