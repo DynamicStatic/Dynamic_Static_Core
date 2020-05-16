@@ -12,13 +12,13 @@
 
 #include "dynamic_static/core/defines.hpp"
 
-#include <unordered_set>
+#include <set>
 #include <utility>
 
 namespace dst {
 
 /**
-Encapsulates a collection of mutual references between extended objects
+Encapsulates a collection of mutual references
 */
 class Subscribable
 {
@@ -40,7 +40,10 @@ public:
     /**
     Destroys this instance of Subscribable
     */
-    virtual ~Subscribable() = 0;
+    inline virtual ~Subscribable()
+    {
+        clear();
+    }
 
     /**
     Moves an instance of Subscribable
@@ -66,6 +69,8 @@ public:
     Adds a subscriber to this Subscribable
     @param [in] subscriber The Subscribable subscribing to this Subscribable
     @return A reference to this Subscribable
+        @note This method is a noop if it would cause a duplicate subscription
+        @note This method is a noop if it would cause a self subscription
     */
     inline Subscribable& operator+=(Subscribable& subscriber)
     {
@@ -80,19 +85,22 @@ public:
     Removes a subscriber from this Subscribable
     @param [in] subscriber The Subscribable unsubscribing from this Subscribable
     @return A reference to this Subscribable
+        @note This method is a noop if the given Subscribable is not subscribed to this Subscribable
     */
     inline Subscribable& operator-=(Subscribable& subscriber)
     {
-        mSubscribers.erase(&subscriber);
         subscriber.mSubscriptions.erase(this);
+        mSubscribers.erase(&subscriber);
         return *this;
     }
 
     /**
     Gets this Subscribable subscribers
     @return This Subscribable object's subscribers
+        @note Adding or removing sbuscribers invalidates the returned collection's iterators
+        @note The order of subscribers is nondeterministic; ie it is not the order they were subscribed in
     */
-    inline const std::unordered_set<Subscribable*>& get_subscribers() const
+    inline const std::set<Subscribable*>& get_subscribers() const
     {
         return mSubscribers;
     }
@@ -100,8 +108,10 @@ public:
     /**
     Gets this Subscribable subscriptions
     @return This Subscribable object's subscriptions
+        @note Adding or removing subscriptions invalidates the returned collection's iterators
+        @note The order of subscriptions is nondeterministic; ie it is not the order they were subscribed in
     */
-    inline const std::unordered_set<Subscribable*>& get_subscriptions() const
+    inline const std::set<Subscribable*>& get_subscriptions() const
     {
         return mSubscriptions;
     }
@@ -138,15 +148,10 @@ public:
     }
 
 private:
-    std::unordered_set<Subscribable*> mSubscribers;
-    std::unordered_set<Subscribable*> mSubscriptions;
+    std::set<Subscribable*> mSubscribers;
+    std::set<Subscribable*> mSubscriptions;
     Subscribable(const Subscribable&) = delete;
     Subscribable& operator=(const Subscribable&) = delete;
 };
-
-inline Subscribable::~Subscribable()
-{
-    clear();
-}
 
 } // namespace dst

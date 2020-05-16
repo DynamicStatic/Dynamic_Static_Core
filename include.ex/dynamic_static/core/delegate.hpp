@@ -10,9 +10,9 @@
 
 #pragma once
 
-#include "dynamic_static/core/event/subscribable.hpp"
 #include "dynamic_static/core/action.hpp"
 #include "dynamic_static/core/defines.hpp"
+#include "dynamic_static/core/subscribable.hpp"
 
 #include <functional>
 #include <utility>
@@ -20,7 +20,8 @@
 namespace dst {
 
 /**
-TODO : Documentation
+Encapsulates a Subscribable multicast Action<>
+@param <...Args> The argument types of thie Delegate<> object's Action<>
 */
 template <typename ...Args>
 class Delegate
@@ -34,39 +35,27 @@ public:
 
     /**
     Constructs an instance of Delegate<>
+    @param <ActionType> The type of object to assign to this Delegate<> object's Action<>
     @param [in] action This Delegate<> object's Action<>
+        @note ActionType must have a signautre compatible with this Delegate<> object's <...Args> parameter
+        @note Passing nullptr for action will clear this Delegate<> object's Action<>
     */
-    inline Delegate(Action<Args...> action)
-        : mAction { action }
-    {
-    }
-
-    /**
-    Constructs an instance of Delegate<>
-    @param [in] action This Delegate<> object's Action<>
-    */
-    inline Delegate(nullptr_t action)
+    template <typename ActionType>
+    inline Delegate(ActionType action)
         : mAction { action }
     {
     }
 
     /**
     Assigns this Delegate<> object's Action<>
+    @param <ActionType> The type of object to assign to this Delegate<> object's Action<>
     @param [in] action This Delegate<> object's Action<>
     @return A reference to this Delegate<>
+        @note ActionType must have a signautre compatible with this Delegate<> object's <...Args> parameter
+        @note Passing nullptr for action will clear this Delegate<> object's Action<>
     */
-    inline Delegate& operator=(Action<Args...> action)
-    {
-        mAction = action;
-        return *this;
-    }
-
-    /**
-    Assigns this Delegate<> object's Action<>
-    @param [in] action This Delegate<> object's Action<>
-    @return A reference to this Delegate<>
-    */
-    inline Delegate& operator=(nullptr_t action)
+    template <typename ActionType>
+    inline Delegate& operator=(ActionType action)
     {
         mAction = action;
         return *this;
@@ -90,45 +79,77 @@ public:
     {
         Subscribable::operator=(std::move(other));
         mAction = std::move(other.mAction);
-    }
-
-    /**
-    TODO : Documentation
-    */
-    inline Delegate& operator+=(Delegate<Args...>& other)
-    {
-        Subscribable::operator+=(other);
+        other.mAction = nullptr;
         return *this;
     }
 
     /**
-    TODO : Documentation
+    Adds a subscriber to this Delegate<>
+    @param [in] subscriber The Delegate<> subscribing to this Delegate<>
+    @return A reference to this Delegate<>
+        @note This method is a noop if it would cause a duplicate subscription
+        @note This method is a noop if it would cause a self subscription
     */
-    inline Delegate& operator-=(Delegate<Args...>& other)
+    inline Delegate& operator+=(Delegate<Args...>& subscriber)
     {
-        Subscribable::operator-=(other);
+        Subscribable::operator+=(subscriber);
         return *this;
     }
 
     /**
-    TODO : Documentation
+    Removes a subscriber from this Delegate<>
+    @param [in] subscriber The Delegate<> unsubscribing from this Delegate<>
+    @return A reference to this Delegate<>
+        @note This method is a noop if the given Delegate<> is not subscribed to this Delegate<>
+    */
+    inline Delegate& operator-=(Delegate<Args...>& subscriber)
+    {
+        Subscribable::operator-=(subscriber);
+        return *this;
+    }
+
+    /**
+    Calls this Delegate<> object's Action<> and that of all subscribed Delegate<> objects (recursively)
+    @param [in] args The arguments to call this Delegate<> object's Action<> and all subscribed Delegate<> objects with
+        @note The order that subscribed Delegate<> objects are called in is nondetermninistic; ie it is not the order they were subscribed in
+        @note This Delegate<> object and subscribed Delegate<> objects (recursively) must not add or remove subscribers during the scope of this method
+        @note This Delegate<> object and subscribed Delegate<> objects (recursively) must not std::move() during the scope of this method
+        @note This Delegate<> object and subscribed Delegate<> objects (recursively) must not be destroyed during the scope of this method
     */
     inline void operator()(Args&&... args) const
     {
         if (mAction) {
-            mAction(std:forward<Args>(args)...);
+            mAction(std::forward<Args>(args)...);
         }
         for (auto pSubscriber : Subscribable::get_subscribers()) {
-            *((const Delegate<Args...>*)pSubscriber)(std::forward<Args>(args)...);
+            (*(const Delegate<Args...>*)pSubscriber)(std::forward<Args>(args)...);
         }
     }
 
     /**
-    TODO : Documentation
+    Removes all subscribers from this Delegate<>
     */
-    inline operator bool() const
+    inline void clear_subscribers()
     {
-        return mAction != nullptr;
+        Subscribable::clear_subscribers();
+    }
+
+    /**
+    Removes all subscriptions to this Delegate<>
+    */
+    inline void clear_subscriptions()
+    {
+        Subscribable::clear_subscriptions();
+    }
+
+    /**
+    Clears this Delegate<> object's Action<> and removes all subscribers from and subscriptions to this Delegate<>
+    */
+    inline void clear()
+    {
+        mAction = nullptr;
+        clear_subscribers();
+        clear_subscriptions();
     }
 
 private:
