@@ -10,7 +10,8 @@
 
 #pragma once
 
-#include "dynamic_static/core/math/defines.hpp"
+#include "dynamic_static/core/defines.hpp"
+#include "dynamic_static/core/math.hpp"
 
 namespace dst {
 

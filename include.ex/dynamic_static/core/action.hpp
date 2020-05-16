@@ -17,7 +17,7 @@
 namespace dst {
 
 /**
-TODO : Documentation
+Alias for a std::function<> with variadic parameters and no return value
 */
 template <typename ...Args>
 using Action = std::function<void(Args...)>;

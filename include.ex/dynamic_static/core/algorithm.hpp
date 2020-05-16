@@ -13,11 +13,17 @@
 #include "dynamic_static/core/defines.hpp"
 
 #include <algorithm>
+#include <cmath>
 
 namespace dst {
 
 /**
-TODO : Documentation
+Gets a specified value clamped within a specified range
+@param <T> The type of value to clamp
+@param [in] value The value to clamp
+@param [in] min The minimum of the range to clamp the specified value within
+@param [in] max The maximum of the range to clamp the specified value within
+@return The specified value clamped within the specified range
 */
 template <typename T>
 inline const T& clamp(const T& value, const T& min, const T& max)
@@ -36,25 +42,25 @@ Gets a linear interpolation from one given floating point value to another using
 template <typename T>
 inline T lerp(T v0, T v1, T t)
 {
-    // FROM : https://devblogs.nvidia.com/parallelforall/lerp-faster-cuda/
-    // TLDR :
-    //  std::fma() (fused multiply-add) is commonly implemented as a single CPU
-    //  instruction which will be used if available.  In addition to a performance
-    //  benefit, accuracy is improved since there's no rounding performed until
-    //  std::fma() returns.
-    //
-    //  In this lerp function there are 4 rounding errors...
-    //      (static_cast<T>(1) - t) * v0 + t * v1
-    //
-    //  ...this version has 3 rounding errors and no guarantee that the result
-    //  equals v1 when t equals 1 due to rounding error...
-    //      v0 + t * (v1 - v0)
-    //
-    //  std::fma() computes...
-    //  x * y + z
-    //  so our operation is...
-    //  t * v1 + (-t * v0 + v0)
-
+    /*
+    FROM : https://devblogs.nvidia.com/parallelforall/lerp-faster-cuda/
+    TLDR : std::fma() (fused multiply-add) is commonly implemented as a single CPU
+        instruction which will be used if available.  In addition to a performance
+        benefit, accuracy is improved since there's no rounding performed until
+        std::fma() returns.
+    
+        In this lerp function there are 4 rounding errors...
+            (1 - t) * v0 + t * v1
+    
+        This version has 3 rounding errors and no guarantee that the result equals v1
+        when t equals 1 due to rounding error...
+            v0 + t * (v1 - v0)
+    
+        std::fma() computes...
+            x * y + z
+        ...so the operation is...
+            t * v1 + (-t * v0 + v0)
+    */
     return std::fma(t, v1, std::fma(-t, v0, v0));
 }
 
@@ -68,11 +74,13 @@ Rounds a given floating point value to the nearest whole number then casts the r
 template <typename ReturnType, typename T>
 inline ReturnType round_cast(const T& value)
 {
-    return static_cast<ReturnType>(std::round(value));
+    return (ReturnType)std::round(value);
 }
 
 /**
-TODO : Documentation
+Sorts a given container in place
+@param <ContainerType> The type of container to sort
+@param [in] container The container to sort
 */
 template <typename ContainerType>
 inline void sort(ContainerType& container)
@@ -81,7 +89,10 @@ inline void sort(ContainerType& container)
 }
 
 /**
-TODO : Documentation
+Gets a sorted copy of a given container
+@param <ContainerType> The type of container to copy and sort
+@param [in] container The container to copy and sort
+@return The sorted copy of the given container
 */
 template <typename ContainerType>
 inline ContainerType sort_copy(const ContainerType& container)

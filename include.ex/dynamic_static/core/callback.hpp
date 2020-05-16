@@ -28,18 +28,11 @@ public:
     /**
     TODO : Documentation
     */
-    inline Callback<CallerType, Args...>& operator=(const Action<Args...>& action)
+    template <typename ActionType>
+    inline Callback<CallerType, Args...>& operator=(ActionType action)
     {
         mAction = action;
         return *this;
-    }
-
-    /**
-    TODO : Documentation
-    */
-    inline operator bool() const
-    {
-        return mAction != nullptr;
     }
 
 private:

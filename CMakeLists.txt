@@ -32,9 +32,6 @@ DstAddStaticLibrary(
         "${CMAKE_CURRENT_LIST_DIR}/include/"
 
     includeFiles
-        "${includePath}/math/defines.hpp"
-        "${includePath}/math/transform.hpp"
-        "${includePath}/math/utilities.hpp"
         "${includePath}/thread/pool.hpp"
         "${includePath}/thread/worker.hpp"
         "${includePath}/action.hpp"
@@ -55,6 +52,7 @@ DstAddStaticLibrary(
         "${includePath}/tab.hpp"
         "${includePath}/thread.hpp"
         "${includePath}/time.hpp"
+        "${includePath}/transform.hpp"
         "${includePath}/vector.hpp"
         "${includePath}/version.hpp"
         "${includePath}/win32-lean-and-mean.hpp"
