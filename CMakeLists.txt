@@ -39,6 +39,7 @@ DstAddStaticLibrary(
         "${includePath}/delegate.hpp"
         "${includePath}/enum.hpp"
         "${includePath}/event.hpp"
+        "${includePath}/file.hpp"
         "${includePath}/math.hpp"
         "${includePath}/memory.hpp"
         "${includePath}/random.hpp"
@@ -106,8 +107,11 @@ if(DST_CORE_BUILD_TESTS)
             "${testsPath}/enum.tests.cpp"
             "${testsPath}/event.tests.cpp"
             "${testsPath}/random.tests.cpp"
+            "${testsPath}/span.tests.cpp"
+            "${testsPath}/stream-guard.tests.cpp"
             "${testsPath}/string.tests.cpp"
             "${testsPath}/subscribable.tests.cpp"
             "${testsPath}/thread.tests.cpp"
+            "${testsPath}/vector.tests.cpp"
     )
 endif()
