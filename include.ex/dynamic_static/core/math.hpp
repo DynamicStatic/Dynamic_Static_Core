@@ -29,6 +29,9 @@
 #pragma warning(pop)
 #endif
 
+#define _USE_MATH_DEFINES
+#include <cmath>
+
 namespace dst {
 
 /**

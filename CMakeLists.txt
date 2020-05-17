@@ -32,8 +32,6 @@ DstAddStaticLibrary(
         "${CMAKE_CURRENT_LIST_DIR}/include/"
 
     includeFiles
-        "${includePath}/thread/pool.hpp"
-        "${includePath}/thread/worker.hpp"
         "${includePath}/action.hpp"
         "${includePath}/algorithm.hpp"
         "${includePath}/callback.hpp"
@@ -110,5 +108,6 @@ if(DST_CORE_BUILD_TESTS)
             "${testsPath}/random.tests.cpp"
             "${testsPath}/string.tests.cpp"
             "${testsPath}/subscribable.tests.cpp"
+            "${testsPath}/thread.tests.cpp"
     )
 endif()

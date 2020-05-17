@@ -16,13 +16,13 @@
 namespace dst {
 
 /**
-TODO : Documentation
+Represents 3D translation, rotation, and scale
 */
 struct Transform
 {
-    glm::vec3 translation { };         //!< TODO : Documentation
-    glm::quat rotation { 1, 0, 0, 0 }; //!< TODO : Documentation
-    glm::vec3 scale { 1, 1, 1 };       //!< TODO : Documentation
+    glm::vec3 translation { };         //!< This Transform object's translation
+    glm::quat rotation { 1, 0, 0, 0 }; //!< This Transform object's rotation
+    glm::vec3 scale { 1, 1, 1 };       //!< This Transform object's scale
 };
 
 } // namespace dst
