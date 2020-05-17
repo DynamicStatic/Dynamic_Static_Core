@@ -114,7 +114,7 @@ public:
     template <typename T>
     inline bool probability(T value, typename std::enable_if<std::is_integral<T>::value>::type* = nullptr)
     {
-        return value >= range<T>(1, 100);
+        return value >= range<T>(T { 1 }, T { 100 });
     }
 
     /**
@@ -140,7 +140,7 @@ public:
             std::is_integral<T>::value,
             "dst::RandomNumberGenerator<>::index<>() can only be used with integer types"
         );
-        return count > 0 ? range<T>(0, count - 1) : 0;
+        return count > T { 0 } ? range<T>(T { 0 }, count - T { 1 }) : T { 0 };
     }
 
     /**
@@ -155,7 +155,7 @@ public:
             std::is_integral<T>::value,
             "dst::RandomNumberGenerator<>::die_roll<>() can only be used with integer types"
         );
-        return D > 0 ? range<T>(1, D) : 0;
+        return D > T { 0 } ? range<T>(T { 1 }, D) : T { 0 };
     }
 
 private:

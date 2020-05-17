@@ -61,8 +61,8 @@ private:
         // TODO : It's very annoying to have to keep a std::stringstream member here.
         //  It causes this class to not be general purpose.  Currently it's only being
         //  used to process text so it's fine, but it would be much nicer to manipulate
-        //  the std::ostream's std::basic_streambuf<> so that when it flushes after
-        //  resetting the output position it doesn't flush past it.
+        //  the std::ostream's std::basic_streambuf<> so that when it's flushed, it
+        //  doesn't flush past the modified output position.
         #ifdef DYNAMIC_STATIC_STREAM_GUARD_MEMBER_STRING_STREAM
         auto position = mStrStrm.tellp();
         mStrStrm << std::get<Index>(mArgs);

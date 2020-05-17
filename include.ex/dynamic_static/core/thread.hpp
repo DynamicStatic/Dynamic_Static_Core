@@ -148,7 +148,6 @@ private:
     std::mutex mMutex;
     std::condition_variable mTaskReceived;
     std::condition_variable mTasksComplete;
-
     ThreadPool(const ThreadPool&) = delete;
     ThreadPool(ThreadPool&&) = delete;
     ThreadPool& operator=(const ThreadPool&) = delete;

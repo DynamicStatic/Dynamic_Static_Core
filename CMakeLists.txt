@@ -39,7 +39,6 @@ DstAddStaticLibrary(
         "${includePath}/delegate.hpp"
         "${includePath}/enum.hpp"
         "${includePath}/event.hpp"
-        "${includePath}/filesystem.hpp"
         "${includePath}/math.hpp"
         "${includePath}/memory.hpp"
         "${includePath}/random.hpp"
@@ -104,6 +103,7 @@ if(DST_CORE_BUILD_TESTS)
             dynamic_static.core
         sourceFiles
             "${testsPath}/delegate.tests.cpp"
+            "${testsPath}/enum.tests.cpp"
             "${testsPath}/event.tests.cpp"
             "${testsPath}/random.tests.cpp"
             "${testsPath}/string.tests.cpp"
