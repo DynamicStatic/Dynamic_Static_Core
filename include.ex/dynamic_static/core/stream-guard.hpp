@@ -28,7 +28,7 @@ public:
     @param [args] The arguments to stream via this StreamGuard<>
     */
     inline StreamGuard(const Args&... args)
-        : mArgs(args...)
+        : mArgs { args... }
     {
     }
 
