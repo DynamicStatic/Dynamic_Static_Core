@@ -20,7 +20,9 @@ namespace dst {
 namespace file {
 
 /**
-TODO : Documentation
+Reads all lines from the file at a given file path
+@param [in] filePath The path of the file to read
+@param [in] lines A reference to an std::vector<std::string> to populate with the lines read from the file at the given file path
 */
 inline void read_all_lines(
     const std::string& filePath,
@@ -38,7 +40,9 @@ inline void read_all_lines(
 }
 
 /**
-TODO : Documentation
+Reads all lines from the file at a given file path
+@param [in] filePath The path of the file to read
+@return A std::vector<std::string> populated with the lines read from the file at the given file path
 */
 inline std::vector<std::string> read_all_lines(const std::string& filePath)
 {
@@ -48,7 +52,9 @@ inline std::vector<std::string> read_all_lines(const std::string& filePath)
 }
 
 /**
-TODO : Documentation
+Reads all bytes from the file at a given file path
+@param [in] filePath The path of the file to read
+@param [in] bytes A reference to an std::vector<uint8_t> to populate with the bytes read from the file at the given file path
 */
 inline void read_all_bytes(
     const std::string& filePath,
@@ -66,7 +72,9 @@ inline void read_all_bytes(
 }
 
 /**
-TODO : Documentation
+Reads all bytes from the file at a given file path
+@param [in] filePath The path of the file to read
+@return A std::vector<uint8_t> populated with the bytes read from the file at the given file path
 */
 inline std::vector<uint8_t> read_all_bytes(const std::string& filePath)
 {

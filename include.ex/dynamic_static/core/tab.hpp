@@ -146,7 +146,8 @@ public:
 
 /**
 Gets the std::string representation of a given Tab
-@param [in] tab The Tab to get the std::representation of
+@param [in] tab The Tab to get the std::string representation of
+@return The std::string representation of the given Tab
 */
 template <>
 inline std::string to_string<Tab>(const Tab& tab)
