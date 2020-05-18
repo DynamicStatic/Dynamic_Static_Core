@@ -126,7 +126,7 @@ public:
     inline void wait()
     {
         std::unique_lock<std::mutex> lock(mMutex);
-        mTasksComplete.wait(lock, [&]() { return !mActiveThreadCount && !mTasks.size(); });
+        mTasksComplete.wait(lock, [&]() { return !mActiveThreadCount && mTasks.empty(); });
     }
 
 private:
