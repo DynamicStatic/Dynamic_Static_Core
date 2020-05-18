@@ -24,7 +24,7 @@ namespace dst {
 namespace string {
 
 /**
-TODO : Documentation
+Provides a mechanism for safely constructing a tempory std::string
 */
 class Proxy final
     : public std::string
@@ -61,7 +61,7 @@ public:
 };
 
 /**
-TODO : Documentation
+Alias for std::pair<string::Proxy, string::Proxy> used for replace() operations
 */
 using Replacement = std::pair<Proxy, Proxy>;
 
@@ -99,7 +99,7 @@ Gets a copy of a string with all occurences of a given substring replaced with a
 @param [in] find The string to find and replace in the source string
 @param [in] replacement The string to replace occurences of the find string with
 @param [in] recursive (optional = false) Whether or not to recursively replace occurences of the find string
-@return The resulting string
+@return The resulting std::string
 */
 inline std::string replace(
     const std::string& str,
@@ -124,7 +124,7 @@ inline std::string replace(
 Gets a copy of a string with a all occurences of a given collection of substrings replaced with a paired replacement
 @param [in] str The source string
 @param [in] replacements The collection of find and replace pairs
-@return The resulting string
+@return The resulting std::string
 */
 inline std::string replace(
     const std::string& str,
@@ -152,7 +152,7 @@ Gets a copy of a string with all occurences of a given substring removed
 @param [in] str The source string
 @param [in] find The string to find and remove from the source string
 @param [in] recursive (optional = false) Whether or not to recursively remove occurences of the find string
-@return The resulting string
+@return The resulting std::string
 */
 inline std::string remove(
     const std::string& str,
@@ -167,7 +167,7 @@ inline std::string remove(
 Gets a copy of a string with a all occurences of a given collection of substrings removed
 @param [in] str The source string
 @param [in] finds The collection of strings to remove
-@return The resulting string
+@return The resulting std::string
 */
 inline std::string remove(
     const std::string& str,
@@ -185,7 +185,7 @@ inline std::string remove(
 Gets a copy of a string with all repetitive occurences of a given substring reduced to single occurences
 @param [in] str The source string
 @param [in] find The string to find sequences of and reduce
-@return The resulting string
+@return The resulting std::string
 */
 inline std::string reduce_sequence(
     const std::string& str,
@@ -198,7 +198,7 @@ inline std::string reduce_sequence(
 /**
 Gets a copy of a string containing a path with back slashes replaced with forward slashes and slash sequences reduced
 @param [in] path The path to scrub
-@reutrn The scrubbed path
+@return The resulting std::string
 */
 inline std::string scrub_path(const std::string& path)
 {
@@ -226,7 +226,9 @@ inline bool is_whitespace(const std::string& str)
 }
 
 /**
-TODO : Documentation
+Gets a copy of string with all leading whitespace characters removed
+@param [in] str The string to remove leading whitespace characters from
+@return The resulting std::string
 */
 inline std::string trim_leading_whitespace(const std::string& str)
 {
@@ -235,7 +237,9 @@ inline std::string trim_leading_whitespace(const std::string& str)
 }
 
 /**
-TODO : Documentation
+Gets a copy of string with all trailing whitespace characters removed
+@param [in] str The string to remove trailing whitespace characters from
+@return The resulting std::string
 */
 inline std::string trim_trailing_whitespace(const std::string& str)
 {
@@ -244,7 +248,9 @@ inline std::string trim_trailing_whitespace(const std::string& str)
 }
 
 /**
-TODO : Documentation
+Gets a copy of string with all leading and trailing whitespace characters removed
+@param [in] str The string to remove leading and trailing whitespace characters from
+@return The resulting std::string
 */
 inline std::string trim_whitespace(const std::string& str)
 {
@@ -284,7 +290,7 @@ inline char to_upper(char c)
 /**
 Gets a copy of a given string with all characters converted to their upper case equivalents
 @param [in] str The string to convert to upper case
-@return A copy of the given string with all characters converted to their upper case equivalents
+@return The resulting std::string
 */
 inline std::string to_upper(const std::string& str)
 {
@@ -326,7 +332,7 @@ inline char to_lower(char c)
 /**
 Gets a copy of a given string with all characters converted to their lower case equivalents
 @param [in] str The string to convert to lower case
-@return A copy of the given string with all characters converted to their lower case equivalents
+@return The resulting std::string
 */
 inline std::string to_lower(const std::string& str)
 {
@@ -336,7 +342,10 @@ inline std::string to_lower(const std::string& str)
 }
 
 /**
-TODO : Documentation
+Gets a std::vector<std::string> populated with substrings of a given string using a given delimiter
+@param [in] str The string to split
+@param [in] delimiter The delimiter to search for
+@return A std::vector<std::string> populated with split tokens
 */
 inline std::vector<std::string> split(
     const std::string& str,
@@ -361,7 +370,9 @@ inline std::vector<std::string> split(
 }
 
 /**
-TODO : Documentation
+Gets a std::vector<std::string> populated with substrings of a given string using a '_' as a delimiter
+@param [in] str The string to split
+@return A std::vector<std::string> populated with split tokens
 */
 inline std::vector<std::string> split_snake_case(const std::string& str)
 {
@@ -369,7 +380,9 @@ inline std::vector<std::string> split_snake_case(const std::string& str)
 }
 
 /**
-TODO : Documentation
+Gets a std::vector<std::string> populated with substrings of a given string split on CamelCase
+@param [in] str The string to split
+@return A std::vector<std::string> populated with split tokens
 */
 inline std::vector<std::string> split_camel_case(const std::string& str)
 {
@@ -398,7 +411,11 @@ inline std::vector<std::string> split_camel_case(const std::string& str)
 } // namespace string
 
 /**
-TODO : Documentation
+Gets the hex std::string representation of a specified value
+@param <T> The type of value to get the hex std::string representation of
+@param [in] value The value to get the hex std::string representation of
+@param [in] prepend0x (optional = true) Whether or not to prepend the resulting std::string with "0x"
+@return The hex std::string representation of the specified value
 */
 template <typename T>
 inline std::string to_hex_string(const T& value, bool prepend0x = true)
@@ -416,7 +433,11 @@ inline std::string to_hex_string(const T& value, bool prepend0x = true)
 }
 
 /**
-TODO : Documentation
+Gets the std::string representation of a given object
+@param <T> The type of object to get the std::string representation of
+@param [in] obj The object to get the std::string representation of
+@return The std::string representation of the given object
+    @note This function may be specialized for arbitrary types
 */
 template <typename T>
 inline std::string to_string(const T& obj)
@@ -425,7 +446,11 @@ inline std::string to_string(const T& obj)
 }
 
 /**
-TODO : Documentation
+Gets the std::wstring representation of a given object
+@param <T> The type of object to get the std::wstring representation of
+@param [in] obj The object to get the std::wstring representation of
+@return The std::wstring representation of the given object
+    @note This function may be specialized for arbitrary types
 */
 template <typename T>
 inline std::wstring to_wstring(const T& obj)
