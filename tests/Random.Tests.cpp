@@ -1,209 +1,179 @@
 
 /*
 ==========================================
-  Copyright (c) 2016-2018 Dynamic_Static
+  Copyright (c) 2016-2020 Dynamic_Static
     Patrick Purcell
       Licensed under the MIT license
     http://opensource.org/licenses/MIT
 ==========================================
 */
 
-#include "Dynamic_Static/Core/Random.hpp"
+#include "dynamic_static/core/random.hpp"
 
-#include "catch.hpp"
+#include "catch2/catch.hpp"
+
+#include <vector>
 
 namespace dst {
 namespace tests {
 
-    static constexpr int MaxValue { 4 };
-    static constexpr int MinValue { -MaxValue };
-    static constexpr int TestCount = 1024;
+static constexpr int MaxValue { 4 };
+static constexpr int MinValue { -MaxValue };
+static constexpr int TestCount { 1024 };
 
-    TEST_CASE("range()", "[Random]")
+/**
+Validates that RandomNumberGenerator::range() stays in range
+*/
+TEST_CASE("RandomNumberGenerator::range()", "[RandomNumberGenerator]")
+{
+    RandomNumberGenerator rng;
+    SECTION("int stays in range")
     {
-        RandomNumberGenerator rng;
-
-        SECTION("Integer values")
-        {
-            bool inRange = true;
-            for (int i = 0; i < TestCount; ++i) {
-                auto value = rng.range(MinValue, MaxValue);
-                if (value < MinValue || MaxValue <= value) {
-                    inRange = false;
-                    break;
-                }
-            }
-            REQUIRE(inRange);
-        }
-
-        SECTION("Floating point values")
-        {
-            bool inRange = true;
-            float min = static_cast<float>(MinValue);
-            float max = static_cast<float>(MaxValue);
-            for (int i = 0; i < TestCount; ++i) {
-                auto value = rng.range(min, max);
-                if (value < MinValue || MaxValue <= value) {
-                    inRange = false;
-                    break;
-                }
+        for (int i = 0; i < TestCount; ++i) {
+            auto value = rng.range(MinValue, MaxValue);
+            if (value < MinValue || MaxValue < value) {
+                FAIL();
             }
         }
     }
-
-    TEST_CASE("probability()", "[Random]")
+    SECTION("float stays in range")
     {
-        RandomNumberGenerator rng;
-
-        SECTION("Integer 0 always fails")
-        {
-            bool integer0AlwaysFails = true;
-            for (int i = 0; i < TestCount; ++i) {
-                if (rng.probability(0)) {
-                    integer0AlwaysFails = false;
-                }
+        for (int i = 0; i < TestCount; ++i) {
+            auto value = rng.range((float)MinValue * 0.1f, (float)MaxValue * 0.1f);
+            if (value < MinValue || MaxValue < value) {
+                FAIL();
             }
-            REQUIRE(integer0AlwaysFails);
-        }
-
-        SECTION("Integer 100 always passes")
-        {
-            bool integer100AlwaysPasses = true;
-            for (int i = 0; i < TestCount; ++i) {
-                if (!rng.probability(100)) {
-                    integer100AlwaysPasses = false;
-                }
-            }
-            REQUIRE(integer100AlwaysPasses);
-        }
-
-        SECTION("Floating point 0 always fails")
-        {
-            bool floatingPoint0AlwaysFails = true;
-            for (int i = 0; i < TestCount; ++i) {
-                if (rng.probability(0.)) {
-                    floatingPoint0AlwaysFails = false;
-                }
-            }
-            REQUIRE(floatingPoint0AlwaysFails);
-        }
-
-        SECTION("Floating point 1 always passes")
-        {
-            bool floatingPoint1AlwaysPasses = true;
-            for (int i = 0; i < TestCount; ++i) {
-                if (!rng.probability(1.)) {
-                    floatingPoint1AlwaysPasses = false;
-                }
-            }
-            REQUIRE(floatingPoint1AlwaysPasses);
         }
     }
+}
 
-    TEST_CASE("index()", "[Random]")
+/**
+Validates that RandomNumberGenerator::probability() always passes/fails at upper/lower bound
+*/
+TEST_CASE("RandomNumberGenerator::probability()", "[RandomNumberGenerator]")
+{
+    RandomNumberGenerator rng;
+    SECTION("int 0 always fails")
     {
-        RandomNumberGenerator rng;
-
-        SECTION("Count 0 always gets index 0")
-        {
-            bool count0GetsIndex0 = true;
-            for (int i = 0; i < TestCount; ++i) {
-                if (rng.index(0) != 0) {
-                    count0GetsIndex0 = false;
-                    break;
-                }
+        for (int i = 0; i < TestCount; ++i) {
+            if (rng.probability(0)) {
+                FAIL();
             }
-            REQUIRE(count0GetsIndex0);
-        }
-
-        SECTION("Count 1 always gets index 0")
-        {
-            bool count1GetsIndex0 = true;
-            for (int i = 0; i < TestCount; ++i) {
-                if (rng.index(1) != 0) {
-                    count1GetsIndex0 = false;
-                    break;
-                }
-            }
-            REQUIRE(count1GetsIndex0);
-        }
-
-        SECTION("Count 8 stays in range")
-        {
-            int count = 8;
-            bool count8InRange = true;
-            for (int i = 0; i < TestCount; ++i) {
-                if (rng.index(count) >= count) {
-                    count8InRange = false;
-                    break;
-                }
-            }
-            REQUIRE(count8InRange);
         }
     }
-
-    TEST_CASE("die_roll()", "[Random]")
+    SECTION("int 100 always passes")
     {
-        RandomNumberGenerator rng;
-
-        SECTION("D0 always rolls 0")
-        {
-            bool d0Rolls0 = true;
-            for (int i = 0; i < TestCount; ++i) {
-                if (rng.die_roll(0) != 0) {
-                    d0Rolls0 = false;
-                    break;
-                }
+        for (int i = 0; i < TestCount; ++i) {
+            if (!rng.probability(100)) {
+                FAIL();
             }
-            REQUIRE(d0Rolls0);
-        }
-
-        SECTION("D1 always rolls 1")
-        {
-            bool d1Rolls1 = true;
-            for (int i = 0; i < TestCount; ++i) {
-                if (rng.die_roll(1) != 1) {
-                    d1Rolls1 = false;
-                    break;
-                }
-            }
-            REQUIRE(d1Rolls1);
-        }
-
-        SECTION("D6 rolls in range")
-        {
-            int dieSize = 6;
-            bool d6RollsInRange = true;
-            for (int i = 0; i < TestCount; ++i) {
-                auto roll = rng.die_roll(dieSize);
-                if (roll < 1 || dieSize < roll) {
-                    d6RollsInRange = false;
-                    break;
-                }
-            }
-            REQUIRE(d6RollsInRange);
         }
     }
-
-    TEST_CASE("Resetting produces deterministic sequences", "[Random]")
+    SECTION("float 0.0f always fails")
     {
-        RandomNumberGenerator rng;
-        float min = static_cast<float>(MinValue);
-        float max = static_cast<float>(MaxValue);
-        std::vector<float> sequence(TestCount);
-        for (size_t i = 0; i < TestCount; ++i) {
-            sequence[i] = rng.range(min, max);
-        }
-        rng.reset();
-        bool deterministic = true;
-        for (size_t i = 0; i < TestCount; ++i) {
-            if (rng.range(min, max) != sequence[i]) {
-                deterministic = false;
-                break;
+        for (int i = 0; i < TestCount; ++i) {
+            if (rng.probability(0.0f)) {
+                FAIL();
             }
         }
-        REQUIRE(deterministic);
     }
+    SECTION("float 1.0f always passes")
+    {
+        for (int i = 0; i < TestCount; ++i) {
+            if (!rng.probability(1.0f)) {
+                FAIL();
+            }
+        }
+    }
+}
+
+/**
+Validates that RandomNumberGenerator::index() stays in range
+*/
+TEST_CASE("RandomNumberGenerator::index()", "[RandomNumberGenerator]")
+{
+    RandomNumberGenerator rng;
+    SECTION("count 0 always gets index 0")
+    {
+        for (int i = 0; i < TestCount; ++i) {
+            if (rng.index(0) != 0) {
+                FAIL();
+            }
+        }
+    }
+    SECTION("count 1 always gets index 0")
+    {
+        for (int i = 0; i < TestCount; ++i) {
+            if (rng.index(1) != 0) {
+                FAIL();
+            }
+        }
+    }
+    SECTION("count 8 stays in range")
+    {
+        for (int i = 0; i < TestCount; ++i) {
+            auto index = rng.index(8);
+            if (index < 0 || 7 < index) {
+                FAIL();
+            }
+        }
+    }
+}
+
+/**
+Validates that RandomNumberGenerator::die_roll() stays in range
+*/
+TEST_CASE("RandomNumberGenerator::die_roll()", "[RandomNumberGenerator]")
+{
+    RandomNumberGenerator rng;
+    SECTION("D0 always rolls 0")
+    {
+        for (int i = 0; i < TestCount; ++i) {
+            if (rng.die_roll(0) != 0) {
+                FAIL();
+            }
+        }
+    }
+    SECTION("D1 always rolls 1")
+    {
+        for (int i = 0; i < TestCount; ++i) {
+            if (rng.die_roll(1) != 1) {
+                FAIL();
+            }
+        }
+    }
+    SECTION("D6 stays in range")
+    {
+        for (int i = 0; i < TestCount; ++i) {
+            auto diRoll = rng.die_roll(6);
+            if (diRoll < 0 || 6 < diRoll) {
+                FAIL();
+            }
+        }
+    }
+}
+
+/**
+Validates that RandomNumberGenerator::reset() produces deterministic sequences
+*/
+TEST_CASE("RandomNumberGenerator::reset()", "[RandomNumberGenerator]")
+{
+    RandomNumberGenerator rng;
+    std::vector<int> ints(TestCount);
+    std::vector<float> floats(TestCount);
+    for (size_t i = 0; i < TestCount; ++i) {
+        ints[i] = rng.value<int>();
+        floats[i] = rng.value<float>();
+    }
+    rng.reset();
+    for (size_t i = 0; i < TestCount; ++i) {
+        auto intValue = rng.value<int>();
+        auto floatValue = rng.value<float>();
+        if (ints[i] != intValue || floats[i] != floatValue) {
+            FAIL();
+        }
+    }
+}
 
 } // namespace tests
 } // namespace dst
