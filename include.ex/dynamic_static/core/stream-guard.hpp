@@ -14,30 +14,32 @@
 #include <sstream>
 #include <tuple>
 
-#define DYNAMIC_STATIC_STREAM_GUARD_MEMBER_STRING_STREAM
-
 namespace dst {
 
 /**
-TODO : Documentation
+Provides a mechanism for grouping stream writes that require all writes to evaluate to a non empty std::string
 */
 template<typename ...Args>
 class StreamGuard final
 {
 public:
     /**
-    Constructs an instance of StreamGuard
-    TODO : Documentation
+    Constructs an instance of StreamGuard<>
+    @param [args] The arguments to stream via this StreamGuard<>
     */
-    StreamGuard(const Args&... args)
+    inline StreamGuard(const Args&... args)
         : mArgs(args...)
     {
     }
 
     /**
-    TODO : Documentation
+    Writes a given StreamGuard<> to a a given std::ostream
+    @param [in] stream The std::ostream to write the given StreamGuard<> to
+    @param [in] streamGuard The StreamGuard<> to write to the given std::ostream
+    @return A reference to the given std::ostream
+        @note If any of the arguments provided when constructing the given StreamGuard<> evaluate to an empty std::string when written to the given std::ostream all writes are discarded
     */
-    friend std::ostream& operator<<(std::ostream& stream, StreamGuard& streamGuard)
+    inline friend std::ostream& operator<<(std::ostream& stream, StreamGuard& streamGuard)
     {
         streamGuard.mPosition = stream.tellp();
         streamGuard.process_stream(stream);
@@ -46,24 +48,22 @@ public:
 
 private:
     template <size_t Index = 0>
-    inline typename std::enable_if<Index == sizeof...(Args), void>::type
-        process_stream(std::ostream& stream)
+    inline typename std::enable_if<Index == sizeof...(Args), void>::type process_stream(std::ostream& stream)
     {
-        #ifdef DYNAMIC_STATIC_STREAM_GUARD_MEMBER_STRING_STREAM
+        #if 1
         stream << mStrStrm.str();
         #endif
     }
 
     template <size_t Index = 0>
-    inline typename std::enable_if<Index < sizeof...(Args), void>::type
-        process_stream(std::ostream& stream)
+    inline typename std::enable_if<Index < sizeof...(Args), void>::type process_stream(std::ostream& stream)
     {
         // TODO : It's very annoying to have to keep a std::stringstream member here.
         //  It causes this class to not be general purpose.  Currently it's only being
         //  used to process text so it's fine, but it would be much nicer to manipulate
         //  the std::ostream's std::basic_streambuf<> so that when it's flushed, it
         //  doesn't flush past the modified output position.
-        #ifdef DYNAMIC_STATIC_STREAM_GUARD_MEMBER_STRING_STREAM
+        #if 1
         auto position = mStrStrm.tellp();
         mStrStrm << std::get<Index>(mArgs);
         if (position < mStrStrm.tellp()) {
@@ -82,7 +82,7 @@ private:
 
     std::tuple<const Args&...> mArgs;
     std::ostream::pos_type mPosition { 0 };
-    #ifdef DYNAMIC_STATIC_STREAM_GUARD_MEMBER_STRING_STREAM
+    #if 1
     std::stringstream mStrStrm;
     #endif
     StreamGuard(const StreamGuard<Args...>&) = delete;
