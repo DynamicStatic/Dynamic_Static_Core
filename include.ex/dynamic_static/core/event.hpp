@@ -19,7 +19,8 @@
 namespace dst {
 
 /**
-Encapsulates a Subscribable multicast Action<> that may only be called by a single type
+Encapsulates a Subscribable multicast Action<> that can be exectued by a specified type
+@param <CallerType> The type that can execute this Event<>
 @param <...Args> This Event<> object's argument types
 */
 template <typename CallerType, typename ...Args>

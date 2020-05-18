@@ -34,7 +34,6 @@ DstAddStaticLibrary(
     includeFiles
         "${includePath}/action.hpp"
         "${includePath}/algorithm.hpp"
-        "${includePath}/callback.hpp"
         "${includePath}/defines.hpp"
         "${includePath}/delegate.hpp"
         "${includePath}/enum.hpp"

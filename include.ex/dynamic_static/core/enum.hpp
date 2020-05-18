@@ -14,68 +14,223 @@
 
 #include <type_traits>
 
-#define DYNAMIC_STATIC_ENABLE_BITWISE_OPERATORS(EnumType) \
-template <>                                               \
-struct dst::EnableBitwiseOperators<EnumType>              \
-{                                                         \
-    static constexpr bool value { true };                 \
+/**
+Enables operator overloads for a specified enum class type
+@param <EnumClassType> The enum class type to enable operator overloads for
+    @note To enable enum class operator overloads specialize this struct with `enabled` initialized to `true`
+    @example
+
+        namespace widgets {
+
+        enum class WidgetType
+        {
+            Unknown,
+            Foo,
+            Bar,
+            Baz,
+            Qux,
+        };
+
+        template <>
+        struct EnumClassOperators<WidgetType>
+        {
+            static constexpr bool enabled { true };
+        };
+
+        } // namespace widgets
+
+*/
+template <typename EnumClassType>
+struct EnumClassOperators
+{
+    static constexpr bool enabled { false };
 };
 
-namespace dst {
+template <typename EnumClassType>
+using EnumClassOperator = typename std::enable_if<EnumClassOperators<EnumClassType>::enabled, EnumClassType>::type;
 
-/**
-TODO : Documentation
-*/
-template <typename EnumType>
-struct EnableBitwiseOperators
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType> operator+(EnumClassType lhs, EnumClassType rhs)
 {
-    static constexpr bool value { false }; //!< TODO : Documentation
-};
-
-/**
-TODO : Documentation
-*/
-template <typename EnumType>
-using EnableBitwiseOperator = typename std::enable_if<EnableBitwiseOperators<EnumType>::value, EnumType>::type;
-
-/**
-TODO : Documentation
-*/
-template <typename EnumType>
-EnableBitwiseOperator<EnumType> operator~(EnumType value)
-{
-    using UnderlyingType = typename std::underlying_type<EnumType>::type;
-    return static_cast<EnumType>(~static_cast<UnderlyingType>(value));
+    using UnderlyingType = typename std::underlying_type<EnumClassType>::type;
+    return (EnumClassType)((UnderlyingType)lhs + (UnderlyingType)rhs);
 }
 
-/**
-TODO : Documentation
-*/
-template <typename EnumType>
-EnableBitwiseOperator<EnumType> operator&(EnumType lhs, EnumType rhs)
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType> operator+(EnumClassType lhs, typename std::underlying_type<EnumClassType>::type rhs)
 {
-    using UnderlyingType = typename std::underlying_type<EnumType>::type;
-    return static_cast<EnumType>(static_cast<UnderlyingType>(lhs) & static_cast<UnderlyingType>(rhs));
+    return (EnumClassType)((typename std::underlying_type<EnumClassType>::type)lhs + rhs);
 }
 
-/**
-TODO : Documentation
-*/
-template <typename EnumType>
-EnableBitwiseOperator<EnumType> operator|(EnumType lhs, EnumType rhs)
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType>& operator+=(EnumClassType& lhs, EnumClassType rhs)
 {
-    using UnderlyingType = typename std::underlying_type<EnumType>::type;
-    return static_cast<EnumType>(static_cast<UnderlyingType>(lhs) | static_cast<UnderlyingType>(rhs));
+    lhs = lhs + rhs;
+    return lhs;
 }
 
-/**
-TODO : Documentation
-*/
-template <typename EnumType>
-EnableBitwiseOperator<EnumType> operator^(EnumType lhs, EnumType rhs)
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType>& operator+=(EnumClassType& lhs, typename std::underlying_type<EnumClassType>::type rhs)
 {
-    using UnderlyingType = typename std::underlying_type<EnumType>::type;
-    return static_cast<EnumType>(static_cast<UnderlyingType>(lhs) ^ static_cast<UnderlyingType>(rhs));
+    lhs = lhs + rhs;
+    return lhs;
 }
 
-} // namespace dst
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType>& operator++(EnumClassType& value)
+{
+    value += 1;
+    return value;
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType> operator++(EnumClassType& value, int)
+{
+    auto currentValue = value;
+    value += 1;
+    return currentValue;
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType> operator-(EnumClassType lhs, EnumClassType rhs)
+{
+    using UnderlyingType = typename std::underlying_type<EnumClassType>::type;
+    return (EnumClassType)((UnderlyingType)lhs - (UnderlyingType)rhs);
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType> operator-(EnumClassType lhs, typename std::underlying_type<EnumClassType>::type rhs)
+{
+    return (EnumClassType)((typename std::underlying_type<EnumClassType>::type)lhs - rhs);
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType>& operator-=(EnumClassType& lhs, EnumClassType rhs)
+{
+    lhs = lhs - rhs;
+    return lhs;
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType>& operator-=(EnumClassType& lhs, typename std::underlying_type<EnumClassType>::type rhs)
+{
+    lhs = lhs - rhs;
+    return lhs;
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType>& operator--(EnumClassType& value)
+{
+    value = (EnumClassType)((typename std::underlying_type<EnumClassType>::type)value - 1);
+    return value;
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType> operator--(EnumClassType& value, int)
+{
+    auto currentValue = value;
+    value -= 1;
+    return currentValue;
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType> operator~(EnumClassType value)
+{
+    return (EnumClassType)(~(typename std::underlying_type<EnumClassType>::type)value);
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType> operator&(EnumClassType lhs, EnumClassType rhs)
+{
+    using UnderlyingType = typename std::underlying_type<EnumClassType>::type;
+    return (EnumClassType)((UnderlyingType)lhs & (UnderlyingType)rhs);
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType>& operator&=(EnumClassType& lhs, EnumClassType rhs)
+{
+    lhs = lhs & rhs;
+    return lhs;
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType> operator|(EnumClassType lhs, EnumClassType rhs)
+{
+    using UnderlyingType = typename std::underlying_type<EnumClassType>::type;
+    return (EnumClassType)((UnderlyingType)lhs | (UnderlyingType)rhs);
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType>& operator|=(EnumClassType& lhs, EnumClassType rhs)
+{
+    lhs = lhs | rhs;
+    return lhs;
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType> operator^(EnumClassType lhs, EnumClassType rhs)
+{
+    using UnderlyingType = typename std::underlying_type<EnumClassType>::type;
+    return (EnumClassType)((UnderlyingType)lhs ^ (UnderlyingType)rhs);
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType>& operator^=(EnumClassType& lhs, EnumClassType rhs)
+{
+    lhs = lhs ^ rhs;
+    return lhs;
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType> operator<<(EnumClassType lhs, EnumClassType rhs)
+{
+    using UnderlyingType = typename std::underlying_type<EnumClassType>::type;
+    return (EnumClassType)((UnderlyingType)lhs << (UnderlyingType)rhs);
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType> operator<<(EnumClassType lhs, typename std::underlying_type<EnumClassType>::type rhs)
+{
+    return (EnumClassType)((typename std::underlying_type<EnumClassType>::type)lhs << rhs);
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType>& operator<<=(EnumClassType& lhs, EnumClassType rhs)
+{
+    lhs = lhs << rhs;
+    return lhs;
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType>& operator<<=(EnumClassType& lhs, typename std::underlying_type<EnumClassType>::type rhs)
+{
+    lhs = lhs << rhs;
+    return lhs;
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType> operator>>(EnumClassType lhs, EnumClassType rhs)
+{
+    using UnderlyingType = typename std::underlying_type<EnumClassType>::type;
+    return (EnumClassType)((UnderlyingType)lhs >> (UnderlyingType)rhs);
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType> operator>>(EnumClassType lhs, typename std::underlying_type<EnumClassType>::type rhs)
+{
+    return (EnumClassType)((typename std::underlying_type<EnumClassType>::type)lhs >> rhs);
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType>& operator>>=(EnumClassType& lhs, EnumClassType rhs)
+{
+    lhs = lhs >> rhs;
+    return lhs;
+}
+
+template <typename EnumClassType>
+EnumClassOperator<EnumClassType>& operator>>=(EnumClassType& lhs, typename std::underlying_type<EnumClassType>::type rhs)
+{
+    lhs = lhs >> rhs;
+    return lhs;
+}
