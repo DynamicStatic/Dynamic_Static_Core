@@ -31,7 +31,7 @@ class ThreadPool final
 public:
     /**
     Constructs an instance of ThreadPool
-    @param [in](optional = std::thread::hardware_concurrency()) count This ThreadPool object's number of threads
+    @param [in] count (optional = std::thread::hardware_concurrency()) This ThreadPool object's number of threads
         @note If count is 0 std::thread::hardware_concurrency() will be used
     */
     inline ThreadPool(size_t count = std::thread::hardware_concurrency())

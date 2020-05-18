@@ -47,7 +47,7 @@ DstAddStaticLibrary(
         "${includePath}/string.hpp"
         "${includePath}/subscribable.hpp"
         "${includePath}/tab.hpp"
-        "${includePath}/thread.hpp"
+        "${includePath}/thread-pool.hpp"
         "${includePath}/time.hpp"
         "${includePath}/transform.hpp"
         "${includePath}/vector.hpp"
@@ -110,7 +110,7 @@ if(DST_CORE_BUILD_TESTS)
             "${testsPath}/stream-guard.tests.cpp"
             "${testsPath}/string.tests.cpp"
             "${testsPath}/subscribable.tests.cpp"
-            "${testsPath}/thread.tests.cpp"
+            "${testsPath}/thread-pool.tests.cpp"
             "${testsPath}/vector.tests.cpp"
     )
 endif()

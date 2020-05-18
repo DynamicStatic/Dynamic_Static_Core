@@ -8,7 +8,7 @@
 ==========================================
 */
 
-#include "dynamic_static/core/thread.hpp"
+#include "dynamic_static/core/thread-pool.hpp"
 #include "dynamic_static/core/time.hpp"
 
 #include "catch2/catch.hpp"
@@ -34,9 +34,9 @@ static std::string make_word(size_t index)
 }
 
 /**
-Validates that wait() doesn't dead lock when no tasks have been pushed
+Validates that wait() doesn't dead lock when there are no tasks
 */
-TEST_CASE("ThreadPool::wait()", "[Thread]")
+TEST_CASE("ThreadPool::wait()", "[ThreadPool]")
 {
     ThreadPool threadPool;
     threadPool.wait();
@@ -45,7 +45,7 @@ TEST_CASE("ThreadPool::wait()", "[Thread]")
 /**
 Validates that a single task can be pushed and executed
 */
-TEST_CASE("ThreadPool::push() (single task)", "[Thread]")
+TEST_CASE("ThreadPool::push() (single task)", "[ThreadPool]")
 {
     ThreadPool threadPool;
     bool taskComplete = false;
@@ -71,7 +71,7 @@ TEST_CASE("ThreadPool::push() (single task)", "[Thread]")
 /**
 Validates that multiple tasks can be pushed and executed
 */
-TEST_CASE("ThreadPool::push() (multiple tasks)", "[Thread]")
+TEST_CASE("ThreadPool::push() (multiple tasks)", "[ThreadPool]")
 {
     ThreadPool threadPool;
     std::vector<std::string> taskResults(TestCount);
@@ -109,7 +109,7 @@ TEST_CASE("ThreadPool::push() (multiple tasks)", "[Thread]")
 /**
 Validates that ThreadPool completes pending tasks on destruction
 */
-TEST_CASE("ThreadPool::~ThreadPool()", "[Thread]")
+TEST_CASE("ThreadPool::~ThreadPool()", "[ThreadPool]")
 {
     std::vector<std::string> taskResults(TestCount);
     std::vector<std::future<void>> futures(TestCount);
