@@ -33,14 +33,8 @@ public:
     using std::string::basic_string;
 
     /**
-    TODO : Documentation
-    */
-    Proxy(std::nullptr_t)
-    {
-    }
-
-    /**
-    TODO : Documentation
+    Constructs an instance of string::Proxy
+    @param [in] c The char to construct this string::Proxy from
     */
     Proxy(char c)
         : std::string(1, c)
@@ -48,10 +42,20 @@ public:
     }
 
     /**
-    TODO : Documentation
+    Constructs an instance of string::Proxy
+    @param [in] str The std::string to construct this string::Proxy from
     */
     Proxy(const std::string& str)
         : std::string { str }
+    {
+    }
+
+    /**
+    Constructs an instance of string::Proxy
+    @param [in] pStr The C string to construct this string::Proxy from
+    */
+    Proxy(const char* pStr)
+        : std::string(pStr ? pStr : std::string())
     {
     }
 };
@@ -62,7 +66,10 @@ TODO : Documentation
 using Replacement = std::pair<Proxy, Proxy>;
 
 /**
-TODO : Documentation
+Gets a value indicating whether or not a given string contains given find string
+@param [in] str The string to search
+@param [in] find The string to find
+@return Whether or not the given string contains the given find string
 */
 inline bool contains(
     const std::string& str,
@@ -73,7 +80,10 @@ inline bool contains(
 }
 
 /**
-TODO : Documentation
+Gets a value indicating whether or not a given string starts with a given find string
+@param [in] str The string to search
+@param [in] find The string to find
+@return Whether or not the given string starts with the given find string
 */
 inline bool starts_with(
     const std::string& str,
@@ -84,7 +94,12 @@ inline bool starts_with(
 }
 
 /**
-TODO : Documentation
+Gets a copy of a string with all occurences of a given substring replaced with another
+@param [in] str The source string
+@param [in] find The string to find and replace in the source string
+@param [in] replacement The string to replace occurences of the find string with
+@param [in] recursive (optional = false) Whether or not to recursively replace occurences of the find string
+@return The resulting string
 */
 inline std::string replace(
     const std::string& str,
@@ -106,7 +121,10 @@ inline std::string replace(
 }
 
 /**
-TODO : Documentation
+Gets a copy of a string with a all occurences of a given collection of substrings replaced with a paired replacement
+@param [in] str The source string
+@param [in] replacements The collection of find and replace pairs
+@return The resulting string
 */
 inline std::string replace(
     const std::string& str,
@@ -130,7 +148,11 @@ inline std::string replace(
 }
 
 /**
-TODO : Documentation
+Gets a copy of a string with all occurences of a given substring removed
+@param [in] str The source string
+@param [in] find The string to find and remove from the source string
+@param [in] recursive (optional = false) Whether or not to recursively remove occurences of the find string
+@return The resulting string
 */
 inline std::string remove(
     const std::string& str,
@@ -142,7 +164,10 @@ inline std::string remove(
 }
 
 /**
-TODO : Documentation
+Gets a copy of a string with a all occurences of a given collection of substrings removed
+@param [in] str The source string
+@param [in] finds The collection of strings to remove
+@return The resulting string
 */
 inline std::string remove(
     const std::string& str,
@@ -157,7 +182,10 @@ inline std::string remove(
 }
 
 /**
-TODO : Documentation
+Gets a copy of a string with all repetitive occurences of a given substring reduced to single occurences
+@param [in] str The source string
+@param [in] find The string to find sequences of and reduce
+@return The resulting string
 */
 inline std::string reduce_sequence(
     const std::string& str,
@@ -168,7 +196,9 @@ inline std::string reduce_sequence(
 }
 
 /**
-TODO : Documentation
+Gets a copy of a string containing a path with back slashes replaced with forward slashes and slash sequences reduced
+@param [in] path The path to scrub
+@reutrn The scrubbed path
 */
 inline std::string scrub_path(const std::string& path)
 {
@@ -176,7 +206,9 @@ inline std::string scrub_path(const std::string& path)
 }
 
 /**
-TODO : Documentation
+Gets a value indicating whether or not a specified char is a whitespace character
+@param [in] c The char to check
+@return Whether or not the specified char is a whitespace character
 */
 inline bool is_whitespace(char c)
 {
@@ -184,7 +216,9 @@ inline bool is_whitespace(char c)
 }
 
 /**
-TODO : Documentation
+Gets a value indicating whether or not a given string is all whitespace characters
+@param [in] str The string to check
+@return Whether or not the given string is all whitespace characters
 */
 inline bool is_whitespace(const std::string& str)
 {
@@ -218,7 +252,9 @@ inline std::string trim_whitespace(const std::string& str)
 }
 
 /**
-TODO : Documentation
+Gets a value indicating whether or not a specified char is an upper case character
+@param [in] c The char to check
+@return Whether or not the specified char is an upper case character
 */
 inline bool is_upper(char c)
 {
@@ -226,7 +262,9 @@ inline bool is_upper(char c)
 }
 
 /**
-TODO : Documentation
+Gets a value indicating whether or not a given string is all upper case characters
+@param [in] str The string to check
+@return Whether or not the given string is all upper case characters
 */
 inline bool is_upper(const std::string& str)
 {
@@ -234,7 +272,9 @@ inline bool is_upper(const std::string& str)
 }
 
 /**
-TODO : Documentation
+Gets the upper case equivalent of a specififed character
+@param [in] c The character to get the upper case equivalent of
+@retuern The upper case equivalent of the specified character
 */
 inline char to_upper(char c)
 {
@@ -242,7 +282,9 @@ inline char to_upper(char c)
 }
 
 /**
-TODO : Documentation
+Gets a copy of a given string with all characters converted to their upper case equivalents
+@param [in] str The string to convert to upper case
+@return A copy of the given string with all characters converted to their upper case equivalents
 */
 inline std::string to_upper(const std::string& str)
 {
@@ -252,7 +294,9 @@ inline std::string to_upper(const std::string& str)
 }
 
 /**
-TODO : Documentation
+Gets a value indicating whether or not a specified char is a lower case character
+@param [in] c The char to check
+@return Whether or not the specified char is a lower case character
 */
 inline bool is_lower(char c)
 {
@@ -260,7 +304,9 @@ inline bool is_lower(char c)
 }
 
 /**
-TODO : Documentation
+Gets a value indicating whether or not a given string is all lower case characters
+@param [in] str The string to check
+@return Whether or not the given string is all lower case characters
 */
 inline bool is_lower(const std::string& str)
 {
@@ -268,7 +314,9 @@ inline bool is_lower(const std::string& str)
 }
 
 /**
-TODO : Documentation
+Gets the lower case equivalent of a specififed character
+@param [in] c The character to get the lower case equivalent of
+@retuern The lower case equivalent of the specified character
 */
 inline char to_lower(char c)
 {
@@ -276,7 +324,9 @@ inline char to_lower(char c)
 }
 
 /**
-TODO : Documentation
+Gets a copy of a given string with all characters converted to their lower case equivalents
+@param [in] str The string to convert to lower case
+@return A copy of the given string with all characters converted to their lower case equivalents
 */
 inline std::string to_lower(const std::string& str)
 {
