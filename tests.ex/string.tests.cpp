@@ -22,7 +22,35 @@ static const std::string TheQuickBrownFox { "The quick brown fox jumps over the 
 /**
 TODO : Documentation
 */
-TEST_CASE("string::contains()")
+TEST_CASE("string::Proxy::Proxy()", "[string]")
+{
+    SECTION("string::Proxy::Proxy(char)")
+    {
+        string::Proxy proxy('c');
+        CHECK(proxy == "c");
+    }
+    SECTION("string::Proxy::Proxy(std::string)")
+    {
+        string::Proxy proxy(TheQuickBrownFox);
+        CHECK(proxy == TheQuickBrownFox);
+    }
+    SECTION("string::Proxy::Proxy(const char*) (valid)")
+    {
+        string::Proxy proxy(TheQuickBrownFox.c_str());
+        CHECK(proxy == TheQuickBrownFox);
+    }
+    SECTION("string::Proxy::Proxy(const char*) (invalid)")
+    {
+        char* pStr = nullptr;
+        string::Proxy proxy(pStr);
+        CHECK(proxy == std::string());
+    }
+}
+
+/**
+TODO : Documentation
+*/
+TEST_CASE("string::contains()", "[string]")
 {
     SECTION("Successful true")
     {
@@ -31,20 +59,17 @@ TEST_CASE("string::contains()")
         REQUIRE(string::contains(TheQuickBrownFox, 'j'));
         REQUIRE(string::contains(TheQuickBrownFox, '!'));
     }
-
     SECTION("Successful false")
     {
         REQUIRE_FALSE(string::contains(TheQuickBrownFox, "bat"));
         REQUIRE_FALSE(string::contains(TheQuickBrownFox, '7'));
         REQUIRE_FALSE(string::contains(TheQuickBrownFox, '?'));
     }
-
     SECTION("Empty str true")
     {
         REQUIRE(string::contains(TheQuickBrownFox, std::string()));
         REQUIRE(string::contains(std::string(), std::string()));
     }
-
     SECTION("Empty str false")
     {
         REQUIRE_FALSE(string::contains(std::string(), TheQuickBrownFox));
@@ -54,7 +79,7 @@ TEST_CASE("string::contains()")
 /**
 TODO : Documentation
 */
-TEST_CASE("string::starts_with()")
+TEST_CASE("string::starts_with()", "[string]")
 {
     SECTION("Successful true")
     {
@@ -63,20 +88,17 @@ TEST_CASE("string::starts_with()")
         REQUIRE(string::starts_with(TheQuickBrownFox, "The quick"));
         REQUIRE(string::starts_with(TheQuickBrownFox, TheQuickBrownFox));
     }
-
     SECTION("Successful false")
     {
         REQUIRE_FALSE(string::starts_with(TheQuickBrownFox, "he quick brown fox"));
         REQUIRE_FALSE(string::starts_with(TheQuickBrownFox, "the"));
         REQUIRE_FALSE(string::starts_with(TheQuickBrownFox, '8'));
     }
-
     SECTION("Empty str true")
     {
         REQUIRE(string::starts_with(TheQuickBrownFox, std::string()));
         REQUIRE(string::starts_with(std::string(), std::string()));
     }
-
     SECTION("Empty str false")
     {
         REQUIRE_FALSE(string::starts_with(std::string(), TheQuickBrownFox));
@@ -86,7 +108,7 @@ TEST_CASE("string::starts_with()")
 /**
 TODO : Documentation
 */
-TEST_CASE("string::replace()")
+TEST_CASE("string::replace()", "[string]")
 {
     SECTION("Successful replace")
     {
@@ -97,7 +119,6 @@ TEST_CASE("string::replace()")
         str = string::replace(str, "lazy", "sleeping");
         REQUIRE(str == "The slow brown fox trips over the sleeping dog.");
     }
-
     SECTION("Unsuccessful replace")
     {
         auto str = TheQuickBrownFox;
@@ -107,7 +128,6 @@ TEST_CASE("string::replace()")
         str = string::replace(str, "frog", std::string());
         REQUIRE(str == TheQuickBrownFox);
     }
-
     SECTION("Empty str replace")
     {
         auto str = std::string();
@@ -117,7 +137,6 @@ TEST_CASE("string::replace()")
         str = string::replace(str, "lazy", "sleeping");
         REQUIRE(str == std::string());
     }
-
     SECTION("Successful multi Replacement")
     {
         auto str = string::replace(
@@ -131,7 +150,6 @@ TEST_CASE("string::replace()")
         );
         REQUIRE(str == "The slow brown fox trips over the sleeping dog.");
     }
-
     SECTION("Unsuccessful multi Replacement")
     {
         auto str = string::replace(
@@ -145,7 +163,6 @@ TEST_CASE("string::replace()")
         );
         REQUIRE(str == TheQuickBrownFox);
     }
-
     SECTION("Empty str multi Replacement")
     {
         auto str = string::replace(
@@ -164,7 +181,7 @@ TEST_CASE("string::replace()")
 /**
 TODO : Documentation
 */
-TEST_CASE("string::remove()")
+TEST_CASE("string::remove()", "[string]")
 {
     SECTION("Successful remove")
     {
@@ -175,7 +192,6 @@ TEST_CASE("string::remove()")
         str = string::remove(str, "lazy ");
         REQUIRE(str == "quick fox jumps over the dog");
     }
-
     SECTION("Unsuccessful remove")
     {
         auto str = TheQuickBrownFox;
@@ -190,7 +206,7 @@ TEST_CASE("string::remove()")
 /**
 TODO : Documentation
 */
-TEST_CASE("string::reduce_sequence()")
+TEST_CASE("string::reduce_sequence()", "[string]")
 {
     std::string str = "some\\ugly\\/\\//\\path\\with\\a/////broken\\\\extension.....ext";
     str = string::replace(str, '\\', "/");
@@ -204,7 +220,7 @@ TEST_CASE("string::reduce_sequence()")
 /**
 TODO : Documentation
 */
-TEST_CASE("string::scrub_path()")
+TEST_CASE("string::scrub_path()", "[string]")
 {
     std::string str = "some//file/\\path/with\\various\\//conventions.txt";
     REQUIRE(string::scrub_path(str) == "some/file/path/with/various/conventions.txt");
@@ -213,7 +229,7 @@ TEST_CASE("string::scrub_path()")
 /**
 TODO : Documentation
 */
-TEST_CASE("string::is_whitespace()")
+TEST_CASE("string::is_whitespace()", "[string]")
 {
     SECTION("Successful true")
     {
@@ -225,7 +241,6 @@ TEST_CASE("string::is_whitespace()")
         REQUIRE(string::is_whitespace('\v'));
         REQUIRE(string::is_whitespace(" \f\n\r\t\v"));
     }
-
     SECTION("Successful false")
     {
         REQUIRE_FALSE(string::is_whitespace('0'));
@@ -236,7 +251,7 @@ TEST_CASE("string::is_whitespace()")
 /**
 TODO : Documentation
 */
-TEST_CASE("string::trim_leading_whitespace()")
+TEST_CASE("string::trim_leading_whitespace()", "[string]")
 {
     auto str = "        " + TheQuickBrownFox + "        ";
     REQUIRE(string::trim_leading_whitespace(str) == TheQuickBrownFox + "        ");
@@ -245,7 +260,7 @@ TEST_CASE("string::trim_leading_whitespace()")
 /**
 TODO : Documentation
 */
-TEST_CASE("string::trim_trailing_whitespace()")
+TEST_CASE("string::trim_trailing_whitespace()", "[string]")
 {
     auto str = "        " + TheQuickBrownFox + "        ";
     REQUIRE(string::trim_trailing_whitespace(str) == "        " + TheQuickBrownFox);
@@ -254,7 +269,7 @@ TEST_CASE("string::trim_trailing_whitespace()")
 /**
 TODO : Documentation
 */
-TEST_CASE("string::trim_whitespace()")
+TEST_CASE("string::trim_whitespace()", "[string]")
 {
     auto str = "        " + TheQuickBrownFox + "        ";
     REQUIRE(string::trim_whitespace(str) == TheQuickBrownFox);
@@ -263,14 +278,13 @@ TEST_CASE("string::trim_whitespace()")
 /**
 TODO : Documentation
 */
-TEST_CASE("string::is_upper()")
+TEST_CASE("string::is_upper()", "[string]")
 {
     SECTION("Successful true")
     {
         REQUIRE(string::is_upper('Z'));
         REQUIRE(string::is_upper("THE"));
     }
-
     SECTION("Successful false")
     {
         REQUIRE_FALSE(string::is_upper('z'));
@@ -281,7 +295,7 @@ TEST_CASE("string::is_upper()")
 /**
 TODO : Documentation
 */
-TEST_CASE("string::to_upper()")
+TEST_CASE("string::to_upper()", "[string]")
 {
     REQUIRE(string::to_upper(TheQuickBrownFox) == "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG!");
 }
@@ -289,14 +303,13 @@ TEST_CASE("string::to_upper()")
 /**
 TODO : Documentation
 */
-TEST_CASE("string::is_lower()")
+TEST_CASE("string::is_lower()", "[string]")
 {
     SECTION("Successful true")
     {
         REQUIRE(string::is_lower('z'));
         REQUIRE(string::is_lower("the"));
     }
-
     SECTION("Successful false")
     {
         REQUIRE_FALSE(string::is_lower('Z'));
@@ -307,7 +320,7 @@ TEST_CASE("string::is_lower()")
 /**
 TODO : Documentation
 */
-TEST_CASE("string::to_lower()")
+TEST_CASE("string::to_lower()", "[string]")
 {
     REQUIRE(string::to_lower("THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG!") == "the quick brown fox jumps over the lazy dog!");
 }
@@ -315,35 +328,29 @@ TEST_CASE("string::to_lower()")
 /**
 TODO : Documentation
 */
-TEST_CASE("string::split()")
+TEST_CASE("string::split()", "[string]")
 {
     static const std::vector<std::string> Tokens { "The", "quick", "brown", "fox" };
-
     SECTION("Empty str")
     {
         REQUIRE(string::split(std::string(), " ").empty());
     }
-
     SECTION("Char delimiter")
     {
         REQUIRE(string::split("The;quick;brown;fox", ';') == Tokens);
     }
-
     SECTION("Char delimiter (prefix)")
     {
         REQUIRE(string::split(";The;quick;brown;fox", ';') == Tokens);
     }
-
     SECTION("Char delimiter (postfix)")
     {
         REQUIRE(string::split("The;quick;brown;fox;", ';') == Tokens);
     }
-
     SECTION("Char delimiter (prefix and postfix)")
     {
         REQUIRE(string::split(";The;quick;brown;fox;", ';') == Tokens);
     }
-
     SECTION("Str delimiter")
     {
         REQUIRE(string::split("The COW quick COW brown COW fox COW ", " COW ") == Tokens);
@@ -353,7 +360,7 @@ TEST_CASE("string::split()")
 /**
 TODO : Documentation
 */
-TEST_CASE("string::split_snake_case()")
+TEST_CASE("string::split_snake_case()", "[string]")
 {
     static const std::vector<std::string> Tokens { "the", "quick", "brown", "fox" };
     REQUIRE(string::split_snake_case("the_quick_brown_fox") == Tokens);
@@ -362,7 +369,7 @@ TEST_CASE("string::split_snake_case()")
 /**
 TODO : Documentation
 */
-TEST_CASE("string::split_camel_case()")
+TEST_CASE("string::split_camel_case()", "[string]")
 {
     static const std::vector<std::string> Tokens { "The", "Quick", "Brown", "FOX" };
     REQUIRE(string::split_camel_case("TheQuickBrownFOX") == Tokens);
@@ -371,7 +378,7 @@ TEST_CASE("string::split_camel_case()")
 /**
 TODO : Documentation
 */
-TEST_CASE("to_hex_string()")
+TEST_CASE("to_hex_string()", "[string]")
 {
     REQUIRE(to_hex_string(3735928559) == "0xdeadbeef");
     REQUIRE(to_hex_string(3735928559, false) == "deadbeef");
