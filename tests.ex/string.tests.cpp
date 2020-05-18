@@ -20,7 +20,7 @@ namespace tests {
 static const std::string TheQuickBrownFox { "The quick brown fox jumps over the lazy dog!" };
 
 /**
-TODO : Documentation
+Validates that string::Proxy constructs correctly
 */
 TEST_CASE("string::Proxy::Proxy()", "[string]")
 {
@@ -48,7 +48,7 @@ TEST_CASE("string::Proxy::Proxy()", "[string]")
 }
 
 /**
-TODO : Documentation
+Validates string::contains()
 */
 TEST_CASE("string::contains()", "[string]")
 {
@@ -77,7 +77,7 @@ TEST_CASE("string::contains()", "[string]")
 }
 
 /**
-TODO : Documentation
+Validates string::starts_with()
 */
 TEST_CASE("string::starts_with()", "[string]")
 {
@@ -106,7 +106,7 @@ TEST_CASE("string::starts_with()", "[string]")
 }
 
 /**
-TODO : Documentation
+Validates string::replace()
 */
 TEST_CASE("string::replace()", "[string]")
 {
@@ -179,7 +179,7 @@ TEST_CASE("string::replace()", "[string]")
 }
 
 /**
-TODO : Documentation
+Validates string::remove()
 */
 TEST_CASE("string::remove()", "[string]")
 {
@@ -204,7 +204,7 @@ TEST_CASE("string::remove()", "[string]")
 }
 
 /**
-TODO : Documentation
+Validates string::reduce_sequence()
 */
 TEST_CASE("string::reduce_sequence()", "[string]")
 {
@@ -218,7 +218,7 @@ TEST_CASE("string::reduce_sequence()", "[string]")
 }
 
 /**
-TODO : Documentation
+Validates string::scrub_path()
 */
 TEST_CASE("string::scrub_path()", "[string]")
 {
@@ -227,7 +227,7 @@ TEST_CASE("string::scrub_path()", "[string]")
 }
 
 /**
-TODO : Documentation
+Validates string::scrub_path()
 */
 TEST_CASE("string::is_whitespace()", "[string]")
 {
@@ -249,7 +249,7 @@ TEST_CASE("string::is_whitespace()", "[string]")
 }
 
 /**
-TODO : Documentation
+Validates string::trim_leading_whitespace()
 */
 TEST_CASE("string::trim_leading_whitespace()", "[string]")
 {
@@ -258,7 +258,7 @@ TEST_CASE("string::trim_leading_whitespace()", "[string]")
 }
 
 /**
-TODO : Documentation
+Validates string::trim_trailing_whitespace()
 */
 TEST_CASE("string::trim_trailing_whitespace()", "[string]")
 {
@@ -267,7 +267,7 @@ TEST_CASE("string::trim_trailing_whitespace()", "[string]")
 }
 
 /**
-TODO : Documentation
+Validates string::trim_whitespace()
 */
 TEST_CASE("string::trim_whitespace()", "[string]")
 {
@@ -276,7 +276,7 @@ TEST_CASE("string::trim_whitespace()", "[string]")
 }
 
 /**
-TODO : Documentation
+Validates string::is_upper()
 */
 TEST_CASE("string::is_upper()", "[string]")
 {
@@ -293,7 +293,7 @@ TEST_CASE("string::is_upper()", "[string]")
 }
 
 /**
-TODO : Documentation
+Validates string::to_upper()
 */
 TEST_CASE("string::to_upper()", "[string]")
 {
@@ -301,7 +301,7 @@ TEST_CASE("string::to_upper()", "[string]")
 }
 
 /**
-TODO : Documentation
+Validates string::is_lower()
 */
 TEST_CASE("string::is_lower()", "[string]")
 {
@@ -318,7 +318,7 @@ TEST_CASE("string::is_lower()", "[string]")
 }
 
 /**
-TODO : Documentation
+Validates string::to_lower()
 */
 TEST_CASE("string::to_lower()", "[string]")
 {
@@ -326,7 +326,7 @@ TEST_CASE("string::to_lower()", "[string]")
 }
 
 /**
-TODO : Documentation
+Validates string::split()
 */
 TEST_CASE("string::split()", "[string]")
 {
@@ -335,30 +335,30 @@ TEST_CASE("string::split()", "[string]")
     {
         REQUIRE(string::split(std::string(), " ").empty());
     }
-    SECTION("Char delimiter")
+    SECTION("char delimiter")
     {
         REQUIRE(string::split("The;quick;brown;fox", ';') == Tokens);
     }
-    SECTION("Char delimiter (prefix)")
+    SECTION("char delimiter (prefix)")
     {
         REQUIRE(string::split(";The;quick;brown;fox", ';') == Tokens);
     }
-    SECTION("Char delimiter (postfix)")
+    SECTION("char delimiter (postfix)")
     {
         REQUIRE(string::split("The;quick;brown;fox;", ';') == Tokens);
     }
-    SECTION("Char delimiter (prefix and postfix)")
+    SECTION("char delimiter (prefix and postfix)")
     {
         REQUIRE(string::split(";The;quick;brown;fox;", ';') == Tokens);
     }
-    SECTION("Str delimiter")
+    SECTION("std::string delimiter")
     {
         REQUIRE(string::split("The COW quick COW brown COW fox COW ", " COW ") == Tokens);
     }
 }
 
 /**
-TODO : Documentation
+Validates string::split_snake_case()
 */
 TEST_CASE("string::split_snake_case()", "[string]")
 {
@@ -367,7 +367,7 @@ TEST_CASE("string::split_snake_case()", "[string]")
 }
 
 /**
-TODO : Documentation
+Validates string::split_camel_case()
 */
 TEST_CASE("string::split_camel_case()", "[string]")
 {
@@ -376,7 +376,7 @@ TEST_CASE("string::split_camel_case()", "[string]")
 }
 
 /**
-TODO : Documentation
+Validates string::to_hex_string()
 */
 TEST_CASE("to_hex_string()", "[string]")
 {
