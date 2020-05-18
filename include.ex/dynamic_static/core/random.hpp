@@ -96,7 +96,7 @@ public:
     }
 
     /**
-    Generates a random value in a given type's range
+    Generates a random value in a specified type's range
     @param <T> The type of random number to generate
     @return The generated number
     */
@@ -107,7 +107,8 @@ public:
     }
 
     /**
-    Gets a value indicating whether or not a specified value was greater than or equal to a random number in the range [1 - 100]
+    Gets a value indicating whether or not a specified value was greater than or equal to a random number in the range (0 - 100]
+    @param <T> The type of value to test
     @param [in] value The value to test
     @return Whether or not the value passed
     */
@@ -118,18 +119,20 @@ public:
     }
 
     /**
-    Gets a value indicating whether or not a specified value was greater than or equal to a random number in the range [0.0 - 1.0]
+    Gets a value indicating whether or not a specified value was greater than or equal to a random number in the range (0.0 - 1.0]
+    @param <T> The type of value to test
     @param [in] value The value to test
     @return Whether or not the value passed
     */
     template <typename T>
     inline bool probability(T value, typename std::enable_if<std::is_floating_point<T>::value>::type* = nullptr)
     {
-        return value >= range<T>(T { 0 }, T { 1 });
+        return value >= range<T>(std::numeric_limits<T>::epsilon(), T { 1.0 });
     }
 
     /**
     Generates a random index for a collection with a specified count
+    @param <T> The type of random number to generate
     @param [in] count The number of elements in the collection
     @return The generated index
     */
@@ -138,13 +141,14 @@ public:
     {
         static_assert(
             std::is_integral<T>::value,
-            "dst::RandomNumberGenerator<>::index<>() can only be used with integer types"
+            "dst::RandomNumberGenerator::index<>() can only be used with integer types"
         );
         return count > T { 0 } ? range<T>(T { 0 }, count - T { 1 }) : T { 0 };
     }
 
     /**
     Generates a roll from a die with a specified number of sides
+    @param <T> The type of random number to generate
     @param [in] D The number of sides on the die
     @return The result of the die roll
     */
@@ -153,7 +157,7 @@ public:
     {
         static_assert(
             std::is_integral<T>::value,
-            "dst::RandomNumberGenerator<>::die_roll<>() can only be used with integer types"
+            "dst::RandomNumberGenerator::die_roll<>() can only be used with integer types"
         );
         return D > T { 0 } ? range<T>(T { 1 }, D) : T { 0 };
     }

@@ -38,7 +38,7 @@ public:
         inline Scope(Tab& tab)
             : mpTab { &tab }
         {
-            ++* mpTab;
+            ++*mpTab;
         }
 
         /**
@@ -47,7 +47,7 @@ public:
         */
         inline ~Scope()
         {
-            --* mpTab;
+            --*mpTab;
         }
 
         /**
