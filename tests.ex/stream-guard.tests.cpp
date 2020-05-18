@@ -19,9 +19,9 @@ namespace dst {
 namespace tests {
 
 /**
-TODO : Documentation
+Validates that an empty StreamGuard<> produces an empty std::string
 */
-TEST_CASE("---", "[StreamGuard]")
+TEST_CASE("Empty StreamGuard<>", "[StreamGuard<>]")
 {
     std::stringstream strStrm;
     strStrm << StreamGuard();
@@ -29,9 +29,9 @@ TEST_CASE("---", "[StreamGuard]")
 }
 
 /**
-TODO : Documentation
+Validates that a StreamGuard<> with no empty std::string elements passes all elements through
 */
-TEST_CASE("---0", "[StreamGuard]")
+TEST_CASE("StreamGuard<> with no empty elements", "[StreamGuard<>]")
 {
     std::stringstream strStrm;
     strStrm << StreamGuard("The", ' ', "quick", ' ', "brown") << ' ' << "fox";
@@ -39,9 +39,9 @@ TEST_CASE("---0", "[StreamGuard]")
 }
 
 /**
-TODO : Documentation
+Validates that a StreamGuard<> with an empty std::string element produces an empty std::string
 */
-TEST_CASE("---1", "[StreamGuard]")
+TEST_CASE("StreamGuard<> with empty element", "[StreamGuard<>]")
 {
     std::stringstream strStrm;
     strStrm << "The" << StreamGuard(' ', std::string(), ' ', "brown") << ' ' << "fox";
