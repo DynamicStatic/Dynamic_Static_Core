@@ -20,7 +20,7 @@
 namespace dst {
 namespace tests {
 
-static constexpr int TestCount = 256;
+static constexpr int TestCount { 256 };
 
 static std::string make_word(size_t index)
 {

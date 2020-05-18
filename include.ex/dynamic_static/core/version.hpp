@@ -18,7 +18,7 @@
 
 namespace dst {
 
-/*!
+/**
 Represents a version with major, minor, and patch values
 */
 struct Version final

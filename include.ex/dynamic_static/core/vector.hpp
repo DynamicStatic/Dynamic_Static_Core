@@ -71,7 +71,7 @@ inline std::vector<DestinationType> convert(
 
 /**
 Removes duplicate elements from a given std::vector<>
-@param <T> T The type of the std::vector<> to remove duplicates from
+@param <T> The type of the std::vector<> to remove duplicates from
 @param [in, out] vctr The std::vector<> to remove duplicates from
     @note This function will sort the given std::vector<>
     @note The type of the given std::vector<> must provide operator< and operator==

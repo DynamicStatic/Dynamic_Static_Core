@@ -15,6 +15,7 @@
 
 #include <algorithm>
 #include <array>
+#include <cassert>
 #include <initializer_list>
 #include <type_traits>
 #include <vector>

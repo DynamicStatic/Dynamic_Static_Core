@@ -57,7 +57,7 @@ static void validate_subscriptions(const std::vector<SubscriptionPtrPair>& subsc
 }
 
 /**
-Validates that Subscribable can subscribe and subscribe
+Validates that Subscribable can subscribe and unsubscribe
 */
 TEST_CASE("Subscribable::operator+=() and Subscribable::operator-=()", "[Subscribable]")
 {
