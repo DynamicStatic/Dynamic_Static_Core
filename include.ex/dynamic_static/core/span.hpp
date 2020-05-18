@@ -22,26 +22,27 @@
 namespace dst {
 
 /**
-TODO : Documentation
+Represents a non owning reference to a contiguous sequence of objects
 */
 template <typename T>
 class Span final
 {
 public:
     /**
-    TODO : Documentation
+    Constructs an instance of Span<>
     */
     Span() = default;
 
     /**
-    TODO : Documenation
+    Constructs an instance of Span<>
     */
     inline constexpr Span(std::nullptr_t)
     {
     }
 
     /**
-    TODO : Documentation
+    Constructs an instance of Span<>
+    @param [in] data This Span<> object's data
     */
     inline Span(T& data)
         : mData { &data }
@@ -50,7 +51,9 @@ public:
     }
 
     /**
-    TODO : Documentation
+    Constructs an instance of Span<>
+    @param [in] data This Span<> object's data
+    @param [in] count This Span<> object's count
     */
     inline Span(T* data, size_t count)
         : mData { count ? data : nullptr }
@@ -59,7 +62,9 @@ public:
     }
 
     /**
-    TODO : Documentation
+    Constructs an instance of Span<>
+    @param <N> This Span<> object's count
+    @param [in] data This Span<> object's data
     */
     template <size_t N>
     inline Span(std::array<typename std::remove_const<T>::type, N>& data)
@@ -69,7 +74,9 @@ public:
     }
 
     /**
-    TODO : Documentation
+    Constructs an instance of Span<>
+    @param <N> This Span<> object's count
+    @param [in] data This Span<> object's data
     */
     template <size_t N>
     inline Span(const std::array<typename std::remove_const<T>::type, N>& data)
@@ -79,8 +86,8 @@ public:
     }
 
     /**
-    Constructs an instance of Span
-    @param [in] data This Span object's data
+    Constructs an instance of Span<>
+    @param [in] data This Span<> object's data
     */
     template <class AllocatorType = std::allocator<typename std::remove_const<T>::type>>
     inline Span(std::vector<typename std::remove_const<T>::type, AllocatorType>& data)
@@ -90,8 +97,8 @@ public:
     }
 
     /**
-    Constructs an instance of Span
-    @param [in] data This Span object's data
+    Constructs an instance of Span<>
+    @param [in] data This Span<> object's data
     */
     template <class AllocatorType = std::allocator<typename std::remove_const<T>::type>>
     inline Span(const std::vector<typename std::remove_const<T>::type, AllocatorType>& data)
@@ -101,8 +108,8 @@ public:
     }
 
     /**
-    Constructs an instance of Span
-    @param [in] data This Span object's data
+    Constructs an instance of Span<>
+    @param [in] data This Span<> object's data
     */
     inline Span(const std::initializer_list<T>& data)
         : mData { data.begin() }
@@ -111,9 +118,9 @@ public:
     }
 
     /**
-    Gets a reference to an element at a given index
+    Gets a reference to an element at a specified index
     @param [in] index The index of the element to get
-    @return The element at the given index
+    @return The element at the specified index
     */
     const T& operator[](size_t index) const
     {
@@ -122,9 +129,9 @@ public:
     }
 
     /**
-    Gets a reference to an element at a given index
+    Gets a reference to an element at a specified index
     @param [in] index The index of the element to get
-    @return The element at the given index
+    @return The element at the specified index
     */
     T& operator[](size_t index)
     {
@@ -133,8 +140,8 @@ public:
     }
 
     /**
-    Gets an iterator to the beginning of this Span object's sequence
-    @return An iterator to the beginning of this Span object's sequence
+    Gets an iterator to the beginning of this Span<> object's sequence
+    @return An iterator to the beginning of this Span<> object's sequence
     */
     const T* begin() const
     {
@@ -142,8 +149,8 @@ public:
     }
 
     /**
-    Gets an iterator to the beginning of this Span object's sequence
-    @return An iterator to the beginning of this Span object's sequence
+    Gets an iterator to the beginning of this Span<> object's sequence
+    @return An iterator to the beginning of this Span<> object's sequence
     */
     T* begin()
     {
@@ -151,8 +158,8 @@ public:
     }
 
     /**
-    Gets an iterator to the end of this Span object's sequence
-    @return An iterator to the end of this Span object's sequence
+    Gets an iterator to the end of this Span<> object's sequence
+    @return An iterator to the end of this Span<> object's sequence
     */
     const T* end() const
     {
@@ -160,8 +167,8 @@ public:
     }
 
     /**
-    Gets an iterator to the end of this Span object's sequence
-    @return An iterator to the end of this Span object's sequence
+    Gets an iterator to the end of this Span<> object's sequence
+    @return An iterator to the end of this Span<> object's sequence
     */
     T* end()
     {
@@ -169,8 +176,8 @@ public:
     }
 
     /**
-    Gets a reference to this Span object's first element
-    @return A reference to this Span object's first element
+    Gets a reference to this Span<> object's first element
+    @return A reference to this Span<> object's first element
     */
     const T& front() const
     {
@@ -179,8 +186,8 @@ public:
     }
 
     /**
-    Gets a reference to this Span object's first element
-    @return A reference to this Span object's first element
+    Gets a reference to this Span<> object's first element
+    @return A reference to this Span<> object's first element
     */
     T& front()
     {
@@ -189,8 +196,8 @@ public:
     }
 
     /**
-    Gets a reference to this Span object's last element
-    @return A reference to this Span object's last element
+    Gets a reference to this Span<> object's last element
+    @return A reference to this Span<> object's last element
     */
     const T& back() const
     {
@@ -199,8 +206,8 @@ public:
     }
 
     /**
-    Gets a reference to this Span object's last element
-    @return A reference to this Span object's last element
+    Gets a reference to this Span<> object's last element
+    @return A reference to this Span<> object's last element
     */
     T& back()
     {
@@ -209,8 +216,8 @@ public:
     }
 
     /**
-    Gets a value indicating whether or not this Span is empty
-    @return A value indicating whether or not this Span is empty
+    Gets a value indicating whether or not this Span<> is empty
+    @return A value indicating whether or not this Span<> is empty
     */
     bool empty() const
     {
@@ -218,8 +225,8 @@ public:
     }
 
     /**
-    Gets this Span object's count
-    @return This Span object's count
+    Gets this Span<> object's count
+    @return This Span<> object's count
     */
     size_t size() const
     {
@@ -227,8 +234,8 @@ public:
     }
 
     /**
-    Gets this Span object's size in bytes
-    @return This Span object's size in bytes
+    Gets this Span<> object's size in bytes
+    @return This Span<> object's size in bytes
     */
     size_t size_bytes() const
     {
@@ -236,8 +243,8 @@ public:
     }
 
     /**
-    Gets a pointer to this Span object's underlying storage
-    @return A pointer to this Span object's underlying storage
+    Gets a pointer to this Span<> object's underlying storage
+    @return A pointer to this Span<> object's underlying storage
     */
     T* data() const
     {
@@ -250,7 +257,12 @@ private:
 };
 
 /**
-TODO : Documentation
+Gets a value indicating whether or not two given Span<> objects evaluate as equal
+@param <T> The type of Span<> objects to compare
+@param [in] lhs The left hand side object to compare
+@param [in] rhs The right hand side object to compare
+@return Whether or not the given objects evaluate as equal
+    @note This function compares the data referenced by the given Span<> objects
 */
 template <typename T>
 inline bool operator==(const Span<T>& lhs, const Span<T>& rhs)
@@ -259,7 +271,12 @@ inline bool operator==(const Span<T>& lhs, const Span<T>& rhs)
 }
 
 /**
-TODO : Documentation
+Gets a value indicating whether or not two given Span<> objects evaluate as inequal
+@param <T> The type of Span<> objects to compare
+@param [in] lhs The left hand side object to compare
+@param [in] rhs The right hand side object to compare
+@return Whether or not the given objects evaluate as inequal
+    @note This function compares the data referenced by the given Span<> objects
 */
 template <typename T>
 inline bool operator!=(const Span<T>& lhs, const Span<T>& rhs)
@@ -268,7 +285,12 @@ inline bool operator!=(const Span<T>& lhs, const Span<T>& rhs)
 }
 
 /**
-TODO : Documentation
+Gets a value indicating whether or not one given Span<> object evaluate as less than another
+@param <T> The type of Span<> objects to compare
+@param [in] lhs The left hand side object to compare
+@param [in] rhs The right hand side object to compare
+@return Whether or not the left hand side object evaluate as less than the right hand side object
+    @note This function compares the data referenced by the given Span<> objects
 */
 template <typename T>
 inline bool operator<(const Span<T>& lhs, const Span<T>& rhs)
@@ -277,7 +299,12 @@ inline bool operator<(const Span<T>& lhs, const Span<T>& rhs)
 }
 
 /**
-TODO : Documentation
+Gets a value indicating whether or not one given Span<> object evaluate as less than or equal to another
+@param <T> The type of Span<> objects to compare
+@param [in] lhs The left hand side object to compare
+@param [in] rhs The right hand side object to compare
+@return Whether or not the left hand side object evaluate as less than or equal to the right hand side object
+    @note This function compares the data referenced by the given Span<> objects
 */
 template <typename T>
 inline bool operator<=(const Span<T>& lhs, const Span<T>& rhs)
@@ -286,7 +313,12 @@ inline bool operator<=(const Span<T>& lhs, const Span<T>& rhs)
 }
 
 /**
-TODO : Documentation
+Gets a value indicating whether or not one given Span<> object evaluate as greater than another
+@param <T> The type of Span<> objects to compare
+@param [in] lhs The left hand side object to compare
+@param [in] rhs The right hand side object to compare
+@return Whether or not the left hand side object evaluate as greater than the right hand side object
+    @note This function compares the data referenced by the given Span<> objects
 */
 template <typename T>
 inline bool operator>(const Span<T>& lhs, const Span<T>& rhs)
@@ -295,7 +327,12 @@ inline bool operator>(const Span<T>& lhs, const Span<T>& rhs)
 }
 
 /**
-TODO : Documentation
+Gets a value indicating whether or not one given Span<> object evaluate as greater than or equal to another
+@param <T> The type of Span<> objects to compare
+@param [in] lhs The left hand side object to compare
+@param [in] rhs The right hand side object to compare
+@return Whether or not the left hand side object evaluate as greater than or equal to the right hand side object
+    @note This function compares the data referenced by the given Span<> objects
 */
 template <typename T>
 inline bool operator>=(const Span<T>& lhs, const Span<T>& rhs)
