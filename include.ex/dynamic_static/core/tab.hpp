@@ -20,20 +20,21 @@
 namespace dst {
 
 /**
-TODO : Documentation
+Provides facilites for incrmenting, decrementing, and printing a tab
 */
 class Tab final
 {
 public:
     /**
-    TODO : Documentation
+    Provides automatic incrmenent and decrement for a given Tab within a given scope
     */
     class Scope final
     {
     public:
         /**
         Constructs an instance of Tab::Scope
-        TODO : Documentation
+        @param [in] tab The Tab to increment when this Tab::Scope is constructed
+            @note The given Tab will be decremented when this Tab::Scope is destroyed
         */
         inline Scope(Tab& tab)
             : mpTab { &tab }
@@ -43,7 +44,7 @@ public:
 
         /**
         Destroys this instance of Tab::Scope
-        TODO : Documentation
+            @note The Tab this Tab::Scope was constructed with will be decremented when this Tab::Scope is destroyed
         */
         inline ~Scope()
         {
@@ -51,7 +52,8 @@ public:
         }
 
         /**
-        TODO : Documentation
+        Converts this Tab::Scope to its Tab
+        @return A const reference to this Tab::Scope object's Tab
         */
         inline operator const Tab&() const
         {
@@ -59,7 +61,8 @@ public:
         }
 
         /**
-        TODO : Documentation
+        Converts this Tab::Scope to its Tab
+        @return A reference to this Tab::Scope object's Tab
         */
         inline operator Tab&()
         {
@@ -71,7 +74,8 @@ public:
     };
 
     /**
-    TODO : Documentation
+    Increments this Tab object's count
+    @return A reference to this Tab
     */
     inline Tab& operator++()
     {
@@ -80,7 +84,8 @@ public:
     }
 
     /**
-    TODO : Documentation
+    Increments this Tab object's count
+    @return A copy of this Tab before incrmenting its count
     */
     inline Tab operator++(int)
     {
@@ -90,7 +95,8 @@ public:
     }
 
     /**
-    TODO : Documentation
+    Decrements this Tab object's count
+    @return A reference to this Tab
     */
     inline Tab& operator--()
     {
@@ -99,7 +105,8 @@ public:
     }
 
     /**
-    TODO : Documentation
+    Decrements this Tab object's count
+    @return A copy of this Tab before decrementing its count
     */
     inline Tab operator--(int)
     {
@@ -109,7 +116,9 @@ public:
     }
 
     /**
-    TODO : Documentation
+    Increments this Tab object's count by a specified value
+    @param [in] value The value to increment this Tab object's count by
+    @return A copy of this Tab with its count incremented by the given value
     */
     inline Tab operator+(int value) const
     {
@@ -119,7 +128,9 @@ public:
     }
 
     /**
-    TODO : Documentation
+    Decrements this Tab object's count by a specified value
+    @param [in] value The value to decrements this Tab object's count by
+    @return A copy of this Tab with its count decremented by the given value
     */
     inline Tab operator-(int value) const
     {
@@ -128,13 +139,14 @@ public:
         return other;
     }
 
-    int count { 0 };
-    int size { 4 };
-    char character { ' ' };
+    int count { 0 };         //!< This Tab object's count
+    int size { 4 };          //!< This Tab object's size
+    char character { ' ' };  //!< This Tab object's character
 };
 
 /**
-TODO : Documentation
+Gets the std::string representation of a given Tab
+@param [in] tab The Tab to get the std::representation of
 */
 template <>
 inline std::string to_string<Tab>(const Tab& tab)
@@ -143,7 +155,10 @@ inline std::string to_string<Tab>(const Tab& tab)
 }
 
 /**
-TODO : Documentation
+Writes a given Tab to a a given std::ostream
+@param [in] stream The std::ostream to write the given Tab to
+@param [in] tab The Tab to write to the given std::ostream
+@return A reference to the given std::ostream
 */
 inline std::ostream& operator<<(std::ostream& stream, const Tab& tab)
 {
