@@ -24,6 +24,11 @@ namespace dst {
 namespace string {
 
 /**
+TODO : Documentation
+*/
+static constexpr char WhiteSpaceCharacters[] = " \f\n\r\t\v";
+
+/**
 Provides a mechanism for safely constructing a tempory std::string
 */
 class Proxy final
@@ -232,7 +237,7 @@ Gets a copy of string with all leading whitespace characters removed
 */
 inline std::string trim_leading_whitespace(const std::string& str)
 {
-    auto offset = str.find_first_not_of(" \f\n\r\t\v");
+    auto offset = str.find_first_not_of(WhiteSpaceCharacters);
     return offset == std::string::npos ? std::string() : str.substr(offset);
 }
 
@@ -243,7 +248,7 @@ Gets a copy of string with all trailing whitespace characters removed
 */
 inline std::string trim_trailing_whitespace(const std::string& str)
 {
-    auto offset = str.find_last_not_of(" \f\n\r\t\v");
+    auto offset = str.find_last_not_of(WhiteSpaceCharacters);
     return offset == std::string::npos ? std::string() : str.substr(0, offset + 1);
 }
 
