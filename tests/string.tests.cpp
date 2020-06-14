@@ -326,11 +326,34 @@ TEST_CASE("string::to_lower()", "[string]")
 }
 
 /**
+Validates string::get_line()
+*/
+TEST_CASE("string::get_line()", "[string]")
+{
+    std::vector<std::string> lines {
+        { "The quick\n" },
+        { "brown fox\n" },
+        { "jumps over\n" },
+        { "the lazy\n" },
+        { "dog." },
+    };
+    std::string str;
+    for (auto const& line : lines) {
+        str += line;
+    }
+    CHECK(string::get_line(str, str.find("quick")) == lines[0]);
+    CHECK(string::get_line(str, str.find("brown")) == lines[1]);
+    CHECK(string::get_line(str, str.find("over")) == lines[2]);
+    CHECK(string::get_line(str, str.find("lazy")) == lines[3]);
+    CHECK(string::get_line(str, str.find("dog")) == lines[4]);
+}
+
+/**
 Validates string::split()
 */
 TEST_CASE("string::split()", "[string]")
 {
-    static const std::vector<std::string> Tokens { "The", "quick", "brown", "fox" };
+    const std::vector<std::string> Tokens { "The", "quick", "brown", "fox" };
     SECTION("Empty str")
     {
         REQUIRE(string::split(std::string(), " ").empty());
@@ -362,7 +385,7 @@ Validates string::split_snake_case()
 */
 TEST_CASE("string::split_snake_case()", "[string]")
 {
-    static const std::vector<std::string> Tokens { "the", "quick", "brown", "fox" };
+    const std::vector<std::string> Tokens { "the", "quick", "brown", "fox" };
     REQUIRE(string::split_snake_case("the_quick_brown_fox") == Tokens);
 }
 
@@ -371,7 +394,7 @@ Validates string::split_camel_case()
 */
 TEST_CASE("string::split_camel_case()", "[string]")
 {
-    static const std::vector<std::string> Tokens { "The", "Quick", "Brown", "FOX" };
+    const std::vector<std::string> Tokens { "The", "Quick", "Brown", "FOX" };
     REQUIRE(string::split_camel_case("TheQuickBrownFOX") == Tokens);
 }
 

@@ -347,6 +347,33 @@ inline std::string to_lower(const std::string& str)
 }
 
 /**
+Gets a std::string populated with the line containing a specified index from a given string
+@param [in] str The string to search for the line containing the specified index
+@param [in] index The index to get the containing line for
+@return The line containing the specified index from the given string
+*/
+inline std::string get_line(const std::string& str, size_t index)
+{
+    if (!str.empty() && index < str.size() - 1) {
+        auto begin = index;
+        while (0 < begin && str[begin--] != '\n') {
+            if (str[begin] == '\n') {
+                ++begin;
+                break;
+            }
+        }
+        auto end = index;
+        while (end < str.size() && str[end++] != '\n');
+        if (begin < end) {
+            auto result = str.substr(begin, end - begin);
+            return str.substr(begin, end - begin);
+        }
+        return str;
+    }
+    return { };
+}
+
+/**
 Gets a std::vector<std::string> populated with substrings of a given string using a given delimiter
 @param [in] str The string to split
 @param [in] delimiter The delimiter to search for
