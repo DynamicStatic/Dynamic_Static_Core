@@ -47,10 +47,8 @@ public:
                         mTaskReceived.wait(lock, [&]() { return !mTasks.empty() || !mActive; });
                         lock.unlock();
                         ++mActiveThreadCount;
-                        auto task = std::move(get_task());
-                        while (task.valid()) {
+                        for (auto task = std::move(get_task()); task.valid(); task = std::move(get_task())) {
                             task();
-                            task = std::move(get_task());
                         }
                         if (!--mActiveThreadCount) {
                             mTasksComplete.notify_all();
