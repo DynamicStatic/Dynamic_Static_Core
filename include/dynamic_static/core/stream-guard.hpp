@@ -39,24 +39,24 @@ public:
     @return A reference to the given std::ostream
         @note If any of the arguments provided when constructing the given StreamGuard<> evaluate to an empty std::string when written to the given std::ostream all writes are discarded
     */
-    inline friend std::ostream& operator<<(std::ostream& stream, StreamGuard& streamGuard)
+    inline friend std::ostream& operator<<(std::ostream& strm, StreamGuard& streamGuard)
     {
-        streamGuard.mPosition = stream.tellp();
-        streamGuard.process_stream(stream);
-        return stream;
+        streamGuard.mPosition = strm.tellp();
+        streamGuard.process_stream(strm);
+        return strm;
     }
 
 private:
     template <size_t Index = 0>
-    inline typename std::enable_if<Index == sizeof...(Args), void>::type process_stream(std::ostream& stream)
+    inline typename std::enable_if<Index == sizeof...(Args), void>::type process_stream(std::ostream& strm)
     {
         #if 1
-        stream << mStrStrm.str();
+        strm << mStrStrm.str();
         #endif
     }
 
     template <size_t Index = 0>
-    inline typename std::enable_if<Index < sizeof...(Args), void>::type process_stream(std::ostream& stream)
+    inline typename std::enable_if<Index < sizeof...(Args), void>::type process_stream(std::ostream& strm)
     {
         // TODO : It's very annoying to have to keep a std::stringstream member here.
         //  It causes this class to not be general purpose.  Currently it's only being
@@ -67,15 +67,15 @@ private:
         auto position = mStrStrm.tellp();
         mStrStrm << std::get<Index>(mArgs);
         if (position < mStrStrm.tellp()) {
-            process_stream<Index + 1>(stream);
+            process_stream<Index + 1>(strm);
         }
         #else
         auto position = stream.tellp();
-        stream << std::get<Index>(mArgs);
-        if (position < stream.tellp()) {
-            process_stream<Index + 1>(stream);
+        strm << std::get<Index>(mArgs);
+        if (position < strm.tellp()) {
+            process_stream<Index + 1>(strm);
         } else {
-            stream.seekp(mPosition);
+            strm.seekp(mPosition);
         }
         #endif
     }

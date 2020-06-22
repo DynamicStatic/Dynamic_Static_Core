@@ -66,6 +66,29 @@ public:
 };
 
 /**
+TODO : Documentation
+*/
+class Guard final
+    : public std::string
+{
+public:
+    /**
+    TODO : Documentation
+    */
+    inline Guard(const std::initializer_list<Proxy>& strs)
+    {
+        for (auto const& str : strs) {
+            if (!str.empty()) {
+                operator+=(str);
+            } else {
+                clear();
+                break;
+            }
+        }
+    }
+};
+
+/**
 Alias for std::pair<string::Proxy, string::Proxy> used for replace() operations
 */
 using Replacement = std::pair<Proxy, Proxy>;
@@ -488,6 +511,15 @@ template <typename T>
 inline std::wstring to_wstring(const T& obj)
 {
     return std::to_wstring(obj);
+}
+
+/**
+TODO : Documentation
+*/
+template <>
+inline std::wstring to_wstring<std::wstring>(const std::wstring& str)
+{
+    return str;
 }
 
 } // namespace dst
