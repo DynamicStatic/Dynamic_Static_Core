@@ -139,9 +139,9 @@ private:
         return { };
     }
 
-    std::atomic<bool> mActive { true };
+    std::atomic_bool mActive { true };
     std::vector<std::thread> mThreads;
-    std::atomic<size_t> mActiveThreadCount { 0 };
+    std::atomic_size_t mActiveThreadCount { 0 };
     std::queue<std::packaged_task<void()>> mTasks;
     std::mutex mMutex;
     std::condition_variable mTaskReceived;

@@ -154,10 +154,10 @@ public:
         pLocalTime = localtime(&systemClockNow);
         #endif // DYNAMIC_STATIC_PLATFORM_WINDOWS
         if (pLocalTime) {
-            dateTime.year = 1900 + pLocalTime->tm_year;
-            dateTime.month = (Month)(1 + pLocalTime->tm_mon);
+            dateTime.year = pLocalTime->tm_year + 1900;
+            dateTime.month = (Month)(pLocalTime->tm_mon + 1);
             dateTime.dayOfTheMonth = pLocalTime->tm_mday;
-            dateTime.dayOfTheWeek = (Day)(1 + pLocalTime->tm_wday);
+            dateTime.dayOfTheWeek = (Day)(pLocalTime->tm_wday + 1);
             dateTime.hour = pLocalTime->tm_hour;
             dateTime.minute = pLocalTime->tm_min;
             dateTime.second = pLocalTime->tm_sec;

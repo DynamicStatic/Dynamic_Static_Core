@@ -21,6 +21,7 @@
 #endif
 #include "glm/glm.hpp"
 #include "glm/gtc/quaternion.hpp"
+#include "glm/gtx/compatibility.hpp"
 #include "glm/gtx/norm.hpp"
 #include "glm/gtx/quaternion.hpp"
 #include "glm/gtx/string_cast.hpp"
@@ -39,8 +40,8 @@ Gets a 2, 3, or 4 component vector with its x component set to 1
 @param <VectorType> TODO : Documentation
 @return The 2, 3, or 4 component vector with its x component set to 1
 */
-template <typename VectorType>
-inline constexpr VectorType unit_x()
+template <typename GlmVectorType>
+inline constexpr GlmVectorType unit_x()
 {
     return { 1 };
 }
@@ -50,8 +51,8 @@ Gets a 2, 3, or 4 component vector with its y component set to 1
 @param <VectorType> TODO : Documentation
 @return The 2, 3, or 4 component vector with its y component set to 1
 */
-template <typename VectorType>
-inline constexpr VectorType unit_y()
+template <typename GlmVectorType>
+inline constexpr GlmVectorType unit_y()
 {
     return { 0, 1 };
 }
@@ -61,8 +62,8 @@ Gets a 3 or 4 component vector with its z component set to 1
 @param <VectorType> TODO : Documentation
 @return The 3 or 4 component vector with its z component set to 1
 */
-template <typename VectorType>
-inline constexpr VectorType unit_z()
+template <typename GlmVectorType>
+inline constexpr GlmVectorType unit_z()
 {
     return { 0, 0, 1 };
 }
@@ -72,8 +73,8 @@ Gets a 4 component vector with its w component set to 1
 @param <VectorType> TODO : Documentation
 @return The 4 component vector with its w component set to 1
 */
-template <typename VectorType>
-inline constexpr VectorType unit_w()
+template <typename GlmVectorType>
+inline constexpr GlmVectorType unit_w()
 {
     return { 0, 0, 0, 1 };
 }
@@ -85,12 +86,12 @@ Gets a given glm::vec<> object's aspect ratio
 @param [in] vector The glm::vec<> to get the aspect ratio of
 @return The aspect ratio of the given glm::vec<>
 */
-template <typename VectorType, typename ReturnType = float>
-inline ReturnType aspect_ratio(const VectorType& vector)
+template <typename GlmVectorType, typename ReturnType = float>
+inline ReturnType aspect_ratio(const GlmVectorType& vector)
 {
-    auto width = static_cast<ReturnType>(vector[0]);
-    auto height = static_cast<ReturnType>(vector[1]);
-    return height != 0 ? width / height : 0;
+    auto width = (double)vector[0];
+    auto height = (double)vector[1];
+    return (ReturnType)(height != 0.0 ? width / height : 0.0);
 }
 
 } // namespace dst
