@@ -43,7 +43,7 @@ Gets a 2, 3, or 4 component vector with its x component set to 1
 template <typename GlmVectorType>
 inline constexpr GlmVectorType unit_x()
 {
-    return { 1 };
+    return GlmVectorType { 1 };
 }
 
 /**
@@ -54,7 +54,7 @@ Gets a 2, 3, or 4 component vector with its y component set to 1
 template <typename GlmVectorType>
 inline constexpr GlmVectorType unit_y()
 {
-    return { 0, 1 };
+    return GlmVectorType { 0, 1 };
 }
 
 /**
@@ -65,18 +65,7 @@ Gets a 3 or 4 component vector with its z component set to 1
 template <typename GlmVectorType>
 inline constexpr GlmVectorType unit_z()
 {
-    return { 0, 0, 1 };
-}
-
-/**
-Gets a 4 component vector with its w component set to 1
-@param <VectorType> TODO : Documentation
-@return The 4 component vector with its w component set to 1
-*/
-template <typename GlmVectorType>
-inline constexpr GlmVectorType unit_w()
-{
-    return { 0, 0, 0, 1 };
+    return GlmVectorType { 0, 0, 1 };
 }
 
 /**

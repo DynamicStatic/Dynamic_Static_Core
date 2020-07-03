@@ -119,6 +119,18 @@ public:
     }
 
     /**
+    TODO : Documentation
+    */
+    inline void clear()
+    {
+        std::lock_guard<std::mutex> lock(mMutex);
+        while (!mTasks.empty()) {
+            auto task = std::move(mTasks.front());
+            mTasks.pop();
+        }
+    }
+
+    /**
     Suspends the calling thread until this ThreadPool has completed all pending tasks
     */
     inline void wait()
