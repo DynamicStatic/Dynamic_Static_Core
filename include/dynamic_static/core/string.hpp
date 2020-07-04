@@ -377,7 +377,6 @@ Gets a std::string populated with the line containing a specified index from a g
 */
 inline std::string get_line(const std::string& str, size_t index)
 {
-    // TODO : Don't drop out with an empty return unless index is out of bounds
     if (!str.empty() && index < str.size() - 1) {
         auto begin = index;
         while (0 < begin && str[begin--] != '\n') {
