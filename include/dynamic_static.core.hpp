@@ -23,6 +23,7 @@
 #include "dynamic_static/core/span.hpp"
 #include "dynamic_static/core/stream-guard.hpp"
 #include "dynamic_static/core/string.hpp"
+#include "dynamic_static/core/subscribable.hpp"
 #include "dynamic_static/core/tab.hpp"
 #include "dynamic_static/core/thread-pool.hpp"
 #include "dynamic_static/core/time.hpp"

@@ -107,7 +107,7 @@ public:
     }
 
     /**
-    Gets a value indicating whether or not a specified value was greater than or equal to a random number in the range (0 - 100]
+    Gets a value indicating whether or not a specified value was greater than or equal to a random number in the range [1 - 100]
     @param <T> The type of value to test
     @param [in] value The value to test
     @return Whether or not the value passed

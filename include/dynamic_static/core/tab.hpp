@@ -139,9 +139,9 @@ public:
         return other;
     }
 
-    int count { 0 };         //!< This Tab object's count
-    int size { 4 };          //!< This Tab object's size
-    char character { ' ' };  //!< This Tab object's character
+    int count { 0 };        //!< This Tab object's count
+    int size { 4 };         //!< This Tab object's size
+    char character { ' ' }; //!< This Tab object's character
 };
 
 /**

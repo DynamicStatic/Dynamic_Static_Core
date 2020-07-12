@@ -64,10 +64,9 @@ inline void read_all_bytes(
     bytes.clear();
     std::ifstream file(filePath, std::ios::binary | std::ios::ate);
     if (file.is_open()) {
-        auto size = file.tellg();
-        bytes.resize((size_t)size);
+        bytes.resize(file.tellg());
         file.seekg(0, std::ios::beg);
-        file.read((char*)bytes.data(), size);
+        file.read((char*)bytes.data(), bytes.size());
     }
 }
 
