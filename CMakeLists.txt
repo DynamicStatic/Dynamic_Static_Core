@@ -1,21 +1,23 @@
 
 #==========================================
-#  Copyright (c) 2016-2020 Dynamic_Static
+#  Copyright (c) 2016-2020 dynamic_static
 #    Patrick Purcell
 #      Licensed under the MIT license
 #    http://opensource.org/licenses/MIT
 #==========================================
 
-# Dynamic_Static.Core CMake configuration
-cmake_minimum_required(VERSION 3.3 FATAL_ERROR)
-project(Dynamic_Static.Core VERSION 0.2.0)
+# dynamic_static.Core CMake configuration
+cmake_minimum_required(VERSION 3.17 FATAL_ERROR)
+project(dynamic_static.core VERSION 0.2.0)
 set(CMAKE_CXX_STANDARD 17)
 option(DST_CORE_BUILD_TESTS "Build dynamic_static.core.tests" ON)
-set(dynamic_static "${CMAKE_CURRENT_LIST_DIR}/../")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/")
 set(externalDirectory "${CMAKE_CURRENT_LIST_DIR}/external/")
-# include("${externalDirectory}/Dynamic_Static.CMake/Dynamic_Static.ex.cmake")
-include("${dynamic_static}/Dynamic_Static.CMake/Dynamic_Static.ex.cmake")
+
+################################################################################
+include("${CMAKE_CURRENT_LIST_DIR}/../cmake/dynamic_static.cmake")
+# include("${externalDirectory}/cmake/dynamic_static.cmake")
+################################################################################
 
 # Options
 option(DST_GLM_ENABLED "TODO : Documentation" ON)
@@ -23,11 +25,12 @@ option(DST_GLM_ENABLED "TODO : Documentation" ON)
 # dynamic_static.core library
 set(includeDirectory "${CMAKE_CURRENT_LIST_DIR}/include/")
 set(includePath "${includeDirectory}/dynamic_static/core/")
-DstAddStaticLibrary(
+dst_add_static_library(
     target dynamic_static.core
     includeDirectories
-        "${externalDirectory}/glm/"
-        "${includeDirectory}"
+        PUBLIC
+            "${externalDirectory}/glm/"
+            "${includeDirectory}"
     includeFiles
         "${includePath}/action.hpp"
         "${includePath}/algorithm.hpp"
@@ -58,7 +61,7 @@ DstAddStaticLibrary(
 # dynamic_static.core.tests
 if(DST_CORE_BUILD_TESTS)
     set(testsPath "${CMAKE_CURRENT_LIST_DIR}/tests/")
-    DstAddTests(
+    dst_add_test_suite(
         target
             dynamic_static.core
         sourceFiles
