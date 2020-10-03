@@ -54,6 +54,8 @@ dst_add_static_library(
         "${includePath}/version.hpp"
         "${includePath}/win32-lean-and-mean.hpp"
         "${includeDirectory}/dynamic_static.core.hpp"
+    sourceFiles
+        "${CMAKE_CURRENT_LIST_DIR}/dynamic_static.core.cpp"
 )
 
 # dynamic_static.core.tests
