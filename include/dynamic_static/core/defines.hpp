@@ -47,7 +47,6 @@
 #endif
 #endif
 
-#define DYNAMIC_STATIC "Dynamic_Static"
 #define DYNAMIC_STATIC_CORE_VERSION_MAJOR 2
 #define DYNAMIC_STATIC_CORE_VERSION_MINOR 0
 #define DYNAMIC_STATIC_CORE_VERSION_PATCH 0
@@ -58,8 +57,8 @@
 
 namespace dst {
 
-static constexpr int VersionMajor { DYNAMIC_STATIC_CORE_VERSION_MAJOR }; //!< dynamic_static.core major version
-static constexpr int VersionMinor { DYNAMIC_STATIC_CORE_VERSION_MINOR }; //!< dynamic_static.core minor version
-static constexpr int VersionPatch { DYNAMIC_STATIC_CORE_VERSION_PATCH }; //!< dynamic_static.core patch version
+static constexpr int VersionMajor { DYNAMIC_STATIC_CORE_VERSION_MAJOR };
+static constexpr int VersionMinor { DYNAMIC_STATIC_CORE_VERSION_MINOR };
+static constexpr int VersionPatch { DYNAMIC_STATIC_CORE_VERSION_PATCH };
 
 } // namespace dst
