@@ -15,7 +15,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/")
 set(externalDirectory "${CMAKE_CURRENT_LIST_DIR}/external/")
 
 ################################################################################
-include("${CMAKE_CURRENT_LIST_DIR}/../cmake/dynamic_static.cmake")
+include("${CMAKE_CURRENT_LIST_DIR}/../dynamic_static.build/dynamic_static.cmake")
 # include("${externalDirectory}/cmake/dynamic_static.cmake")
 ################################################################################
 
@@ -61,9 +61,8 @@ dst_add_static_library(
 # dynamic_static.core.tests
 if(DST_CORE_BUILD_TESTS)
     set(testsPath "${CMAKE_CURRENT_LIST_DIR}/tests/")
-    dst_add_test_suite(
-        target
-            dynamic_static.core
+    dst_add_target_test_suite(
+        target dynamic_static.core
         sourceFiles
             "${testsPath}/delegate.tests.cpp"
             "${testsPath}/enum.tests.cpp"
