@@ -34,6 +34,7 @@ dst_add_static_library(
     includeFiles
         "${includePath}/action.hpp"
         "${includePath}/algorithm.hpp"
+        "${includePath}/color.hpp"
         "${includePath}/defines.hpp"
         "${includePath}/delegate.hpp"
         "${includePath}/enum.hpp"
