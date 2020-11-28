@@ -10,32 +10,15 @@
 cmake_minimum_required(VERSION 3.17 FATAL_ERROR)
 project(dynamic_static.core VERSION 0.2.0)
 set(CMAKE_CXX_STANDARD 17)
-option(DST_CORE_BUILD_TESTS "Build dynamic_static.core.tests" ON)
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/")
-set(externalDirectory "${CMAKE_CURRENT_LIST_DIR}/external/")
-
-################################################################################
-include(FetchContent)
-FetchContent_Declare(
-    dynamic_static.build
-    GIT_REPOSITORY "https://github.com/dynamic-static/dynamic_static.build.git"
-    GIT_TAG dependency-management
-    GIT_PROGRESS TRUE
-)
-FetchContent_MakeAvailable(dynamic_static.build)
-include("${dynamic_static.build_SOURCE_DIR}/dynamic_static.cmake")
-
-FetchContent_Declare(
-    glm
-    GIT_REPOSITORY "https://github.com/g-truc/glm.git"
-    GIT_TAG 0.9.9.8
-    GIT_PROGRESS TRUE
-)
-FetchContent_MakeAvailable(glm)
-################################################################################
 
 # Options
+option(DST_CORE_BUILD_TESTS "Build dynamic_static.core.tests" ON)
 option(DST_GLM_ENABLED "TODO : Documentation" ON)
+
+# Dependencies
+set(external "${CMAKE_CURRENT_LIST_DIR}/external/")
+include("${external}/dynamic_static.build.cmake")
+include("${external}/glm.cmake")
 
 # dynamic_static.core library
 set(includeDirectory "${CMAKE_CURRENT_LIST_DIR}/include/")

@@ -1,5 +1,5 @@
 
-# Dynamic_Static.Core
+# dynamic_static.core
 
 Provides light weight, easy to use functions and classes for performing common tasks in C++.
 
