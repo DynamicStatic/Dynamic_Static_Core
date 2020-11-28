@@ -15,8 +15,6 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/cmake/")
 set(externalDirectory "${CMAKE_CURRENT_LIST_DIR}/external/")
 
 ################################################################################
-#### include("${CMAKE_CURRENT_LIST_DIR}/../dynamic_static.build/dynamic_static.cmake")
-#### # include("${externalDirectory}/cmake/dynamic_static.cmake")
 include(FetchContent)
 FetchContent_Declare(
     dynamic_static.build
@@ -25,6 +23,8 @@ FetchContent_Declare(
     GIT_PROGRESS TRUE
 )
 FetchContent_MakeAvailable(dynamic_static.build)
+include("${dynamic_static.build_SOURCE_DIR}/dynamic_static.cmake")
+
 FetchContent_Declare(
     glm
     GIT_REPOSITORY "https://github.com/g-truc/glm.git"
